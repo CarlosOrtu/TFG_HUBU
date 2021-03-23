@@ -13,7 +13,20 @@ class Users extends Authenticatable
     
     public $timestamps = false;
     protected $table = 'users';   
-  
+    protected $primaryKey = 'id_user';
+
+    protected $fillable = [
+        'name',
+        'surname',
+        'email',
+        'password',
+        'id_role',
+    ];
+
+    protected $hidden = [
+        'password',
+    ];
+
     public function getAuthPassword()
     {
         return $this->password;
