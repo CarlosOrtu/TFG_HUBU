@@ -21,7 +21,7 @@ class RolesSeeder extends Seeder
 
         DB::table('roles')->insert([
             'id_role' => '2',
-            'description' =>'Oncólogos',
+            'description' =>'Oncólogo',
         ]);
     }
 }
