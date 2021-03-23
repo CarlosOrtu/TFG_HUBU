@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes(['register' => false,'reset' => false,'confirm' => false,'verify' => false]);
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', function(){
+	return redirect('/login');
+});
+Route::get('/logout', [LoginController::class, 'logout']);
+Route::get('/pacientes', [App\Http\Controllers\HomeController::class, 'index']);
