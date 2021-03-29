@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\PacientesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,5 +20,5 @@ Auth::routes(['register' => false,'reset' => false,'confirm' => false,'verify' =
 Route::get('/', function(){
 	return redirect('/login');
 });
-Route::get('/logout', [LoginController::class, 'logout']);
-Route::get('/pacientes', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/pacientes', [PacientesController::class, 'index'])->name('pacientes');
