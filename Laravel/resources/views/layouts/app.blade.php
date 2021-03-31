@@ -45,6 +45,7 @@
             </div>
         </nav>
         @endif
+        @if (Request::url() == route('pacientes'))
         <div class="row mx-4 mt-4">
             <div class="col-md-3 pl-0">
                 <ul class="navbar-nav ml-auto justify-content-end pr-5">
@@ -149,6 +150,7 @@
                 </div>
             </div>
         </div>
+        @endif
         <main class="py-4">
             @yield('content')
         </main>
