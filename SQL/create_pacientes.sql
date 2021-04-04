@@ -1,0 +1,30 @@
+CREATE TABLE pacientes( 
+id_paciente INT PRIMARY KEY NOT NULL, 
+nombre VARCHAR NOT NULL,
+apellidos VARCHAR NOT NULL,
+sexo VARCHAR NOT NULL,
+nacimiento DATE NOT NULL,
+raza VARCHAR NOT NULL,
+profesion VARCHAR NOT NULL,
+fumador VARCHAR,
+bebedor VARCHAR,
+carcinógenos VARCHAR ) ENGINE=InnoDB;
+
+CREATE TABLE enfermedades( 
+id_enfermedad INT PRIMARY KEY NOT NULL, 
+id_paciente INT NOT NULL,
+fecha_primera_consulta DATE NOT NULL,
+fecha_diagnostico DATE NOT NULL,
+ECOG INT NOT NULL,
+T INT NOT NULL,
+T_tamano INT NOT NULL,
+N INT NOT NULL,
+N_afectacion INT NOT NULL,
+M INT NOT NULL,
+num_afect_metas INT NOT NULL,
+TNM INT NOT NULL,
+tipo_muestra VARCHAR NOT NULL,
+histologia_tipo VARCHAR NOT NULL,
+histologia_subtipo VARCHAR NOT NULL,
+histologia_grado VARCHAR,
+FOREIGN KEY (id_paciente) REFERENCES pacientes(id_paciente) ) ENGINE=InnoDB;
