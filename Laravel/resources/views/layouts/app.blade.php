@@ -18,6 +18,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 
 
+    <!-- Tablas con funcionalidades-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+  
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
 
     <!-- Styles -->
     <link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet">
@@ -37,6 +41,10 @@
                         <a class="nav-link text-white dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}</a>
                         <div class="dropdown-menu">
                           <a class="dropdown-item" href="#">Datos personales</a>
+                          @if(Auth::user()->role_id == 0  )
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="{{ route('logout') }}">Gestionar usuarios</a>
+                          @endif
                             <div class="dropdown-divider"></div>
                           <a class="dropdown-item" href="{{ route('logout') }}">Desconectar</a>
                         </div>
@@ -44,116 +52,142 @@
                 </ul>
             </div>
         </nav>
-        @endif
-        @if (Request::url() == route('pacientes'))
-        <div class="row mx-4 mt-4">
-            <div class="col-md-3 pl-0">
-                <ul class="navbar-nav ml-auto justify-content-end pr-5">
-                <div class="border rounded p-3 bg-transparent">
-                    <li class="mb-1">
-                      <button class="btn btn-toggle text-white" id="boton1" data-bs-toggle="collapse" data-bs-target="#menu1" aria-expanded="false">
-                        Opcion 1
-                      </button>
-                      <div class="collapse" id="menu1">
-                        <ul class="btn-toggle-nav list-unstyled ml-5 pb-1 small">
-                          <li><a href="#" class="text-white rounded">Opcion 1.1</a></li>
-                          <li><a href="#" class="text-white rounded">Opcion 1.2</a></li>
-                          <li><a href="#" class="text-white rounded">Opcion 1.3</a></li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li class="mb-1">
-                      <button class="btn btn-toggle text-white" id="boton2" data-bs-toggle="collapse" data-bs-target="#menu2" aria-expanded="false">
-                        Opcion 2
-                      </button>
-                      <div class="collapse" id="menu2">
-                        <ul class="btn-toggle-nav list-unstyled ml-5 pb-1 small">
-                          <li><a href="#" class="text-white rounded">Opcion 2.1</a></li>
-                          <li><a href="#" class="text-white rounded">Opcion 2.2</a></li>
-                          <li><a href="#" class="text-white rounded">Opcion 2.3</a></li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li class="mb-1">
-                      <button class="btn btn-toggle text-white" id="boton3" data-bs-toggle="collapse" data-bs-target="#menu3" aria-expanded="false">
-                        Opcion 3
-                      </button>
-                      <div class="collapse" id="menu3">
-                        <ul class="btn-toggle-nav list-unstyled ml-5 pb-1 small">
-                          <li><a href="#" class="rounded text-white">Opcion 3.1</a></li>
-                          <li><a href="#" class="text-white rounded">Opcion 3.2</a></li>
-                          <li><a href="#" class="text-white rounded">Opcion 3.3</a></li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li class="mb-1">
-                      <button class="btn btn-toggle text-white" id="boton4" data-bs-toggle="collapse" data-bs-target="#menu4" aria-expanded="false">
-                        Opcion 4
-                      </button>
-                      <div class="collapse" id="menu4">
-                        <ul class="btn-toggle-nav list-unstyled ml-5 pb-1 small">
-                          <li><a href="#" class="rounded text-white">Opcion 3.1</a></li>
-                          <li><a href="#" class="text-white rounded">Opcion 3.2</a></li>
-                          <li><a href="#" class="text-white rounded">Opcion 3.3</a></li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li class="mb-1">
-                      <button class="btn btn-toggle text-white" id="boton5" data-bs-toggle="collapse" data-bs-target="#menu5" aria-expanded="false">
-                        Opcion 5
-                      </button>
-                      <div class="collapse" id="menu5">
-                        <ul class="btn-toggle-nav list-unstyled ml-5 pb-1 small">
-                          <li><a href="#" class="rounded text-white">Opcion 3.1</a></li>
-                          <li><a href="#" class="text-white rounded">Opcion 3.2</a></li>
-                          <li><a href="#" class="text-white rounded">Opcion 3.3</a></li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li class="mb-1">
-                      <button class="btn btn-toggle text-white" id="boton6" data-bs-toggle="collapse" data-bs-target="#menu6" aria-expanded="false">
-                        Opcion 6
-                      </button>
-                      <div class="collapse" id="menu6">
-                        <ul class="btn-toggle-nav list-unstyled ml-5 pb-1 small">
-                          <li><a href="#" class="rounded text-white">Opcion 3.1</a></li>
-                          <li><a href="#" class="text-white rounded">Opcion 3.2</a></li>
-                          <li><a href="#" class="text-white rounded">Opcion 3.3</a></li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li class="mb-1">
-                      <button class="btn btn-toggle text-white" id="boton7" data-bs-toggle="collapse" data-bs-target="#menu7" aria-expanded="false">
-                        Opcion 7
-                      </button>
-                      <div class="collapse" id="menu7">
-                        <ul class="btn-toggle-nav list-unstyled ml-5 pb-1 small">
-                          <li><a href="#" class="rounded text-white">Opcion 3.1</a></li>
-                          <li><a href="#" class="text-white rounded">Opcion 3.2</a></li>
-                          <li><a href="#" class="text-white rounded">Opcion 3.3</a></li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li class="mb-1">
-                      <button class="btn btn-toggle text-white" id="boton8" data-bs-toggle="collapse" data-bs-target="#menu8" aria-expanded="false">
-                        Opcion 8
-                      </button>
-                      <div class="collapse" id="menu8">
-                        <ul class="btn-toggle-nav list-unstyled ml-5 pb-1 small">
-                          <li><a href="#" class="rounded text-white">Opcion 3.1</a></li>
-                          <li><a href="#" class="text-white rounded">Opcion 3.2</a></li>
-                          <li><a href="#" class="text-white rounded">Opcion 3.3</a></li>
-                        </ul>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-            </div>
-        </div>
-        @endif
-        <main class="py-4">
-            @yield('content')
+          @if (Request::url() != route('pacientes') and Request::url() != route('nuevopaciente'))
+          <div class="row mx-4 mt-4">
+              <div class="col-md-3 pl-0 mt-4">
+                  <ul class="navbar-nav ml-auto justify-content-end pr-5">
+                  <div class="border rounded p-3 bg-transparent">
+                      <li class="mb-1">
+                        <button class="btn btn-toggle text-white" id="boton1" data-bs-toggle="collapse" data-bs-target="#menu1" aria-expanded="false">
+                          Opcion 1
+                        </button>
+                        <div class="collapse" id="menu1">
+                          <ul class="btn-toggle-nav list-unstyled ml-5 pb-1 small">
+                            <li><a href="#" class="text-white rounded">Opcion 1.1</a></li>
+                            <li><a href="#" class="text-white rounded">Opcion 1.2</a></li>
+                            <li><a href="#" class="text-white rounded">Opcion 1.3</a></li>
+                          </ul>
+                        </div>
+                      </li>
+                      <li class="mb-1">
+                        <button class="btn btn-toggle text-white" id="boton2" data-bs-toggle="collapse" data-bs-target="#menu2" aria-expanded="false">
+                          Opcion 2
+                        </button>
+                        <div class="collapse" id="menu2">
+                          <ul class="btn-toggle-nav list-unstyled ml-5 pb-1 small">
+                            <li><a href="#" class="text-white rounded">Opcion 2.1</a></li>
+                            <li><a href="#" class="text-white rounded">Opcion 2.2</a></li>
+                            <li><a href="#" class="text-white rounded">Opcion 2.3</a></li>
+                          </ul>
+                        </div>
+                      </li>
+                      <li class="mb-1">
+                        <button class="btn btn-toggle text-white" id="boton3" data-bs-toggle="collapse" data-bs-target="#menu3" aria-expanded="false">
+                          Opcion 3
+                        </button>
+                        <div class="collapse" id="menu3">
+                          <ul class="btn-toggle-nav list-unstyled ml-5 pb-1 small">
+                            <li><a href="#" class="rounded text-white">Opcion 3.1</a></li>
+                            <li><a href="#" class="text-white rounded">Opcion 3.2</a></li>
+                            <li><a href="#" class="text-white rounded">Opcion 3.3</a></li>
+                          </ul>
+                        </div>
+                      </li>
+                      <li class="mb-1">
+                        <button class="btn btn-toggle text-white" id="boton4" data-bs-toggle="collapse" data-bs-target="#menu4" aria-expanded="false">
+                          Opcion 4
+                        </button>
+                        <div class="collapse" id="menu4">
+                          <ul class="btn-toggle-nav list-unstyled ml-5 pb-1 small">
+                            <li><a href="#" class="rounded text-white">Opcion 3.1</a></li>
+                            <li><a href="#" class="text-white rounded">Opcion 3.2</a></li>
+                            <li><a href="#" class="text-white rounded">Opcion 3.3</a></li>
+                          </ul>
+                        </div>
+                      </li>
+                      <li class="mb-1">
+                        <button class="btn btn-toggle text-white" id="boton5" data-bs-toggle="collapse" data-bs-target="#menu5" aria-expanded="false">
+                          Opcion 5
+                        </button>
+                        <div class="collapse" id="menu5">
+                          <ul class="btn-toggle-nav list-unstyled ml-5 pb-1 small">
+                            <li><a href="#" class="rounded text-white">Opcion 3.1</a></li>
+                            <li><a href="#" class="text-white rounded">Opcion 3.2</a></li>
+                            <li><a href="#" class="text-white rounded">Opcion 3.3</a></li>
+                          </ul>
+                        </div>
+                      </li>
+                      <li class="mb-1">
+                        <button class="btn btn-toggle text-white" id="boton6" data-bs-toggle="collapse" data-bs-target="#menu6" aria-expanded="false">
+                          Opcion 6
+                        </button>
+                        <div class="collapse" id="menu6">
+                          <ul class="btn-toggle-nav list-unstyled ml-5 pb-1 small">
+                            <li><a href="#" class="rounded text-white">Opcion 3.1</a></li>
+                            <li><a href="#" class="text-white rounded">Opcion 3.2</a></li>
+                            <li><a href="#" class="text-white rounded">Opcion 3.3</a></li>
+                          </ul>
+                        </div>
+                      </li>
+                      <li class="mb-1">
+                        <button class="btn btn-toggle text-white" id="boton7" data-bs-toggle="collapse" data-bs-target="#menu7" aria-expanded="false">
+                          Opcion 7
+                        </button>
+                        <div class="collapse" id="menu7">
+                          <ul class="btn-toggle-nav list-unstyled ml-5 pb-1 small">
+                            <li><a href="#" class="rounded text-white">Opcion 3.1</a></li>
+                            <li><a href="#" class="text-white rounded">Opcion 3.2</a></li>
+                            <li><a href="#" class="text-white rounded">Opcion 3.3</a></li>
+                          </ul>
+                        </div>
+                      </li>
+                      <li class="mb-1">
+                        <button class="btn btn-toggle text-white" id="boton8" data-bs-toggle="collapse" data-bs-target="#menu8" aria-expanded="false">
+                          Opcion 8
+                        </button>
+                        <div class="collapse" id="menu8">
+                          <ul class="btn-toggle-nav list-unstyled ml-5 pb-1 small">
+                            <li><a href="#" class="rounded text-white">Opcion 3.1</a></li>
+                            <li><a href="#" class="text-white rounded">Opcion 3.2</a></li>
+                            <li><a href="#" class="text-white rounded">Opcion 3.3</a></li>
+                          </ul>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+            <main class="col-md-9 px-0">
+                @yield('content')
+            </main>
+              </div>
+          </div>
+          @else
+            <div class="row mx-4 mt-4">
+              <div class="col-md-3 pl-0 mt-4">
+                  <ul class="navbar-nav ml-auto justify-content-end pr-5">
+                  <div class="border rounded p-3 bg-transparent">
+                      <li class="mb-1">
+                        <button class="btn btn-toggle text-white" onClick="location.href='{{ route('pacientes') }}'">
+                          Ver pacientes
+                        </button>
+                      </li>
+                      <li class="mb-1">
+                        <button class="btn btn-toggle text-white" onClick="location.href='{{ route('nuevopaciente') }}'">
+                          Añadir nuevo paciente
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+            <main class="col-md-9 px-0">
+                @yield('content')
+            </main>
+              </div>
+          </div>
+          @endif
+        @else
+        <main id="login">
+          @yield('content')
         </main>
+        @endif
     </div>
     <script type="text/javascript">
         $(document).ready(function(){

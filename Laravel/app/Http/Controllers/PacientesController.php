@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Pacientes;
+
 
 class PacientesController extends Controller
 {
@@ -21,8 +23,23 @@ class PacientesController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function verPaciente()
     {
-        return view('pacientes');
+        $todosPacientes = Pacientes::all();
+        return view('pacientes',['pacientes' => $todosPacientes]);
     }
+
+    public function verAnadirNuevoPaciente()
+    {
+        $todosPacientes = Pacientes::all();
+        return view('pacientes',['pacientes' => $todosPacientes]);
+    }
+
+    public function anadirNuevoPaciente()
+    {
+        $todosPacientes = Pacientes::all();
+        return view('pacientes',['pacientes' => $todosPacientes]);
+    }
+
+
 }
