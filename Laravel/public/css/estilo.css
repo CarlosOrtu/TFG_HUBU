@@ -1,12 +1,14 @@
 body{
 	height: 100vh;
-  background: linear-gradient(#1435E1, #9198e5);}
+  background: linear-gradient(#03045E, #9198e5);}
 }
 
 .login{
 	margin-top: 10%;
 }
-
+.input-group-text{
+  width: 120px;
+}
 .titulo-login {
 	background-color: transparent;
 	border: none;
@@ -20,6 +22,36 @@ body{
 
 .container {
 	max-width: 100% !important;
+}
+
+.btn.btn-warning {
+  background-color: #9198e5;
+  border-color: #9198e5;
+}
+
+.btn.btn-warning:hover {
+  background-color: #6971D1;
+}
+
+.dataTables_length select {
+    color: white;
+}
+
+.dataTables_length option {
+  color: black;
+}
+
+.btn.btn-primary {
+  background-color: #03045E;
+  border-color: #03045E;
+}
+
+.btn.btn-primary:hover {
+  background-color: #000142;
+}
+
+.btn.btn-primary:active {
+  background-color: #03045E !important;
 }
 
 #login {
@@ -89,18 +121,37 @@ body{
 }
 
 #tablaPacientes_previous {
-  color: white !important;
+  color: white;
 }
 
 #tablaPacientes_next {
-  color: white !important;
+  color: white;
 }
 
 #tablaPacientes tfoot {
-    display: table-header-group !important;
-    background-color: grey;
+    display: table-header-group;
+    background-color: #9198e5;
+}
+
+#tablaPacientes thead {
+    display: table-header-group;
+    background-color: #03045E;
 }
 
 #tablaPacientes_filter {
   display: none;
+}
+
+.input-group-text {
+  background-color: #03045E; 
+  border-color: #03045E; 
+  color: white;
+}
+
+.form-control{
+  color: black;
+}
+
+.btn.btn-toggle:hover {
+  background-color: #03045E; 
 }

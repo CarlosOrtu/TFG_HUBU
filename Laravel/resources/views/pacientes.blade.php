@@ -5,47 +5,49 @@
 @if (count($pacientes) > 0)
 <div class="panel panel-default">
     <div class="panel-heading">
-		<h1 class="text-white panel-title">Listado de pacientes</h1>
+		<h1 class="text-white text-center panel-title">Listado de pacientes</h1>
     <div class=panel-body>
-        <table id="tablaPacientes" class="table table-dark table-bordered">
-            <thead>
-            	<tr>
-                	<th>ID Paciente</th>
-                    <th>Nombre</th>
-                    <th>Apellidos</th>
-					<th>Seleccionar</th>
-				</tr>
-			</thead>
-			<tfoot>
-				<tr>
-        			<td>
-        				<input placeholder="ID" class="form-control mb-2 mr-2" type="text" >
-        			</td>
-        			<td>
-        				<input placeholder="Nombre" class="form-control mb-2 mr-2" type="text" >
-        			</td>	                            			
-        			<td>
-        				<input placeholder="Apellidos" class="form-control mb-2 mr-2" type="text" >
-        			</td>
-        			<td>
-        			</td>
-        		</tr>
-            </tfoot>
+    	<div class="table-responsive">
+	        <table id="tablaPacientes" class="table table-dark table-bordered">
+	            <thead>
+	            	<tr>
+	                	<th>ID Paciente</th>
+	                    <th>Nombre</th>
+	                    <th>Apellidos</th>
+						<th>Seleccionar</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+	        			<td>
+	        				<input placeholder="ID" class="form-control mb-2 mr-2" type="text" >
+	        			</td>
+	        			<td>
+	        				<input placeholder="Nombre" class="form-control mb-2 mr-2" type="text" >
+	        			</td>	                            			
+	        			<td>
+	        				<input placeholder="Apellidos" class="form-control mb-2 mr-2" type="text" >
+	        			</td>
+	        			<td>
+	        			</td>
+	        		</tr>
+	            </tfoot>
 
-            <tbody>
-                @foreach ($pacientes as $paciente)
-                    <tr>
-                    	<td class="table-text text-dark"><div>{{ $paciente->id_paciente }}</div></td>
-                        <td class="table-text text-dark"><div>{{ $paciente->nombre }}</div></td>
-                        <td class="table-text text-dark"><div>{{ $paciente->apellidos }}</div></td>
-						<td>
-							<a href=""} ><input type="button" class="btn btn-primary" value="Ver"/></a>
-							<a href=""} ><input type="button" class="btn btn-warning" value="Editar"/></a>
-						</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+	            <tbody>
+	                @foreach ($pacientes as $paciente)
+	                    <tr>
+	                    	<td class="table-text text-dark"><div>{{ $paciente->id_paciente }}</div></td>
+	                        <td class="table-text text-dark"><div>{{ $paciente->nombre }}</div></td>
+	                        <td class="table-text text-dark"><div>{{ $paciente->apellidos }}</div></td>
+							<td>
+								<a href=""} ><input type="button" class="btn btn-primary" value="Ver"/></a>
+								<a href=""} ><input type="button" class="btn btn-warning" value="Editar"/></a>
+							</td>
+	                    </tr>
+	                @endforeach
+	            </tbody>
+	        </table>
+	    </div>
     </div>
 </div>
 @else

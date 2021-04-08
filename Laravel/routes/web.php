@@ -10,5 +10,5 @@ Route::get('/', function(){
 });
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/pacientes', [PacientesController::class, 'verPacientes'])->name('pacientes');
-Route::get('/nuevopaciente', [PacientesController::class, 'verAnadirNuevoPaciente'])->name('nuevopaciente');
-Route::post('/nuevopaciente', [PacientesController::class, 'anadirNuevoPaciente']);
+Route::get('/nuevopaciente', [PacientesController::class, 'verCrearNuevoPaciente'])->name('nuevopaciente');
+Route::post('/nuevopaciente', [PacientesController::class, 'crearNuevoPaciente']);
