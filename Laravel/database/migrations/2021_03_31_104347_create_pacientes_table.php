@@ -19,7 +19,7 @@ class CreatePacientesTable extends Migration
             $table->string('apellidos',30);
             $table->string('sexo',10);
             $table->string('raza',30);
-            $table->timestamp('nacimiento');
+            $table->date('nacimiento');
             $table->string('profesion',30);
             $table->string('fumador')->nullable();
             $table->string('bebedor')->nullable();

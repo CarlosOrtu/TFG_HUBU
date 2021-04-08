@@ -16,10 +16,10 @@ class CreateSeguimientosTable extends Migration
         Schema::create('seguimientos', function (Blueprint $table) {
             $table->id('id_seguimiento');
             $table->unsignedBigInteger('id_paciente');
-            $table->timestamp('fecha');
+            $table->date('fecha');
             $table->string('estado');
             $table->string('fallecido_motivo')->nullable();
-            $table->timestamp('fecha_fallecimiento')->nullable();
+            $table->date('fecha_fallecimiento')->nullable();
             $table->boolean('tratamiento_dirigido');
             $table->foreign('id_paciente')->references('id_paciente')->on('pacientes')->onDelete('cascade')->onUpdate('cascade');
         });

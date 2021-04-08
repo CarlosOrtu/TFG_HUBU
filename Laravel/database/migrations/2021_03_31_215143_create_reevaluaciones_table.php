@@ -16,7 +16,7 @@ class CreateReevaluacionesTable extends Migration
         Schema::create('reevaluaciones', function (Blueprint $table) {
             $table->id('id_reevaluacion');
             $table->unsignedBigInteger('id_paciente');
-            $table->timestamp('fecha');
+            $table->date('fecha');
             $table->string('estado');
             $table->string('progresion_localizacion')->nullable();
             $table->string('tipo_tratamiento')->nullable();

@@ -16,8 +16,8 @@ class CreateEnfermedadesTable extends Migration
         Schema::create('enfermedades', function (Blueprint $table) {
             $table->id('id_enfermedad');
             $table->unsignedBigInteger('id_paciente');
-            $table->timestamp('fecha_primera_consulta');
-            $table->timestamp('fecha_diagnostico');
+            $table->date('fecha_primera_consulta');
+            $table->date('fecha_diagnostico');
             $table->integer('ECOG');
             $table->integer('T');
             $table->integer('T_tamano');

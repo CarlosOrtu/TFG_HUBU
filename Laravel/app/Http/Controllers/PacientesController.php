@@ -18,27 +18,41 @@ class PacientesController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function verPaciente()
+    //Metodo que retorna la vista pacientes
+    public function verPacientes()
     {
         $todosPacientes = Pacientes::all();
         return view('pacientes',['pacientes' => $todosPacientes]);
     }
 
-    public function verAnadirNuevoPaciente()
+    //Metodo que retorna la vista crearpaciente
+    public function verCrearNuevoPaciente()
     {
-        $todosPacientes = Pacientes::all();
-        return view('pacientes',['pacientes' => $todosPacientes]);
+        return view('crearpaciente');
     }
 
-    public function anadirNuevoPaciente()
+    //Metodo que almacena el paciente recibido en la base de datos
+    public function crearNuevoPaciente(Request $request)
     {
-        $todosPacientes = Pacientes::all();
-        return view('pacientes',['pacientes' => $todosPacientes]);
+        //Creamos el objeto pacientes
+        $nuevoPaciente = new Pacientes();
+        //Le asignamos los valores recibidos desde el metodo POST
+        $nuevoPaciente->nombre = $request->nombre;
+        $nuevoPaciente->apellidos = $request->apellidos;
+        $nuevoPaciente->sexo = $request->sexo;
+        $nuevoPaciente->nacimiento = $request->nacimiento;
+        $nuevoPaciente->raza = $request->raza;
+        $nuevoPaciente->profesion = $request->profesion;
+        if($request->fumador != "desconocido")
+            $nuevoPaciente->fumador = $request->fumador;  
+        if($request->bebedor != "desconocido")
+            $nuevoPaciente->bebedor = $request->bebedor;
+        if($request->carcinogenos != "desconocido")
+            $nuevoPaciente->carcinogenos = $request->carcinogenos;
+        //Añadimos el paciente a la base de datos
+        $nuevoPaciente->save();
+
+        return redirect()->route('nuevopaciente');
     }
 
 
