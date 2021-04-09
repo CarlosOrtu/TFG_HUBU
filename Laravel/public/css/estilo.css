@@ -1,65 +1,12 @@
+/* Fondo */
 body{
 	height: 100vh;
   background: linear-gradient(#03045E, #9198e5);}
 }
 
-.login{
-	margin-top: 10%;
-}
-.input-group-text{
-  width: 120px;
-}
-.titulo-login {
-	background-color: transparent;
-	border: none;
-	margin: auto;
-}
-
-.contenido-login {
-	border: none;
-	background-color: transparent;
-}
-
-.container {
-	max-width: 100% !important;
-}
-
-.btn.btn-warning {
-  background-color: #9198e5;
-  border-color: #9198e5;
-}
-
-.btn.btn-warning:hover {
-  background-color: #6971D1;
-}
-
-.dataTables_length select {
-    color: white;
-}
-
-.dataTables_length option {
-  color: black;
-}
-
-.btn.btn-primary {
-  background-color: #03045E;
-  border-color: #03045E;
-}
-
-.btn.btn-primary:hover {
-  background-color: #000142;
-}
-
-.btn.btn-primary:active {
-  background-color: #03045E !important;
-}
-
-#login {
-  padding-top: 10%;
-}
-
+/* Layout */
 #HUBU:before {
-	content: attr(data-desktoptext);
+  content: attr(data-desktoptext);
 }
 
 @media (max-width: 480px) {
@@ -112,6 +59,80 @@ body{
   background-color: #000000;
 }
 
+/* Login */
+.login{
+	margin-top: 10%;
+}
+
+#login {
+  padding-top: 10%;
+}
+
+.titulo-login {
+	background-color: transparent;
+	border: none;
+	margin: auto;
+}
+
+.contenido-login {
+	border: none;
+	background-color: transparent;
+}
+
+/* Botones e inputs */
+.input-group-text{
+  width: 120px;
+}
+
+.container {
+  max-width: 100% !important;
+}
+
+.btn.btn-warning {
+  background-color: #9198e5;
+  border-color: #9198e5;
+}
+
+.btn.btn-warning:hover {
+  background-color: #6971D1;
+}
+
+.btn.btn-primary {
+  background: linear-gradient(45deg, #03045E, #9198e5);
+  border-color: #03045E;
+}
+
+.btn.btn-primary:hover {
+  background: linear-gradient(90deg, #03045E, #9198e5);
+}
+
+.btn.btn-primary:active {
+  background-color: #03045E !important;
+}
+
+.input-group-text {
+  background-color: #03045E; 
+  border-color: #03045E; 
+  color: white;
+}
+
+.form-control{
+  color: black;
+}
+
+.btn.btn-toggle:hover {
+  background-color: #03045E; 
+}
+
+/* Datatable */ 
+.dataTables_length select {
+    color: white;
+}
+
+.dataTables_length option {
+  color: black;
+}
+
 #tablaPacientes_length {
   color: white;
 }
@@ -142,16 +163,3 @@ body{
   display: none;
 }
 
-.input-group-text {
-  background-color: #03045E; 
-  border-color: #03045E; 
-  color: white;
-}
-
-.form-control{
-  color: black;
-}
-
-.btn.btn-toggle:hover {
-  background-color: #03045E; 
-}
