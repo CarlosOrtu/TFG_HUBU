@@ -36,15 +36,15 @@
 	            <tbody>
 	                @foreach ($usuarios as $usuario)
 	                    <tr>
-	                    	<td class="table-text text-dark"><div>{{ $usuario->id_user }}</div></td>
-	                        <td class="table-text text-dark"><div>{{ $usuario->name }}</div></td>
-	                        <td class="table-text text-dark"><div>{{ $usuario->surname }}</div></td>
+	                    	<td class="table-text text-dark"><div>{{ $usuario->id_usuario }}</div></td>
+	                        <td class="table-text text-dark"><div>{{ $usuario->nombre }}</div></td>
+	                        <td class="table-text text-dark"><div>{{ $usuario->apellidos }}</div></td>
 							<td>
-								<form class="d-inline-block" action="{{ route('modificarusuario', ['id' => $usuario->id_user]) }}" method="get">
+								<form class="d-inline-block" action="{{ route('modificarusuario', ['id' => $usuario->id_usuario]) }}" method="get">
 									<button class="btn btn-primary">Editar</button>
 								</form>
-								@if($usuario->id_role != 1)
-								<form class="d-inline-block" action="{{ route('eliminarusuario', ['id' => $usuario->id_user]) }}" method="post">
+								@if($usuario->id_rol != 1)
+								<form class="d-inline-block" action="{{ route('eliminarusuario', ['id' => $usuario->id_usuario]) }}" method="post">
 									@csrf
 									@method('delete')
 									<button type="submit" class="btn btn-warning">Eliminar</button>

@@ -7,33 +7,33 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class Users extends Authenticatable
+class Usuarios extends Authenticatable
 {
     use HasFactory, Notifiable;
     
     public $timestamps = false;
-    protected $table = 'users';   
-    protected $primaryKey = 'id_user';
+    protected $table = 'usuarios';   
+    protected $primaryKey = 'id_usuario';
 
     protected $fillable = [
-        'name',
-        'surname',
-        'email',
-        'password',
-        'id_role',
+        'nombre',
+        'apellidos',
+        'correo',
+        'contrasena',
+        'id_rol',
     ];
 
     protected $hidden = [
-        'password',
+        'contrasena',
     ];
 
     public function getAuthPassword()
     {
-        return $this->password;
+        return $this->contrasena;
     }
     
     public function username(){
-        return 'email';
+        return 'correo';
     }
     
 }
