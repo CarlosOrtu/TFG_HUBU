@@ -9,13 +9,13 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">Nombre</span>
             </div>
-            <input name="nombre" class="form-control">
+            <input name="nombre" class="form-control" autocomplete="off">
         </div>
         <div  class="my-4 input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">Apellidos</span>
             </div>
-            <input name="apellidos" class="form-control">
+            <input name="apellidos" class="form-control" autocomplete="off">
         </div>
         <div  class="my-4 input-group">
             <div class="input-group-prepend">
@@ -47,15 +47,15 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">Profesión</span>
             </div>
-            <input name="profesion" class="form-control">
+            <input name="profesion" class="form-control" autocomplete="off">
         </div>
         <div  class="my-4 input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">Fumador</span>
             </div>
             <select name="fumador" class="form-control">
-                <option>Si</option>
-                <option>No</option>
+                <option value="true">Si</option>
+                <option value="false">No</option>
             </select>
         </div>
         <div  class="my-4 input-group">
@@ -63,8 +63,8 @@
                 <span class="input-group-text">Bebedor</span>
             </div>
             <select name="bebedor" class="form-control">
-                <option>Si</option>
-                <option>No</option>
+                <option value="true">Si</option>
+                <option value="false">No</option>
             </select>
         </div>
         <div  class="my-4 input-group">
@@ -72,8 +72,8 @@
                 <span class="input-group-text">Carcinógenos</span>
             </div>
             <select name="carcinogenos" class="form-control">
-                <option>Si</option>
-                <option>No</option>
+                <option value="true">Si</option>
+                <option value="false">No</option>
             </select>
         </div>
         <div class="d-flex justify-content-center">

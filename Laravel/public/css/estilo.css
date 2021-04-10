@@ -1,7 +1,7 @@
 /* Fondo */
 body{
 	height: 100vh;
-  background: linear-gradient(#03045E, #9198e5);}
+  background: linear-gradient(#03045E, #9198e5);
 }
 
 /* Layout */
@@ -82,6 +82,7 @@ body{
 /* Botones e inputs */
 .input-group-text{
   width: 120px;
+  justify-content: center;
 }
 
 .container {
@@ -118,6 +119,7 @@ body{
 
 .form-control{
   color: black;
+  height: auto;
 }
 
 .btn.btn-toggle:hover {

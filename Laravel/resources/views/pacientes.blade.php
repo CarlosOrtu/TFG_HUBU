@@ -20,13 +20,13 @@
 				<tfoot>
 					<tr>
 	        			<td>
-	        				<input placeholder="ID" class="form-control mb-2 mr-2" type="text" >
+	        				<input placeholder="ID" class="form-control mb-2 mr-2" type="text" autocomplete="off">
 	        			</td>
 	        			<td>
-	        				<input placeholder="Nombre" class="form-control mb-2 mr-2" type="text" >
+	        				<input placeholder="Nombre" class="form-control mb-2 mr-2" type="text" autocomplete="off">
 	        			</td>	                            			
 	        			<td>
-	        				<input placeholder="Apellidos" class="form-control mb-2 mr-2" type="text" >
+	        				<input placeholder="Apellidos" class="form-control mb-2 mr-2" type="text" autocomplete="off">
 	        			</td>
 	        			<td>
 	        			</td>
