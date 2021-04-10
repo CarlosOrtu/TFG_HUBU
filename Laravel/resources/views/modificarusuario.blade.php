@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<form action="{{ route('modificarusuario', ['id' => $usuario->id_user]) }}" method="post">
+<form action="{{ route('modificarusuario', ['id' => $usuario->id_usuario]) }}" method="post">
     @CSRF
     @method('put')
     <div class="col-md-7 pl-0">
@@ -10,13 +10,13 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">Nombre</span>
             </div>
-            <input value="{{ $usuario->name }}" name="nombre" class="form-control" autocomplete="off">
+            <input value="{{ $usuario->nombre }}" name="nombre" class="form-control" autocomplete="off">
         </div>
         <div  class="my-4 input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">Apellidos</span>
             </div>
-            <input value="{{ $usuario->surname }}" name="apellidos" class="form-control" autocomplete="off">
+            <input value="{{ $usuario->apellidos }}" name="apellidos" class="form-control" autocomplete="off">
         </div>
         <div  class="my-4 input-group">
             <div class="input-group-prepend">
@@ -29,7 +29,7 @@
                 <span class="input-group-text">Rol</span>
             </div>
             <select name="rol" class="form-control">
-                @if($usuario->id_role == 1)
+                @if($usuario->id_rol == 1)
                 <option value="1" selected="true">Admistrador</option>
                 <option value="2">Oncólogo</option>
                 @else

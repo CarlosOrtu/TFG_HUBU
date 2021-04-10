@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pacientes;
+use Illuminate\Support\Facades\Validator;
 
 
 class PacientesController extends Controller
@@ -31,9 +32,30 @@ class PacientesController extends Controller
         return view('crearpaciente');
     }
 
+    //Metodo que valida si los datos del nuevo usuario son validos
+    public function validarNuevoPaciente($request)
+    { 
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'required',
+            'apellidos' => 'required',
+            'nacimiento' => 'before:'.date('Y-m-d')
+        ],
+        [
+        'required' => 'El campo :attribute no puede estar vacio',
+        'same' => 'Las dos contraseñas deben coincidir',
+        'email' => 'Debe de ser una dirección de correo valida',
+        'before' => 'Introduce una fecha valida'
+        ]);
+
+        return $validator;
+    }
+
     //Metodo que almacena el paciente recibido en la base de datos
     public function crearNuevoPaciente(Request $request)
     {
+        $validator = $this->validarNuevoPaciente($request);
+        if($validator->fails())
+            return back()->withErrors($validator->errors())->withInput();
         //Creamos el objeto pacientes
         $nuevoPaciente = new Pacientes();
         //Le asignamos los valores recibidos desde el metodo POST
@@ -52,7 +74,7 @@ class PacientesController extends Controller
         //Añadimos el paciente a la base de datos
         $nuevoPaciente->save();
 
-        return redirect()->route('nuevopaciente');
+        return redirect()->route('pacientes');
     }
 
 

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+    @extends('layouts.app')
 
 @section('content')
 <form method="POST">
@@ -9,28 +9,42 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">Nombre</span>
             </div>
-            <input name="nombre" class="form-control" autocomplete="off">
-        </div>
+            <input name="nombre" value="{{ old('nombre') }}" class="form-control form-control @error('nombre') is-invalid @enderror" autocomplete="off">
+            @error('nombre')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror        </div>
         <div  class="my-4 input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">Apellidos</span>
             </div>
-            <input name="apellidos" class="form-control" autocomplete="off">
+            <input name="apellidos" value="{{ old('apellidos') }}" class="form-control form-control @error('apellidos') is-invalid @enderror" autocomplete="off">
+            @error('apellidos')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
         </div>
         <div  class="my-4 input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">Correo</span>
             </div>
-            <input name="correo" type="email" class="form-control" autocomplete="off">
+            <input name="correo" value="{{ old('correo') }}" class="form-control @error('correo') is-invalid @enderror" autocomplete="off">
+            @error('correo')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
         </div>
         <div  class="my-4 input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">Contraseña</span>
             </div>
-            <input name="contrasena" type="password" class="form-control" >
-            @error('pass')
+            <input name="contrasena" type="password" class="form-control @error('contrasena') is-invalid @enderror" >
+            @error('contrasena')
             <span class="invalid-feedback" role="alert">
-                <strong>Los datos son incorrectos</strong>
+                <strong>{{ $message }}</strong>
             </span>
             @enderror
         </div>
@@ -38,15 +52,20 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">Repetir <br>contraseña</span>
             </div>
-            <input name="contrasena_repetir" type="password" class="form-control">
+            <input name="contrasena_repetir" type="password" class="form-control @error('contrasena_repetir') is-invalid @enderror">
+            @error('contrasena_repetir')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
         </div>
         <div  class="my-4 input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">Rol</span>
             </div>
             <select name="rol" class="form-control">
-                <option value="1">Admistrador</option>
-                <option value="2">Oncólogo</option>
+                <option {{ old('rol') == 1 ? 'selected' : '' }} value="1">Admistrador</option>
+                <option {{ old('rol') == 2 ? 'selected' : '' }} value="2">Oncólogo</option>
             </select>
         </div>
         <div class="d-flex justify-content-center">

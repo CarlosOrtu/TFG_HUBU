@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Users;
-
+use App\Models\Usuarios;
+use Illuminate\Support\Facades\Validator;
 
 class AdministradorController extends Controller
 {
@@ -21,29 +21,48 @@ class AdministradorController extends Controller
     //Metodo que retorna la vista usuarios
     public function verUsuarios()
     {
-        $todosUsuarios = Users::all();
+        $todosUsuarios = Usuarios::all();
         return view('usuarios',['usuarios' => $todosUsuarios]);
     }
 
     public function verCrearNuevoUsuario()
     {
-        $todosUsuarios = Users::all();
+        $todosUsuarios = Usuarios::all();
         return view('crearusuario');
+    }
+
+    public function validarNuevoUsuario($request)
+    {
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'required',
+            'apellidos' => 'required',
+            'correo' => 'required|email',
+            'contrasena' => 'required|same:contrasena_repetir',
+            'contrasena_repetir' => 'required'
+        ],
+        [
+        'required' => 'El campo :attribute no puede estar vacio',
+        'same' => 'Las dos contraseñas deben coincidir',
+        'email' => 'Debe de ser una dirección de correo valida'
+        ]);
+
+        return $validator;
     }
 
     public function crearNuevoUsuario(Request $request)
     {
+        $validator = $this->validarNuevoUsuario($request);
         //Comprobamos que las contraseñas coicidan
-        if($request->contrasena != $request->contrasena_repetir)
-            return back()->withErrors('No coinciden las contraseñas','pass');
+        if($validator->fails())
+            return back()->withErrors($validator->errors())->withInput();
         //Creamos el objeto usuario
-        $nuevoUsuario = new Users();
+        $nuevoUsuario = new Usuarios();
         //Le asignamos los valores recibidos desde el metodo POST
-        $nuevoUsuario->name = $request->nombre;
-        $nuevoUsuario->surname = $request->apellidos;
+        $nuevoUsuario->nombre = $request->nombre;
+        $nuevoUsuario->apellidos = $request->apellidos;
         $nuevoUsuario->email = $request->correo;
-        $nuevoUsuario->password = bcrypt($request->contrasena);
-        $nuevoUsuario->id_role = $request->rol; 
+        $nuevoUsuario->contrasena = bcrypt($request->contrasena);
+        $nuevoUsuario->id_rol = $request->rol; 
         $nuevoUsuario->save();
 
         return redirect()->route('usuarios');
@@ -51,23 +70,23 @@ class AdministradorController extends Controller
 
     public function eliminarUsuario($id)
     {
-        $usuarioEliminar = Users::find($id);
+        $usuarioEliminar = Usuarios::find($id);
 
         $usuarioEliminar->delete();
         return redirect()->route('usuarios');
     }
 
     public function verModificarUsuario($id){
-        $usuarioModificar = Users::find($id);
+        $usuarioModificar = Usuarios::find($id);
         return view('modificarusuario',['usuario' => $usuarioModificar]);
     }
 
     public function modificarUsuario(Request $request,$id){
-        $usuarioModificar = Users::find($id);
-        $usuarioModificar->name = $request->nombre;
-        $usuarioModificar->surname = $request->apellidos;
+        $usuarioModificar = Usuarios::find($id);
+        $usuarioModificar->nombre = $request->nombre;
+        $usuarioModificar->apellidos = $request->apellidos;
         $usuarioModificar->email = $request->correo;
-        $usuarioModificar->id_role = $request->rol;
+        $usuarioModificar->id_rol = $request->rol;
         $usuarioModificar->save();
 
         return redirect()->route('usuarios');
