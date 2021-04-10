@@ -27,6 +27,7 @@
     <link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/estilo.css') }}" rel="stylesheet">
 
+
 </head>
 <body>
     <div id="app">
@@ -40,19 +41,57 @@
                       <li class="nav-item dropdown">
                         <a class="nav-link text-white dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}</a>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href="#">Datos personales</a>
-                          @if(Auth::user()->role_id == 0  )
+                          <a class="dropdown-item" href="{{ route('pacientes') }}">Pacientes</a>
+                          @if(Auth::user()->id_role == 1  )
                           <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" href="{{ route('logout') }}">Gestionar usuarios</a>
+                          <a class="dropdown-item" href="{{ route('usuarios') }}">Gestionar usuarios</a>
                           @endif
-                            <div class="dropdown-divider"></div>
+                          <div class="dropdown-divider"></div>  
+                          <a class="dropdown-item" href="#">Datos personales</a>
+                          <div class="dropdown-divider"></div>
                           <a class="dropdown-item" href="{{ route('logout') }}">Desconectar</a>
                         </div>
                       </li>
                 </ul>
             </div>
         </nav>
-          @if (Request::url() != route('pacientes') and Request::url() != route('nuevopaciente'))
+          @if (Request::url() == route('pacientes') or Request::url() == route('nuevopaciente'))
+          <div class="row mx-4 mt-4">
+            <div class="col-md-3 pl-0 mt-4">
+              <div class="border rounded p-3 bg-transparent">
+                <ul class="navbar-nav ml-auto justify-content-end pr-5">
+                  <li class="mb-1">
+                    <button class="btn btn-toggle text-white" onClick="location.href='{{ route('pacientes') }}'">Ver pacientes</button>
+                  </li>
+                  <li class="mb-1">
+                    <button class="btn btn-toggle text-white" onClick="location.href='{{ route('nuevopaciente') }}'">Añadir nuevo paciente</button>
+                  </li>  
+                </ul>
+              </div>
+            </div>
+            <main class="col-md-9 pr-0">
+              @yield('content')
+            </main>
+          </div>
+          @elseif(Request::url() == route('usuarios') or Request::url() == route('nuevousuario') or Route::currentRouteName() == 'modificarusuario')
+          <div class="row mx-4 mt-4">
+            <div class="col-md-3 pl-0 mt-4">
+              <div class="border rounded p-3 bg-transparent">
+                <ul class="navbar-nav ml-auto justify-content-end pr-5">
+                  <li class="mb-1">
+                    <button class="btn btn-toggle text-white" onClick="location.href='{{ route('usuarios') }}'">Administrar usuarios</button>
+                  </li>
+                  <li class="mb-1">
+                    <button class="btn btn-toggle text-white" onClick="location.href='{{ route('nuevousuario') }}'">Crear nuevo usuario</button>
+                  </li>  
+                </ul>
+              </div>
+            </div>
+            <main class="col-md-9 pr-0">
+              @yield('content')
+            </main>
+          </div>     
+          @else
           <div class="row mx-4 mt-4">
               <div class="col-md-3 pl-0 mt-4">
                   <ul class="navbar-nav ml-auto justify-content-end pr-5">
@@ -155,29 +194,7 @@
                       </li>
                     </ul>
                   </div>
-            <main class="col-md-9 px-0">
-                @yield('content')
-            </main>
-              </div>
-          </div>
-          @else
-            <div class="row mx-4 mt-4">
-              <div class="col-md-3 pl-0 mt-4">
-                  <ul class="navbar-nav ml-auto justify-content-end pr-5">
-                  <div class="border rounded p-3 bg-transparent">
-                      <li class="mb-1">
-                        <button class="btn btn-toggle text-white" onClick="location.href='{{ route('pacientes') }}'">
-                          Ver pacientes
-                        </button>
-                      </li>
-                      <li class="mb-1">
-                        <button class="btn btn-toggle text-white" onClick="location.href='{{ route('nuevopaciente') }}'">
-                          Añadir nuevo paciente
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-            <main class="col-md-9 px-0">
+            <main class="col-md-9 pr-0">
                 @yield('content')
             </main>
               </div>
