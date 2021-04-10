@@ -1,7 +1,9 @@
 /* Fondo */
 body{
 	height: 100vh;
+  margin: 0;
   background: linear-gradient(#03045E, #9198e5);
+  background-attachment:fixed;
 }
 
 /* Layout */
