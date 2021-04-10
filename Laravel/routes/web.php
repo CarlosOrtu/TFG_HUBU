@@ -3,12 +3,28 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PacientesController;
+use App\Http\Controllers\AdministradorController;
 
+//Rutas de login y logout
 Auth::routes(['register' => false,'reset' => false,'confirm' => false,'verify' => false]);
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+//Routa de redirección de la raiz al login
 Route::get('/', function(){
 	return redirect('/login');
 });
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+//Rutas de gestión de pacientes
 Route::get('/pacientes', [PacientesController::class, 'verPacientes'])->name('pacientes');
-Route::get('/nuevopaciente', [PacientesController::class, 'verCrearNuevoPaciente'])->name('nuevopaciente');
-Route::post('/nuevopaciente', [PacientesController::class, 'crearNuevoPaciente']);
+Route::get('/nuevo/paciente', [PacientesController::class, 'verCrearNuevoPaciente'])->name('nuevopaciente');
+Route::post('/nuevo/paciente', [PacientesController::class, 'crearNuevoPaciente']);
+//Rutas de gestión de usuarios
+Route::get('/admistrar/usuarios', [AdministradorController::class, 'verUsuarios'])->name('usuarios');
+Route::delete('/eliminar/usuario/{id}', [AdministradorController::class, 'eliminarUsuario'])->name('eliminarusuario');
+Route::get('/nuevo/usuario', [AdministradorController::class, 'verCrearNuevoUsuario'])->name('nuevousuario');
+Route::post('/nuevo/usuario', [AdministradorController::class, 'crearNuevoUsuario']);
+Route::get('/modificar/usuario/{id}', [AdministradorController::class, 'verModificarUsuario'])->name('modificarusuario');
+Route::put('/modificar/usuario/{id}', [AdministradorController::class, 'modificarUsuario']);
+
+
+
+
+
