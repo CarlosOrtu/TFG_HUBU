@@ -48,7 +48,7 @@
               <a class="dropdown-item" href="{{ route('usuarios') }}">Gestionar usuarios</a>
               @endif
               <div class="dropdown-divider"></div>  
-              <a class="dropdown-item" href="#">Datos personales</a>
+              <a class="dropdown-item" href="{{ route('datospersonales') }}">Datos personales</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{ route('logout') }}">Desconectar</a>
             </div>
@@ -70,6 +70,13 @@
         @yield('content')
       </main>
     </div>     
+    @elseif(Request::url() == route('datospersonales') or Request::url() == route('modificarcontrasena'))
+    <div class="row mx-4 mt-4">
+      @include('layouts.sidebardatospersonales')
+      <main class="col-md-9 pr-0">
+        @yield('content')
+      </main>
+    </div>    
     @else
     <div class="row mx-4 mt-4">
       @include('layouts.sidebarenfermedad')  
