@@ -2,7 +2,7 @@
   <ul class="navbar-nav ml-auto justify-content-end pr-5">
     <div class="border rounded p-3 bg-transparent">
       <li class="mb-1">
-        <button class="btn btn-toggle text-white" id="boton1" data-bs-toggle="collapse" data-bs-target="#menu1" aria-expanded="false">
+        <button class="btn btn-toggle text-white desplegable" id="boton1" data-bs-toggle="collapse" data-bs-target="#menu1" aria-expanded="false">
           Opcion 1
         </button>
         <div class="collapse" id="menu1">
@@ -14,7 +14,7 @@
         </div>
       </li>
       <li class="mb-1">
-        <button class="btn btn-toggle text-white" id="boton2" data-bs-toggle="collapse" data-bs-target="#menu2" aria-expanded="false">
+        <button class="btn btn-toggle text-white desplegable" id="boton2" data-bs-toggle="collapse" data-bs-target="#menu2" aria-expanded="false">
           Opcion 2
         </button>
         <div class="collapse" id="menu2">
@@ -26,7 +26,7 @@
         </div>
       </li>
       <li class="mb-1">
-        <button class="btn btn-toggle text-white" id="boton3" data-bs-toggle="collapse" data-bs-target="#menu3" aria-expanded="false">
+        <button class="btn btn-toggle text-white desplegable" id="boton3" data-bs-toggle="collapse" data-bs-target="#menu3" aria-expanded="false">
           Opcion 3
         </button>
         <div class="collapse" id="menu3">
@@ -38,7 +38,7 @@
         </div>
       </li>
       <li class="mb-1">
-        <button class="btn btn-toggle text-white" id="boton4" data-bs-toggle="collapse" data-bs-target="#menu4" aria-expanded="false">
+        <button class="btn btn-toggle text-white desplegable" id="boton4" data-bs-toggle="collapse" data-bs-target="#menu4" aria-expanded="false">
           Opcion 4
         </button>
         <div class="collapse" id="menu4">
@@ -50,7 +50,7 @@
         </div>
       </li>
       <li class="mb-1">
-        <button class="btn btn-toggle text-white" id="boton5" data-bs-toggle="collapse" data-bs-target="#menu5" aria-expanded="false">
+        <button class="btn btn-toggle text-white desplegable" id="boton5" data-bs-toggle="collapse" data-bs-target="#menu5" aria-expanded="false">
           Opcion 5
         </button>
         <div class="collapse" id="menu5">
@@ -62,7 +62,7 @@
         </div>
       </li>
       <li class="mb-1">
-        <button class="btn btn-toggle text-white" id="boton6" data-bs-toggle="collapse" data-bs-target="#menu6" aria-expanded="false">
+        <button class="btn btn-toggle text-white desplegable" id="boton6" data-bs-toggle="collapse" data-bs-target="#menu6" aria-expanded="false">
           Opcion 6
         </button>
         <div class="collapse" id="menu6">
@@ -74,7 +74,7 @@
         </div>
       </li>
       <li class="mb-1">
-        <button class="btn btn-toggle text-white" id="boton7" data-bs-toggle="collapse" data-bs-target="#menu7" aria-expanded="false">
+        <button class="btn btn-toggle text-white desplegable" id="boton7" data-bs-toggle="collapse" data-bs-target="#menu7" aria-expanded="false">
           Opcion 7
         </button>
         <div class="collapse" id="menu7">
@@ -86,7 +86,7 @@
         </div>
       </li>
       <li class="mb-1">
-        <button class="btn btn-toggle text-white" id="boton8" data-bs-toggle="collapse" data-bs-target="#menu8" aria-expanded="false">
+        <button class="btn btn-toggle text-white desplegable" id="boton8" data-bs-toggle="collapse" data-bs-target="#menu8" aria-expanded="false">
           Opcion 8
         </button>
         <div class="collapse" id="menu8">

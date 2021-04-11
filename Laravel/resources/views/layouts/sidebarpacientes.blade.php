@@ -4,6 +4,7 @@
       <li class="mb-1">
         <button class="btn btn-toggle text-white" onClick="location.href='{{ route('pacientes') }}'">Ver pacientes</button>
       </li>
+      <div class="dropdown-divider"></div>
       <li class="mb-1">
         <button class="btn btn-toggle text-white" onClick="location.href='{{ route('nuevopaciente') }}'">Añadir nuevo paciente</button>
       </li>  

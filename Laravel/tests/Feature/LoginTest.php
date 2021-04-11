@@ -9,7 +9,6 @@ use App\Models\Usuarios;
 
 class LoginTest extends TestCase
 {
-    
     /** @test */
     //Caso de prueba 1
     public function loginCorrectoTest()
@@ -17,8 +16,8 @@ class LoginTest extends TestCase
         //Accedemos al login de la web
         $response = $this->get('/login')->assertSee('Login');
         $credentials = [
-            "correo" => "administrador@gmail.com",
-            "contrasena" => "1234",
+            "email" => "administrador@gmail.com",
+            "password" => "1234",
         ];
         //Realizamos la solicitud post con los credenciales definidos anteriormente
         $response = $this->post('/login', $credentials);
@@ -35,8 +34,8 @@ class LoginTest extends TestCase
         $response = $this->get('/login')->assertSee('Login');
         $response->assertSee('Direccion de correo');
         $credentials = [
-            "correo" => "administrador@gmail.com",
-            "contrasena" => "123456",
+            "email" => "administrador@gmail.com",
+            "password" => "123456",
         ];
         //Realizamos la solicitud post con los credenciales definidos anteriormente
         $response = $this->post('/login', $credentials);
@@ -54,8 +53,8 @@ class LoginTest extends TestCase
         $response = $this->get('/login')->assertSee('Login');
         $response->assertSee('Direccion de correo');
         $credentials = [
-            "correo" => "administrador",
-            "contrasena" => "1234",
+            "email" => "administrador",
+            "password" => "1234",
         ];
         //Realizamos la solicitud post con los credenciales definidos anteriormente
         $response = $this->post('/login', $credentials);
@@ -73,8 +72,8 @@ class LoginTest extends TestCase
         $response = $this->get('/login')->assertSee('Login');
         $response->assertSee('Direccion de correo');
         $credentials = [
-            "correo" => "",
-            "contrasena" => "123456",
+            "email" => "",
+            "password" => "123456",
         ];
         //Realizamos la solicitud post con los credenciales definidos anteriormente
         $response = $this->post('/login', $credentials);
@@ -92,8 +91,8 @@ class LoginTest extends TestCase
         $response = $this->get('/login')->assertSee('Login');
         $response->assertSee('Direccion de correo');
         $credentials = [
-            "correo" => "administrador@gmail.com",
-            "contrasena" => "",
+            "email" => "administrador@gmail.com",
+            "password" => "",
         ];
         //Realizamos la solicitud post con los credenciales definidos anteriormente
         $response = $this->post('/login', $credentials);

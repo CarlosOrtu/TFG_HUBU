@@ -32,7 +32,7 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">Correo</span>
             </div>
-            <input value="{{ $usuario->email }}" name="correo" type="email" class="form-control @error('correo') is-invalid @enderror" autocomplete="off">
+            <input value="{{ $usuario->email }}" name="correo" class="form-control @error('correo') is-invalid @enderror" autocomplete="off">
             @error('correo')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
