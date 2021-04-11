@@ -31,7 +31,7 @@ class AdministradorController extends Controller
         return view('crearusuario');
     }
 
-    public function validarNuevoUsuario($request)
+    public function validarDatosCrearUsuario($request)
     {
         $validator = Validator::make($request->all(), [
             'nombre' => 'required',
@@ -49,10 +49,25 @@ class AdministradorController extends Controller
         return $validator;
     }
 
+    public function validarDatosModificarUsuario($request)
+    {
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'required',
+            'apellidos' => 'required',
+            'correo' => 'required|email'
+        ],
+        [
+        'required' => 'El campo :attribute no puede estar vacio',
+        'email' => 'Debe de ser una dirección de correo valida'
+        ]);
+
+        return $validator;
+    }
+
     public function crearNuevoUsuario(Request $request)
     {
-        $validator = $this->validarNuevoUsuario($request);
-        //Comprobamos que las contraseñas coicidan
+        $validator = $this->validarDatosCrearUsuario($request);
+        //Comprobamos si hay algun error de validacion
         if($validator->fails())
             return back()->withErrors($validator->errors())->withInput();
         //Creamos el objeto usuario
@@ -82,6 +97,11 @@ class AdministradorController extends Controller
     }
 
     public function modificarUsuario(Request $request,$id){
+        $validator = $this->validarDatosModificarUsuario($request);
+        //Comprobamos que las contraseñas coicidan
+        if($validator->fails())
+            return back()->withErrors($validator->errors())->withInput();    
+
         $usuarioModificar = Usuarios::find($id);
         $usuarioModificar->nombre = $request->nombre;
         $usuarioModificar->apellidos = $request->apellidos;

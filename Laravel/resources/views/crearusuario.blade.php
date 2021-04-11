@@ -9,17 +9,18 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">Nombre</span>
             </div>
-            <input name="nombre" value="{{ old('nombre') }}" class="form-control form-control @error('nombre') is-invalid @enderror" autocomplete="off">
+            <input name="nombre" value="{{ old('nombre') }}" class="form-control @error('nombre') is-invalid @enderror" autocomplete="off">
             @error('nombre')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
-            @enderror        </div>
+            @enderror        
+        </div>
         <div  class="my-4 input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">Apellidos</span>
             </div>
-            <input name="apellidos" value="{{ old('apellidos') }}" class="form-control form-control @error('apellidos') is-invalid @enderror" autocomplete="off">
+            <input name="apellidos" value="{{ old('apellidos') }}" class="form-control @error('apellidos') is-invalid @enderror" autocomplete="off">
             @error('apellidos')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
