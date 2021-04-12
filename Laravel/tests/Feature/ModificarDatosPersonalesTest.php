@@ -12,6 +12,7 @@ class ModificarDatosPersonalesTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        //Creamos un usuario sobre el cual vamos a realizar los cambios
         $usuarioAModificar = new Usuarios();
         $usuarioAModificar->id_usuario = 999;
         $usuarioAModificar->nombre = "Usuario";

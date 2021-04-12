@@ -9,10 +9,10 @@ use App\Models\Usuarios;
 
 class LoginTest extends TestCase
 {
-
     protected function setUp(): void
     {
         parent::setUp();
+        //Creamos el usuario con el cual vamos a realizar el login
         $usuarioAModificar = new Usuarios();
         $usuarioAModificar->id_usuario = 999;
         $usuarioAModificar->nombre = "Usuario";

@@ -12,6 +12,7 @@ class ModificarContrasenaTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        //Creamos un usuario sobre el cual vamos a modificar sus datos
         $usuarioAModificar = new Usuarios();
         $usuarioAModificar->id_usuario = 999;
         $usuarioAModificar->nombre = "Usuario";
@@ -123,7 +124,7 @@ class ModificarContrasenaTest extends TestCase
     }
 
     /** @test */
-    //Caso de prueba 2
+    //Caso de prueba 5
     public function modificarContrasenaContrasenaAntiguaErroneaTest()
     {
         //Accedemos la vista datospersonales
@@ -145,7 +146,7 @@ class ModificarContrasenaTest extends TestCase
     }
 
     /** @test */
-    //Caso de prueba 2
+    //Caso de prueba 6
     public function modificarContrasenaContrasenasNuevasNoCoincidentesTest()
     {
         //Accedemos la vista datospersonales
