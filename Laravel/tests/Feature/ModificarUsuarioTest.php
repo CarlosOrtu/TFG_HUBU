@@ -197,5 +197,38 @@ class ModificarUsuarioTest extends TestCase
         $this->assertTrue($usuario->apellidos == "Apellido1 Apellido2");
         $this->assertTrue($usuario->email == "usuario@gmail.com");
         $this->assertTrue($usuario->id_rol == "2");
-    }           
+    }          
+
+    /** @test */
+    //Caso de prueba 6
+    public function modificarUsuarioCorreoRepetidoTest()
+    {
+        //Accedemos la vista modificarusuario 
+        $response = $this->get('/modificar/usuario/999')->assertSee('Modificar usuario');
+        $usuario = [
+            "nombre" => "UsuarioModificado",
+            "apellidos" => "ApellidoModificado Apellido2",
+            "correo" => "administrador@gmail.com",
+            "rol" => "2",
+        ];
+        //Realizamos la solicitud put con los datos del usuario definidos anteriormente
+        $response = $this->put('/modificar/usuario/999', $usuario);
+        //Comprobamos que devuelve error en el campo nombre
+        $response->assertSessionHasErrors('correo');
+        //Comprobamos si se redirige correctamente
+        $response->assertRedirect('/modificar/usuario/999');
+        //Comprobamos que en la vista usuarios no se vea el usuario modificado
+        $usuarios = Usuarios::all();
+        $view = $this->view('usuarios', ['usuarios' => $usuarios]);
+        $view->assertDontSee('UsuarioModificado');
+        $view->assertDontSee('ApellidoModificado Apellido2');
+        //Comprobamos que el usuario este incluido en la base de datos
+        $usuario = Usuarios::find(999);
+        $this->assertTrue(!empty($usuario));
+        //Comprobamos que los datos del usuario siguen siendo los mismos
+        $this->assertTrue($usuario->nombre == "Usuario");
+        $this->assertTrue($usuario->apellidos == "Apellido1 Apellido2");
+        $this->assertTrue($usuario->email == "usuario@gmail.com");
+        $this->assertTrue($usuario->id_rol == "2");
+    }       
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Usuarios;
 use Illuminate\Support\Facades\Validator;
+use App\Rules\CorreoUnico;
+use Auth;
 
 class AdministradorController extends Controller
 {
@@ -36,7 +38,7 @@ class AdministradorController extends Controller
         $validator = Validator::make($request->all(), [
             'nombre' => 'required',
             'apellidos' => 'required',
-            'correo' => 'required|email',
+            'correo' => ['required','email', new CorreoUnico()],
             'contrasena' => 'required|same:contrasena_repetir',
             'contrasena_repetir' => 'required'
         ],
@@ -49,12 +51,12 @@ class AdministradorController extends Controller
         return $validator;
     }
 
-    public function validarDatosModificarUsuario($request)
+    public function validarDatosModificarUsuario($request,$id)
     {
         $validator = Validator::make($request->all(), [
             'nombre' => 'required',
             'apellidos' => 'required',
-            'correo' => 'required|email'
+            'correo' => ['required','email', new CorreoUnico($id)],
         ],
         [
         'required' => 'El campo :attribute no puede estar vacio',
@@ -96,7 +98,7 @@ class AdministradorController extends Controller
     }
 
     public function modificarUsuario(Request $request,$id){
-        $validator = $this->validarDatosModificarUsuario($request);
+        $validator = $this->validarDatosModificarUsuario($request,$id);
         //Comprobamos que las contraseñas coicidan
         if($validator->fails())
             return back()->withErrors($validator->errors())->withInput();    

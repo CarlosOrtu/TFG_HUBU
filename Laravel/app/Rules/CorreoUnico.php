@@ -3,19 +3,20 @@
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
-use App\Models\Usuarios;
 use Auth;
+use App\Models\Usuarios;
 
-class ComprobarContrasenasIguales implements Rule
+class CorreoUnico implements Rule
 {
+    public $id;
     /**
      * Create a new rule instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($id=null)
     {
-        //
+        $this->id = $id;
     }
 
     /**
@@ -27,7 +28,11 @@ class ComprobarContrasenasIguales implements Rule
      */
     public function passes($attribute, $value)
     {
-        return password_verify($value, Auth::user()->contrasena);
+        $usuario = Usuarios::where('email',$value)->first() ;
+        if(empty($id)){
+            return empty($usuario);
+        }
+        return !empty($usuario) and $usuario->id_usuario == $this->id;
     }
 
     /**
@@ -37,6 +42,6 @@ class ComprobarContrasenasIguales implements Rule
      */
     public function message()
     {
-        return 'La contrasena introducida no coincide con la contrasena actual';
+        return 'El correo elegido ya esta en uso';
     }
 }

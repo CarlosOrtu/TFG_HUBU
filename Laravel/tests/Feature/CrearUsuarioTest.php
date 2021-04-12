@@ -277,4 +277,33 @@ class CrearUsuarioTest extends TestCase
         $this->assertTrue(empty($usuario));
     }
 
+    /** @test */
+    //Caso de prueba 8
+    public function crearNuevoUsuarioCorreoRepetidoTest()
+    {
+        //Accedemos la vista nuevousuario 
+        $response = $this->get('/nuevo/usuario')->assertSee('Añadir usuario');
+        $usuario = [
+            "nombre" => "UsuarioNombre",
+            "apellidos" => "Apellido1 Apellido2",
+            "correo" => "administrador@gmail.com",
+            "contrasena" => "1234",
+            "contrasena_repetir" => "1234",
+            "rol" => "2",
+        ];
+        //Realizamos la solicitud post con los datos del usuario definidos anteriormente
+        $response = $this->post('/nuevo/usuario', $usuario);
+        //Comprobamos que devuelve error en el campo contrasena
+        $response->assertSessionHasErrors('correo');
+        //Comprobamos si se redirige correctamente
+        $response->assertRedirect('/nuevo/usuario');
+        //Comprobamos que en la vista usuarios no se vea el nuevo usuario
+        $usuarios = Usuarios::all();
+        $view = $this->view('usuarios', ['usuarios' => $usuarios]);
+        $view->assertDontSee('UsuarioNombre');
+        $view->assertDontSee('Apellido1 Apellido2');
+        //Comprobamos que el usuario no este incluido en la base de datos
+        $usuario = Usuarios::where('email','usuario@gmail.com')->first();
+        $this->assertTrue(empty($usuario));
+    }
 }

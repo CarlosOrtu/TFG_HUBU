@@ -146,4 +146,26 @@ class ModificarDatosPersonalesTest extends TestCase
         $usuario = Usuarios::where('nombre','UsuarioModificado')->first();
         $this->assertTrue(empty($usuario));
     }
+
+    /** @test */
+    //Caso de prueba 6
+    public function modificarDatosCorreoRepetidoTest()
+    {
+        //Accedemos la vista datospersonales
+        $response = $this->get('/datos/personales')->assertSee('Modificar datos personales');
+        $usuario = [
+            "nombre" => "UsuarioModificado",
+            "apellidos" => "ApellidoModificado Apellido2",
+            "correo" => "administrador@gmail.com",
+        ];
+        //Realizamos la solicitud put con los datos del usuario definidos anteriormente
+        $response = $this->put('/datos/personales', $usuario);
+        //Comprobamos que devuelve error en el campo nombre
+        $response->assertSessionHasErrors('correo');
+        //Comprobamos si se redirige correctamente
+        $response->assertRedirect('/datos/personales');
+        //Comprobmos que el usuario no este incluido en la base de datos
+        $usuario = Usuarios::where('nombre','UsuarioModificado')->first();
+        $this->assertTrue(empty($usuario));
+    }
 }

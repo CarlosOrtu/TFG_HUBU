@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Usuarios;
 use App\Rules\ComprobarContrasenasIguales;
+use App\Rules\CorreoUnico;
 use Auth;
 
 
@@ -26,11 +27,12 @@ class DatosPersonalesController extends Controller
         $validator = Validator::make($request->all(), [
             'nombre' => 'required',
             'apellidos' => 'required',
-            'correo' => 'required|email'
+            'correo' => ['required','email', new CorreoUnico(Auth::user()->id_usuario)],
         ],
         [
         'required' => 'El campo :attribute no puede estar vacio',
-        'email' => 'Debe de ser una dirección de correo valida'
+        'email' => 'Debe de ser una dirección de correo valida',
+        'unique' => 'El correo ya está en uso de'
         ]);
 
         return $validator;
