@@ -126,7 +126,7 @@ class CrearPacienteTest extends TestCase
         $this->assertTrue(empty($paciente));
     }
 
-        /** @test */
+    /** @test */
     //Caso de prueba 4
     public function crearNuevoPacienteNacimientoVacioTest()
     {
@@ -155,7 +155,7 @@ class CrearPacienteTest extends TestCase
         $this->assertTrue(empty($paciente));
     }
 
-        /** @test */
+    /** @test */
     //Caso de prueba 5
     public function crearNuevoNacimientoIncorrectoTest()
     {

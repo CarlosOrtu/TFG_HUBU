@@ -43,7 +43,6 @@ class PacientesController extends Controller
         [
         'required' => 'El campo :attribute no puede estar vacio',
         'same' => 'Las dos contraseñas deben coincidir',
-        'email' => 'Debe de ser una dirección de correo valida',
         'before' => 'Introduce una fecha valida'
         ]);
 
