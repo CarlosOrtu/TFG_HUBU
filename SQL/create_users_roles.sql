@@ -1,12 +1,12 @@
 CREATE TABLE roles( 
-id_role INT PRIMARY KEY NOT NULL, 
-description VARCHAR(80) ) ENGINE=InnoDB;
+id_rol INT PRIMARY KEY NOT NULL, 
+descripcion VARCHAR(80) ) ENGINE=InnoDB;
 
-CREATE TABLE users( 
-id_user int PRIMARY KEY NOT NULL, 
-name VARCHAR(30)  NOT NULL, 
-surname VARCHAR(30)  NOT NULL,
+CREATE TABLE usuarios( 
+id_ususario int PRIMARY KEY NOT NULL, 
+nombre VARCHAR(30)  NOT NULL, 
+apellidos VARCHAR(30)  NOT NULL,
 email VARCHAR(50)  UNIQUE NOT NULL, 
-password VARCHAR(100) NOT NULL, 
-id_role int  NOT NULL, 
-FOREIGN KEY (id_role) REFERENCES Roles(id_role) ) ENGINE=InnoDB;
+contrasena VARCHAR(100) NOT NULL, 
+id_rol int  NOT NULL, 
+FOREIGN KEY (id_rol) REFERENCES Roles(id_rol) ) ENGINE=InnoDB;

@@ -17,7 +17,7 @@ class CreateUsuariosTable extends Migration
             $table->id('id_usuario');
             $table->string('nombre',30);
             $table->string('apellidos',30);
-            $table->string('correo',50)->unique();
+            $table->string('email',50)->unique();
             $table->string('contrasena',100);
             $table->unsignedBigInteger('id_rol');
             $table->foreign('id_rol')->references('id_rol')->on('roles')->onDelete('cascade')->onUpdate('cascade');

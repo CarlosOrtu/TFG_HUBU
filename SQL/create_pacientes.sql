@@ -6,9 +6,9 @@ sexo VARCHAR(20) NOT NULL,
 nacimiento DATE NOT NULL,
 raza VARCHAR(20) NOT NULL,
 profesion VARCHAR(50) NOT NULL,
-fumador VARCHAR(10),
-bebedor VARCHAR(10),
-carcinógenos VARCHAR(50) ) ENGINE=InnoDB;
+fumador BOOLEAN,
+bebedor BOOLEAN,
+carcinógenos BOOLEAN ) ENGINE=InnoDB;
 
 CREATE TABLE enfermedades( 
 id_enfermedad INT PRIMARY KEY NOT NULL, 
