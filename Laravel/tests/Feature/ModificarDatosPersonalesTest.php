@@ -43,22 +43,15 @@ class ModificarDatosPersonalesTest extends TestCase
     {
         //Accedemos la vista datospersonales 
         $response = $this->get('/datos/personales')->assertSee('Modificar datos personales');
-        $usuario = [
+        $usuarioModificacion = [
             "nombre" => "UsuarioModificado",
             "apellidos" => "ApellidoModificado Apellido2",
             "correo" => "usuariomodificado@gmail.com",
         ];
-        //Realizamos la solicitud post con los datos del usuario definidos anteriormente
-        $response = $this->put('/datos/personales', $usuario);
+        //Realizamos la solicitud put con los datos del usuario definidos anteriormente
+        $response = $this->put('/datos/personales', $usuarioModificacion);
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/datos/personales');
-        //Comprobamos que en la vista datospersonales se vea el nuevo usuario
-        /*
-        $view = $this->view('datospersonales');
-        $view->assertSee('UsuarioModificado');
-        $view->assertSee('ApellidoModificado Apellido2');
-        $view->assertSee('usuariomodificado@gmail.com');
-        */
         //Comprobmos que el usuario este incluido en la base de datos
         $usuario = Usuarios::where('nombre','UsuarioModificado')->first();
         $this->assertTrue(!empty($usuario));
@@ -77,7 +70,7 @@ class ModificarDatosPersonalesTest extends TestCase
             "apellidos" => "ApellidoModificado Apellido2",
             "correo" => "usuariomodificado@gmail.com",
         ];
-        //Realizamos la solicitud post con los datos del usuario definidos anteriormente
+        //Realizamos la solicitud put con los datos del usuario definidos anteriormente
         $response = $this->put('/datos/personales', $usuario);
         //Comprobamos que devuelve error en el campo nombre
         $response->assertSessionHasErrors('nombre');
@@ -99,7 +92,7 @@ class ModificarDatosPersonalesTest extends TestCase
             "apellidos" => "",
             "correo" => "usuariomodificado@gmail.com",
         ];
-        //Realizamos la solicitud post con los datos del usuario definidos anteriormente
+        //Realizamos la solicitud put con los datos del usuario definidos anteriormente
         $response = $this->put('/datos/personales', $usuario);
         //Comprobamos que devuelve error en el campo nombre
         $response->assertSessionHasErrors('apellidos');
@@ -121,7 +114,7 @@ class ModificarDatosPersonalesTest extends TestCase
             "apellidos" => "ApellidoModificado Apellido2",
             "correo" => "",
         ];
-        //Realizamos la solicitud post con los datos del usuario definidos anteriormente
+        //Realizamos la solicitud put con los datos del usuario definidos anteriormente
         $response = $this->put('/datos/personales', $usuario);
         //Comprobamos que devuelve error en el campo nombre
         $response->assertSessionHasErrors('correo');
@@ -134,7 +127,7 @@ class ModificarDatosPersonalesTest extends TestCase
 
     /** @test */
     //Caso de prueba 5
-    public function modificarDatosCorreoNoValidoVacioTest()
+    public function modificarDatosCorreoNoValidoTest()
     {
         //Accedemos la vista datospersonales
         $response = $this->get('/datos/personales')->assertSee('Modificar datos personales');
@@ -143,7 +136,7 @@ class ModificarDatosPersonalesTest extends TestCase
             "apellidos" => "ApellidoModificado Apellido2",
             "correo" => "usuariomodificadogmail.com",
         ];
-        //Realizamos la solicitud post con los datos del usuario definidos anteriormente
+        //Realizamos la solicitud put con los datos del usuario definidos anteriormente
         $response = $this->put('/datos/personales', $usuario);
         //Comprobamos que devuelve error en el campo nombre
         $response->assertSessionHasErrors('correo');

@@ -52,7 +52,7 @@ class ModificarContrasenaTest extends TestCase
         $response = $this->put('/modificar/contrasena', $contrasena);
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/datos/personales');
-        //Comprobmos que el usuario este incluido en la base de datos
+        //Comprobmos que la contraseña se ha cambiado correctamente
         $usuario = Usuarios::find(999);
         $this->assertTrue(password_verify("1111", $usuario->contrasena));
     }
@@ -74,7 +74,7 @@ class ModificarContrasenaTest extends TestCase
         $response->assertSessionHasErrors('contrasena_antigua');
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/modificar/contrasena');
-        //Comprobmos que el usuario no este incluido en la base de datos
+        //Comprobmos que la contraseña sigue siendo la misma
         $usuario = Usuarios::find(999);
         $this->assertTrue(password_verify("1234", $usuario->contrasena));
     }
@@ -96,7 +96,7 @@ class ModificarContrasenaTest extends TestCase
         $response->assertSessionHasErrors('contrasena_nueva');
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/modificar/contrasena');
-        //Comprobmos que el usuario no este incluido en la base de datos
+        //Comprobmos que la contraseña sigue siendo la misma
         $usuario = Usuarios::find(999);
         $this->assertTrue(password_verify("1234", $usuario->contrasena));
     }
@@ -118,7 +118,7 @@ class ModificarContrasenaTest extends TestCase
         $response->assertSessionHasErrors('contrasena_nueva_repetida');
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/modificar/contrasena');
-        //Comprobmos que el usuario no este incluido en la base de datos
+        //Comprobmos que la contraseña sigue siendo la misma
         $usuario = Usuarios::find(999);
         $this->assertTrue(password_verify("1234", $usuario->contrasena));
     }
@@ -140,7 +140,7 @@ class ModificarContrasenaTest extends TestCase
         $response->assertSessionHasErrors('contrasena_antigua');
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/modificar/contrasena');
-        //Comprobmos que el usuario no este incluido en la base de datos
+        //Comprobmos que la contraseña sigue siendo la misma
         $usuario = Usuarios::find(999);
         $this->assertTrue(password_verify("1234", $usuario->contrasena));
     }
@@ -162,7 +162,7 @@ class ModificarContrasenaTest extends TestCase
         $response->assertSessionHasErrors('contrasena_nueva');
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/modificar/contrasena');
-        //Comprobmos que el usuario no este incluido en la base de datos
+        //Comprobmos que la contraseña sigue siendo la misma
         $usuario = Usuarios::find(999);
         $this->assertTrue(password_verify("1234", $usuario->contrasena));
     }

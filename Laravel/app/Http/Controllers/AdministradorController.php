@@ -79,7 +79,6 @@ class AdministradorController extends Controller
         $nuevoUsuario->contrasena = bcrypt($request->contrasena);
         $nuevoUsuario->id_rol = $request->rol; 
         $nuevoUsuario->save();
-
         return redirect()->route('usuarios');
     }
 

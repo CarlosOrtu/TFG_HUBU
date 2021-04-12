@@ -27,7 +27,7 @@ Route::get('/modificar/contrasena', [DatosPersonalesController::class, 'verModif
 Route::put('/modificar/contrasena', [DatosPersonalesController::class, 'modificarContrasena']);
 
 //Rutas de gestión de usuarios
-Route::get('/admistrar/usuarios', [AdministradorController::class, 'verUsuarios'])->name('usuarios');
+Route::get('/administrar/usuarios', [AdministradorController::class, 'verUsuarios'])->name('usuarios');
 Route::delete('/eliminar/usuario/{id}', [AdministradorController::class, 'eliminarUsuario'])->name('eliminarusuario');
 Route::get('/nuevo/usuario', [AdministradorController::class, 'verCrearNuevoUsuario'])->name('nuevousuario');
 Route::post('/nuevo/usuario', [AdministradorController::class, 'crearNuevoUsuario']);
