@@ -58,6 +58,14 @@ class CrearPacienteTest extends TestCase
         //Comprobmos que el paciente este incluido en la base de datos
         $paciente = Pacientes::where('nombre','Paciente')->where('apellidos','Apellido1 Apellido2')->first();
         $this->assertTrue(!empty($paciente));
+        //Comprobamos que los datos del paciente coincidan con los introducidos
+        $this->assertTrue($paciente->sexo == "Masculino");
+        $this->assertTrue($paciente->nacimiento == "1999-10-05");
+        $this->assertTrue($paciente->raza == "Caucásico");
+        $this->assertTrue($paciente->profesion == "Bombero");
+        $this->assertTrue($paciente->fumador == null);
+        $this->assertTrue($paciente->bebedor == null);
+        $this->assertTrue($paciente->carcinogenos == null);
     }
 
     /** @test */
