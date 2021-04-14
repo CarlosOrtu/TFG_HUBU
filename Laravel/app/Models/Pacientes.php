@@ -11,34 +11,35 @@ class Pacientes extends Model
 
     public $timestamps = false;
 	protected $table = 'pacientes';	
+    protected $primaryKey = 'id_paciente';
 
 	public function Antecedentes_oncologicos()
     {
-        return $this->hasMany(Antecedentes_oncologicos::class);
+        return $this->hasMany(Antecedentes_oncologicos::class,'id_paciente');
     }
 
     public function Antecedentes_familiares()
     {
-        return $this->hasMany(Antecedentes_familiares::class);
+        return $this->hasMany(Antecedentes_familiares::class,'id_paciente');
     }
     public function Reevaluaciones()
     {
-        return $this->hasMany(Reevaluaciones::class);
+        return $this->hasMany(Reevaluaciones::class,'id_paciente');
     }
     public function Seguimientos()
     {
-        return $this->hasMany(Seguimientos::class);
+        return $this->hasMany(Seguimientos::class,'id_paciente');
     }
     public function Antecedentes_medicos()
     {
-        return $this->hasMany(Antecedentes_medicos::class);
+        return $this->hasMany(Antecedentes_medicos::class,'id_paciente');
     }
     public function Tratamientos()
     {
-        return $this->hasMany(Tratamientos::class);
+        return $this->hasMany(Tratamientos::class,'id_paciente');
     }
     public function Enfermedades()
     {
-        return $this->hasOne(Enfermedades::class);
+        return $this->hasOne(Enfermedades::class,'id_paciente');
     }
 }
