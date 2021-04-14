@@ -9,17 +9,17 @@
     <div class=panel-body>
     	<div class="table-responsive">
 	        <table id="tablaPacientes" class="table table-dark table-bordered">
-	            <thead>
+	        	<thead>
 	            	<tr>
-	                	<th>ID Usuario</th>
-	                    <th>Nombre</th>
-	                    <th>Apellidos</th>
-						<th>Seleccionar</th>
+	                	<th class="left" >ID Usuario</th>
+	                    <th style="border-top-width: 0">Nombre</th>
+	                    <th style="border-top-width: 0">Apellidos</th>
+						<th class="right">Seleccionar</th>
 					</tr>
 				</thead>
 				<tfoot>
 					<tr>
-	        			<td>
+	        			<td class="left">
 	        				<input placeholder="ID" class="form-control mb-2 mr-2" type="text" autocomplete="off">
 	        			</td>
 	        			<td>
@@ -28,7 +28,7 @@
 	        			<td>
 	        				<input placeholder="Apellidos" class="form-control mb-2 mr-2" type="text" autocomplete="off">
 	        			</td>
-	        			<td>
+	        			<td class="right">
 	        			</td>
 	        		</tr>
 	            </tfoot>
@@ -36,10 +36,10 @@
 	            <tbody>
 	                @foreach ($usuarios as $usuario)
 	                    <tr>
-	                    	<td class="table-text text-dark"><div>{{ $usuario->id_usuario }}</div></td>
+	                    	<td class="table-text text-dark left"><div>{{ $usuario->id_usuario }}</div></td>
 	                        <td class="table-text text-dark"><div>{{ $usuario->nombre }}</div></td>
 	                        <td class="table-text text-dark"><div>{{ $usuario->apellidos }}</div></td>
-							<td>
+							<td class="right">
 								<form class="d-inline-block" action="{{ route('modificarusuario', ['id' => $usuario->id_usuario]) }}" method="get">
 									<button class="btn btn-primary">Editar</button>
 								</form>

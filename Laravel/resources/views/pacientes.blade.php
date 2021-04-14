@@ -11,15 +11,15 @@
 	        <table id="tablaPacientes" class="table table-dark table-bordered">
 	            <thead>
 	            	<tr>
-	                	<th>ID Paciente</th>
+	                	<th class="left">ID Paciente</th>
 	                    <th>Nombre</th>
 	                    <th>Apellidos</th>
-						<th>Seleccionar</th>
+						<th class="right">Seleccionar</th>
 					</tr>
 				</thead>
 				<tfoot>
 					<tr>
-	        			<td>
+	        			<td class="left">
 	        				<input placeholder="ID" class="form-control mb-2 mr-2" type="text" autocomplete="off">
 	        			</td>
 	        			<td>
@@ -27,8 +27,8 @@
 	        			</td>	                            			
 	        			<td>
 	        				<input placeholder="Apellidos" class="form-control mb-2 mr-2" type="text" autocomplete="off">
-	        			</td>
-	        			<td>
+	         			</td>
+	        			<td class="right">
 	        			</td>
 	        		</tr>
 	            </tfoot>
@@ -36,12 +36,12 @@
 	            <tbody>
 	                @foreach ($pacientes as $paciente)
 	                    <tr>
-	                    	<td class="table-text text-dark"><div>{{ $paciente->id_paciente }}</div></td>
+	                    	<td class="table-text text-dark left"><div>{{ $paciente->id_paciente }}</div></td>
 	                        <td class="table-text text-dark"><div>{{ $paciente->nombre }}</div></td>
 	                        <td class="table-text text-dark"><div>{{ $paciente->apellidos }}</div></td>
-							<td>
-								<a href=""} ><input type="button" class="btn btn-primary" value="Ver"/></a>
-								<a href=""} ><input type="button" class="btn btn-warning" value="Editar"/></a>
+							<td class="right">
+								<a href="{{ route('datospaciente', $paciente->id_paciente) }}" ><input type="button" class="btn btn-primary" value="Ver"/></a>
+								<a href="{{ route('datospaciente', $paciente->id_paciente) }}" ><input type="button" class="btn btn-warning" value="Editar"/></a>
 							</td>
 	                    </tr>
 	                @endforeach

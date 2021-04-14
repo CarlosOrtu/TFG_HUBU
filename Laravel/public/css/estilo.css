@@ -21,6 +21,10 @@ body{
   left: -10%;
 }
 
+.small {
+  font-size: 0.9rem;
+}
+
 .dropdown-toggle { outline: 0; }
 
 .btn-toggle-nav a {
@@ -28,6 +32,7 @@ body{
   padding: .1875rem .5rem;
   margin-top: .125rem;
   text-decoration: none;
+  margin-bottom: .25rem;
 }
 
 .btn-toggle {
@@ -42,7 +47,7 @@ body{
 .btn-toggle:hover,
 .btn-toggle:focus {
   color: rgba(0, 0, 0, .85);
-  background-color: #000000;
+  background-color: #03045E;
 }
 
 .btn-toggle.desplegable::before {
@@ -62,7 +67,7 @@ body{
 
 .btn-toggle-nav a:hover,
 .btn-toggle-nav a:focus {
-  background-color: #000000;
+  background-color: #03045E;
 }
 
 /* Login */
@@ -125,10 +130,11 @@ body{
 .input-group-text {
   background-color: #03045E; 
   border-color: #03045E; 
-  color: white;
+  color: #fafafa;
 }
 
 .form-control{
+  background-color: #fafafa;
   color: black;
   height: auto;
 }
@@ -139,7 +145,7 @@ body{
 
 /* Datatable */ 
 .dataTables_length select {
-    color: white;
+    color: #fafafa;
 }
 
 .dataTables_length option {
@@ -147,19 +153,19 @@ body{
 }
 
 #tablaPacientes_length {
-  color: white;
+  color: #fafafa;
 }
 
 #tablaPacientes_info {
-  color: white;
+  color: #fafafa;
 }
 
 #tablaPacientes_previous {
-  color: white;
+  color: #fafafa;
 }
 
 #tablaPacientes_next {
-  color: white;
+  color: #fafafa;
 }
 
 #tablaPacientes tfoot {
@@ -167,12 +173,27 @@ body{
     background-color: #9198e5;
 }
 
-#tablaPacientes thead {
-    display: table-header-group;
+.table-dark {
     background-color: #03045E;
+    border-radius: 1rem;
 }
 
 #tablaPacientes_filter {
   display: none;
 }
 
+table.dataTable tbody tr{
+  background-color: #fafafa;
+}
+
+table.dataTable thead tr th{
+  border-top-width: 0px !important;
+}
+
+.left {
+  border-left-width: 0px !important;
+}
+
+.right {
+  border-right-width: 0px !important  ;
+}
