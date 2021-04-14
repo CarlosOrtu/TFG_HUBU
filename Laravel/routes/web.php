@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PacientesController;
 use App\Http\Controllers\AdministradorController;
 use App\Http\Controllers\DatosPersonalesController;
+use App\Http\Controllers\DatosPacienteController;
 
 
 //Rutas de login y logout
@@ -34,7 +35,9 @@ Route::post('/nuevo/usuario', [AdministradorController::class, 'crearNuevoUsuari
 Route::get('/modificar/usuario/{id}', [AdministradorController::class, 'verModificarUsuario'])->name('modificarusuario');
 Route::put('/modificar/usuario/{id}', [AdministradorController::class, 'modificarUsuario']);
 
-
+//Rutas de visualización de datos de un paciente
+Route::get('/paciente/{id}', [DatosPacienteController::class , 'verPaciente'])->name('datospaciente');
+Route::put('/paciente/{id}', [DatosPacienteController::class , 'cambiarDatosPaciente']);
 
 
 
