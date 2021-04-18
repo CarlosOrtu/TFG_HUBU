@@ -3,7 +3,7 @@
 @section('content')
 <form method="POST">
     @CSRF
-    <div class="col-md-7 pl-0">
+    <div class="col-md-12 pl-0">
         <h1 class="text-white text-center panel-title">Añadir usuario</h1>
         <div class="my-4 input-group">
             <div class="input-group-prepend">

@@ -26,9 +26,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ asset('/css/estilo.css') }}" rel="stylesheet">
-
-
+    <link href="{{ asset('/css/estilo.css?v=0.4') }}" rel="stylesheet">
 </head>
 <body>
   <div id="app">
@@ -59,28 +57,28 @@
     @if (Request::url() == route('pacientes') or Request::url() == route('nuevopaciente'))
     <div class="row mx-4 mt-4">
       @include('layouts.sidebarpacientes')
-      <main class="col-md-9 pr-0">
+      <main class="col-md-9">
         @yield('content')
       </main>
     </div>
     @elseif(Request::url() == route('usuarios') or Request::url() == route('nuevousuario') or Route::currentRouteName() == 'modificarusuario')
     <div class="row mx-4 mt-4">
       @include('layouts.sidebarusuarios')
-      <main class="col-md-9 pr-0">
+      <main class="col-md-9">
         @yield('content')
       </main>
     </div>     
     @elseif(Request::url() == route('datospersonales') or Request::url() == route('modificarcontrasena'))
     <div class="row mx-4 mt-4">
       @include('layouts.sidebardatospersonales')
-      <main class="col-md-9 pr-0">
+      <main class="col-md-9">
         @yield('content')
       </main>
     </div>    
     @else
     <div class="row mx-4 mt-4">
       @include('layouts.sidebarenfermedad')  
-      <main class="col-md-9 pr-0">
+      <main class="col-md-9">
           @yield('content')
       </main>
     </div>
@@ -93,9 +91,43 @@
     @endif
   </div>
   <script type="text/javascript">
+    var url = $(location).attr('pathname');
+    switch (true){
+      case /enfermedad/.test(url):
+        $('#menu2').addClass("show");
+        $('#boton2').attr("aria-expanded","true");
+        switch(true){
+          case /datosgenerales/.test(url):
+            $('#datosgenerales').focus();
+            break;
+          case /sintomas/.test(url):
+            $('#sintomas').focus();
+            break;
+          case /metastasis/.test(url):
+            $('#metastasis').focus();
+            break;
+          case /biomarcadores/.test(url):
+            $('#biomarcadores').focus();
+            break;
+          case /pruebas/.test(url):
+            $('#pruebas').focus();
+            break;
+          case /tecnicas/.test(url):
+            $('#tecnicas').focus();
+            break;
+          case /otrostumores/.test(url):
+            $('#otrostumores').focus();
+            break;
+        }
+        break;
+      default: 
+        $('#menu1').addClass("show");
+        $('#boton1').attr("aria-expanded","true"); 
+        break; 
+
+    }
     $(document).ready(function(){
         $(".btn.btn-toggle.text-white").click(function(event) {
-
             let id = "#" + this.id;
             var menu = $(id).attr("data-bs-target");
             if( $(menu).hasClass("show") ) {
