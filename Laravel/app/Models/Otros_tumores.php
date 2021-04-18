@@ -11,4 +11,5 @@ class Otros_tumores extends Model
 
     public $timestamps = false;
 	protected $table = 'otros_tumores';	
+	protected $primaryKey = 'id_tumor';
 }

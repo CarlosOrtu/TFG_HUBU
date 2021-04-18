@@ -11,4 +11,6 @@ class Metastasis extends Model
 
     public $timestamps = false;
 	protected $table = 'metastasis';	
+	protected $primaryKey = 'id_metastasis';
 }
+ 

@@ -4,11 +4,18 @@ body{
   margin: 0;
   background: linear-gradient(#03045E, #9198e5);
   background-attachment:fixed;
+  overflow-y: hidden;
 }
 
 /* Layout */
 #HUBU:before {
   content: attr(data-desktoptext);
+}
+
+main {
+  height: 85vh; 
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 @media (max-width: 480px) {
@@ -186,6 +193,10 @@ table.dataTable tbody tr{
   background-color: #fafafa;
 }
 
+table.dataTable.biomarcadores thead {
+  background-color: #03045E;
+}
+
 table.dataTable thead tr th{
   border-top-width: 0px !important;
 }
@@ -196,4 +207,9 @@ table.dataTable thead tr th{
 
 .right {
   border-right-width: 0px !important  ;
+}
+
+/*Prueba*/
+.oculto{
+  display: none;
 }

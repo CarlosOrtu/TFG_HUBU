@@ -11,4 +11,6 @@ class Biomarcadores extends Model
 
     public $timestamps = false;
 	protected $table = 'biomarcadores';	
+	protected $primaryKey = 'id_biomarcador';
+
 }

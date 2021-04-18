@@ -11,4 +11,5 @@ class Tecnicas_realizadas extends Model
 
     public $timestamps = false;
 	protected $table = 'tecnicas_realizadas';	
+	protected $primaryKey = 'id_tecnica';
 }

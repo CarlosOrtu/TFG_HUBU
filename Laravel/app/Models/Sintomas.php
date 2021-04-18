@@ -11,4 +11,6 @@ class Sintomas extends Model
 
     public $timestamps = false;
 	protected $table = 'sintomas';	
+	protected $primaryKey = 'id_sintoma';
+
 }

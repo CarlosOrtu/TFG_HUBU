@@ -7,7 +7,7 @@
         </button>
         <div class="collapse" id="menu1">
           <ul class="btn-toggle-nav list-unstyled ml-5 pb-1 small">
-            <li><a href="{{ route('datospaciente', $paciente->id_paciente) }}" class="text-white rounded">Paciente</a></li>
+            <li><a href="{{ route('datospaciente', $paciente->id_paciente) }}" class="text-white rounded">Datos personales</a></li>
           </ul>
         </div>
       </li>
@@ -18,12 +18,13 @@
         </button>
         <div class="collapse" id="menu2">
           <ul class="btn-toggle-nav list-unstyled ml-5 pb-1 small">
-            <li><a href="#" class="text-white rounded">Sintomas</a></li>
-            <li><a href="#" class="text-white rounded">Metastasis</a></li>
-            <li><a href="#" class="text-white rounded">Biomarcadores</a></li>
-            <li><a href="#" class="text-white rounded">Pruebas realizadas</a></li>
-            <li><a href="#" class="text-white rounded">Tecnicas realizadas</a></li>
-            <li><a href="#" class="text-white rounded">Otros tumores</a></li>
+            <li><a href="{{ route('datosenfermedad', $paciente->id_paciente) }}" id="datosgenerales" class="text-white rounded">Datos generales</a></li>
+            <li><a href="{{ route('datossintomas', $paciente->id_paciente) }}" id="sintomas" class="text-white rounded">Sintomas</a></li>
+            <li><a href="{{ route('metastasis', $paciente->id_paciente) }}" id="metastasis" class="text-white rounded">Metastasis</a></li>
+            <li><a href="{{ route('biomarcadores', $paciente->id_paciente) }}" class="text-white rounded">Biomarcadores</a></li>
+            <li><a href="{{ route('pruebas', $paciente->id_paciente) }}" id="pruebas" class="text-white rounded">Pruebas realizadas</a></li>
+            <li><a href="{{ route('tecnicas', $paciente->id_paciente)}}" id="tecnicas" class="text-white rounded">Tecnicas realizadas</a></li>
+            <li><a href="{{ route('otrostumores', $paciente->id_paciente) }}" id ="otrostumores" class="text-white rounded">Otros tumores</a></li>
           </ul>
         </div>
       </li>
