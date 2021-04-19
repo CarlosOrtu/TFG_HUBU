@@ -7,6 +7,7 @@ use App\Http\Controllers\AdministradorController;
 use App\Http\Controllers\DatosPersonalesController;
 use App\Http\Controllers\DatosPacienteController;
 use App\Http\Controllers\EnfermedadController;
+use App\Http\Controllers\AntecedentesController;
 
 
 //Rutas de login y logout
@@ -39,6 +40,7 @@ Route::put('/modificar/usuario/{id}', [AdministradorController::class, 'modifica
 //Rutas de visualización y modificación de datos de un paciente
 Route::get('/paciente/{id}', [DatosPacienteController::class , 'verPaciente'])->name('datospaciente');
 Route::put('/paciente/{id}', [DatosPacienteController::class , 'cambiarDatosPaciente']);
+
 //Rutas de visualización y modificación de datos de la enfermedad 
 Route::get('/paciente/{id}/enfermedad/datosgenerales', [EnfermedadController::class , 'verDatosEnfermedad'])->name('datosenfermedad');
 Route::put('/paciente/{id}/enfermedad/datosgenerales', [EnfermedadController::class , 'guardarDatosEnfermedad']);
@@ -72,3 +74,18 @@ Route::get('/paciente/{id}/enfermedad/biomarcadores', [EnfermedadController::cla
 Route::post('/paciente/{id}/enfermedad/biomarcadores', [EnfermedadController::class, 'guardarBiomarcadores']);
 Route::delete('/paciente/{id}/enfermedad/biomarcadores/{num_biomarcador}', [EnfermedadController::class, 'eliminarbiomarcadores'])->name('eliminarbiomarcador');
 
+//Rutas de visualización antecedentes medicos
+Route::get('/paciente/{id}/antecedentes/medicos', [AntecedentesController::class, 'verAntecedentesMedicos'])->name('antecedentesmedicos');
+Route::post('/paciente/{id}/antecedentes/medicos', [AntecedentesController::class, 'crearAntecedentesMedicos'])->name('antecedentemedicocrear');
+Route::put('/paciente/{id}/antecedentes/medicos/{num_antecendente_medico}', [AntecedentesController::class, 'modificarAntecedentesMedicos'])->name('antecedentemedicomodificar');
+Route::delete('/paciente/{id}/antecedentes/medicos/{num_antecendente_medico}', [AntecedentesController::class, 'eliminarAntecedentesMedicos'])->name('antecedentemedicoeliminar');
+//Rutas de visualización antecedentes oncologicos
+Route::get('/paciente/{id}/antecedentes/oncologicos', [AntecedentesController::class, 'verAntecedentesOncologicos'])->name('antecedentesoncologicos');
+Route::post('/paciente/{id}/antecedentes/oncologicos', [AntecedentesController::class, 'crearAntecedentesOncologicos'])->name('antecedenteoncologicocrear');
+Route::put('/paciente/{id}/antecedentes/oncologicos/{num_antecendente_oncologico}', [AntecedentesController::class, 'modificarAntecedentesOncologicos'])->name('antecedenteoncologicomodificar');
+Route::delete('/paciente/{id}/antecedentes/oncologicos/{num_antecendente_oncologico}', [AntecedentesController::class, 'eliminarAntecedentesOncologicos'])->name('antecedenteoncologicoeliminar');
+//Rutas de visualización antecedentes oncologicos
+Route::get('/paciente/{id}/antecedentes/familiares', [AntecedentesController::class, 'verAntecedentesFamiliares'])->name('antecedentesfamiliares');
+Route::post('/paciente/{id}/antecedentes/familiares', [AntecedentesController::class, 'crearAntecedentesFamiliares'])->name('antecedentefamiliarcrear');
+Route::put('/paciente/{id}/antecedentes/familiares/{num_antecendente_familiar}', [AntecedentesController::class, 'modificarAntecedentesFamiliares'])->name('antecedentefamiliarmodificar');
+Route::delete('/paciente/{id}/antecedentes/familiares/{num_antecendente_familiar}', [AntecedentesController::class, 'eliminarAntecedentesFamiliares'])->name('antecedentefamiliareliminar');
