@@ -38,12 +38,13 @@ class PacientesController extends Controller
         $validator = Validator::make($request->all(), [
             'nombre' => 'required',
             'apellidos' => 'required',
-            'nacimiento' => 'before:'.date('Y-m-d')
+            'nacimiento' => 'date|before:'.date('Y-m-d')
         ],
         [
         'required' => 'El campo :attribute no puede estar vacio',
         'same' => 'Las dos contraseñas deben coincidir',
-        'before' => 'Introduce una fecha valida'
+        'before' => 'Introduce una fecha valida',
+        'date' => 'Introduce una fecha valida',
         ]);
 
         return $validator;
