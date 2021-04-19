@@ -29,7 +29,7 @@ class CorreoUnico implements Rule
     public function passes($attribute, $value)
     {
         $usuario = Usuarios::where('email',$value)->first() ;
-        if(empty($id)){
+        if(empty($this->id)){
             return empty($usuario);
         }
         return !empty($usuario) and $usuario->id_usuario == $this->id;

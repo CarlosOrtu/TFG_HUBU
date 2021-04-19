@@ -20,12 +20,12 @@ class CreateEnfermedadesTable extends Migration
             $table->date('fecha_diagnostico');
             $table->integer('ECOG');
             $table->integer('T');
-            $table->integer('T_tamano');
+            $table->double('T_tamano',11,2);
             $table->integer('N');
             $table->string('N_afectacion');
-            $table->integer('M');
-            $table->integer('num_afec_metas');
-            $table->integer('TNM');
+            $table->string('M');
+            $table->string('num_afec_metas');
+            $table->string('TNM');
             $table->string('tipo_muestra');
             $table->string('histologia_tipo');
             $table->string('histologia_subtipo');

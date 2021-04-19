@@ -35,10 +35,13 @@ class PacientesController extends Controller
     //Metodo que valida si los datos del nuevo usuario son validos
     public function validarNuevoPaciente($request)
     { 
+        $seg = time();
+        $manana = strtotime("+1 day", $seg);
+        $manana = date("Y-m-d", $manana);
         $validator = Validator::make($request->all(), [
             'nombre' => 'required',
             'apellidos' => 'required',
-            'nacimiento' => 'date|before:'.date('Y-m-d')
+            'nacimiento' => 'date|before:'$manana
         ],
         [
         'required' => 'El campo :attribute no puede estar vacio',

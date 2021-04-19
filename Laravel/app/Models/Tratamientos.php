@@ -11,6 +11,7 @@ class Tratamientos extends Model
 
     public $timestamps = false;
 	protected $table = 'tratamientos';
+	protected $primaryKey = 'id_tratamiento';
 
 	public function Intenciones()
     {

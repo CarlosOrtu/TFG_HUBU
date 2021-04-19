@@ -14,7 +14,7 @@ class CreateSintomasTable extends Migration
     public function up()
     {
         Schema::create('sintomas', function (Blueprint $table) {
-            $table->id('id_sintomas');
+            $table->id('id_sintoma');
             $table->unsignedBigInteger('id_enfermedad');
             $table->string('tipo');
             $table->date('fecha_inicio')->nullable();

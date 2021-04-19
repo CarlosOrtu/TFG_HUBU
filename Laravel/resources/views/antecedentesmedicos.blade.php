@@ -26,7 +26,7 @@
       <div class="input-group-prepend">
           <span class="input-group-text">Tipo</span>
       </div>
-      <select name="tipo" id="tipo{{$i}}" class="tipo form-control">
+      <select name="tipo" class="tipo form-control">
         <option {{ $antecedente->tipo_antecedente == 'HTA' ? 'selected' : '' }}>HTA</option>
         <option {{ $antecedente->tipo_antecedente == 'DM' ? 'selected' : '' }}>DM</option>
         <option {{ $antecedente->tipo_antecedente == 'DL' ? 'selected' : '' }}>DL</option>
@@ -40,7 +40,7 @@
         <option {{ preg_match("/^Otro: /", $antecedente->tipo_antecedente) ? 'selected' : '' }}>Otro</option>
       </select>
     </div>
-    <div id="especificar{{$i}}" class="oculto ml-2 my-4 input-group">
+    <div class="oculto ml-2 my-4 input-group">
       <div class="input-group-prepend">
           <span class="input-group-text">Especificar tipo</span>
       </div>
@@ -73,7 +73,7 @@
       <div class="input-group-prepend">
           <span class="input-group-text">Tipo</span>
       </div>
-      <select name="tipo" class="tipo2 form-control">
+      <select name="tipo" class="tipo form-control">
         <option>HTA</option>
         <option>DM</option>
         <option>DL</option>
@@ -87,7 +87,7 @@
         <option>Otro</option>
       </select>
     </div>
-    <div id="especificar_nueva" class="oculto ml-2 my-4 input-group">
+    <div class="oculto ml-2 my-4 input-group">
       <div class="input-group-prepend">
           <span class="input-group-text">Especificar tipo</span>
       </div>
@@ -97,8 +97,5 @@
         <button type="submit" class="btn btn-primary">Guardar</button>
     </div>
 </form>
-<script type="text/javascript">
-  window.i = "<?php echo $i ?>"
-</script>
 <script src="{{ asset('/js/enfermedad.js') }}" type="text/javascript"></script>
 @endsection

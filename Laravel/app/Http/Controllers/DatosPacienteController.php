@@ -22,10 +22,13 @@ class DatosPacienteController extends Controller
 
     public function validarDatosModificarPaciente($request)
     {
+        $seg = time();
+        $manana = strtotime("+1 day", $seg);
+        $manana = date("Y-m-d", $manana);
         $validator = Validator::make($request->all(), [
             'nombre' => 'required',
             'apellidos' => 'required',
-            'nacimiento' => 'required|date|before:'.date('Y-m-d')
+            'nacimiento' => 'required|date|before:'.$manana
         ],
         [
         	'required' => 'El campo :attribute no puede estar vacio',

@@ -35,10 +35,13 @@ class EnfermedadController extends Controller
 
     public function validarDatosModificarEnfermedad($request)
     {
+        $seg = time();
+        $manana = strtotime("+1 day", $seg);
+        $manana = date("Y-m-d", $manana);
         if($request->histologia_subtipo != "Otro"){
             $validator = Validator::make($request->all(), [
-                'fecha_primera_consulta' => 'required|date|before:'.date('Y-m-d'),
-                'fecha_diagnostico' => 'required|date|before:'.date('Y-m-d'),
+                'fecha_primera_consulta' => 'required|date|before:'$manana,
+                'fecha_diagnostico' => 'required|date|before:'$manana,
                 'T_tamano' => 'required|gt:0',
             ],
             [
@@ -49,8 +52,8 @@ class EnfermedadController extends Controller
             ]);
         }else{
             $validator = Validator::make($request->all(), [
-                'fecha_primera_consulta' => 'required|date|before:'.date('Y-m-d'),
-                'fecha_diagnostico' => 'required|date|before:'.date('Y-m-d'),
+                'fecha_primera_consulta' => 'required|date|before:'$manana,
+                'fecha_diagnostico' => 'required|date|before:'$manana,
                 'T_tamano' => 'required|gt:0',
                 'histologia_subtipo_especificar' => 'required'
             ],
@@ -116,9 +119,12 @@ class EnfermedadController extends Controller
 
     public function validarDatosSintomas($request)
     {
+        $seg = time();
+        $manana = strtotime("+1 day", $seg);
+        $manana = date("Y-m-d", $manana);
         if($request->tipo != "Otro" and $request->tipo != "Dolor otra localización"){
             $validator = Validator::make($request->all(), [
-                'fecha_inicio' => 'required|before:'.date('Y-m-d'),
+                'fecha_inicio' => 'required|before:'$manana,
             ],
             [
             	'required' => 'El campo :attribute no puede estar vacio',
@@ -126,7 +132,7 @@ class EnfermedadController extends Controller
             ]);
         }else if($request->tipo == "Dolor otra localización"){
             $validator = Validator::make($request->all(), [
-                'fecha_inicio' => 'required|before:'.date('Y-m-d'),
+                'fecha_inicio' => 'required|before:'$manana,
                 'tipo_especificar_localizacion' => 'required|date',
             ],
             [
@@ -136,8 +142,8 @@ class EnfermedadController extends Controller
             ]);
         }else{
             $validator = Validator::make($request->all(), [
-                'fecha_inicio' => 'required|before:'.date('Y-m-d'),
-                'tipo_especificar' => 'required|date',
+                'fecha_inicio' => 'required|date|before:'$manana,
+                'tipo_especificar' => 'required',
             ],
             [
                 'required' => 'El campo :attribute no puede estar vacio',
@@ -197,7 +203,7 @@ class EnfermedadController extends Controller
 
         	return redirect()->route('datossintomas',$id)->with('success','Sintoma modificado correctamente');
         }catch(QueryException $e){
-            return redirect()->route('datossintomas',$id)->with('SQLerror','Introduce una fecha valida');
+            return redirect()->route('datossintomas',$id)->with('SQLerror','Introduce una fecha valida 2');
         }
     }
 

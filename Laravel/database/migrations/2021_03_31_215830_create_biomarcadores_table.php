@@ -18,6 +18,7 @@ class CreateBiomarcadoresTable extends Migration
             $table->unsignedBigInteger('id_enfermedad');
             $table->string('nombre');
             $table->string('tipo')->nullable();
+            $table->string('subtipo')->nullable();
             $table->foreign('id_enfermedad')->references('id_enfermedad')->on('enfermedades')->onDelete('cascade')->onUpdate('cascade');
         });
     }

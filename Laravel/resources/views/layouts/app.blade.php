@@ -135,6 +135,21 @@
             break;
         }
         break;
+      case /tratamientos/.test(url):
+        $('#menu4').addClass("show");
+        $('#boton4').attr("aria-expanded","true"); 
+        switch(true){
+          case /quimioterapia/.test(url):
+            $('#quimioterapia').focus();
+            break;
+          case /radioterapia/.test(url):
+            $('#radioterapia').focus();
+            break;
+          case /cirugia/.test(url):
+            $('#cirugia').focus();
+            break;
+        }
+        break;
       default: 
         $('#menu1').addClass("show");
         $('#boton1').attr("aria-expanded","true"); 

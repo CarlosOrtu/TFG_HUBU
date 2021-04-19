@@ -48,9 +48,9 @@
         </button>
         <div class="collapse" id="menu4">
           <ul class="btn-toggle-nav list-unstyled ml-5 pb-1 small">
-            <li><a href="#" class="rounded text-white">Quimioterapia</a></li>
-            <li><a href="#" class="text-white rounded">Radioterapia</a></li>
-            <li><a href="#" class="text-white rounded">Cirguia</a></li>
+            <li><a href="#" id="quimioterapia" class="rounded text-white">Quimioterapia</a></li>
+            <li><a href="#" id="radioterapia" class="text-white rounded">Radioterapia</a></li>
+            <li><a href="#" id="cirugia" class="text-white rounded">Cirguia</a></li>
             <li><a href="#" class="text-white rounded">Secuencia tratamientos</a></li>
           </ul>
         </div>

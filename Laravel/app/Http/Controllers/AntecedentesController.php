@@ -211,7 +211,7 @@ class AntecedentesController extends Controller
 	        }
 	    }
 
-        return redirect()->route('antecedentesfamiliares',$id)->with('success','Antecedente oncológico creado correctamente');
+        return redirect()->route('antecedentesfamiliares',$id)->with('success','Antecedente familiar creado correctamente');
     }
 
     public function modificarAntecedentesFamiliares(Request $request, $id, $num_antecendente_familiar)
@@ -266,6 +266,6 @@ class AntecedentesController extends Controller
         $antecedente = $antecedentes[$num_antecendente_familiar-1];
         $antecedente->delete();
 
-        return redirect()->route('antecedentesfamiliares',$id)->with('success','Antecedente oncológico eliminado correctamente');
+        return redirect()->route('antecedentesfamiliares',$id)->with('success','Antecedente familiar eliminado correctamente');
     }
 }

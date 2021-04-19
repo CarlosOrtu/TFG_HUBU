@@ -26,7 +26,7 @@
       <div class="input-group-prepend">
           <span class="input-group-text">Localización</span>
       </div>
-      <select name="localizacion" id="tipo{{$i}}" class="tipo form-control">
+      <select name="localizacion" class="tipo form-control">
         <option {{ $Metastasis->localizacion == 'Pulmón contralatera' ? 'selected' : '' }}>Pulmón contralatera</option>
         <option {{ $Metastasis->localizacion == 'Implantes pleurales' ? 'selected' : '' }}>Implantes pleurales</option>
         <option {{ $Metastasis->localizacion == 'Derrame pleural' ? 'selected' : '' }}>Derrame pleural</option>
@@ -48,7 +48,7 @@
         <option {{ preg_match("/^Otro: /", $Metastasis->localizacion) ? 'selected' : '' }}>Otro</option>
       </select>
     </div>
-    <div id="especificar{{$i}}" class="oculto ml-2 my-4 input-group">
+    <div class="oculto ml-2 my-4 input-group">
       <div class="input-group-prepend">
           <span class="input-group-text">Especificar <br>localización</span>
       </div>
@@ -81,7 +81,7 @@
       <div class="input-group-prepend">
           <span class="input-group-text">Localización</span>
       </div>
-      <select name="localizacion" class="tipo2 form-control">
+      <select name="localizacion" class="tipo form-control">
         <option>Pulmón contralatera</option>
         <option>Implantes pleurales</option>
         <option>Derrame pleural</option>
@@ -103,7 +103,7 @@
         <option>Otro</option>
       </select>
     </div>
-    <div id="especificar_nueva" class="oculto ml-2 my-4 input-group">
+    <div class="oculto ml-2 my-4 input-group">
       <div class="input-group-prepend">
           <span class="input-group-text">Especificar <br>localización</span>
       </div>
@@ -113,8 +113,5 @@
         <button type="submit" class="btn btn-primary">Guardar</button>
     </div>
 </form>
-<script type="text/javascript">
-  window.i = "<?php echo $i ?>"
-</script>
 <script src="{{ asset('/js/enfermedad.js') }}" type="text/javascript"></script>
 @endsection

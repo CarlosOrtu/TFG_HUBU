@@ -50,7 +50,7 @@
       <div class="input-group-prepend">
           <span class="input-group-text">Tipo sintoma</span>
       </div>
-      <select name="tipo" id="tipo{{$i}}" class="tipo form-control">
+      <select name="tipo" class="tipoDoble form-control">
         <option {{ $sintoma->tipo == 'Asintomático' ? 'selected' : '' }}>Asintomático</option>
         <option {{ $sintoma->tipo == 'Tos' ? 'selected' : '' }}>Tos</option>
         <option {{ $sintoma->tipo == 'Pérdida de peso' ? 'selected' : '' }}>Pérdida de peso</option>
@@ -65,17 +65,7 @@
         <option {{ $sintoma->tipo == 'Desconocido' ? 'selected' : '' }}>Desconocido</option>
       </select>
     </div> 
-    <div id="especificar_localizacion{{$i}}" class="oculto ml-2 my-4 input-group">
-      <div class="input-group-prepend">
-          <span class="input-group-text">Especificar <br>localización del <br>dolor</span>
-      </div>
-      @if(preg_match("/^Localización: /", $sintoma->tipo))
-      <input value="{{ substr($sintoma->tipo, 14) }}" name="tipo_especificar_localizacion" class="form-control" autocomplete="off">
-      @else
-      <input name="tipo_especificar_localizacion" class="form-control" autocomplete="off">
-      @endif
-    </div>
-    <div id="especificar{{$i}}" class="oculto ml-2 my-4 input-group">
+    <div class="oculto ml-2 my-4 input-group">
       <div class="input-group-prepend">
           <span class="input-group-text">Especificar <br>sintoma</span>
       </div>
@@ -83,6 +73,16 @@
       <input value="{{ substr($sintoma->tipo, 6) }}" name="tipo_especificar" class="form-control" autocomplete="off">
       @else
       <input name="tipo_especificar" class="form-control" autocomplete="off">
+      @endif
+    </div>
+    <div class="oculto ml-2 my-4 input-group">
+      <div class="input-group-prepend">
+          <span class="input-group-text">Especificar <br>localización del <br>dolor</span>
+      </div>
+      @if(preg_match("/^Localización: /", $sintoma->tipo))
+      <input value="{{ substr($sintoma->tipo, 14) }}" name="tipo_especificar_localizacion" class="form-control" autocomplete="off">
+      @else
+      <input name="tipo_especificar_localizacion" class="form-control" autocomplete="off">
       @endif
     </div>
     <div class="d-flex justify-content-center">
@@ -114,7 +114,7 @@
       <div class="input-group-prepend">
           <span class="input-group-text">Tipo sintoma</span>
       </div>
-      <select name="tipo" class="tipo2 form-control">
+      <select name="tipo" class="tipoDoble form-control">
         <option>Asintomático</option>
         <option>Tos</option>
         <option>Pérdida de peso</option>
@@ -129,25 +129,21 @@
         <option>Desconocido</option>
       </select>
     </div>
-    <div id="especificar_localizacion_nueva" class="ml-2 my-4 input-group">
-      <div class="input-group-prepend">
-          <span class="input-group-text">Especificar <br>localización del <br>dolor</span>
-      </div>
-      <input name="tipo_especificar_localizacion" class="form-control" autocomplete="off">
-    </div>
-    <div id="especificar_nueva" class="ml-2 my-4 input-group">
+    <div class="ml-2 my-4 input-group">
       <div class="input-group-prepend">
           <span class="input-group-text">Especificar <br>sintoma</span>
       </div>
       <input name="tipo_especificar" class="form-control" autocomplete="off">
     </div>
+    <div class="ml-2 my-4 input-group">
+      <div class="input-group-prepend">
+          <span class="input-group-text">Especificar <br>localización del <br>dolor</span>
+      </div>
+      <input name="tipo_especificar_localizacion" class="form-control" autocomplete="off">
+    </div>
     <div class="d-flex justify-content-center mb-4">
         <button type="submit" class="btn btn-primary">Guardar</button>
     </div>
 </form>
-
-<script type="text/javascript">
-  window.i = "<?php echo $i ?>"
-</script>
 <script src="{{ asset('/js/enfermedad.js') }}" type="text/javascript"></script>
 @endsection
