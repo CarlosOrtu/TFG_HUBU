@@ -175,34 +175,51 @@ class AntecedentesController extends Controller
     	return view('antecedentesfamiliares',['paciente' => $paciente]);
     }
 
+    public function validarDatosAntecedentesFamiliares($request)
+    {
+        $validator = Validator::make($request->all(), [
+            'familiar' => 'required',
+        ],
+        [
+            'required' => 'El campo :attribute no puede estar vacio',
+        ]);
+
+        return $validator;
+    }
+
     public function crearAntecedentesFamiliares(Request $request, $id)
     {
-    	/*
-        $validator = $this->validarDatosAntecedentesOncologicos($request);
+        $validator = $this->validarDatosAntecedentesFamiliares($request);
         if($validator->fails())
             return back()->withErrors($validator->errors())->withInput();
-		*/
         $antecedente = new Antecedentes_familiares();
 
         $antecedente->id_paciente = $id;
         $antecedente->familiar = $request->familiar;
         $antecedente->save();
-        foreach($request->enfermedad as $enfermedad){
-        	$enfermedadFamiliar = new Enfermedades_familiar();
-        	$enfermedadFamiliar->id_antecedente_f =  $antecedente->id_antecedente_f;
-        	$enfermedadFamiliar->tipo = $enfermedad;
-        	$enfermedadFamiliar->save();
-        }
+        $i = 0;
+        if(isset($request->enfermedades)){
+	        foreach($request->enfermedades as $enfermedad){
+	        	$enfermedadFamiliar = new Enfermedades_familiar();
+	        	$enfermedadFamiliar->id_antecedente_f =  $antecedente->id_antecedente_f;
+	        	if($enfermedad == "Otro"){
+	        		$enfermedadFamiliar->tipo = "Otro: ".$request->tipos_especificar[$i];
+	        		$i = $i + 1;
+	        	}else
+	        		$enfermedadFamiliar->tipo = $enfermedad;
+	        	$enfermedadFamiliar->save();
+	        }
+	    }
+
         return redirect()->route('antecedentesfamiliares',$id)->with('success','Antecedente oncológico creado correctamente');
     }
 
     public function modificarAntecedentesFamiliares(Request $request, $id, $num_antecendente_familiar)
     {
-    	/*
-        $validator = $this->validarDatosAntecedentesOncologicos($request);
+        $validator = $this->validarDatosAntecedentesFamiliares($request);
         if($validator->fails())
             return back()->withErrors($validator->errors())->withInput();
-        */
+      
         $usuario = Pacientes::find($id);
         //Obetenemos todos los antecendentes
         $antecedentes = $usuario->Antecedentes_familiares;
@@ -211,27 +228,32 @@ class AntecedentesController extends Controller
         $antecedente->familiar = $request->familiar;
         $antecedente->save();
         $i = 0;
+        $j = 0;
         $enfermedadesFamiliares = $antecedente->Enfermedades_familiar;
-        foreach($request->enfermedad as $enfermedad){
-        	if($i < count($enfermedadesFamiliares)){
-	        	$enfermedadFamiliar = $enfermedadesFamiliares[$i];
-	        	$enfermedadFamiliar->id_antecedente_f =  $antecedente->id_antecedente_f;
-		        if($enfermedad == "Otro")
-		            $enfermedadFamiliar->tipo = "Otro: ".$request->tipo_especificar[$i];
-		        else
-					$enfermedadFamiliar->tipo = $enfermedad;
-	        	$enfermedadFamiliar->save();
-	        }else{
-	        	$enfermedadFamiliar = new Enfermedades_familiar();
-        		$enfermedadFamiliar->id_antecedente_f =  $antecedente->id_antecedente_f;
-		        if($enfermedad == "Otro")
-		            $enfermedadFamiliar->tipo = "Otro: ".$request->tipo_especificar[$i];
-		        else
-					$enfermedadFamiliar->tipo = $enfermedad;
-        		$enfermedadFamiliar->save();
+        if(isset($request->enfermedades)){
+	        foreach($request->enfermedades as $enfermedad){
+	        	if($i < count($enfermedadesFamiliares)){
+		        	$enfermedadFamiliar = $enfermedadesFamiliares[$i];
+		        	$enfermedadFamiliar->id_antecedente_f =  $antecedente->id_antecedente_f;
+			        if($enfermedad == "Otro")
+			            $enfermedadFamiliar->tipo = "Otro: ".$request->tipos_especificar[$j];
+			        else
+						$enfermedadFamiliar->tipo = $enfermedad;
+		        	$enfermedadFamiliar->save();
+		        	$j = $j + 1;
+		        }else{
+		        	$enfermedadFamiliar = new Enfermedades_familiar();
+	        		$enfermedadFamiliar->id_antecedente_f =  $antecedente->id_antecedente_f;
+			        if($enfermedad == "Otro"){
+			            $enfermedadFamiliar->tipo = "Otro: ".$request->tipos_especificar[$j];
+			        	$j = $j + 1;
+			        }else
+						$enfermedadFamiliar->tipo = $enfermedad;
+	        		$enfermedadFamiliar->save();
+		        }
+	        	$i = $i + 1;
 	        }
-        	$i = $i + 1;
-        }
+	    }
 
         return redirect()->route('antecedentesfamiliares',$id)->with('success','Antecedente familiar modificado correctamente');
     }
