@@ -11,4 +11,5 @@ class Antecedentes_medicos extends Model
 
     public $timestamps = false;
 	protected $table = 'antecedentes_medicos';	
+	protected $primaryKey = 'id_antecedente_m';
 }
