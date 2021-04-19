@@ -11,4 +11,6 @@ class Antecedentes_oncologicos extends Model
 
     public $timestamps = false;
 	protected $table = 'antecedentes_oncologicos';	
+	protected $primaryKey = 'id_antecedente_o';
+
 }
