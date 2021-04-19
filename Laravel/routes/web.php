@@ -8,7 +8,7 @@ use App\Http\Controllers\DatosPersonalesController;
 use App\Http\Controllers\DatosPacienteController;
 use App\Http\Controllers\EnfermedadController;
 use App\Http\Controllers\AntecedentesController;
-
+use App\Http\Controllers\TratamientosController;
 
 //Rutas de login y logout
 Auth::routes(['register' => false,'reset' => false,'confirm' => false,'verify' => false]);
@@ -89,3 +89,9 @@ Route::get('/paciente/{id}/antecedentes/familiares', [AntecedentesController::cl
 Route::post('/paciente/{id}/antecedentes/familiares', [AntecedentesController::class, 'crearAntecedentesFamiliares'])->name('antecedentefamiliarcrear');
 Route::put('/paciente/{id}/antecedentes/familiares/{num_antecendente_familiar}', [AntecedentesController::class, 'modificarAntecedentesFamiliares'])->name('antecedentefamiliarmodificar');
 Route::delete('/paciente/{id}/antecedentes/familiares/{num_antecendente_familiar}', [AntecedentesController::class, 'eliminarAntecedentesFamiliares'])->name('antecedentefamiliareliminar');
+
+//Rutas de visualización radioterapida
+Route::get('/paciente/{id}/tratamientos/radioterapia',  [TratamientosController::class, 'verRadioterapia'])->name('radioterapias');
+Route::post('/paciente/{id}/tratamientos/radioterapia', [TratamientosController::class, 'crearRadioterapia'])->name('radioterapiacrear');
+Route::put('/paciente/{id}/tratamientos/radioterapia/{num_radioterapia}', [TratamientosController::class, 'modificarRadioterapia'])->name('radioterapiamodificar');
+Route::delete('/paciente/{id}/tratamientos/radioterapia/{num_radioterapia}', [TratamientosController::class, 'eliminarRadioterapia'])->name('radioterapiaeliminar');
