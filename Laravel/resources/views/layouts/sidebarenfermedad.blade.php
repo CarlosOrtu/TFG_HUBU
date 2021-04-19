@@ -35,9 +35,9 @@
         </button>
         <div class="collapse" id="menu3">
           <ul class="btn-toggle-nav list-unstyled ml-5 pb-1 small">
-            <li><a href="#" class="rounded text-white">Antecedentes médicos</a></li>
-            <li><a href="#" class="text-white rounded">Antecedentes oncológicos</a></li>
-            <li><a href="#" class="text-white rounded">Antecedentes familiares</a></li>
+            <li><a href="{{ route('antecedentesmedicos', $paciente->id_paciente) }}" id="antecedentes_medicos" class="rounded text-white">Antecedentes médicos</a></li>
+            <li><a href="{{ route('antecedentesoncologicos', $paciente->id_paciente) }}" id="antecedentes_oncologicos" class="text-white rounded">Antecedentes oncológicos</a></li>
+            <li><a href="{{ route('antecedentesfamiliares', $paciente->id_paciente) }}" id="antecedentes_familiares" class="text-white rounded">Antecedentes familiares</a></li>
           </ul>
         </div>
       </li>

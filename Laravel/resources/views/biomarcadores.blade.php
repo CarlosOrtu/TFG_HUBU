@@ -494,45 +494,43 @@
   <div class="panel-heading">
     <h1 class="text-white text-center panel-title">Listado de biomarcadores</h1>
     <div class=panel-body>
-      <div class="table-responsive">
-        <table class="table dataTable biomarcadores">
-          <thead class="text-white">
+      <table class="table dataTable biomarcadores">
+        <thead class="text-white">
+          <tr>
+            <th class="left">Nombre</th>
+            <th>Tipo</th>
+            <th>Subtipo</th>
+            <th class="right">Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach ($biomarcadores as $biomarcador)
+          <form action="{{ route('eliminarbiomarcador', ['id' => $paciente->id_paciente, 'num_biomarcador' => $i]) }}" method="post">
+          @CSRF
+          @method('delete')
             <tr>
-              <th class="left">Nombre</th>
-              <th>Tipo</th>
-              <th>Subtipo</th>
-              <th class="right">Eliminar</th>
+              <td class="table-text text-dark left"><div>{{ $biomarcador->nombre }}</div></td>
+              @if(preg_match("/^Otro: /", $biomarcador->tipo) )
+              <td class="table-text text-dark"><div>{{ substr($biomarcador->tipo, 6) }}</div></td>
+              @else
+              <td class="table-text text-dark"><div>{{ $biomarcador->tipo }}</div></td>
+              @endif
+              @if(preg_match("/^Otro: /", $biomarcador->subtipo) )
+              <td class="table-text text-dark"><div>{{ substr($biomarcador->subtipo, 6) }}</div></td>
+              @else
+              <td class="table-text text-dark"><div>{{ $biomarcador->subtipo }}</div></td>
+              @endif
+              <td class="right">
+                <button type="submit" class="btn btn-primary">Eliminar</button>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            @foreach ($biomarcadores as $biomarcador)
-            <form action="{{ route('eliminarbiomarcador', ['id' => $paciente->id_paciente, 'num_biomarcador' => $i]) }}" method="post">>
-            @CSRF
-            @method('delete')
-              <tr>
-                <td class="table-text text-dark left"><div>{{ $biomarcador->nombre }}</div></td>
-                @if(preg_match("/^Otro: /", $biomarcador->tipo) )
-                <td class="table-text text-dark"><div>{{ substr($biomarcador->tipo, 6) }}</div></td>
-                @else
-                <td class="table-text text-dark"><div>{{ $biomarcador->tipo }}</div></td>
-                @endif
-                @if(preg_match("/^Otro: /", $biomarcador->subtipo) )
-                <td class="table-text text-dark"><div>{{ substr($biomarcador->subtipo, 6) }}</div></td>
-                @else
-                <td class="table-text text-dark"><div>{{ $biomarcador->subtipo }}</div></td>
-                @endif
-                <td class="right">
-                  <button type="submit" class="btn btn-primary">Eliminar</button>
-                </td>
-              </tr>
-              <?php
-                  $i = $i + 1;
-              ?>
-            </form>
-            @endforeach
-          </tbody>
-        </table>
-      </div>
+            <?php
+                $i = $i + 1;
+            ?>
+          </form>
+          @endforeach
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

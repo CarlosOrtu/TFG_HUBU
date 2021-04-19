@@ -11,4 +11,6 @@ class Enfermedades_familiar extends Model
 
     public $timestamps = false;
 	protected $table = 'enfermedades_familiar';	
+	protected $primaryKey = 'id_enfermedad_f';
+
 }
