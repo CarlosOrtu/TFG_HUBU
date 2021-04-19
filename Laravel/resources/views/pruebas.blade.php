@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+ 
 @section('content')
 <h1 class="text-white text-center panel-title">Pruebas</h1>
 @if ($message = Session::get('success'))
@@ -8,11 +8,17 @@
     <strong class="text-center text-dark">{{ $message }}</strong>
 </div>
 @endif
+@error('tipo_especificar')
+<div class="alert alert-danger alert-block">
+    <button type="button" class="text-dark close" data-dismiss="alert">x</button>
+    <strong class="text-center text-dark">{{ $message }}</strong>
+</div>
+@endif
 <?php
-    $i = 0;
+    $i = 1;
 ?>
 @foreach ($paciente->Enfermedad->Pruebas_realizadas as $prueba)
-<form action="{{ route('biomarcadores', ['id' => $paciente->id_paciente, 'num_prueba' => $i]) }}" method="post">
+<form action="{{ route('pruebasmodificar', ['id' => $paciente->id_paciente, 'num_prueba' => $i]) }}" method="post">
     @CSRF
     @method('put')
     <h4 class="text-white panel-title">Prueba {{ $i }}</h4>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('content')
+@section('content') 
 <form action="{{ route('datosenfermedad', ['id' => $paciente->id_paciente]) }}" method="post">
     @CSRF
     @method('put')
@@ -8,6 +8,12 @@
     @if ($message = Session::get('success'))
     <div class="alert alert-success alert-block">
         <button type="button" class="text-white close" data-dismiss="alert">x</button>
+        <strong class="text-center text-dark">{{ $message }}</strong>
+    </div>
+    @endif
+    @if ($message = Session::get('SQLerror'))
+    <div class="alert alert-danger alert-block">
+        <button type="button" class="text-dark close" data-dismiss="alert">x</button>
         <strong class="text-center text-dark">{{ $message }}</strong>
     </div>
     @endif
@@ -252,13 +258,14 @@
                   <option>Indiferenciado</option>
                 </select>
                 @endif
+
             </div>
             <div class="my-4 input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Subtipo de <br>histología</span>
                 </div>
                 @if(!empty($paciente->enfermedad))
-                <select id="histologia_subtipo" name="histologia_subtipo" class="form-control">
+                <select id="histologia_subtipo" name="histologia_subtipo" class="@error('histologia_subtipo_especificar') is-invalid @enderror form-control">
                   <option {{ $paciente->enfermedad->histologia_subtipo == 'Desconocido' ? 'selected' : '' }}>Desconocido</option>
                   <option {{ $paciente->enfermedad->histologia_subtipo == 'Acinar' ? 'selected' : '' }}>Acinar</option>
                   <option {{ $paciente->enfermedad->histologia_subtipo == 'Lepidico' ? 'selected' : '' }}>Lepidico</option>
@@ -270,7 +277,7 @@
                   <option {{ !in_array($paciente->enfermedad->histologia_subtipo, ['Acinar','Lepidico','Papilar','Micropapilar','Solido','Mucinoso','Celulas claras']) ? 'selected' : '' }}>Otro</option>
                 </select>
                 @else
-                <select id="histologia_subtipo" name="histologia_subtipo" class="form-control">
+                <select id="histologia_subtipo" name="histologia_subtipo" class="@error('histologia_subtipo_especificar') is-invalid @enderror form-control">
                   <option>Desconocido</option>
                   <option>Acinar</option>
                   <option>Lepidico</option>
@@ -282,6 +289,11 @@
                   <option>Otro</option>
                 </select>
                 @endif
+                @error('histologia_subtipo_especificar')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror  
             </div>
             <div id="especificar" class="ml-4 my-4 input-group">
                 <div class="input-group-prepend">

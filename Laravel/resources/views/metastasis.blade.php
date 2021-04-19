@@ -8,8 +8,14 @@
     <strong class="text-center text-dark">{{ $message }}</strong>
 </div>
 @endif
+@error('localizacion_especificar')
+<div class="alert alert-danger alert-block">
+    <button type="button" class="text-dark close" data-dismiss="alert">x</button>
+    <strong class="text-center text-dark">{{ $message }}</strong>
+</div>
+@endif
 <?php
-    $i = 0;
+    $i = 1;
 ?>
 @foreach ($paciente->Enfermedad->Metastasis as $Metastasis)
 <form action="{{ route('metastasismodificar', ['id' => $paciente->id_paciente, 'num_metastasis' => $i]) }}" method="post">

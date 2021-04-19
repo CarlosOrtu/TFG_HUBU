@@ -120,6 +120,21 @@
             break;
         }
         break;
+      case /antecedentes/.test(url):
+        $('#menu3').addClass("show");
+        $('#boton3').attr("aria-expanded","true"); 
+        switch(true){
+          case /medicos/.test(url):
+            $('#antecedentes_medicos').focus();
+            break;
+          case /oncologicos/.test(url):
+            $('#antecedentes_oncologicos').focus();
+            break;
+          case /familiares/.test(url):
+            $('#antecedentes_familiares').focus();
+            break;
+        }
+        break;
       default: 
         $('#menu1').addClass("show");
         $('#boton1').attr("aria-expanded","true"); 

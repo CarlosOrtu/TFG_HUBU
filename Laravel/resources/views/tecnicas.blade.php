@@ -8,8 +8,14 @@
     <strong class="text-center text-dark">{{ $message }}</strong>
 </div>
 @endif
+@error('tipo_especificar')
+<div class="alert alert-danger alert-block">
+    <button type="button" class="text-dark close" data-dismiss="alert">x</button>
+    <strong class="text-center text-dark">{{ $message }}</strong>
+</div>
+@endif
 <?php
-    $i = 0;
+    $i = 1;
 ?>
 @foreach ($paciente->Enfermedad->Tecnicas_realizadas as $tecnica)
 <form action="{{ route('tecnicasmodificar', ['id' => $paciente->id_paciente, 'num_tecnica' => $i]) }}" method="post">

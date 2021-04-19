@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+ 
 @section('content')
 <h1 class="text-white text-center panel-title">Sintomas</h1>
 @if ($message = Session::get('success'))
@@ -26,8 +26,14 @@
     <strong class="text-center text-dark">{{ $message }}</strong>
 </div>
 @endif
+@if ($message = Session::get('SQLerror'))
+<div class="alert alert-danger alert-block">
+    <button type="button" class="text-dark close" data-dismiss="alert">x</button>
+    <strong class="text-center text-dark">{{ $message }}</strong>
+</div>
+@endif
 <?php
-    $i = 0;
+    $i = 1;
 ?>
 @foreach ($paciente->Enfermedad->Sintomas as $sintoma)
 <form action="{{ route('datossintomasmodificar', ['id' => $paciente->id_paciente, 'num_sintoma' => $i]) }}" method="post">
