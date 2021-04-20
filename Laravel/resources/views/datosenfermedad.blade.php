@@ -4,7 +4,11 @@
 <form action="{{ route('datosenfermedad', ['id' => $paciente->id_paciente]) }}" method="post">
     @CSRF
     @method('put')
-    <h1 class="text-white text-center panel-title">Datos enfermedad</h1>
+    <div class="d-flex justify-content-between mb-4">
+        <h6 class="align-self-end text-white">Paciente: {{ $paciente->nombre }}</h6>
+        <h1 class="align-self-center text-white panel-title">Datos enfermedad</h1>
+        <h6 class="align-self-end text-white">Ultima modificación: {{ $paciente->ultima_modificacion }}</h6>
+    </div>
     @if ($message = Session::get('success'))
     <div class="alert alert-success alert-block">
         <button type="button" class="text-white close" data-dismiss="alert">x</button>
@@ -265,7 +269,7 @@
                     <span class="input-group-text">Subtipo de <br>histología</span>
                 </div>
                 @if(!empty($paciente->enfermedad))
-                <select id="histologia_subtipo" name="histologia_subtipo" class="@error('histologia_subtipo_especificar') is-invalid @enderror form-control">
+                <select id="histologia_subtipo" name="histologia_subtipo" class="tipo @error('histologia_subtipo_especificar') is-invalid @enderror form-control">
                   <option {{ $paciente->enfermedad->histologia_subtipo == 'Desconocido' ? 'selected' : '' }}>Desconocido</option>
                   <option {{ $paciente->enfermedad->histologia_subtipo == 'Acinar' ? 'selected' : '' }}>Acinar</option>
                   <option {{ $paciente->enfermedad->histologia_subtipo == 'Lepidico' ? 'selected' : '' }}>Lepidico</option>
@@ -335,22 +339,5 @@
         <button id="boton_crearpaciente" type="submit" class="btn btn-primary">Guardar</button>
     </div>
 </form>
-<script type="text/javascript">
-$(document).ready(function(){
-    var subtipo = $('#histologia_subtipo').val();
-    if( subtipo == "Otro") {
-        $('#especificar').show();
-    }else{
-        $('#especificar').hide();
-    }
-    $( "#histologia_subtipo" ).change(function() {
-        var subtipo = $('#histologia_subtipo').val();
-        if( subtipo == "Otro") {
-            $('#especificar').show();
-        }else{
-            $('#especificar').hide();
-        }
-    });
-});
-</script>
+<script src="{{ asset('/js/especificar_otro.js') }}" type="text/javascript"></script>
 @endsection

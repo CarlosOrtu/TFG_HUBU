@@ -57,7 +57,7 @@ subtipo VARCHAR(20),
 dosis INT,
 localizacion VARCHAR(20),
 fecha_inicio DATE NOT NULL,
-fecha_fin DATE NOT NULL,
+fecha_fin DATE,
 FOREIGN KEY (id_paciente) REFERENCES pacientes(id_paciente) ) ENGINE=InnoDB;
 
 CREATE TABLE antecedentes_medicos(

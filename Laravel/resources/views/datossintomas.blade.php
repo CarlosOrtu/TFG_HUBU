@@ -1,7 +1,11 @@
 @extends('layouts.app')
  
 @section('content')
-<h1 class="text-white text-center panel-title">Sintomas</h1>
+<div class="d-flex justify-content-between mb-4">
+    <h6 class="align-self-end text-white">Paciente: {{ $paciente->nombre }}</h6>
+    <h1 class="align-self-center text-white panel-title">Datos síntomas</h1>
+    <h6 class="align-self-end text-white">Ultima modificación: {{ $paciente->ultima_modificacion }}</h6>
+</div>
 @if ($message = Session::get('success'))
 <div class="alert alert-success alert-block">
     <button type="button" class="text-dark close" data-dismiss="alert">x</button>
@@ -39,7 +43,7 @@
 <form action="{{ route('datossintomasmodificar', ['id' => $paciente->id_paciente, 'num_sintoma' => $i]) }}" method="post">
     @CSRF
     @method('put')
-    <h4 class="text-white panel-title">Sintoma {{ $i }}</h4>
+    <h4 class="text-white panel-title">Síntoma {{ $i }}</h4>
     <div class="my-4 input-group">
       <div class="input-group-prepend">
           <span class="input-group-text">Fecha inicio</span>
@@ -48,7 +52,7 @@
     </div>
     <div class="my-4 input-group">
       <div class="input-group-prepend">
-          <span class="input-group-text">Tipo sintoma</span>
+          <span class="input-group-text">Tipo síntoma</span>
       </div>
       <select name="tipo" class="tipoDoble form-control">
         <option {{ $sintoma->tipo == 'Asintomático' ? 'selected' : '' }}>Asintomático</option>
@@ -67,7 +71,7 @@
     </div> 
     <div class="oculto ml-2 my-4 input-group">
       <div class="input-group-prepend">
-          <span class="input-group-text">Especificar <br>sintoma</span>
+          <span class="input-group-text">Especificar <br>síntoma</span>
       </div>
       @if(preg_match("/^Otro: /", $sintoma->tipo))
       <input value="{{ substr($sintoma->tipo, 6) }}" name="tipo_especificar" class="form-control" autocomplete="off">
@@ -103,7 +107,7 @@
 </div>
 <form id="nuevocampo" class="oculto" action="{{ route('datossintomascrear', ['id' => $paciente->id_paciente, 'num_sintoma' => 0]) }}" method="post">
     @CSRF
-    <h4 class="text-white panel-title">Nuevo sintoma</h4>
+    <h4 class="text-white panel-title">Nuevo síntoma</h4>
     <div class="my-4 input-group">
       <div class="input-group-prepend">
           <span class="input-group-text">Fecha inicio</span>
@@ -112,7 +116,7 @@
     </div>
     <div class="my-4 input-group">
       <div class="input-group-prepend">
-          <span class="input-group-text">Tipo sintoma</span>
+          <span class="input-group-text">Tipo síntoma</span>
       </div>
       <select name="tipo" class="tipoDoble form-control">
         <option>Asintomático</option>
@@ -131,7 +135,7 @@
     </div>
     <div class="ml-2 my-4 input-group">
       <div class="input-group-prepend">
-          <span class="input-group-text">Especificar <br>sintoma</span>
+          <span class="input-group-text">Especificar <br>síntoma</span>
       </div>
       <input name="tipo_especificar" class="form-control" autocomplete="off">
     </div>
@@ -145,5 +149,6 @@
         <button type="submit" class="btn btn-primary">Guardar</button>
     </div>
 </form>
-<script src="{{ asset('/js/enfermedad.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/js/nuevocampo.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/js/especificar_otro.js') }}" type="text/javascript"></script>
 @endsection

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+ 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Pacientes;
@@ -15,6 +15,12 @@ class AntecedentesController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public function actualizarfechaModificacionPaciente($paciente)
+    {
+        $paciente->ultima_modificacion = date("Y-m-d");
+        $paciente->save();
     }
     /******************************************************************
     *																  *
@@ -49,6 +55,8 @@ class AntecedentesController extends Controller
         if($validator->fails())
             return back()->withErrors($validator->errors())->withInput();
 
+        $paciente = Pacientes::find($id);
+
         $antecedente = new Antecedentes_medicos();
 
         $antecedente->id_paciente = $id;
@@ -58,6 +66,8 @@ class AntecedentesController extends Controller
             $antecedente->tipo_antecedente = $request->tipo;
         $antecedente->save();
 
+        $this->actualizarfechaModificacionPaciente($paciente);
+
         return redirect()->route('antecedentesmedicos',$id)->with('success','Antecedente médico creado correctamente');
     }
 
@@ -66,9 +76,11 @@ class AntecedentesController extends Controller
         $validator = $this->validarDatosAntecedentesMedicos($request);
         if($validator->fails())
             return back()->withErrors($validator->errors())->withInput();
-        $usuario = Pacientes::find($id);
+
+        $paciente = Pacientes::find($id);
+
         //Obetenemos todos los antecendentes
-        $antecedentes = $usuario->Antecedentes_medicos;
+        $antecedentes = $paciente->Antecedentes_medicos;
         $antecedente = $antecedentes[$num_antecendente_medico-1];
         $antecedente->id_paciente = $id;
         if($request->tipo == "Otro")
@@ -77,16 +89,21 @@ class AntecedentesController extends Controller
             $antecedente->tipo_antecedente = $request->tipo;
         $antecedente->save();
 
+        $this->actualizarfechaModificacionPaciente($paciente);
+
         return redirect()->route('antecedentesmedicos',$id)->with('success','Antecedente médico modificado correctamente');
     }
 
     public function eliminarAntecedentesMedicos($id, $num_antecendente_medico)
     {
-        $usuario = Pacientes::find($id);
+        $paciente = Pacientes::find($id);
+   
         //Obetenemos todas los antecedentes
-        $antecedentes = $usuario->Antecedentes_medicos;
+        $antecedentes = $paciente->Antecedentes_medicos;
         $antecedente = $antecedentes[$num_antecendente_medico-1];
         $antecedente->delete();
+
+        $this->actualizarfechaModificacionPaciente($paciente);
 
         return redirect()->route('antecedentesmedicos',$id)->with('success','Antecedente médico eliminado correctamente');
     }
@@ -123,6 +140,8 @@ class AntecedentesController extends Controller
         if($validator->fails())
             return back()->withErrors($validator->errors())->withInput();
 
+        $paciente = Pacientes::find($id);
+
         $antecedente = new Antecedentes_oncologicos();
 
         $antecedente->id_paciente = $id;
@@ -132,6 +151,8 @@ class AntecedentesController extends Controller
             $antecedente->tipo = $request->tipo;
         $antecedente->save();
 
+        $this->actualizarfechaModificacionPaciente($paciente);
+
         return redirect()->route('antecedentesoncologicos',$id)->with('success','Antecedente oncológico creado correctamente');
     }
 
@@ -140,9 +161,10 @@ class AntecedentesController extends Controller
         $validator = $this->validarDatosAntecedentesOncologicos($request);
         if($validator->fails())
             return back()->withErrors($validator->errors())->withInput();
-        $usuario = Pacientes::find($id);
+
+        $paciente = Pacientes::find($id);
         //Obetenemos todos los antecendentes
-        $antecedentes = $usuario->Antecedentes_oncologicos;
+        $antecedentes = $paciente->Antecedentes_oncologicos;
         $antecedente = $antecedentes[$num_antecendente_oncologico-1];
         $antecedente->id_paciente = $id;
         if($request->tipo == "Otro")
@@ -151,16 +173,20 @@ class AntecedentesController extends Controller
             $antecedente->tipo = $request->tipo;
         $antecedente->save();
 
+        $this->actualizarfechaModificacionPaciente($paciente);
+
         return redirect()->route('antecedentesoncologicos',$id)->with('success','Antecedente oncológico modificado correctamente');
     }
 
     public function eliminarAntecedentesOncologicos($id, $num_antecendente_oncologico)
     {
-        $usuario = Pacientes::find($id);
+        $paciente = Pacientes::find($id);
         //Obetenemos todas los antecedentes
-        $antecedentes = $usuario->Antecedentes_oncologicos;
+        $antecedentes = $paciente->Antecedentes_oncologicos;
         $antecedente = $antecedentes[$num_antecendente_oncologico-1];
         $antecedente->delete();
+
+        $this->actualizarfechaModificacionPaciente($paciente);
 
         return redirect()->route('antecedentesoncologicos',$id)->with('success','Antecedente oncológico eliminado correctamente');
     }
@@ -192,6 +218,9 @@ class AntecedentesController extends Controller
         $validator = $this->validarDatosAntecedentesFamiliares($request);
         if($validator->fails())
             return back()->withErrors($validator->errors())->withInput();
+
+        $paciente = Pacientes::find($id);
+
         $antecedente = new Antecedentes_familiares();
 
         $antecedente->id_paciente = $id;
@@ -211,6 +240,8 @@ class AntecedentesController extends Controller
 	        }
 	    }
 
+        $this->actualizarfechaModificacionPaciente($paciente);
+
         return redirect()->route('antecedentesfamiliares',$id)->with('success','Antecedente familiar creado correctamente');
     }
 
@@ -220,9 +251,9 @@ class AntecedentesController extends Controller
         if($validator->fails())
             return back()->withErrors($validator->errors())->withInput();
       
-        $usuario = Pacientes::find($id);
+        $paciente = Pacientes::find($id);
         //Obetenemos todos los antecendentes
-        $antecedentes = $usuario->Antecedentes_familiares;
+        $antecedentes = $paciente->Antecedentes_familiares;
         $antecedente = $antecedentes[$num_antecendente_familiar-1];
         $antecedente->id_paciente = $id;
         $antecedente->familiar = $request->familiar;
@@ -255,16 +286,20 @@ class AntecedentesController extends Controller
 	        }
 	    }
 
+        $this->actualizarfechaModificacionPaciente($paciente);
+
         return redirect()->route('antecedentesfamiliares',$id)->with('success','Antecedente familiar modificado correctamente');
     }
 
     public function eliminarAntecedentesFamiliares($id, $num_antecendente_familiar)
     {
-        $usuario = Pacientes::find($id);
+        $paciente = Pacientes::find($id);
         //Obetenemos todas los antecedentes
-        $antecedentes = $usuario->Antecedentes_familiares;
+        $antecedentes = $paciente->Antecedentes_familiares;
         $antecedente = $antecedentes[$num_antecendente_familiar-1];
         $antecedente->delete();
+
+        $this->actualizarfechaModificacionPaciente($paciente);
 
         return redirect()->route('antecedentesfamiliares',$id)->with('success','Antecedente familiar eliminado correctamente');
     }

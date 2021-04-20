@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<h1 class="text-white text-center panel-title">Metastasis</h1>
+<div class="d-flex justify-content-between mb-4">
+    <h6 class="align-self-end text-white">Paciente: {{ $paciente->nombre }}</h6>
+    <h1 class="align-self-center text-white panel-title">Metástasis</h1>
+    <h6 class="align-self-end text-white">Ultima modificación: {{ $paciente->ultima_modificacion }}</h6>
+</div>
 @if ($message = Session::get('success'))
 <div class="alert alert-success alert-block">
     <button type="button" class="text-dark close" data-dismiss="alert">x</button>
@@ -21,7 +25,7 @@
 <form action="{{ route('metastasismodificar', ['id' => $paciente->id_paciente, 'num_metastasis' => $i]) }}" method="post">
     @CSRF
     @method('put')
-    <h4 class="text-white panel-title">Metastasis {{ $i }}</h4>
+    <h4 class="text-white panel-title">Metástasis {{ $i }}</h4>
     <div class="my-4 input-group">
       <div class="input-group-prepend">
           <span class="input-group-text">Localización</span>
@@ -72,11 +76,11 @@
 ?>
 @endforeach
 <div class="mb-4 d-flex justify-content-strat">
-    <button id="boton_nuevocampo" class="btn btn-primary">Nueva metastasis</button>
+    <button id="boton_nuevocampo" class="btn btn-primary">Nueva metástasis</button>
 </div>
 <form id="nuevocampo" class="oculto" action="{{ route('metastasiscrear', ['id' => $paciente->id_paciente]) }}" method="post">
     @CSRF
-    <h4 class="text-white panel-title">Nueva metastasis</h4>
+    <h4 class="text-white panel-title">Nueva metástasis</h4>
     <div class="my-4 input-group">
       <div class="input-group-prepend">
           <span class="input-group-text">Localización</span>
@@ -113,5 +117,6 @@
         <button type="submit" class="btn btn-primary">Guardar</button>
     </div>
 </form>
-<script src="{{ asset('/js/enfermedad.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/js/nuevocampo.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/js/especificar_otro.js') }}" type="text/javascript"></script>
 @endsection

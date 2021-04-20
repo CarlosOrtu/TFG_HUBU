@@ -33,7 +33,7 @@ class Usuarios extends Authenticatable
     }
     
     public function username(){
-        return 'correo';
+        return 'email';
     }
     
 }

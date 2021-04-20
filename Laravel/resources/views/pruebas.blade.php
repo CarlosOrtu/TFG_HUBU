@@ -1,7 +1,11 @@
 @extends('layouts.app')
  
 @section('content')
-<h1 class="text-white text-center panel-title">Pruebas</h1>
+<div class="d-flex justify-content-between mb-4">
+    <h6 class="align-self-end text-white">Paciente: {{ $paciente->nombre }}</h6>
+    <h1 class="align-self-center text-white panel-title">Pruebas realizadas</h1>
+    <h6 class="align-self-end text-white">Ultima modificación: {{ $paciente->ultima_modificacion }}</h6>
+</div>
 @if ($message = Session::get('success'))
 <div class="alert alert-success alert-block">
     <button type="button" class="text-dark close" data-dismiss="alert">x</button>
@@ -95,5 +99,6 @@
         <button type="submit" class="btn btn-primary">Guardar</button>
     </div>
 </form>
-<script src="{{ asset('/js/enfermedad.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/js/nuevocampo.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/js/especificar_otro.js') }}" type="text/javascript"></script>
 @endsection

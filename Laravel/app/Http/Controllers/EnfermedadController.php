@@ -22,6 +22,12 @@ class EnfermedadController extends Controller
         $this->middleware('auth');
     }
 
+    public function actualizarfechaModificacionPaciente($paciente)
+    {
+        $paciente->ultima_modificacion = date("Y-m-d");
+        $paciente->save();
+    }
+
     /******************************************************************
     *																  *
     *	Datos enfermedad											  *
@@ -40,8 +46,8 @@ class EnfermedadController extends Controller
         $manana = date("Y-m-d", $manana);
         if($request->histologia_subtipo != "Otro"){
             $validator = Validator::make($request->all(), [
-                'fecha_primera_consulta' => 'required|date|before:'$manana,
-                'fecha_diagnostico' => 'required|date|before:'$manana,
+                'fecha_primera_consulta' => 'required|date|before:'.$manana,
+                'fecha_diagnostico' => 'required|date|before:'.$manana,
                 'T_tamano' => 'required|gt:0',
             ],
             [
@@ -52,13 +58,14 @@ class EnfermedadController extends Controller
             ]);
         }else{
             $validator = Validator::make($request->all(), [
-                'fecha_primera_consulta' => 'required|date|before:'$manana,
-                'fecha_diagnostico' => 'required|date|before:'$manana,
+                'fecha_primera_consulta' => 'required|date|before:'.$manana,
+                'fecha_diagnostico' => 'required|date|before:'.$manana,
                 'T_tamano' => 'required|gt:0',
                 'histologia_subtipo_especificar' => 'required'
             ],
             [
-                'required' => 'El campo :attribute no puede estar vacio',
+                'required' => 'El campo :attribute no puede est
+                ar vacio',
                 'before' => 'Introduce una fecha valida',
                 'gt' => 'El valor ha de ser mayor que 0',
                 'date' => 'Introduce una fecha valida',
@@ -99,6 +106,10 @@ class EnfermedadController extends Controller
 
         	$enfermedad->save();
 
+            $paciente = Pacientes::find($id);
+            $this->actualizarfechaModificacionPaciente($paciente);
+
+
         	return redirect()->route('datosenfermedad',$id)->with('success','Datos enfermedad guardados correctamente');
         }catch(QueryException $e){
             return redirect()->route('datosenfermedad',$id)->with('SQLerror','Introduce una fecha valida');
@@ -124,7 +135,7 @@ class EnfermedadController extends Controller
         $manana = date("Y-m-d", $manana);
         if($request->tipo != "Otro" and $request->tipo != "Dolor otra localización"){
             $validator = Validator::make($request->all(), [
-                'fecha_inicio' => 'required|before:'$manana,
+                'fecha_inicio' => 'required|before:'.$manana,
             ],
             [
             	'required' => 'El campo :attribute no puede estar vacio',
@@ -132,7 +143,7 @@ class EnfermedadController extends Controller
             ]);
         }else if($request->tipo == "Dolor otra localización"){
             $validator = Validator::make($request->all(), [
-                'fecha_inicio' => 'required|before:'$manana,
+                'fecha_inicio' => 'required|before:'.$manana,
                 'tipo_especificar_localizacion' => 'required|date',
             ],
             [
@@ -142,7 +153,7 @@ class EnfermedadController extends Controller
             ]);
         }else{
             $validator = Validator::make($request->all(), [
-                'fecha_inicio' => 'required|date|before:'$manana,
+                'fecha_inicio' => 'required|date|before:'.$manana,
                 'tipo_especificar' => 'required',
             ],
             [
@@ -175,6 +186,9 @@ class EnfermedadController extends Controller
             $sintoma->fecha_inicio = $request->fecha_inicio;    
             $sintoma->save();
 
+            $paciente = Pacientes::find($id);
+            $this->actualizarfechaModificacionPaciente($paciente);
+
             return redirect()->route('datossintomas',$id)->with('success','Sintoma creado correctamente');
         }catch(QueryException $e){
             return redirect()->route('datossintomas',$id)->with('SQLerror','Introduce una fecha valida');
@@ -201,6 +215,9 @@ class EnfermedadController extends Controller
         	$sintoma->fecha_inicio = $request->fecha_inicio;	
         	$sintoma->save();
 
+            $paciente = Pacientes::find($id);
+            $this->actualizarfechaModificacionPaciente($paciente);
+
         	return redirect()->route('datossintomas',$id)->with('success','Sintoma modificado correctamente');
         }catch(QueryException $e){
             return redirect()->route('datossintomas',$id)->with('SQLerror','Introduce una fecha valida 2');
@@ -214,6 +231,9 @@ class EnfermedadController extends Controller
         $sintomas = Enfermedad::find($idEnfermedad)->Sintomas;
         $sintoma = $sintomas[$num_sintoma-1];
   		$sintoma->delete();
+
+        $paciente = Pacientes::find($id);
+        $this->actualizarfechaModificacionPaciente($paciente);
 
   		return redirect()->route('datossintomas',$id)->with('success','Sintoma eliminado correctamente');
     }
@@ -261,6 +281,9 @@ class EnfermedadController extends Controller
             $metastasis->localizacion = $request->localizacion;
         $metastasis->save();
 
+        $paciente = Pacientes::find($id);
+        $this->actualizarfechaModificacionPaciente($paciente);
+
         return redirect()->route('metastasis',$id)->with('success','Metastasis creada correctamente');
     }
 
@@ -280,6 +303,9 @@ class EnfermedadController extends Controller
     		$metastasis->localizacion = $request->localizacion;
     	$metastasis->save();
 
+        $paciente = Pacientes::find($id);
+        $this->actualizarfechaModificacionPaciente($paciente);
+
     	return redirect()->route('metastasis',$id)->with('success','Metastasis modificada correctamente');
     }
 
@@ -291,6 +317,8 @@ class EnfermedadController extends Controller
         $metastasis = $metastasis[$num_metastasis-1];
   		$metastasis->delete();
 
+        $paciente = Pacientes::find($id);
+        $this->actualizarfechaModificacionPaciente($paciente);
   		return redirect()->route('metastasis',$id)->with('success','Metastasis eliminada correctamente');
     }
     /******************************************************************
@@ -336,6 +364,9 @@ class EnfermedadController extends Controller
             $prueba->tipo = $request->tipo;
         $prueba->save();
 
+        $paciente = Pacientes::find($id);
+        $this->actualizarfechaModificacionPaciente($paciente);
+
         return redirect()->route('pruebas',$id)->with('success','Prueba creada correctamente');
     }
 
@@ -355,6 +386,9 @@ class EnfermedadController extends Controller
             $prueba->tipo = $request->tipo;
         $prueba->save();
 
+        $paciente = Pacientes::find($id);
+        $this->actualizarfechaModificacionPaciente($paciente);
+
         return redirect()->route('pruebas',$id)->with('success','Prueba modificada correctamente');
     }
 
@@ -365,6 +399,9 @@ class EnfermedadController extends Controller
         $pruebas = Enfermedad::find($idEnfermedad)->Pruebas_realizadas;
         $prueba = $pruebas[$num_prueba-1];
         $prueba->delete();
+
+        $paciente = Pacientes::find($id);
+        $this->actualizarfechaModificacionPaciente($paciente);
 
         return redirect()->route('pruebas',$id)->with('success','Prueba eliminada correctamente');
     }
@@ -411,6 +448,9 @@ class EnfermedadController extends Controller
             $tecnica->tipo = $request->tipo;
         $tecnica->save();
 
+        $paciente = Pacientes::find($id);
+        $this->actualizarfechaModificacionPaciente($paciente);
+
         return redirect()->route('tecnicas',$id)->with('success','Tecnica creada correctamente');
     }
 
@@ -430,6 +470,9 @@ class EnfermedadController extends Controller
             $tecnica->tipo = $request->tipo;
         $tecnica->save();
 
+        $paciente = Pacientes::find($id);
+        $this->actualizarfechaModificacionPaciente($paciente);
+
         return redirect()->route('tecnicas',$id)->with('success','Tecnica modificada correctamente');
     }
 
@@ -440,6 +483,9 @@ class EnfermedadController extends Controller
         $tecnicas = Enfermedad::find($idEnfermedad)->Tecnicas_realizadas;
         $tecnica = $tecnicas[$num_tecnica-1];
         $tecnica->delete();
+
+        $paciente = Pacientes::find($id);
+        $this->actualizarfechaModificacionPaciente($paciente);
 
         return redirect()->route('tecnicas',$id)->with('success','Tecnica eliminada correctamente');
     }
@@ -486,6 +532,9 @@ class EnfermedadController extends Controller
             $tumor->tipo = $request->tipo;
         $tumor->save();
 
+        $paciente = Pacientes::find($id);
+        $this->actualizarfechaModificacionPaciente($paciente);
+
         return redirect()->route('otrostumores',$id)->with('success','Tumor creado correctamente');
     }
 
@@ -505,6 +554,9 @@ class EnfermedadController extends Controller
             $tumor->tipo = $request->tipo;
         $tumor->save();
 
+        $paciente = Pacientes::find($id);
+        $this->actualizarfechaModificacionPaciente($paciente);
+
         return redirect()->route('otrostumores',$id)->with('success','Tumor modificado correctamente');
     }
 
@@ -515,6 +567,9 @@ class EnfermedadController extends Controller
         $tumores = Enfermedad::find($idEnfermedad)->Otros_tumores;
         $tumor = $tumores[$num_otrostumores-1];
         $tumor->delete();
+
+        $paciente = Pacientes::find($id);
+        $this->actualizarfechaModificacionPaciente($paciente);
 
         return redirect()->route('otrostumores',$id)->with('success','Tumor eliminado correctamente');
     }
@@ -590,6 +645,10 @@ class EnfermedadController extends Controller
             }
             $i = $i + 1;
         }
+
+        $paciente = Pacientes::find($id);
+        $this->actualizarfechaModificacionPaciente($paciente);
+
         return redirect()->route('biomarcadores',$id)->with('success','Biomarcadores creados correctamente');
     }
 
@@ -600,6 +659,9 @@ class EnfermedadController extends Controller
         $biomarcadores = Enfermedad::find($idEnfermedad)->Biomarcadores;
         $biomarcador = $biomarcadores[$num_biomarcador];
         $biomarcador->delete();
+
+        $paciente = Pacientes::find($id);
+        $this->actualizarfechaModificacionPaciente($paciente);
 
         return redirect()->route('biomarcadores',$id)->with('success','Biomarcador eliminado correctamente');
     }

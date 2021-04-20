@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<h1 class="text-white text-center panel-title">Técnicas</h1>
+<div class="d-flex justify-content-between mb-4">
+    <h6 class="align-self-end text-white">Paciente: {{ $paciente->nombre }}</h6>
+    <h1 class="align-self-center text-white panel-title">Técnicas</h1>
+    <h6 class="align-self-end text-white">Ultima modificación: {{ $paciente->ultima_modificacion }}</h6>
+</div>
 @if ($message = Session::get('success'))
 <div class="alert alert-success alert-block">
     <button type="button" class="text-dark close" data-dismiss="alert">x</button>
@@ -60,11 +64,11 @@
 ?>
 @endforeach
 <div class="mb-4 d-flex justify-content-strat">
-    <button id="boton_nuevocampo" class="btn btn-primary">Nueva tecnica</button>
+    <button id="boton_nuevocampo" class="btn btn-primary">Nueva técnica</button>
 </div>
 <form id="nuevocampo" class="oculto" action="{{ route('tecnicascrear', ['id' => $paciente->id_paciente]) }}" method="post">
     @CSRF
-    <h4 class="text-white panel-title">Nueva tecnica</h4>
+    <h4 class="text-white panel-title">Nueva técnica</h4>
     <div class="my-4 input-group">
       <div class="input-group-prepend">
           <span class="input-group-text">Tipo</span>
@@ -89,5 +93,6 @@
         <button type="submit" class="btn btn-primary">Guardar</button>
     </div>
 </form>
-<script src="{{ asset('/js/enfermedad.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/js/nuevocampo.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/js/especificar_otro.js') }}" type="text/javascript"></script>
 @endsection

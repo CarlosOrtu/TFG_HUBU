@@ -5,7 +5,11 @@
     @CSRF
     @method('put')
     <div class="col-md-11 pl-0">
-        <h1 class="text-white text-center panel-title">Datos personales</h1>
+        <div class="d-flex justify-content-between mb-4">
+            <h6 class="align-self-end text-white">Paciente: {{ $paciente->nombre }}</h6>
+            <h1 class="align-self-center text-white panel-title">Datos paciente</h1>
+            <h6 class="align-self-end text-white">Ultima modificación: {{ $paciente->ultima_modificacion }}</h6>
+        </div>
         @if ($message = Session::get('SQLerror'))
         <div class="alert alert-danger alert-block">
             <button type="button" class="text-dark close" data-dismiss="alert">x</button>

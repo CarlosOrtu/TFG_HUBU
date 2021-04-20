@@ -69,6 +69,7 @@ class DatosPacienteController extends Controller
             }else{
                 $paciente->carcinogenos = null;  
             }
+            $paciente->ultima_modificacion = date("Y-m-d");
             //Guardamos los cambios en la base de datos a la base de datos
             $paciente->save();
 

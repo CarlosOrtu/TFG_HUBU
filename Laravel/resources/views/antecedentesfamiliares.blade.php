@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<h1 class="text-white text-center panel-title">Antecedentes familiares</h1>
+<div class="d-flex justify-content-between mb-4">
+    <h6 class="align-self-end text-white">Paciente: {{ $paciente->nombre }}</h6>
+    <h1 class="align-self-center text-white panel-title">Antecedentes familiares</h1>
+    <h6 class="align-self-end text-white">Ultima modificación: {{ $paciente->ultima_modificacion }}</h6>
+</div>
 @if ($message = Session::get('success'))
 <div class="alert alert-success alert-block">
     <button type="button" class="text-dark close" data-dismiss="alert">x</button>

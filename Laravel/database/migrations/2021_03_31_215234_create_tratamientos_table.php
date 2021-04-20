@@ -21,7 +21,7 @@ class CreateTratamientosTable extends Migration
             $table->integer('dosis')->nullable();
             $table->string('localizacion')->nullable();
             $table->date('fecha_inicio');
-            $table->date('fecha_fin');
+            $table->date('fecha_fin').>nullable();
             $table->foreign('id_paciente')->references('id_paciente')->on('pacientes')->onDelete('cascade')->onUpdate('cascade');
         });
     }

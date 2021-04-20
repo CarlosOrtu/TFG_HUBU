@@ -41,7 +41,7 @@ class PacientesController extends Controller
         $validator = Validator::make($request->all(), [
             'nombre' => 'required',
             'apellidos' => 'required',
-            'nacimiento' => 'date|before:'$manana
+            'nacimiento' => 'date|before:'.$manana
         ],
         [
         'required' => 'El campo :attribute no puede estar vacio',
@@ -74,6 +74,7 @@ class PacientesController extends Controller
             $nuevoPaciente->bebedor = $request->bebedor;
         if($request->carcinogenos != "desconocido")
             $nuevoPaciente->carcinogenos = $request->carcinogenos;
+        $nuevoPaciente->ultima_modificacion = date("Y-m-d");
         //Añadimos el paciente a la base de datos
         $nuevoPaciente->save();
 
