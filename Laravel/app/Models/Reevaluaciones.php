@@ -11,4 +11,6 @@ class Reevaluaciones extends Model
 
     public $timestamps = false;
 	protected $table = 'reevaluaciones';	
+	protected $primaryKey = 'id_reevaluacion';
+
 }

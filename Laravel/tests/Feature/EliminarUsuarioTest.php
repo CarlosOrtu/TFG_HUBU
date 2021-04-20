@@ -44,6 +44,7 @@ class EliminarUsuarioTest extends TestCase
         $response = $this->get('/administrar/usuarios')->assertSee('Listado de usuarios');
         //Comprobamos que se ve el usuario
         $usuarios = Usuarios::all();
+        
         $view = $this->view('usuarios', ['usuarios' => $usuarios]);
         $view->assertSee('999');
         $view->assertSee('UsuarioNombre');
@@ -54,9 +55,10 @@ class EliminarUsuarioTest extends TestCase
         $response->assertRedirect('/administrar/usuarios');
         //Comprobamos que el usuario este eliminado de la base de datos
         $usuario = Usuarios::find(999);
-        $this->assertTrue(empty($usuario));
+        $this->assertTrue(empty($usuario)); 
         //Comprobamos que el usuario no se vea
         $usuarios = Usuarios::all();
+        $response = $this->get('/administrar/usuarios');
         $view = $this->view('usuarios', ['usuarios' => $usuarios]);
         $view->assertDontSee('999');
         $view->assertDontSee('UsuarioNombre');

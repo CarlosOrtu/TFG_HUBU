@@ -15,6 +15,6 @@ class Tratamientos extends Model
 
 	public function Intenciones()
     {
-        return $this->hasOne(Intenciones::class);
+        return $this->hasOne(Intenciones::class,'id_tratamiento');
     }	
 }

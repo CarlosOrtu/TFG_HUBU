@@ -32,7 +32,7 @@ class CorreoUnico implements Rule
         if(empty($this->id)){
             return empty($usuario);
         }
-        return !empty($usuario) and $usuario->id_usuario == $this->id;
+        return (!empty($usuario) and $usuario->id_usuario == $this->id) or (empty($usuario));
     }
 
     /**

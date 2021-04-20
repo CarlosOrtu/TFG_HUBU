@@ -8,6 +8,7 @@ raza VARCHAR(20) NOT NULL,
 profesion VARCHAR(50) NOT NULL,
 fumador BOOLEAN,
 bebedor BOOLEAN,
+ultima_modificacion DATE,
 carcinógenos BOOLEAN ) ENGINE=InnoDB;
 
 CREATE TABLE enfermedades( 

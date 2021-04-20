@@ -56,6 +56,7 @@ class ModificarUsuarioTest extends TestCase
         $response->assertRedirect('/administrar/usuarios');
         //Comprobamos que en la vista usuarios se vea el usuario modificado
         $usuarios = Usuarios::all();
+        $response = $this->get('/administrar/usuarios');
         $view = $this->view('usuarios', ['usuarios' => $usuarios]);
         $view->assertSee('UsuarioModificado');
         $view->assertSee('ApellidoModificado Apellido2');
@@ -89,6 +90,7 @@ class ModificarUsuarioTest extends TestCase
         $response->assertRedirect('/modificar/usuario/999');
         //Comprobamos que en la vista usuarios no se vea el usuario modificado
         $usuarios = Usuarios::all();
+        $response = $this->get('/administrar/usuarios');
         $view = $this->view('usuarios', ['usuarios' => $usuarios]);
         $view->assertDontSee('ApellidoModificado Apellido2');
         //Comprobamos que el usuario este incluido en la base de datos
@@ -121,6 +123,7 @@ class ModificarUsuarioTest extends TestCase
         $response->assertRedirect('/modificar/usuario/999');
         //Comprobamos que en la vista usuarios no se vea el usuario modificado
         $usuarios = Usuarios::all();
+        $response = $this->get('/administrar/usuarios');
         $view = $this->view('usuarios', ['usuarios' => $usuarios]);
         $view->assertDontSee('UsuarioModificado');
         //Comprobamos que el usuario este incluido en la base de datos
@@ -153,6 +156,7 @@ class ModificarUsuarioTest extends TestCase
         $response->assertRedirect('/modificar/usuario/999');
         //Comprobamos que en la vista usuarios no se vea el usuario modificado
         $usuarios = Usuarios::all();
+        $response = $this->get('/administrar/usuarios');
         $view = $this->view('usuarios', ['usuarios' => $usuarios]);
         $view->assertDontSee('UsuarioModificado');
         $view->assertDontSee('ApellidoModificado Apellido2');
@@ -186,6 +190,7 @@ class ModificarUsuarioTest extends TestCase
         $response->assertRedirect('/modificar/usuario/999');
         //Comprobamos que en la vista usuarios no se vea el usuario modificado
         $usuarios = Usuarios::all();
+        $response = $this->get('/administrar/usuarios');
         $view = $this->view('usuarios', ['usuarios' => $usuarios]);
         $view->assertDontSee('UsuarioModificado');
         $view->assertDontSee('ApellidoModificado Apellido2');
@@ -219,6 +224,7 @@ class ModificarUsuarioTest extends TestCase
         $response->assertRedirect('/modificar/usuario/999');
         //Comprobamos que en la vista usuarios no se vea el usuario modificado
         $usuarios = Usuarios::all();
+        $response = $this->get('/administrar/usuarios');
         $view = $this->view('usuarios', ['usuarios' => $usuarios]);
         $view->assertDontSee('UsuarioModificado');
         $view->assertDontSee('ApellidoModificado Apellido2');

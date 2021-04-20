@@ -26,7 +26,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ asset('/css/estilo.css?v=0.4') }}" rel="stylesheet">
+    <link href="{{ asset('/css/estilo.css?v=0.5') }}" rel="stylesheet">
 </head>
 <body>
   <div id="app">
@@ -69,7 +69,7 @@
       </main>
     </div>     
     @elseif(Request::url() == route('datospersonales') or Request::url() == route('modificarcontrasena'))
-    <div class="row mx-4 mt-4">
+    <div class="row mx-4 mt-4"> 
       @include('layouts.sidebardatospersonales')
       <main class="col-md-9">
         @yield('content')
@@ -149,6 +149,10 @@
             $('#cirugia').focus();
             break;
         }
+        break;
+      case /reevaluaciones/.test(url):
+        $('#menu5').addClass("show");
+        $('#boton5').attr("aria-expanded","true"); 
         break;
       default: 
         $('#menu1').addClass("show");
