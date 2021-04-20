@@ -134,6 +134,7 @@ class TratamientosController extends Controller
         if($validator->fails())
             return back()->withErrors($validator->errors())->withInput();
 
+
         $antecedente = new Antecedentes_medicos();
 
         $antecedente->id_paciente = $id;
