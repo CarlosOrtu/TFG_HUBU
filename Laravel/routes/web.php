@@ -9,6 +9,7 @@ use App\Http\Controllers\DatosPacienteController;
 use App\Http\Controllers\EnfermedadController;
 use App\Http\Controllers\AntecedentesController;
 use App\Http\Controllers\TratamientosController;
+use App\Http\Controllers\ReevaluacionesController;
 
 //Rutas de login y logout
 Auth::routes(['register' => false,'reset' => false,'confirm' => false,'verify' => false]);
