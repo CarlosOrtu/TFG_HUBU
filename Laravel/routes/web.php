@@ -96,3 +96,20 @@ Route::get('/paciente/{id}/tratamientos/radioterapia',  [TratamientosController:
 Route::post('/paciente/{id}/tratamientos/radioterapia', [TratamientosController::class, 'crearRadioterapia'])->name('radioterapiacrear');
 Route::put('/paciente/{id}/tratamientos/radioterapia/{num_radioterapia}', [TratamientosController::class, 'modificarRadioterapia'])->name('radioterapiamodificar');
 Route::delete('/paciente/{id}/tratamientos/radioterapia/{num_radioterapia}', [TratamientosController::class, 'eliminarRadioterapia'])->name('radioterapiaeliminar');
+//Rutas de visualización radioterapida
+Route::get('/paciente/{id}/tratamientos/cirugia',  [TratamientosController::class, 'verCirugia'])->name('cirugias');
+Route::post('/paciente/{id}/tratamientos/cirugia', [TratamientosController::class, 'crearCirugia'])->name('cirugiacrear');
+Route::put('/paciente/{id}/tratamientos/cirugia/{num_cirugia}', [TratamientosController::class, 'modificarCirugia'])->name('cirugiamodificar');
+Route::delete('/paciente/{id}/tratamientos/cirugia/{num_cirugia}', [TratamientosController::class, 'eliminarCirugia'])->name('cirugiaeliminar');
+//Rutas de visualización quimioterapia
+Route::get('/paciente/{id}/tratamientos/quimioterapia',  [TratamientosController::class, 'verQuimioterapia'])->name('quimioterapias');
+Route::post('/paciente/{id}/tratamientos/quimioterapia', [TratamientosController::class, 'crearQuimioterapia'])->name('quimioterapiacrear');
+Route::put('/paciente/{id}/tratamientos/quimioterapia/{num_quimioterapia}', [TratamientosController::class, 'modificarQuimioterapia'])->name('quimioterapiamodificar');
+Route::delete('/paciente/{id}/tratamientos/quimioterapia/{num_quimioterapia}', [TratamientosController::class, 'eliminarQuimioterapia'])->name('quimioterapiaeliminar');
+
+//Rutas de visualización reevaluaciones
+Route::get('/paciente/{id}/reevaluaciones/nueva',  [ReevaluacionesController::class, 'verReevaluacionNueva'])->name('reevaluacionesnuevas');
+Route::post('/paciente/{id}/reevaluaciones/nueva',  [ReevaluacionesController::class, 'crearReevaluación'])->name('crearreevaluacion');
+Route::get('/paciente/{id}/reevaluaciones/modificar/{num_reevaluacion}',  [ReevaluacionesController::class, 'verReevaluacion'])->name('vermodificarreevaluacion');
+Route::put('/paciente/{id}/reevaluaciones/modificar/{num_reevaluacion}',  [ReevaluacionesController::class, 'modificarReevaluación'])->name('modificareevaluacion');
+Route::delete('/paciente/{id}/reevaluaciones/modificar/{num_reevaluacion}',  [ReevaluacionesController::class, 'eliminarReevaluación'])->name('eliminarreevaluacion');
