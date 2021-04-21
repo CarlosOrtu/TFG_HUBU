@@ -11,6 +11,8 @@ use App\Http\Controllers\AntecedentesController;
 use App\Http\Controllers\TratamientosController;
 use App\Http\Controllers\ReevaluacionesController;
 use App\Http\Controllers\SeguimientosController;
+use App\Http\Controllers\ComentariosController;
+
 
 //Rutas de login y logout
 Auth::routes(['register' => false,'reset' => false,'confirm' => false,'verify' => false]);
@@ -121,3 +123,10 @@ Route::post('/paciente/{id}/seguimientos/nuevo',  [SeguimientosController::class
 Route::get('/paciente/{id}/seguimientos/modificar/{num_seguimiento}',  [SeguimientosController::class, 'verSeguimiento'])->name('vermodificarseguimiento');
 Route::put('/paciente/{id}/seguimientos/modificar/{num_seguimiento}',  [SeguimientosController::class, 'modificarSeguimiento'])->name('modificarseguimiento');
 Route::delete('/paciente/{id}/seguimientos/modificar/{num_seguimiento}',  [SeguimientosController::class, 'eliminarSeguimiento'])->name('eliminarseguimiento');
+
+//Rutas de visualización reevaluaciones
+Route::get('/paciente/{id}/comentarios/nuevo',  [ComentariosController::class, 'verComentarioNuevo'])->name('comentarionuevo');
+Route::post('/paciente/{id}/comentarios/nuevo',  [ComentariosController::class, 'crearComentario'])->name('crearcomentario');
+Route::get('/paciente/{id}/comentarios/modificar/{num_comentario}',  [ComentariosController::class, 'verComentario'])->name('vermodificarcomentario');
+Route::put('/paciente/{id}/comentarios/modificar/{num_comentario}',  [ComentariosController::class, 'modificarComentario'])->name('modificarcomentario');
+Route::delete('/paciente/{id}/comentarios/modificar/{num_comentario}',  [ComentariosController::class, 'eliminarComentario'])->name('eliminarcomentario');
