@@ -141,3 +141,9 @@ id_farmaco INT PRIMARY KEY NOT NULL,
 id_intencion INT NOT NULL,
 tipo VARCHAR(20) NOT NULL,
 FOREIGN KEY (id_intencion) REFERENCES intenciones(id_intencion) ) ENGINE=InnoDB;
+
+CREATE TABLE comentarios(
+id_comentario INT PRIMARY KEY NOT NULL,
+id_paciente INT NOT NULL,
+comentario TEXT NOT NULL,
+FOREIGN KEY (id_paciente) REFERENCES pacientes(id_paciente) ) ENGINE=InnoDB;
