@@ -525,7 +525,7 @@
               <td class="table-text text-dark"><div>{{ $biomarcador->subtipo }}</div></td>
               @endif
               <td class="right">
-                <button type="submit" class="btn btn-primary">Eliminar</button>
+                <button type="submit" class="btn btn-warning">Eliminar</button>
               </td>
             </tr>
             <?php

@@ -70,7 +70,7 @@
       $j = $j + 1;
     ?>
     @endforeach
-  <button id="" type="button" anadir="#anadirmodificar{{$i}}" class="btn-anadir btn btn-primary mb-4">Añadir cancer</button>
+  <button type="button" anadir="#anadirmodificar{{$i}}" class="btn-anadir btn btn-info mb-4">Añadir cancer</button>
     <div class="d-flex justify-content-center">
       <button type="submit" class="btn btn-primary">Modificar</button>
 </form>
@@ -83,9 +83,10 @@
 <?php
   $i = $i + 1;
 ?>
+<div class="my-4 dropdown-divider"></div>
 @endforeach
 <div class="mb-4 d-flex justify-content-strat">
-    <button id="boton_nuevocampo" type="button" class="btn btn-primary">Nuevo familiar</button>
+    <button id="boton_nuevocampo" type="button" class="btn btn-info">Nuevo familiar</button>
 </div>
 <form id="nuevocampo" class="oculto" action="{{ route('antecedentefamiliarcrear', ['id' => $paciente->id_paciente]) }}" method="post">
     @CSRF
@@ -96,7 +97,7 @@
       </div>
       <input name="familiar" class="form-control" autocomplete="off">
     </div>
-    <button type="button" class="btn-anadir btn btn-primary">Añadir cancer</button>
+    <button type="button" class="btn-anadir btn btn-info">Añadir cancer</button>
     <div class="d-flex justify-content-center mb-4">
         <button type="submit" class="btn btn-primary">Guardar</button>
     </div>

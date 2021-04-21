@@ -26,12 +26,12 @@
 
     <!-- Styles -->
     <link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ asset('/css/estilo.css?v=0.5') }}" rel="stylesheet">
+    <link href="{{ asset('/css/estilo.css?v=0.1') }}" rel="stylesheet">
 </head>
 <body>
   <div id="app">
     @if(Auth::check())
-    <nav class="border navbar rounded navbar-expand-md navbar-light bg-transparent mt-4 mx-4 shadow-sm">
+    <nav class="navbar-hubu border navbar rounded navbar-expand-md navbar-light mt-4 mx-4 shadow-sm">
       <div class="container mx-0">
         <ul class="navbar-nav mr-auto">
           <a id="HUBU" data-phonetext="HUBU" data-desktoptext="Hospitar universitario de Burgos" class="navbar-brand text-white" href="{{ route('pacientes') }}"></a>
@@ -153,6 +153,14 @@
       case /reevaluaciones/.test(url):
         $('#menu5').addClass("show");
         $('#boton5').attr("aria-expanded","true"); 
+        break;
+      case /seguimientos/.test(url):
+        $('#menu6').addClass("show");
+        $('#boton6').attr("aria-expanded","true"); 
+        break;
+      case /comentarios/.test(url):
+        $('#menu7').addClass("show");
+        $('#boton7').attr("aria-expanded","true"); 
         break;
       default: 
         $('#menu1').addClass("show");

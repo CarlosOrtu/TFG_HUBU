@@ -1,6 +1,6 @@
 <div class="col-md-3 pl-0 mt-4">
   <ul class="navbar-nav ml-auto justify-content-end pr-5">
-    <div class="border rounded p-3 bg-transparent">
+    <div class="sidebar-hubu border rounded p-3">
       <li class="mb-1">
         <button class="btn btn-toggle text-white desplegable" id="boton1" data-bs-toggle="collapse" data-bs-target="#menu1" aria-expanded="false">
           Paciente
@@ -48,7 +48,7 @@
         </button>
         <div class="collapse" id="menu4">
           <ul class="btn-toggle-nav list-unstyled ml-5 pb-1 small">
-            <li><a href="#" id="quimioterapia" class="rounded text-white">Quimioterapia</a></li>
+            <li><a href="{{ route('quimioterapias', $paciente->id_paciente) }}" id="quimioterapia" class="rounded text-white">Quimioterapia</a></li>
             <li><a href="{{ route('radioterapias', $paciente->id_paciente) }}" id="radioterapia" class="text-white rounded">Radioterapia</a></li>
             <li><a href="{{ route('cirugias', $paciente->id_paciente) }}" id="cirugia" class="text-white rounded">Cirugía</a></li>
             <li><a href="#" class="text-white rounded">Secuencia tratamientos</a></li>
@@ -66,12 +66,12 @@
                 $i = 1;
             ?>
             @foreach ($paciente->Reevaluaciones as $reevaluacion)
-            <li><a href="#" class="rounded text-white">Reevaluación {{ $i }}</a></li>
+            <li><a href="{{ route('vermodificarreevaluacion', ['id' => $paciente->id_paciente, 'num_reevaluacion' => $i]) }}" class="rounded text-white">Reevaluación {{ $i }}</a></li>
             <?php
                 $i = $i + 1;
             ?>
             @endforeach
-            <li><a href="#" class="rounded text-white">Nueva reevaluación</a></li>
+            <li><a href="{{ route('reevaluacionesnuevas', $paciente->id_paciente) }}" class="rounded text-white">Nueva reevaluación</a></li>
           </ul>
         </div>
       </li>
@@ -86,30 +86,32 @@
                 $i = 1;
             ?>
             @foreach ($paciente->Seguimientos as $seguimiento)
-            <li><a href="#" class="rounded text-white">Seguimiento {{ $i }}</a></li>
+            <li><a href="{{ route('vermodificarseguimiento', ['id' => $paciente->id_paciente, 'num_seguimiento' => $i]) }}" class="rounded text-white">Seguimiento {{ $i }}</a></li>
             <?php
                 $i = $i + 1;
             ?>
             @endforeach
-            <li><a href="#" class="rounded text-white">Nuevo seguimiento</a></li>
+            <li><a href="{{ route('seguimientosnuevos', $paciente->id_paciente) }}" class="rounded text-white">Nuevo seguimiento</a></li>
           </ul>
         </div>
       </li>
       <div class="dropdown-divider"></div>
       <li class="mb-1">
-        <button class="btn btn-toggle text-white desplegable" id="boton8" data-bs-toggle="collapse" data-bs-target="#menu8" aria-expanded="false">
-          Comentario
+        <button class="btn btn-toggle text-white desplegable" id="boton7" data-bs-toggle="collapse" data-bs-target="#menu7" aria-expanded="false">
+          Comentarios
         </button>
-        <div class="collapse" id="menu8">
+        <div class="collapse" id="menu7">
           <ul class="btn-toggle-nav list-unstyled ml-5 pb-1 small">
             <?php
                 $i = 1;
             ?>
-            <li><a href="#" class="rounded text-white">Comentario {{ $i }}</a></li>
+            @foreach ($paciente->Comentarios as $comentario)
+            <li><a href="{{ route('vermodificarcomentario', ['id' => $paciente->id_paciente, 'num_comentario' => $i]) }}" class="rounded text-white">Comentario {{ $i }}</a></li>
             <?php
                 $i = $i + 1;
             ?>
-            <li><a href="#" class="rounded text-white">Nuevo comentario</a></li>
+            @endforeach
+            <li><a href="{{ route('comentarionuevo', $paciente->id_paciente) }}" class="rounded text-white">Nuevo comentario</a></li>
           </ul>
         </div>
       </li>

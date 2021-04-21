@@ -42,4 +42,8 @@ class Pacientes extends Model
     {
         return $this->hasOne(Enfermedad::class,'id_paciente');
     }
+    public function Comentarios()
+    {
+        return $this->hasMany(Comentarios::class,'id_paciente');
+    }
 }

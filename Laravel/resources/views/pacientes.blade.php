@@ -41,7 +41,9 @@
 	                        <td class="table-text text-dark"><div>{{ $paciente->apellidos }}</div></td>
 							<td class="right">
 								<a href="{{ route('datospaciente', $paciente->id_paciente) }}" ><input type="button" class="btn btn-primary" value="Ver"/></a>
-								<a href="{{ route('datospaciente', $paciente->id_paciente) }}" ><input type="button" class="btn btn-warning" value="Editar"/></a>
+								@if(count($paciente->Seguimientos->where('estado','Fallecido')) < 1)
+								<a href="{{ route('datospaciente', $paciente->id_paciente) }}" ><input type="button" class="btn btn-info" value="Editar"/></a>
+								@endif
 							</td>
 	                    </tr>
 	                @endforeach

@@ -2,7 +2,7 @@
 body{
 	height: 100vh;
   margin: 0;
-  background: linear-gradient(#03045E, #9198e5);
+  background-color: #0D1117;
   background-attachment:fixed;
   overflow-y: hidden;
 }
@@ -10,6 +10,14 @@ body{
 /* Layout */
 #HUBU:before {
   content: attr(data-desktoptext);
+}
+
+.navbar-hubu {
+  background-color: #161b22;
+}
+
+.sidebar-hubu {
+  background-color: #161b22;
 }
 
 main {
@@ -54,7 +62,7 @@ main {
 .btn-toggle:hover,
 .btn-toggle:focus {
   color: rgba(0, 0, 0, .85);
-  background-color: #03045E;
+  background-color: black;
 }
 
 .btn-toggle.desplegable::before {
@@ -74,7 +82,7 @@ main {
 
 .btn-toggle-nav a:hover,
 .btn-toggle-nav a:focus {
-  background-color: #03045E;
+  background-color: black;
 }
 
 /* Login */
@@ -107,36 +115,59 @@ main {
   max-width: 100% !important;
 }
 
+.btn.btn-info {
+  color: white;
+  background-color: rgba(10,40,100,0.8);
+  border-color: #fafafa;
+}
+
+.btn.btn-info:hover {
+  color: white;
+  background-color: rgba(10,40,200,0.8);
+  border-color: #fafafa;
+}
+
+.btn.btn-info:active {
+  background-color: rgba(10,40,200,0.8) !important;
+  border-color: #fafafa !important;
+}
+
 .btn.btn-warning {
-  background-color: #9198e5;
-  border-color: #9198e5;
+  color: white;
+  background-color: rgba(100,60,60);
+  border-color: #fafafa;
 }
 
 .btn.btn-warning:hover {
-  background-color: #6971D1;
+  background-color: rgba(200,60,60);
 }
 
 .btn.btn-warning:active {
-  background-color: #6971D1 !important;
-  border-color: #6971D1 !important;
+  background-color: rgba(200,60,60) !important;
+  border-color: #fafafa !important;
 }
 
 .btn.btn-primary {
-  background: linear-gradient(45deg, #03045E, #9198e5);
-  border-color: #03045E;
+  background-color: rgba(10,100,40,0.8);
+  border-color: #fafafa;
 }
 
 .btn.btn-primary:hover {
-  background: linear-gradient(90deg, #03045E, #9198e5);
+  background-color: rgba(10,150,40,0.8);
 }
 
 .btn.btn-primary:active {
-  background-color: #03045E !important;
+  background-color: rgba(10,150,40,0.8) !important;
+  border-color: black !important;
+}
+
+.btn-primary:focus {
+  box-shadow: 0 0 0 0.1rem rgb(0 0 0 / 50%);
 }
 
 .input-group-text {
-  background-color: #03045E; 
-  border-color: #03045E; 
+  background-color: #161b22; 
+  border-color: #fafafa; 
   color: #fafafa;
 }
 
@@ -147,7 +178,7 @@ main {
 }
 
 .btn.btn-toggle:hover {
-  background-color: #03045E; 
+  background-color: black; 
 }
 
 /* Datatable */ 
@@ -177,11 +208,11 @@ main {
 
 #tablaPacientes tfoot {
     display: table-header-group;
-    background-color: #9198e5;
+    background-color: #808080;
 }
 
 .table-dark {
-    background-color: #03045E;
+    background-color: #161b22;
     border-radius: 1rem;
 }
 
@@ -194,7 +225,7 @@ table.dataTable tbody tr{
 }
 
 table.dataTable.biomarcadores thead {
-  background-color: #03045E;
+  background-color: #161b22;
 }
 
 table.dataTable thead tr th{

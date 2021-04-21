@@ -7,12 +7,18 @@ use App\Models\Pacientes;
 use App\Models\Reevaluaciones;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Validator;
-
+ 
 class ReevaluacionesController extends Controller
 {
 	public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public function actualizarfechaModificacionPaciente($paciente)
+    {
+        $paciente->ultima_modificacion = date("Y-m-d");
+        $paciente->save();
     }
 
     public function verReevaluacionNueva($id)
@@ -58,6 +64,7 @@ class ReevaluacionesController extends Controller
 	    	if($validator->fails())
 	        	return back()->withErrors($validator->errors())->withInput();
 
+	    	$paciente = Pacientes::find($id);
 
 	    	$nuevaReevaluacion = new Reevaluaciones();
 	    	$nuevaReevaluacion->id_paciente = $id;
@@ -71,6 +78,8 @@ class ReevaluacionesController extends Controller
 		    	$nuevaReevaluacion->tipo_tratamiento = $request->tipo_tratamiento;
 		    }
 	    	$nuevaReevaluacion->save();
+
+	        $this->actualizarfechaModificacionPaciente($paciente);
 
 	    	return redirect()->route('reevaluacionesnuevas',$id)->with('success','Reevaluación creada correctamente');
 	    }catch(QueryException $e){
@@ -108,6 +117,8 @@ class ReevaluacionesController extends Controller
 		    }
 	    	$reevaluacion->save();
 
+	        $this->actualizarfechaModificacionPaciente($paciente);
+
 	    	return redirect()->route('vermodificarreevaluacion',['id' => $id, 'num_reevaluacion' => $num_reevaluacion])->with('success','Reevaluación modificada correctamente');
 	    }catch(QueryException $e){
             return redirect()->route('vermodificarreevaluacion',['id' => $id, 'num_reevaluacion' => $num_reevaluacion])->with('SQLerror','Introduce una fecha valida');
@@ -120,6 +131,8 @@ class ReevaluacionesController extends Controller
 
 	    $reevaluacion = $paciente->Reevaluaciones[$num_reevaluacion-1];
 	    $reevaluacion->delete();
+
+	    $this->actualizarfechaModificacionPaciente($paciente);
 
 	   	return redirect()->route('reevaluacionesnuevas',$id)->with('success','Reevaluación eliminada correctamente');
     }

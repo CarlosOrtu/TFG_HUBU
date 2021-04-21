@@ -74,9 +74,10 @@
 <?php
   $i = $i + 1;
 ?>
+<div class="my-4 dropdown-divider"></div>
 @endforeach
 <div class="mb-4 d-flex justify-content-strat">
-    <button id="boton_nuevocampo" class="btn btn-primary">Nueva metástasis</button>
+    <button id="boton_nuevocampo" class="btn btn-info">Nueva metástasis</button>
 </div>
 <form id="nuevocampo" class="oculto" action="{{ route('metastasiscrear', ['id' => $paciente->id_paciente]) }}" method="post">
     @CSRF

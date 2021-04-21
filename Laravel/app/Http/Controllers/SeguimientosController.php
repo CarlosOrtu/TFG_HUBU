@@ -15,6 +15,12 @@ class SeguimientosController extends Controller
         $this->middleware('auth');
     }
 
+    public function actualizarfechaModificacionPaciente($paciente)
+    {
+        $paciente->ultima_modificacion = date("Y-m-d");
+        $paciente->save();
+    }
+
     public function verSeguimientoNuevo($id)
     {
     	$paciente = Pacientes::find($id);
@@ -58,7 +64,8 @@ class SeguimientosController extends Controller
 		    $validator = $this->validarSeguimiento($request);
 	    	if($validator->fails())
 	        	return back()->withErrors($validator->errors())->withInput();
-
+	        
+    		$paciente = Pacientes::find($id);
 
 	    	$nuevoSeguimiento = new Seguimientos();
 	    	$nuevoSeguimiento->id_paciente = $id;
@@ -73,6 +80,8 @@ class SeguimientosController extends Controller
 		    }
 		    $nuevoSeguimiento->tratamiento_dirigido = $request->tratamiento_dirigido;
 	    	$nuevoSeguimiento->save();
+
+	        $this->actualizarfechaModificacionPaciente($paciente);
 
 	    	return redirect()->route('seguimientosnuevos',$id)->with('success','Seguimiento creado correctamente');
 	    }catch(QueryException $e){
@@ -109,7 +118,10 @@ class SeguimientosController extends Controller
 		    	$seguimiento->fecha_fallecimiento = $request->fecha_fallecimiento;
 		    }
 		    $seguimiento->tratamiento_dirigido = $request->tratamiento_dirigido;
+
 	    	$seguimiento->save();
+
+	        $this->actualizarfechaModificacionPaciente($paciente);
 
 	    	return redirect()->route('vermodificarseguimiento',['id' => $id, 'num_seguimiento' => $num_seguimiento])->with('success','Seguimiento modificado correctamente');
 	    }catch(QueryException $e){
@@ -123,6 +135,8 @@ class SeguimientosController extends Controller
 
 	    $seguimiento = $paciente->Seguimientos[$num_seguimiento-1];
 	    $seguimiento->delete();
+
+	    $this->actualizarfechaModificacionPaciente($paciente);
 
 	   	return redirect()->route('seguimientosnuevos',$id)->with('success','Seguimiento eliminado correctamente');
     }

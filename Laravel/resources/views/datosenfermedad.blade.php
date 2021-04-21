@@ -11,7 +11,7 @@
     </div>
     @if ($message = Session::get('success'))
     <div class="alert alert-success alert-block">
-        <button type="button" class="text-white close" data-dismiss="alert">x</button>
+        <button type="button" class="text-dark  close" data-dismiss="alert">x</button>
         <strong class="text-center text-dark">{{ $message }}</strong>
     </div>
     @endif

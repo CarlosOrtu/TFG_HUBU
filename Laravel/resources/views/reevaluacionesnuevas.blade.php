@@ -92,7 +92,7 @@
       </select>
     </div>
     <div class="d-flex justify-content-center mb-4">
-        <button type="submit" class="btn btn-primary">Tipo tratamiento</button>
+        <button type="submit" class="btn btn-primary">Crear reevaluación</button>
     </div>
 </form>
 <script src="{{ asset('/js/nuevocampo.js') }}" type="text/javascript"></script>

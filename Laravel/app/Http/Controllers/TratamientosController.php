@@ -240,4 +240,15 @@ class TratamientosController extends Controller
 
     	return redirect()->route('cirugias',$id)->with('success','Radioterapia eliminada correctamente');
     }
+
+    /******************************************************************
+    *                                                                 *
+    *   Quimioterapia                                                 *
+    *                                                                 *
+    *******************************************************************/
+    public function verQuimioterapia($id)
+    {
+    	$paciente = Pacientes::find($id);
+    	return view('quimioterapia',['paciente' => $paciente]);
+    }
 }

@@ -1,5 +1,5 @@
 @extends('layouts.app')
- 
+  
 @section('content')
 <div class="d-flex justify-content-between mb-4">
     <h6 class="align-self-end text-white">Paciente: {{ $paciente->nombre }}</h6>
@@ -101,9 +101,10 @@
 <?php
   $i = $i + 1;
 ?>
+<div class="my-4 dropdown-divider"></div>
 @endforeach
 <div class="mb-4 d-flex justify-content-strat">
-    <button id="boton_nuevocampo" class="btn btn-primary">Nuevo sintoma</button>
+    <button id="boton_nuevocampo" class="btn btn-info">Nuevo sintoma</button>
 </div>
 <form id="nuevocampo" class="oculto" action="{{ route('datossintomascrear', ['id' => $paciente->id_paciente, 'num_sintoma' => 0]) }}" method="post">
     @CSRF

@@ -10,5 +10,7 @@ class Seguimientos extends Model
     use HasFactory;
 
     public $timestamps = false;
-	protected $table = 'seguimientos';	
+	protected $table = 'seguimientos';
+	protected $primaryKey = 'id_seguimiento';
+	
 }
