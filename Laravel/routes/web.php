@@ -10,6 +10,7 @@ use App\Http\Controllers\EnfermedadController;
 use App\Http\Controllers\AntecedentesController;
 use App\Http\Controllers\TratamientosController;
 use App\Http\Controllers\ReevaluacionesController;
+use App\Http\Controllers\SeguimientosController;
 
 //Rutas de login y logout
 Auth::routes(['register' => false,'reset' => false,'confirm' => false,'verify' => false]);
@@ -113,3 +114,10 @@ Route::post('/paciente/{id}/reevaluaciones/nueva',  [ReevaluacionesController::c
 Route::get('/paciente/{id}/reevaluaciones/modificar/{num_reevaluacion}',  [ReevaluacionesController::class, 'verReevaluacion'])->name('vermodificarreevaluacion');
 Route::put('/paciente/{id}/reevaluaciones/modificar/{num_reevaluacion}',  [ReevaluacionesController::class, 'modificarReevaluación'])->name('modificareevaluacion');
 Route::delete('/paciente/{id}/reevaluaciones/modificar/{num_reevaluacion}',  [ReevaluacionesController::class, 'eliminarReevaluación'])->name('eliminarreevaluacion');
+
+//Rutas de visualización reevaluaciones
+Route::get('/paciente/{id}/seguimientos/nuevo',  [SeguimientosController::class, 'verSeguimientoNuevo'])->name('seguimientosnuevos');
+Route::post('/paciente/{id}/seguimientos/nuevo',  [SeguimientosController::class, 'crearseguimiento'])->name('crearseguimiento');
+Route::get('/paciente/{id}/seguimientos/modificar/{num_seguimiento}',  [SeguimientosController::class, 'verSeguimiento'])->name('vermodificarseguimiento');
+Route::put('/paciente/{id}/seguimientos/modificar/{num_seguimiento}',  [SeguimientosController::class, 'modificarSeguimiento'])->name('modificarseguimiento');
+Route::delete('/paciente/{id}/seguimientos/modificar/{num_seguimiento}',  [SeguimientosController::class, 'eliminarSeguimiento'])->name('eliminarseguimiento');
