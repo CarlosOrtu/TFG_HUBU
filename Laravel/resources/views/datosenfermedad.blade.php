@@ -281,7 +281,7 @@
                   <option {{ !in_array($paciente->enfermedad->histologia_subtipo, ['Acinar','Lepidico','Papilar','Micropapilar','Solido','Mucinoso','Celulas claras']) ? 'selected' : '' }}>Otro</option>
                 </select>
                 @else
-                <select id="histologia_subtipo" name="histologia_subtipo" class="@error('histologia_subtipo_especificar') is-invalid @enderror form-control">
+                <select name="histologia_subtipo" class="tipo @error('histologia_subtipo_especificar') is-invalid @enderror form-control">
                   <option>Desconocido</option>
                   <option>Acinar</option>
                   <option>Lepidico</option>
@@ -299,7 +299,7 @@
                 </span>
                 @enderror  
             </div>
-            <div id="especificar" class="ml-4 my-4 input-group">
+            <div id="especificar" class="oculto ml-4 my-4 input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Especificar <br>subtipo</span>
                 </div>

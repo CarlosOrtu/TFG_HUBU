@@ -18,6 +18,7 @@
     <strong class="text-center text-dark">{{ $message }}</strong>
 </div>
 @endif
+@if(isset($paciente->Enfermedad))
 <?php
     $i = 1;
 ?>
@@ -67,6 +68,7 @@
 ?>
 <div class="my-4 dropdown-divider"></div>
 @endforeach
+@endif
 <div class="mb-4 d-flex justify-content-strat">
     <button id="boton_nuevocampo" class="btn btn-info">Nueva prueba</button>
 </div>

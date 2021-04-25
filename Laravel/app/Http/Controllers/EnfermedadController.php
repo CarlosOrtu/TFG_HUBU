@@ -133,37 +133,74 @@ class EnfermedadController extends Controller
         $seg = time();
         $manana = strtotime("+1 day", $seg);
         $manana = date("Y-m-d", $manana);
-        if($request->tipo != "Otro" and $request->tipo != "Dolor otra localización"){
-            $validator = Validator::make($request->all(), [
-                'fecha_inicio' => 'required|before:'.$manana,
-            ],
-            [
-            	'required' => 'El campo :attribute no puede estar vacio',
-            	'before' => 'Introduce una fecha valida',
-            ]);
-        }else if($request->tipo == "Dolor otra localización"){
-            $validator = Validator::make($request->all(), [
-                'fecha_inicio' => 'required|before:'.$manana,
-                'tipo_especificar_localizacion' => 'required|date',
-            ],
-            [
-                'required' => 'El campo :attribute no puede estar vacio',
-                'before' => 'Introduce una fecha valida',
-                'date' => 'Introduce una fecha valida',
-            ]);
+        if(isset($request->fecha_inicio)){
+            if($request->tipo == "Dolor otra localización"){
+                $validator = Validator::make($request->all(), [
+                    'fecha_inicio' => 'required|before:'.$manana,
+                    'tipo_especificar_localizacion' => 'required',
+                ],
+                [
+                    'required' => 'El campo :attribute no puede estar vacio',
+                    'before' => 'Introduce una fecha valida',
+                    'date' => 'Introduce una fecha valida',
+                ]);
+            }else if($request->tipo == "Otro"){
+                $validator = Validator::make($request->all(), [
+                    'fecha_inicio' => 'required|date|before:'.$manana,
+                    'tipo_especificar' => 'required',
+                ],
+                [
+                    'required' => 'El campo :attribute no puede estar vacio',
+                    'before' => 'Introduce una fecha valida',
+                    'date' => 'Introduce una fecha valida',
+                ]);
+            }else{
+                $validator = Validator::make($request->all(), [
+                    'fecha_inicio' => 'required|date|before:'.$manana,
+                ],
+                [
+                    'required' => 'El campo :attribute no puede estar vacio',
+                    'before' => 'Introduce una fecha valida',
+                    'date' => 'Introduce una fecha valida',
+                ]);
+            }
         }else{
-            $validator = Validator::make($request->all(), [
-                'fecha_inicio' => 'required|date|before:'.$manana,
-                'tipo_especificar' => 'required',
-            ],
-            [
-                'required' => 'El campo :attribute no puede estar vacio',
-                'before' => 'Introduce una fecha valida',
-                'date' => 'Introduce una fecha valida',
-            ]);
+            if($request->tipo == "Dolor otra localización"){
+                $validator = Validator::make($request->all(), [
+                    'tipo_especificar_localizacion' => 'required',
+                ],
+                [
+                    'required' => 'El campo :attribute no puede estar vacio',
+                ]);
+            }else{
+                $validator = Validator::make($request->all(), [
+                    'tipo_especificar' => 'required',
+                ],
+                [
+                    'required' => 'El campo :attribute no puede estar vacio',
+                ]);
+            }
         }
 
         return $validator;
+    }
+
+    public function validarDatosFecha($request)
+    {
+        $seg = time();
+        $manana = strtotime("+1 day", $seg);
+        $manana = date("Y-m-d", $manana);
+        $validator = Validator::make($request->all(), [
+            'fecha_inicio' => 'required|date|before:'.$manana,
+        ],
+        [
+            'required' => 'El campo :attribute no puede estar vacio',
+            'before' => 'Introduce una fecha valida',
+            'date' => 'Introduce una fecha valida',
+        ]);
+
+        return $validator;
+
     }
 
     public function crearDatosSintomas(Request $request, $id)
@@ -172,9 +209,16 @@ class EnfermedadController extends Controller
             $validator = $this->validarDatosSintomas($request);
             if($validator->fails())
                 return back()->withErrors($validator->errors())->withInput();
+            
             $sintoma = new Sintomas();
 
-            $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
+            $enfermedad = Pacientes::find($id)->Enfermedad;
+            $idEnfermedad = $enfermedad->id_enfermedad;
+
+            if(isset($request->fecha_inicio))
+                $fecha_sintomas = $request->fecha_inicio;
+            else
+                $fecha_sintomas = $enfermedad->Sintomas[0]->fecha_inicio;
 
             $sintoma->id_enfermedad = $idEnfermedad;
             if($request->tipo == "Dolor otra localización")
@@ -183,7 +227,7 @@ class EnfermedadController extends Controller
                 $sintoma->tipo = "Otro: ".$request->tipo_especificar;
             else
                 $sintoma->tipo = $request->tipo;
-            $sintoma->fecha_inicio = $request->fecha_inicio;    
+            $sintoma->fecha_inicio = $fecha_sintomas;    
             $sintoma->save();
 
             $paciente = Pacientes::find($id);
@@ -197,31 +241,28 @@ class EnfermedadController extends Controller
 
     public function modificarDatosSintomas(Request $request, $id, $num_sintoma)
     {
-        try{
-           	$validator = $this->validarDatosSintomas($request);
-            if($validator->fails())
-                return back()->withErrors($validator->errors())->withInput();
-            $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
-            //Obetenemos todos los sintomas
-            $sintomas = Enfermedad::find($idEnfermedad)->Sintomas;
-        	$sintoma = $sintomas[$num_sintoma-1];
-        	$sintoma->id_enfermedad = $idEnfermedad;
-        	if($request->tipo == "Dolor otra localización")
-        		$sintoma->tipo = "Localización: ".$request->tipo_especificar_localizacion;
-        	elseif($request->tipo == "Otro")
-        		$sintoma->tipo = "Otro: ".$request->tipo_especificar;
-        	else
-        		$sintoma->tipo = $request->tipo;
-        	$sintoma->fecha_inicio = $request->fecha_inicio;	
-        	$sintoma->save();
+        $enfermedad = Pacientes::find($id)->Enfermedad;
+        $idEnfermedad =$enfermedad->id_enfermedad;
+        
+        $fecha_sintomas = $enfermedad->Sintomas[0]->fecha_inicio;
 
-            $paciente = Pacientes::find($id);
-            $this->actualizarfechaModificacionPaciente($paciente);
+        //Obetenemos todos los sintomas
+        $sintomas = Enfermedad::find($idEnfermedad)->Sintomas;
+    	$sintoma = $sintomas[$num_sintoma-1];
+    	$sintoma->id_enfermedad = $idEnfermedad;
+    	if($request->tipo == "Dolor otra localización")
+    		$sintoma->tipo = "Localización: ".$request->tipo_especificar_localizacion;
+    	elseif($request->tipo == "Otro")
+    		$sintoma->tipo = "Otro: ".$request->tipo_especificar;
+    	else
+    		$sintoma->tipo = $request->tipo;
+    	$sintoma->fecha_inicio = $fecha_sintomas;	
+    	$sintoma->save();
 
-        	return redirect()->route('datossintomas',$id)->with('success','Sintoma modificado correctamente');
-        }catch(QueryException $e){
-            return redirect()->route('datossintomas',$id)->with('SQLerror','Introduce una fecha valida 2');
-        }
+        $paciente = Pacientes::find($id);
+        $this->actualizarfechaModificacionPaciente($paciente);
+
+    	return redirect()->route('datossintomas',$id)->with('success','Sintoma modificado correctamente');
     }
 
     public function eliminarSintoma($id, $num_sintoma)
@@ -236,6 +277,26 @@ class EnfermedadController extends Controller
         $this->actualizarfechaModificacionPaciente($paciente);
 
   		return redirect()->route('datossintomas',$id)->with('success','Sintoma eliminado correctamente');
+    }
+
+    public function modificarFechaSintomas(Request $request, $id)
+    {
+        try{
+            $validator = $this->validarDatosFecha($request);
+            if($validator->fails())
+                return back()->withErrors($validator->errors())->withInput();
+            $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
+            //Obetenemos todos los sintomas
+            $sintomas = Enfermedad::find($idEnfermedad)->Sintomas;
+
+            foreach($sintomas as $sintoma){
+                $sintoma->fecha_inicio = $request->fecha_inicio;
+                $sintoma->save();
+            }
+            return redirect()->route('datossintomas',$id)->with('success','Fecha modificada correctamente');
+        }catch(QueryException $e){
+            return redirect()->route('datossintomas',$id)->with('SQLerror','Introduce una fecha valida');
+        }
     }
 
     /******************************************************************
@@ -581,7 +642,11 @@ class EnfermedadController extends Controller
     public function verBiomarcadores($id)
     {
         $paciente = Pacientes::find($id);
-        $biomarcadores = Enfermedad::where('id_paciente',$id)->first()->Biomarcadores;
+        $enfermedad = Enfermedad::where('id_paciente',$id)->first();
+        if($enfermedad == null)
+            $biomarcadores = [];
+        else
+            $biomarcadores = $enfermedad->Biomarcadores;
         return view('biomarcadores',['paciente' => $paciente, 'biomarcadores' => $biomarcadores]);
     }
 

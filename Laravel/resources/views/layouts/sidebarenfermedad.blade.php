@@ -19,15 +19,18 @@
         <div class="collapse" id="menu2">
           <ul class="btn-toggle-nav list-unstyled ml-5 pb-1 small">
             <li><a href="{{ route('datosenfermedad', $paciente->id_paciente) }}" id="datosgenerales" class="text-white rounded">Datos generales</a></li>
+            @if(isset($paciente->Enfermedad))
             <li><a href="{{ route('datossintomas', $paciente->id_paciente) }}" id="sintomas" class="text-white rounded">Sintomas</a></li>
             <li><a href="{{ route('metastasis', $paciente->id_paciente) }}" id="metastasis" class="text-white rounded">Metastasis</a></li>
             <li><a href="{{ route('biomarcadores', $paciente->id_paciente) }}" class="text-white rounded">Biomarcadores</a></li>
             <li><a href="{{ route('pruebas', $paciente->id_paciente) }}" id="pruebas" class="text-white rounded">Pruebas realizadas</a></li>
             <li><a href="{{ route('tecnicas', $paciente->id_paciente)}}" id="tecnicas" class="text-white rounded">Tecnicas realizadas</a></li>
             <li><a href="{{ route('otrostumores', $paciente->id_paciente) }}" id ="otrostumores" class="text-white rounded">Otros tumores</a></li>
+            @endif
           </ul>
         </div>
       </li>
+      @if(isset($paciente->Enfermedad))
       <div class="dropdown-divider"></div>
       <li class="mb-1">
         <button class="btn btn-toggle text-white desplegable" id="boton3" data-bs-toggle="collapse" data-bs-target="#menu3" aria-expanded="false">
@@ -115,6 +118,7 @@
           </ul>
         </div>
       </li>
+      @endif
     </div>
   </ul>
 </div>
