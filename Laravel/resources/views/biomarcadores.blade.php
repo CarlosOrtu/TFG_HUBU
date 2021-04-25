@@ -14,7 +14,8 @@
 @endif
 <form action="{{ route('biomarcadores', ['id' => $paciente->id_paciente]) }}" method="post">
   @CSRF
-  <div class="form-row mt-5 mb-3">
+  <h4 class="text-white mt-5">Tecnología</h4>
+  <div class="form-row mt-4 mb-3">
     <div class="col-sm-2">
       <div class="form-check">
         <input name="NGS" class="casilla form-check-input" type="checkbox" num_input="2" id="NGS">
@@ -49,7 +50,9 @@
       </div>
     </div>
   </div>
-  <div class="form-row mb-3">
+  <div class="dropdown-divider"></div>
+  <h4 class="text-white">Biomarcadores</h4>
+  <div class="form-row mt-4 mb-3">
     <div class="col-sm-2">
       <div class="form-check">
         <input name="PDL1" class="casilla form-check-input" type="checkbox" num_input="2" id="PDL1">
@@ -539,7 +542,7 @@
   </div>
 </div>
 @else
-<h1 class="text-white panel-title">No hay biomarcadores</h1>
+<h4 class="mt-4 text-white panel-title">No hay biomarcadores</h4>
 @endif
 <script type="text/javascript" src="{{ asset('/js/biomarcadores.js') }}"></script>
 @endsection

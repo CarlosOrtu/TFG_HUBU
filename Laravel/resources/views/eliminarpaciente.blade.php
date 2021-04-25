@@ -2,18 +2,18 @@
 
 @section('content')
 
-@if (count($usuarios) > 0)
+@if (count($pacientes) > 0)
 <div class="panel panel-default">
     <div class="panel-heading">
-		<h1 class="text-white text-center panel-title">Listado de usuarios</h1>
+		<h1 class="text-white text-center panel-title">Listado de pacientes</h1>
     <div class=panel-body>
     	<div class="table-responsive">
 	        <table id="tablaPacientes" class="table table-dark table-bordered">
-	        	<thead>
+	            <thead>
 	            	<tr>
-	                	<th class="left" >ID Usuario</th>
-	                    <th style="border-top-width: 0">Nombre</th>
-	                    <th style="border-top-width: 0">Apellidos</th>
+	                	<th class="left">ID Paciente</th>
+	                    <th>Nombre</th>
+	                    <th>Apellidos</th>
 						<th class="right">Seleccionar</th>
 					</tr>
 				</thead>
@@ -27,25 +27,20 @@
 	        			</td>	                            			
 	        			<td>
 	        				<input placeholder="Apellidos" class="form-control mb-2 mr-2" type="text" autocomplete="off">
-	        			</td>
+	         			</td>
 	        			<td class="right">
 	        			</td>
 	        		</tr>
 	            </tfoot>
 
 	            <tbody>
-	                @foreach ($usuarios as $usuario)
+	                @foreach ($pacientes as $paciente)
 	                    <tr>
-	                    	<td class="table-text text-dark left"><div>{{ $usuario->id_usuario }}</div></td>
-	                        <td class="table-text text-dark"><div>{{ $usuario->nombre }}</div></td>
-	                        <td class="table-text text-dark"><div>{{ $usuario->apellidos }}</div></td>
+	                    	<td class="table-text text-dark left"><div>{{ $paciente->id_paciente }}</div></td>
+	                        <td class="table-text text-dark"><div>{{ $paciente->nombre }}</div></td>
+	                        <td class="table-text text-dark"><div>{{ $paciente->apellidos }}</div></td>
 							<td class="right">
-								<form class="d-inline-block" action="{{ route('modificarusuario', ['id' => $usuario->id_usuario]) }}" method="get">
-									<button class="btn btn-primary">Editar</button>
-								</form>
-								@if($usuario->id_rol != 1)
-								<button type="submit" onClick="confirmarEliminacion(this)" class="btn btn-warning">Eliminar</button>
-								@endif
+								<a onClick="confirmarEliminacion(this)"><input type="button" class="btn btn-warning" value="Eliminar"/></a>
 							</td>
 	                    </tr>
 	                @endforeach
@@ -59,13 +54,12 @@
 @endif
 <script type="text/javascript">
 	function confirmarEliminacion(element) {
-		var idUsuario = $(element).parent().prev().prev().prev().text();
-		console.log(idUsuario)
-		const url='http://localhost:8080/TFG_HUBU/Laravel/public/eliminar/usuario/'+idUsuario;
+		var idPaciente = $(element).parent().prev().prev().prev().text();
+		const url='http://localhost:8080/TFG_HUBU/Laravel/public/eliminar/paciente/'+idPaciente;
 		var apellidos = $(element).parent().prev().text();
 		var nombre = $(element).parent().prev().prev().text();
 		Swal.fire({
-		  title: 'Estas seguro que deseas eliminar el usuario '+nombre+' '+apellidos,
+		  title: 'Estas seguro que deseas eliminar el paciente '+nombre+' '+apellidos,
 		  icon: "warning",
 		  showDenyButton: true,
 		  confirmButtonText: 'Eliminar',
@@ -82,7 +76,7 @@
 		  }
 		})
 	}
-</script>    
+</script>
 <script type="text/javascript">
 $(document).ready(function() {
     var table = $('#tablaPacientes').DataTable({

@@ -82,7 +82,7 @@
     <div class="input-group-prepend">
         <span class="input-group-text">Dosis (greys) </span>
     </div>
-    <input value="{{ $tratamiento->dosis }}" name="dosis" type="number" class="form-control" autocomplete="off">
+    <input value="{{ $tratamiento->dosis }}" name="dosis" type="number" step="0.1" class="form-control" autocomplete="off">
   </div>
   <div class="my-4 input-group">
     <div class="input-group-prepend">
@@ -149,7 +149,7 @@
     <div class="input-group-prepend">
         <span class="input-group-text">Dosis (greys) </span>
     </div>
-    <input name="dosis" type="number" class="form-control" autocomplete="off">
+    <input name="dosis" type="number" step="0.1" class="form-control" autocomplete="off">
   </div>
   <div class="my-4 input-group">
     <div class="input-group-prepend">

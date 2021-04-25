@@ -67,7 +67,10 @@ class PacientesController extends Controller
         $nuevoPaciente->sexo = $request->sexo;
         $nuevoPaciente->nacimiento = $request->nacimiento;
         $nuevoPaciente->raza = $request->raza;
-        $nuevoPaciente->profesion = $request->profesion;
+        if($request->profesion == "Otro")
+            $nuevoPaciente->profesion = "Otro: ".$request->profesion_especificar;
+        else
+            $nuevoPaciente->profesion = $request->profesion;
         if($request->fumador != "desconocido")
             $nuevoPaciente->fumador = $request->fumador;  
         if($request->bebedor != "desconocido")
@@ -81,5 +84,18 @@ class PacientesController extends Controller
         return redirect()->route('pacientes');
     }
 
+    public function verEliminarPaciente()
+    {
+        $todosPacientes = Pacientes::all();
+        return view('eliminarpaciente',['pacientes' => $todosPacientes]);      
+    }
 
+
+    public function eliminarPaciente($id)
+    {
+        $paciente = Pacientes::find($id);
+        $paciente->delete();
+
+        return redirect()->route('vereliminarpaciente');
+    }
 }

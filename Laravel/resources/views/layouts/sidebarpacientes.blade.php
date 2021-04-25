@@ -8,6 +8,10 @@
       <li class="mb-1">
         <button class="btn btn-toggle text-white" onClick="location.href='{{ route('nuevopaciente') }}'">Añadir nuevo paciente</button>
       </li>  
+      <div class="dropdown-divider"></div>
+      <li class="mb-1">
+        <button class="btn btn-toggle text-white" onClick="location.href='{{ route('vereliminarpaciente') }}'">Eliminar paciente</button>
+      </li>  
     </ul>
   </div>
 </div>

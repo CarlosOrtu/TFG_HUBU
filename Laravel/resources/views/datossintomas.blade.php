@@ -36,6 +36,23 @@
     <strong class="text-center text-dark">{{ $message }}</strong>
 </div>
 @endif
+@if(isset($paciente->Enfermedad))
+@if($paciente->Enfermedad->Sintomas->first() !== null)
+<form action="{{ route('modificarfechasintomas', ['id' => $paciente->id_paciente]) }}" method="post">
+  @CSRF
+  @method('put')
+  <div class="my-4 input-group">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Fecha inicio <br> de sintomas</span>
+    </div>
+    <input value="{{ $paciente->Enfermedad->Sintomas->first()->fecha_inicio }}" name="fecha_inicio" type="date" class="form-control" autocomplete="off">
+  </div>
+  <div class="d-flex justify-content-center">
+    <button type="submit" class="btn btn-primary">Modificar</button>
+  </div>
+</form>
+<div class="my-4 dropdown-divider"></div>
+@endif
 <?php
     $i = 1;
 ?>
@@ -44,12 +61,6 @@
     @CSRF
     @method('put')
     <h4 class="text-white panel-title">Síntoma {{ $i }}</h4>
-    <div class="my-4 input-group">
-      <div class="input-group-prepend">
-          <span class="input-group-text">Fecha inicio</span>
-      </div>
-      <input value="{{ $sintoma->fecha_inicio }}" name="fecha_inicio" type="date" class="form-control" autocomplete="off">
-    </div>
     <div class="my-4 input-group">
       <div class="input-group-prepend">
           <span class="input-group-text">Tipo síntoma</span>
@@ -103,18 +114,21 @@
 ?>
 <div class="my-4 dropdown-divider"></div>
 @endforeach
+@endif
 <div class="mb-4 d-flex justify-content-strat">
     <button id="boton_nuevocampo" class="btn btn-info">Nuevo sintoma</button>
 </div>
 <form id="nuevocampo" class="oculto" action="{{ route('datossintomascrear', ['id' => $paciente->id_paciente, 'num_sintoma' => 0]) }}" method="post">
     @CSRF
     <h4 class="text-white panel-title">Nuevo síntoma</h4>
+    @if($paciente->Enfermedad->Sintomas->first() === null)
     <div class="my-4 input-group">
       <div class="input-group-prepend">
-          <span class="input-group-text">Fecha inicio</span>
+          <span class="input-group-text">Fecha inicio <br> de sintomas</span>
       </div>
       <input name="fecha_inicio" type="date" class="form-control" autocomplete="off">
     </div>
+    @endif
     <div class="my-4 input-group">
       <div class="input-group-prepend">
           <span class="input-group-text">Tipo síntoma</span>

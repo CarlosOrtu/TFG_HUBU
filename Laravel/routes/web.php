@@ -26,6 +26,8 @@ Route::get('/', function(){
 Route::get('/pacientes', [PacientesController::class, 'verPacientes'])->name('pacientes');
 Route::get('/nuevo/paciente', [PacientesController::class, 'verCrearNuevoPaciente'])->name('nuevopaciente');
 Route::post('/nuevo/paciente', [PacientesController::class, 'crearNuevoPaciente']);
+Route::get('/eliminar/paciente', [PacientesController::class, 'verEliminarPaciente'])->name('vereliminarpaciente');
+Route::get('/eliminar/paciente/{id}', [PacientesController::class, 'eliminarPaciente'])->name('eliminarpaciente');
 
 //Rutas de datos personales
 Route::get('/datos/personales', [DatosPersonalesController::class, 'verDatosPersonales'])->name('datospersonales');
@@ -35,7 +37,7 @@ Route::put('/modificar/contrasena', [DatosPersonalesController::class, 'modifica
 
 //Rutas de gestión de usuarios
 Route::get('/administrar/usuarios', [AdministradorController::class, 'verUsuarios'])->name('usuarios');
-Route::delete('/eliminar/usuario/{id}', [AdministradorController::class, 'eliminarUsuario'])->name('eliminarusuario');
+Route::get('/eliminar/usuario/{id}', [AdministradorController::class, 'eliminarUsuario'])->name('eliminarusuario');
 Route::get('/nuevo/usuario', [AdministradorController::class, 'verCrearNuevoUsuario'])->name('nuevousuario');
 Route::post('/nuevo/usuario', [AdministradorController::class, 'crearNuevoUsuario']);
 Route::get('/modificar/usuario/{id}', [AdministradorController::class, 'verModificarUsuario'])->name('modificarusuario');
@@ -53,6 +55,7 @@ Route::get('/paciente/{id}/enfermedad/sintomas', [EnfermedadController::class, '
 Route::post('/paciente/{id}/enfermedad/sintomas', [EnfermedadController::class, 'crearDatosSintomas'])->name('datossintomascrear');
 Route::put('/paciente/{id}/enfermedad/sintomas/{num_sintoma}', [EnfermedadController::class, 'modificarDatosSintomas'])->name('datossintomasmodificar');
 Route::delete('/paciente/{id}/enfermedad/sintomas/{num_sintoma}', [EnfermedadController::class, 'eliminarSintoma'])->name('datossintomaseliminar');
+Route::put('/paciente/{id}/enfermedad/sintomas/modificar/fecha', [EnfermedadController::class, 'modificarFechaSintomas'])->name('modificarfechasintomas');
 //Rutas de visualización, creacción, modificación y eliminación de metastasis
 Route::get('/paciente/{id}/enfermedad/metastasis', [EnfermedadController::class, 'verMetastasis'])->name('metastasis');
 Route::post('/paciente/{id}/enfermedad/metastasis', [EnfermedadController::class, 'crearMetastasis'])->name('metastasiscrear');

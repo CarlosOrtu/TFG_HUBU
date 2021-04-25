@@ -79,7 +79,28 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">Profesión</span>
             </div>
-            <input value="{{ $paciente->profesion }}" name="profesion" class="form-control" autocomplete="off">
+            <select name="profesion" class="tipo form-control">
+                <option {{ $paciente->profesion == 'Construcción' ? 'selected' : '' }}>Construcción</option>
+                <option {{ $paciente->profesion == 'Minería' ? 'selected' : '' }}>Minería</option>
+                <option {{ $paciente->profesion == 'Pintor' ? 'selected' : '' }}>Pintor</option>
+                <option {{ $paciente->profesion == 'Peluquero' ? 'selected' : '' }}>Peluquero</option>
+                <option {{ $paciente->profesion == 'Industria textil' ? 'selected' : '' }}>Industria textil</option>
+                <option {{ $paciente->profesion == 'Mecánico' ? 'selected' : '' }}>Mecánico</option>
+                <option {{ $paciente->profesion == 'Limpieza' ? 'selected' : '' }}>Limpieza</option>
+                <option {{ $paciente->profesion == 'Cerámicas' ? 'selected' : '' }}>Cerámicas</option>
+                <option {{ $paciente->profesion == 'Desconocido' ? 'selected' : '' }}>Desconocido</option>
+                <option {{ preg_match("/^Otro: /", $paciente->profesion) ? 'selected' : '' }}>Otro</option>
+            </select>
+        </div>
+        <div class="oculto ml-2 my-4 input-group">
+          <div class="input-group-prepend">
+              <span class="input-group-text">Especificar <br>profesión</span>
+          </div>
+          @if(preg_match("/^Otro: /", $paciente->profesion))
+          <input value="{{ substr($paciente->profesion, 6) }}" name="profesion_especificar" class="form-control" autocomplete="off">
+          @else
+          <input name="profesion_especificar" class="form-control" autocomplete="off">
+          @endif
         </div>
         <div  class="my-4 input-group">
             <div class="input-group-prepend">
@@ -116,4 +137,5 @@
         </div>
     </div>
 </form>
+<script src="{{ asset('/js/especificar_otro.js') }}" type="text/javascript"></script>
 @endsection

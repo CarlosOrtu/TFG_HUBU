@@ -62,7 +62,24 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">Profesión</span>
             </div>
-            <input name="profesion" value="{{ old('profesion') }}" class="form-control" autocomplete="off">
+            <select name="profesion" class="tipo form-control">
+                <option {{ old('profesion') == 'Construcción' ? 'selected' : '' }}>Construcción</option>
+                <option {{ old('profesion') == 'Minería' ? 'selected' : '' }}>Minería</option>
+                <option {{ old('profesion') == 'Pintor' ? 'selected' : '' }}>Pintor</option>
+                <option {{ old('profesion') == 'Peluquero' ? 'selected' : '' }}>Peluquero</option>
+                <option {{ old('profesion') == 'Industria textil' ? 'selected' : '' }}>Industria textil</option>
+                <option {{ old('profesion') == 'Mecánico' ? 'selected' : '' }}>Mecánico</option>
+                <option {{ old('profesion') == 'Limpieza' ? 'selected' : '' }}>Limpieza</option>
+                <option {{ old('profesion') == 'Cerámicas' ? 'selected' : '' }}>Cerámicas</option>
+                <option {{ old('profesion') == 'Desconocido' ? 'selected' : '' }}>Desconocido</option>
+                <option {{ old('profesion') == 'Otro' ? 'selected' : '' }}>Otro</option>
+            </select>
+        </div>
+        <div class="oculto ml-2 my-4 input-group">
+          <div class="input-group-prepend">
+              <span class="input-group-text">Especificar <br>profesión</span>
+          </div>
+          <input name="profesion_especificar" value="{{ old('profesion_especificar') }}" class="form-control" autocomplete="off">
         </div>
         <div  class="my-4 input-group">
             <div class="input-group-prepend">
@@ -99,4 +116,5 @@
         </div>
     </div>
 </form>
+<script src="{{ asset('/js/especificar_otro.js') }}" type="text/javascript"></script>
 @endsection

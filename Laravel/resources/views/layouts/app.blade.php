@@ -17,8 +17,9 @@
     <script type = "text/javascript" src="{{ asset('/js/bootstrap.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 
-    <!-- Font Awesome -->
-    
+    <!-- Alertas -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 
     <!-- Tablas con funcionalidades-->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
@@ -54,7 +55,7 @@
         </ul>
       </div>
     </nav>
-    @if (Request::url() == route('pacientes') or Request::url() == route('nuevopaciente'))
+    @if (Request::url() == route('pacientes') or Request::url() == route('nuevopaciente') or Request::url() == route('vereliminarpaciente'))
     <div class="row mx-4 mt-4">
       @include('layouts.sidebarpacientes')
       <main class="col-md-9">
@@ -166,7 +167,6 @@
         $('#menu1').addClass("show");
         $('#boton1').attr("aria-expanded","true"); 
         break; 
-
     }
     $(document).ready(function(){
         $(".btn.btn-toggle.text-white").click(function(event) {
