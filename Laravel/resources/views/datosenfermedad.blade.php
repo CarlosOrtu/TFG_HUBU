@@ -262,7 +262,6 @@
                   <option>Indiferenciado</option>
                 </select>
                 @endif
-
             </div>
             <div class="my-4 input-group">
                 <div class="input-group-prepend">
@@ -332,6 +331,15 @@
                   <option>No especificado</option>
                 </select>
                 @endif
+            </div>
+            <div class="my-4 input-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text">Tratamiento <br>dirigido</span>
+              </div>
+              <select name="tratamiento_dirigido" class="tipo form-control">
+                <option {{ $paciente->enfermedad->tratamiento_dirigido == 1 ? 'selected' : '' }} value="1">Si</option>
+                <option {{ $paciente->enfermedad->tratamiento_dirigido == 0 ? 'selected' : '' }} value="0">No</option>
+              </select>      
             </div>
         </div>
     </div>

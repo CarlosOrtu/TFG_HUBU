@@ -50,7 +50,7 @@ class EliminarUsuarioTest extends TestCase
         $view->assertSee('UsuarioNombre');
         $view->assertSee('Apellido1 Apellido2');
         //Realizamos la solicitud delete
-        $response = $this->delete('/eliminar/usuario/999');
+        $response = $this->get('/eliminar/usuario/999');
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/administrar/usuarios');
         //Comprobamos que el usuario este eliminado de la base de datos

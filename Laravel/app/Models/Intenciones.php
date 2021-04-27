@@ -11,9 +11,11 @@ class Intenciones extends Model
 
     public $timestamps = false;
 	protected $table = 'intenciones';	
+	protected $primaryKey = 'id_intencion';
+
 
 	public function Farmacos()
     {
-        return $this->hasMany(Farmacos::class);
+        return $this->hasMany(Farmacos::class,'id_intencion');
     }
 }

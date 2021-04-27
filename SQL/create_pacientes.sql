@@ -28,6 +28,7 @@ tipo_muestra VARCHAR(50) NOT NULL,
 histologia_tipo VARCHAR(50) NOT NULL,
 histologia_subtipo VARCHAR(50) NOT NULL,
 histologia_grado VARCHAR(50),
+tratamiento_dirigido BOOLEAN,
 FOREIGN KEY (id_paciente) REFERENCES pacientes(id_paciente) ) ENGINE=InnoDB;
 
 CREATE TABLE antecedentes_familiares(
@@ -74,7 +75,6 @@ fecha DATE NOT NULL,
 estado VARCHAR(50) NOT NULL,
 fallecido_motivo VARCHAR(50),
 fecha_fallecimiento DATE,
-tratamiento_dirigido BOOLEAN,
 FOREIGN KEY (id_paciente) REFERENCES pacientes(id_paciente) ) ENGINE=InnoDB;
 
 CREATE TABLE mestastasis(

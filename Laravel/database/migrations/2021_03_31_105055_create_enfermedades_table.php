@@ -30,6 +30,7 @@ class CreateEnfermedadesTable extends Migration
             $table->string('histologia_tipo');
             $table->string('histologia_subtipo');
             $table->string('histologia_grado')->nullable();
+            $table->boolean('tratamiento_dirigido');
             $table->foreign('id_paciente')->references('id_paciente')->on('pacientes')->onDelete('cascade')->onUpdate('cascade');
         });
     }

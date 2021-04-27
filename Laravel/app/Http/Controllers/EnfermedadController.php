@@ -103,6 +103,7 @@ class EnfermedadController extends Controller
         	else
         		$enfermedad->histologia_subtipo = $request->histologia_subtipo;
         	$enfermedad->histologia_grado = $request->fecha_primera_consulta;
+            $enfermedad->tratamiento_dirigido = $request->tratamiento_dirigido;
 
         	$enfermedad->save();
 
@@ -172,13 +173,15 @@ class EnfermedadController extends Controller
                 [
                     'required' => 'El campo :attribute no puede estar vacio',
                 ]);
-            }else{
+            }else if($request->tipo == "Otro"){
                 $validator = Validator::make($request->all(), [
                     'tipo_especificar' => 'required',
                 ],
                 [
                     'required' => 'El campo :attribute no puede estar vacio',
                 ]);
+            }else{
+                $validator = Validator::make($request->all(),[]);
             }
         }
 
@@ -248,7 +251,7 @@ class EnfermedadController extends Controller
 
         //Obetenemos todos los sintomas
         $sintomas = Enfermedad::find($idEnfermedad)->Sintomas;
-    	$sintoma = $sintomas[$num_sintoma-1];
+    	$sintoma = $sintomas[$num_sintoma];
     	$sintoma->id_enfermedad = $idEnfermedad;
     	if($request->tipo == "Dolor otra localización")
     		$sintoma->tipo = "Localización: ".$request->tipo_especificar_localizacion;
@@ -270,7 +273,7 @@ class EnfermedadController extends Controller
     	$idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
         //Obetenemos todos los sintomas
         $sintomas = Enfermedad::find($idEnfermedad)->Sintomas;
-        $sintoma = $sintomas[$num_sintoma-1];
+        $sintoma = $sintomas[$num_sintoma];
   		$sintoma->delete();
 
         $paciente = Pacientes::find($id);
@@ -356,7 +359,7 @@ class EnfermedadController extends Controller
         $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
         //Obetenemos todas las metastasis
         $metastasis = Enfermedad::find($idEnfermedad)->Metastasis;
-    	$metastasis = $metastasis[$num_metastasis-1];
+    	$metastasis = $metastasis[$num_metastasis];
     	$metastasis->id_enfermedad = $idEnfermedad;
     	if($request->localizacion == "Otro")
     		$metastasis->localizacion = "Otro: ".$request->localizacion_especificar;
@@ -375,7 +378,7 @@ class EnfermedadController extends Controller
     	$idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
         //Obetenemos todas las metastasis
         $metastasis = Enfermedad::find($idEnfermedad)->Metastasis;
-        $metastasis = $metastasis[$num_metastasis-1];
+        $metastasis = $metastasis[$num_metastasis];
   		$metastasis->delete();
 
         $paciente = Pacientes::find($id);
@@ -439,7 +442,7 @@ class EnfermedadController extends Controller
         $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
         //Obetenemos todas las pruebas
         $pruebas = Enfermedad::find($idEnfermedad)->Pruebas_realizadas;
-        $prueba = $pruebas[$num_prueba-1];
+        $prueba = $pruebas[$num_prueba];
         $prueba->id_enfermedad = $idEnfermedad;
         if($request->tipo == "Otro")
             $prueba->tipo = "Otro: ".$request->tipo_especificar;
@@ -458,7 +461,7 @@ class EnfermedadController extends Controller
         $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
         //Obetenemos todas las pruebas
         $pruebas = Enfermedad::find($idEnfermedad)->Pruebas_realizadas;
-        $prueba = $pruebas[$num_prueba-1];
+        $prueba = $pruebas[$num_prueba];
         $prueba->delete();
 
         $paciente = Pacientes::find($id);
@@ -523,7 +526,7 @@ class EnfermedadController extends Controller
         $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
         //Obetenemos todas las técnicas
         $tecnicas = Enfermedad::find($idEnfermedad)->Tecnicas_realizadas;
-        $tecnica = $tecnicas[$num_tecnica-1];
+        $tecnica = $tecnicas[$num_tecnica];
         $tecnica->id_enfermedad = $idEnfermedad;
         if($request->tipo == "Otro")
             $tecnica->tipo = "Otro: ".$request->tipo_especificar;
@@ -542,7 +545,7 @@ class EnfermedadController extends Controller
         $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
         //Obetenemos todas las técnicas
         $tecnicas = Enfermedad::find($idEnfermedad)->Tecnicas_realizadas;
-        $tecnica = $tecnicas[$num_tecnica-1];
+        $tecnica = $tecnicas[$num_tecnica];
         $tecnica->delete();
 
         $paciente = Pacientes::find($id);
@@ -607,7 +610,7 @@ class EnfermedadController extends Controller
         $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
         //Obetenemos todos los tumores
         $tumores = Enfermedad::find($idEnfermedad)->Otros_tumores;
-        $tumor = $tumores[$num_otrostumores-1];
+        $tumor = $tumores[$num_otrostumores];
         $tumor->id_enfermedad = $idEnfermedad;
         if($request->tipo == "Otro")
             $tumor->tipo = "Otro: ".$request->tipo_especificar;
@@ -626,7 +629,7 @@ class EnfermedadController extends Controller
         $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
         //Obetenemos todos los tumores
         $tumores = Enfermedad::find($idEnfermedad)->Otros_tumores;
-        $tumor = $tumores[$num_otrostumores-1];
+        $tumor = $tumores[$num_otrostumores];
         $tumor->delete();
 
         $paciente = Pacientes::find($id);

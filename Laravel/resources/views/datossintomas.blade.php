@@ -36,7 +36,6 @@
     <strong class="text-center text-dark">{{ $message }}</strong>
 </div>
 @endif
-@if(isset($paciente->Enfermedad))
 @if($paciente->Enfermedad->Sintomas->first() !== null)
 <form action="{{ route('modificarfechasintomas', ['id' => $paciente->id_paciente]) }}" method="post">
   @CSRF
@@ -53,14 +52,11 @@
 </form>
 <div class="my-4 dropdown-divider"></div>
 @endif
-<?php
-    $i = 1;
-?>
 @foreach ($paciente->Enfermedad->Sintomas as $sintoma)
-<form action="{{ route('datossintomasmodificar', ['id' => $paciente->id_paciente, 'num_sintoma' => $i]) }}" method="post">
+<form action="{{ route('datossintomasmodificar', ['id' => $paciente->id_paciente, 'num_sintoma' => $loop->index]) }}" method="post">
     @CSRF
     @method('put')
-    <h4 class="text-white panel-title">Síntoma {{ $i }}</h4>
+    <h4 class="text-white panel-title">Síntoma {{ $loop->iteration }}</h4>
     <div class="my-4 input-group">
       <div class="input-group-prepend">
           <span class="input-group-text">Tipo síntoma</span>
@@ -103,18 +99,14 @@
     <div class="d-flex justify-content-center">
       <button type="submit" class="btn btn-primary">Modificar</button>
 </form>
-      <form action="{{ route('datossintomaseliminar', ['id' => $paciente->id_paciente, 'num_sintoma' => $i]) }}" method="post">
+      <form action="{{ route('datossintomaseliminar', ['id' => $paciente->id_paciente, 'num_sintoma' => $loop->index]) }}" method="post">
         @CSRF
         @method('delete')
         <button class="ml-2 btn btn-warning">Eliminar</button>
       </form>
     </div>
-<?php
-  $i = $i + 1;
-?>
 <div class="my-4 dropdown-divider"></div>
 @endforeach
-@endif
 <div class="mb-4 d-flex justify-content-strat">
     <button id="boton_nuevocampo" class="btn btn-info">Nuevo sintoma</button>
 </div>

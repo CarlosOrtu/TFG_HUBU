@@ -2,7 +2,7 @@
   <ul class="navbar-nav ml-auto justify-content-end pr-5">
     <div class="sidebar-hubu border rounded p-3">
       <li class="mb-1">
-        <button class="btn btn-toggle text-white desplegable" id="boton1" data-bs-toggle="collapse" data-bs-target="#menu1" aria-expanded="false">
+        <button class="btn btn-toggle text-white desplegable" id="boton1" data-toggle="collapse" data-target="#menu1" aria-expanded="false">
           Paciente
         </button>
         <div class="collapse" id="menu1">
@@ -13,7 +13,7 @@
       </li>
       <div class="dropdown-divider"></div>
       <li class="mb-1">
-        <button class="btn btn-toggle text-white desplegable" id="boton2" data-bs-toggle="collapse" data-bs-target="#menu2" aria-expanded="false">
+        <button class="btn btn-toggle text-white desplegable" id="boton2" data-toggle="collapse" data-target="#menu2" aria-expanded="false">
           Enfermedad
         </button>
         <div class="collapse" id="menu2">
@@ -33,7 +33,7 @@
       @if(isset($paciente->Enfermedad))
       <div class="dropdown-divider"></div>
       <li class="mb-1">
-        <button class="btn btn-toggle text-white desplegable" id="boton3" data-bs-toggle="collapse" data-bs-target="#menu3" aria-expanded="false">
+        <button class="btn btn-toggle text-white desplegable" id="boton3" data-toggle="collapse" data-target="#menu3" aria-expanded="false">
           Antecedentes
         </button>
         <div class="collapse" id="menu3">
@@ -46,7 +46,7 @@
       </li>
       <div class="dropdown-divider"></div>
       <li class="mb-1">
-        <button class="btn btn-toggle text-white desplegable" id="boton4" data-bs-toggle="collapse" data-bs-target="#menu4" aria-expanded="false">
+        <button class="btn btn-toggle text-white desplegable" id="boton4" data-toggle="collapse" data-target="#menu4" aria-expanded="false">
           Tratamientos
         </button>
         <div class="collapse" id="menu4">
@@ -60,19 +60,13 @@
       </li>
       <div class="dropdown-divider"></div>
       <li class="mb-1">
-        <button class="btn btn-toggle text-white desplegable" id="boton5" data-bs-toggle="collapse" data-bs-target="#menu5" aria-expanded="false">
+        <button class="btn btn-toggle text-white desplegable" id="boton5" data-toggle="collapse" data-target="#menu5" aria-expanded="false">
           Reevaluaciones
         </button>
         <div class="collapse" id="menu5">
           <ul class="btn-toggle-nav list-unstyled ml-5 pb-1 small">
-            <?php
-                $i = 1;
-            ?>
             @foreach ($paciente->Reevaluaciones as $reevaluacion)
-            <li><a href="{{ route('vermodificarreevaluacion', ['id' => $paciente->id_paciente, 'num_reevaluacion' => $i]) }}" class="rounded text-white">Reevaluación {{ $i }}</a></li>
-            <?php
-                $i = $i + 1;
-            ?>
+            <li><a href="{{ route('vermodificarreevaluacion', ['id' => $paciente->id_paciente, 'num_reevaluacion' => $loop->index]) }}" class="rounded text-white">Reevaluación {{ $loop->iteration }}</a></li>
             @endforeach
             <li><a href="{{ route('reevaluacionesnuevas', $paciente->id_paciente) }}" class="rounded text-white">Nueva reevaluación</a></li>
           </ul>
@@ -80,19 +74,13 @@
       </li>
       <div class="dropdown-divider"></div>
       <li class="mb-1">
-        <button class="btn btn-toggle text-white desplegable" id="boton6" data-bs-toggle="collapse" data-bs-target="#menu6" aria-expanded="false">
+        <button class="btn btn-toggle text-white desplegable" id="boton6" data-toggle="collapse" data-target="#menu6" aria-expanded="false">
           Seguimientos
         </button>
         <div class="collapse" id="menu6">
           <ul class="btn-toggle-nav list-unstyled ml-5 pb-1 small">
-            <?php
-                $i = 1;
-            ?>
             @foreach ($paciente->Seguimientos as $seguimiento)
-            <li><a href="{{ route('vermodificarseguimiento', ['id' => $paciente->id_paciente, 'num_seguimiento' => $i]) }}" class="rounded text-white">Seguimiento {{ $i }}</a></li>
-            <?php
-                $i = $i + 1;
-            ?>
+            <li><a href="{{ route('vermodificarseguimiento', ['id' => $paciente->id_paciente, 'num_seguimiento' => $loop->index]) }}" class="rounded text-white">Seguimiento {{ $loop->iteration }}</a></li>
             @endforeach
             <li><a href="{{ route('seguimientosnuevos', $paciente->id_paciente) }}" class="rounded text-white">Nuevo seguimiento</a></li>
           </ul>
@@ -100,19 +88,13 @@
       </li>
       <div class="dropdown-divider"></div>
       <li class="mb-1">
-        <button class="btn btn-toggle text-white desplegable" id="boton7" data-bs-toggle="collapse" data-bs-target="#menu7" aria-expanded="false">
+        <button class="btn btn-toggle text-white desplegable" id="boton7" data-toggle="collapse" data-target="#menu7" aria-expanded="false">
           Comentarios
         </button>
         <div class="collapse" id="menu7">
           <ul class="btn-toggle-nav list-unstyled ml-5 pb-1 small">
-            <?php
-                $i = 1;
-            ?>
             @foreach ($paciente->Comentarios as $comentario)
-            <li><a href="{{ route('vermodificarcomentario', ['id' => $paciente->id_paciente, 'num_comentario' => $i]) }}" class="rounded text-white">Comentario {{ $i }}</a></li>
-            <?php
-                $i = $i + 1;
-            ?>
+            <li><a href="{{ route('vermodificarcomentario', ['id' => $paciente->id_paciente, 'num_comentario' => $loop->index]) }}" class="rounded text-white">Comentario {{ $loop->iteration }}</a></li>
             @endforeach
             <li><a href="{{ route('comentarionuevo', $paciente->id_paciente) }}" class="rounded text-white">Nuevo comentario</a></li>
           </ul>

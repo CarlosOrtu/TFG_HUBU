@@ -75,15 +75,6 @@
       </div>
       <input name="fecha_fallecimiento" type="date" class="form-control" autocomplete="off">
     </div>
-    <div class="my-4 input-group">
-      <div class="input-group-prepend">
-          <span class="input-group-text">Tratamiento <br>dirigido</span>
-      </div>
-      <select name="tratamiento_dirigido" class="tipo form-control">
-        <option value="1">Si</option>
-        <option value="0">No</option>
-      </select>      
-    </div>
     <div class="d-flex justify-content-center mb-4">
         <button type="submit" class="btn btn-primary">Crear seguimiento</button>
     </div>

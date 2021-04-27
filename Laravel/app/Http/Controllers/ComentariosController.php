@@ -61,7 +61,7 @@ class ComentariosController extends Controller
     {
     	$paciente = Pacientes::find($id);
     	$comentarios = $paciente->Comentarios;
-    	$comentario = $comentarios[$num_comentario-1];
+    	$comentario = $comentarios[$num_comentario];
     	return view('comentarios',['paciente' => $paciente, 'comentario' => $comentario, 'posicion' => $num_comentario]);
     }
 
@@ -73,7 +73,7 @@ class ComentariosController extends Controller
 
     	$paciente = Pacientes::find($id);
 
-    	$comentario = $paciente->Comentarios[$num_comentario-1];
+    	$comentario = $paciente->Comentarios[$num_comentario];
 
     	$comentario->id_paciente = $id;
     	$comentario->comentario = $request->comentario;
@@ -88,7 +88,7 @@ class ComentariosController extends Controller
     {
     	$paciente = Pacientes::find($id);
 
-	    $comentario = $paciente->Comentarios[$num_comentario-1];
+	    $comentario = $paciente->Comentarios[$num_comentario];
 	    $comentario->delete();
 
         $this->actualizarfechaModificacionPaciente($paciente);

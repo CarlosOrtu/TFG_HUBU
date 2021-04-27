@@ -36,14 +36,11 @@
     <strong class="text-center text-dark">{{ $message }}</strong>
 </div>
 @endif
-<?php
-    $i = 1;
-?>
 @foreach ($paciente->Tratamientos->where('tipo','Radioterapia') as $tratamiento)
-<form action="{{ route('radioterapiamodificar', ['id' => $paciente->id_paciente, 'num_radioterapia' => $i]) }}" method="post">
+<form action="{{ route('radioterapiamodificar', ['id' => $paciente->id_paciente, 'num_radioterapia' => $loop->index]) }}" method="post">
   @CSRF
   @method('put')
-  <h4 class="text-white panel-title">Radioterapia {{ $i }}</h4>
+  <h4 class="text-white panel-title">Radioterapia {{ $loop->iteration }}</h4>
   <div class="my-4 input-group">
     <div class="input-group-prepend">
         <span class="input-group-text">Intención</span>
@@ -99,17 +96,14 @@
     <div class="d-flex justify-content-center">
       <button type="submit" class="btn btn-primary">Modificar</button>
 </form>
-      <form action="{{ route('radioterapiaeliminar', ['id' => $paciente->id_paciente, 'num_radioterapia' => $i]) }}" method="post">
+      <form action="{{ route('radioterapiaeliminar', ['id' => $paciente->id_paciente, 'num_radioterapia' => $loop->index]) }}" method="post">
         @CSRF
         @method('delete')
         <button class="ml-2 btn btn-warning">Eliminar</button>
       </form>
     </div>
-<?php
-  $i = $i + 1;
-?>
 <div class="my-4 dropdown-divider"></div>
-@endforeach 
+@endforeach  
 <div class="mb-4 d-flex justify-content-strat">
     <button id="boton_nuevocampo" class="btn btn-info">Nueva radioterapia</button>
 </div>

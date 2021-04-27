@@ -11,4 +11,6 @@ class Farmacos extends Model
 
     public $timestamps = false;
 	protected $table = 'farmacos';	
+	protected $primaryKey = 'id_farmaco';
+
 }

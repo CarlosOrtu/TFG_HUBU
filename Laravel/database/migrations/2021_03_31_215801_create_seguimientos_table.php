@@ -20,7 +20,6 @@ class CreateSeguimientosTable extends Migration
             $table->string('estado');
             $table->string('fallecido_motivo')->nullable();
             $table->date('fecha_fallecimiento')->nullable();
-            $table->boolean('tratamiento_dirigido');
             $table->foreign('id_paciente')->references('id_paciente')->on('pacientes')->onDelete('cascade')->onUpdate('cascade');
         });
     }

@@ -5,7 +5,7 @@ $(document).ready(function(){
         if( tipo == "Otro") {
           $(this).parent().next().css('display', 'flex');
           $(this).parent().next().next().hide();
-        }else if( tipo == "Dolor otra localización" ){
+        }else if( tipo == "Dolor otra localización" || tipo == "Farmaco en ensayo clínico" ){
           $(this).parent().next().next().css('display', 'flex');
           $(this).parent().next().hide();
         }else{
@@ -27,7 +27,7 @@ $(document).ready(function(){
       if( tipo == "Otro") {
           $(this).parent().next().css('display', 'flex')
           $(this).parent().next().next().hide();
-      }else if( tipo == "Dolor otra localización" ){
+      }else if( tipo == "Dolor otra localización" || tipo == "Farmaco en ensayo clínico" ){
           $(this).parent().next().next().css('display', 'flex');
           $(this).parent().next().hide();
       }else{
@@ -54,7 +54,7 @@ $(document).ready(function(){
           $(this).parent().next().hide();
         }
   });
-    $(".tipoNuevo").change(function() {
+  $(".tipoNuevo").change(function() {
     var tipo = $(this).val();
     if( tipo == "Progresión" || tipo == "Fallecido") {
         $(this).parent().next().css('display', 'flex');
@@ -66,5 +66,25 @@ $(document).ready(function(){
         $(this).parent().next().next().hide();
         $(this).parent().next().next().next().hide();
     }
-});
+  });
+  $('.tipoTres').each(function(){
+      var tipo = $(this).val();
+        if( tipo == "Si" ) {
+          $(this).parent().next().css('display', 'flex');
+          $(this).parent().next().next().css('display', 'flex');
+        }else{
+          $(this).parent().next().next().hide();
+          $(this).parent().next().hide();
+        }
+  });
+  $(".tipoTres").change(function() {
+      var tipo = $(this).val();
+        if( tipo == "Si" ) {
+          $(this).parent().next().css('display', 'flex');
+          $(this).parent().next().next().css('display', 'flex');
+        }else{
+          $(this).parent().next().next().hide();
+          $(this).parent().next().hide();
+        }
+  });
 });

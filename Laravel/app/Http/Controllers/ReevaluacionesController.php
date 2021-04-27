@@ -91,7 +91,7 @@ class ReevaluacionesController extends Controller
     {
     	$paciente = Pacientes::find($id);
     	$reevaluaciones = $paciente->Reevaluaciones;
-    	$reevaluacion = $reevaluaciones[$num_reevaluacion-1];
+    	$reevaluacion = $reevaluaciones[$num_reevaluacion];
     	return view('reevaluaciones',['paciente' => $paciente, 'reevaluacion' => $reevaluacion, 'posicion' => $num_reevaluacion]);
     }
 
@@ -104,7 +104,7 @@ class ReevaluacionesController extends Controller
 
 	    	$paciente = Pacientes::find($id);
 
-	    	$reevaluacion = $paciente->Reevaluaciones[$num_reevaluacion-1];
+	    	$reevaluacion = $paciente->Reevaluaciones[$num_reevaluacion];
 	    	$reevaluacion->id_paciente = $id;
 	      	$reevaluacion->fecha = $request->fecha;
 	    	$reevaluacion->estado	 = $request->estado;
@@ -129,7 +129,7 @@ class ReevaluacionesController extends Controller
     {
     	$paciente = Pacientes::find($id);
 
-	    $reevaluacion = $paciente->Reevaluaciones[$num_reevaluacion-1];
+	    $reevaluacion = $paciente->Reevaluaciones[$num_reevaluacion];
 	    $reevaluacion->delete();
 
 	    $this->actualizarfechaModificacionPaciente($paciente);

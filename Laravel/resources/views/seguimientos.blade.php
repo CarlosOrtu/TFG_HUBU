@@ -3,7 +3,7 @@
 @section('content')
 <div class="d-flex justify-content-between mb-4">
     <h6 class="align-self-end text-white">Paciente: {{ $paciente->nombre }}</h6>
-    <h1 class="align-self-center text-white panel-title">Seguimiento {{ $posicion }}</h1>
+    <h1 class="align-self-center text-white panel-title">Seguimiento {{ $posicion+1 }}</h1>
     <h6 class="align-self-end text-white">Ultima modificación: {{ $paciente->ultima_modificacion }}</h6>
 </div>
 @if ($message = Session::get('success'))
@@ -79,15 +79,6 @@
           <span class="input-group-text">Fecha del <br> fallecimiento</span>
       </div>
       <input value="{{ $seguimiento->fecha_fallecimiento }}" name="fecha_fallecimiento" type="date" class="form-control" autocomplete="off">
-    </div>
-    <div class="my-4 input-group">
-      <div class="input-group-prepend">
-          <span class="input-group-text">Tratamiento <br>dirigido</span>
-      </div>
-      <select name="tratamiento_dirigido" class="tipo form-control">
-        <option {{ $seguimiento->tratamiento_dirigido == 1 ? 'selected' : '' }} value="1">Si</option>
-        <option {{ $seguimiento->tratamiento_dirigido == 0 ? 'selected' : '' }} value="0">No</option>
-      </select>      
     </div>
     <div class="d-flex justify-content-center mb-4">
         <button type="submit" class="btn btn-primary">Modificar</button>

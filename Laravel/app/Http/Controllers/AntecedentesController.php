@@ -81,7 +81,7 @@ class AntecedentesController extends Controller
 
         //Obetenemos todos los antecendentes
         $antecedentes = $paciente->Antecedentes_medicos;
-        $antecedente = $antecedentes[$num_antecendente_medico-1];
+        $antecedente = $antecedentes[$num_antecendente_medico];
         $antecedente->id_paciente = $id;
         if($request->tipo == "Otro")
             $antecedente->tipo_antecedente = "Otro: ".$request->tipo_especificar;
@@ -100,7 +100,7 @@ class AntecedentesController extends Controller
    
         //Obetenemos todas los antecedentes
         $antecedentes = $paciente->Antecedentes_medicos;
-        $antecedente = $antecedentes[$num_antecendente_medico-1];
+        $antecedente = $antecedentes[$num_antecendente_medico];
         $antecedente->delete();
 
         $this->actualizarfechaModificacionPaciente($paciente);
@@ -165,7 +165,7 @@ class AntecedentesController extends Controller
         $paciente = Pacientes::find($id);
         //Obetenemos todos los antecendentes
         $antecedentes = $paciente->Antecedentes_oncologicos;
-        $antecedente = $antecedentes[$num_antecendente_oncologico-1];
+        $antecedente = $antecedentes[$num_antecendente_oncologico];
         $antecedente->id_paciente = $id;
         if($request->tipo == "Otro")
             $antecedente->tipo = "Otro: ".$request->tipo_especificar;
@@ -183,7 +183,7 @@ class AntecedentesController extends Controller
         $paciente = Pacientes::find($id);
         //Obetenemos todas los antecedentes
         $antecedentes = $paciente->Antecedentes_oncologicos;
-        $antecedente = $antecedentes[$num_antecendente_oncologico-1];
+        $antecedente = $antecedentes[$num_antecendente_oncologico];
         $antecedente->delete();
 
         $this->actualizarfechaModificacionPaciente($paciente);
@@ -254,7 +254,7 @@ class AntecedentesController extends Controller
         $paciente = Pacientes::find($id);
         //Obetenemos todos los antecendentes
         $antecedentes = $paciente->Antecedentes_familiares;
-        $antecedente = $antecedentes[$num_antecendente_familiar-1];
+        $antecedente = $antecedentes[$num_antecendente_familiar];
         $antecedente->id_paciente = $id;
         $antecedente->familiar = $request->familiar;
         $antecedente->save();
@@ -296,7 +296,7 @@ class AntecedentesController extends Controller
         $paciente = Pacientes::find($id);
         //Obetenemos todas los antecedentes
         $antecedentes = $paciente->Antecedentes_familiares;
-        $antecedente = $antecedentes[$num_antecendente_familiar-1];
+        $antecedente = $antecedentes[$num_antecendente_familiar];
         $antecedente->delete();
 
         $this->actualizarfechaModificacionPaciente($paciente);

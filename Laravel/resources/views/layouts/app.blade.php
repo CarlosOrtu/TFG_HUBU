@@ -31,7 +31,7 @@
 </head>
 <body>
   <div id="app">
-    @if(Auth::check())
+    @auth
     <nav class="navbar-hubu border navbar rounded navbar-expand-md navbar-light mt-4 mx-4 shadow-sm">
       <div class="container mx-0">
         <ul class="navbar-nav mr-auto">
@@ -85,11 +85,12 @@
     </div>
     </div>
     @endif
-    @else
+    @endauth
+    @guest
     <main id="login">
       @yield('content')
     </main>
-    @endif
+    @endguest
   </div>
   <script type="text/javascript">
     var url = $(location).attr('pathname');
@@ -170,18 +171,13 @@
     }
     $(document).ready(function(){
         $(".btn.btn-toggle.text-white").click(function(event) {
-            let id = "#" + this.id;
-            var menu = $(id).attr("data-bs-target");
-            if( $(menu).hasClass("show") ) {
-                $(menu).removeClass("show");
-            }else{
-                $(menu).addClass("show");
-            }
-            if( $(id).attr("aria-expanded") == "true" ){
-                $(id).attr("aria-expanded","false");
-            }else{
-                $(id).attr("aria-expanded","true");
-            }
+            var id = $(this).attr('id');
+            $('.btn.btn-toggle.text-white').each(function(){
+              if(id != $(this).attr('id')){
+                console.log("Funciona");
+                $($(this).attr("data-target")).collapse('hide');
+              }
+            });
         });
     });
   </script>

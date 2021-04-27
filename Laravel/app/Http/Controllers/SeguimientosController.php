@@ -78,7 +78,6 @@ class SeguimientosController extends Controller
 		    		$nuevoSeguimiento->fallecido_motivo	 = $request->motivo;
 		    	$nuevoSeguimiento->fecha_fallecimiento = $request->fecha_fallecimiento;
 		    }
-		    $nuevoSeguimiento->tratamiento_dirigido = $request->tratamiento_dirigido;
 	    	$nuevoSeguimiento->save();
 
 	        $this->actualizarfechaModificacionPaciente($paciente);
@@ -93,7 +92,7 @@ class SeguimientosController extends Controller
     {
     	$paciente = Pacientes::find($id);
     	$seguimientos = $paciente->Seguimientos;
-    	$seguimiento = $seguimientos[$num_seguimiento-1];
+    	$seguimiento = $seguimientos[$num_seguimiento];
     	return view('seguimientos',['paciente' => $paciente, 'seguimiento' => $seguimiento, 'posicion' => $num_seguimiento]);
     }
 
@@ -106,7 +105,7 @@ class SeguimientosController extends Controller
 
 	    	$paciente = Pacientes::find($id);
 
-	    	$seguimiento = $paciente->Seguimientos[$num_seguimiento-1];
+	    	$seguimiento = $paciente->Seguimientos[$num_seguimiento];
 	    	$seguimiento->id_paciente = $id;
 	      	$seguimiento->fecha = $request->fecha;
 	    	$seguimiento->estado	 = $request->estado;
@@ -117,7 +116,6 @@ class SeguimientosController extends Controller
 		    		$seguimiento->fallecido_motivo	 = $request->motivo;
 		    	$seguimiento->fecha_fallecimiento = $request->fecha_fallecimiento;
 		    }
-		    $seguimiento->tratamiento_dirigido = $request->tratamiento_dirigido;
 
 	    	$seguimiento->save();
 
@@ -133,7 +131,7 @@ class SeguimientosController extends Controller
     {
     	$paciente = Pacientes::find($id);
 
-	    $seguimiento = $paciente->Seguimientos[$num_seguimiento-1];
+	    $seguimiento = $paciente->Seguimientos[$num_seguimiento];
 	    $seguimiento->delete();
 
 	    $this->actualizarfechaModificacionPaciente($paciente);

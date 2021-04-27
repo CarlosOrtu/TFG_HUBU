@@ -18,14 +18,11 @@
     <strong class="text-center text-dark">{{ $message }}</strong>
 </div>
 @endif
-<?php
-    $i = 1;
-?>
 @foreach ($paciente->Antecedentes_medicos as $antecedente)
-<form action="{{ route('antecedentemedicomodificar', ['id' => $paciente->id_paciente, 'num_antecendente_medico' => $i]) }}" method="post">
+<form action="{{ route('antecedentemedicomodificar', ['id' => $paciente->id_paciente, 'num_antecendente_medico' => $loop->index]) }}" method="post">
     @CSRF
     @method('put')
-    <h4 class="text-white panel-title">Antecedente médico {{ $i }}</h4>
+    <h4 class="text-white panel-title">Antecedente médico {{ $loop->iteration }}</h4>
     <div class="my-4 input-group">
       <div class="input-group-prepend">
           <span class="input-group-text">Tipo</span>
@@ -57,15 +54,12 @@
     <div class="d-flex justify-content-center">
       <button type="submit" class="btn btn-primary">Modificar</button>
 </form>
-      <form action="{{ route('antecedentemedicoeliminar', ['id' => $paciente->id_paciente, 'num_antecendente_medico' => $i]) }}" method="post">
+      <form action="{{ route('antecedentemedicoeliminar', ['id' => $paciente->id_paciente, 'num_antecendente_medico' => $loop->index]) }}" method="post">
         @CSRF
         @method('delete')
         <button class="ml-2 btn btn-warning">Eliminar</button>
       </form>
     </div>
-<?php
-  $i = $i + 1;
-?>
 <div class="my-4 dropdown-divider"></div>
 @endforeach
 <div class="mb-4 d-flex justify-content-strat">

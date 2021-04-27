@@ -18,30 +18,24 @@
     <strong class="text-center text-dark">{{ $message }}</strong>
 </div>
 @endif
-<?php
-    $i = 1;
-?>
 @foreach ($paciente->Antecedentes_familiares as $antecedente)
-<form action="{{ route('antecedentefamiliarmodificar', ['id' => $paciente->id_paciente, 'num_antecendente_familiar' => $i]) }}" method="post">
+<form action="{{ route('antecedentefamiliarmodificar', ['id' => $paciente->id_paciente, 'num_antecendente_familiar' => $loop->index]) }}" method="post">
   @CSRF
   @method('put')
-  <h4 class="text-white panel-title">Familiar {{ $i }}</h4>
+  <h4 class="text-white panel-title">Familiar {{ $loop->iteration  }}</h4>
   <div class="my-4 input-group">
     <div class="input-group-prepend">
         <span class="input-group-text">Familiar</span>
     </div>
     <input name="familiar" class="form-control" value="{{$antecedente->familiar}}" autocomplete="off">
   </div>
-  <?php
-      $j = 0;
-  ?>
     @foreach ($antecedente->Enfermedades_familiar as $enfermedad)
     <div>
     <div id="especificar" class="ml-2 my-4 input-group">
       <div class="input-group-prepend">
         <span class="input-group-text">Tipo de cancer</span>
       </div>
-      <select name="enfermedades[]" ver="#input{{$j}}" class="tipoOculto form-control">
+      <select name="enfermedades[]" class="tipo form-control">
         <option {{ $enfermedad->tipo == 'Pulmón' ? 'selected' : '' }}>Pulmón</option>
         <option {{ $enfermedad->tipo == 'ORL' ? 'selected' : '' }}>ORL</option>
         <option {{ $enfermedad->tipo == 'Vejiga' ? 'selected' : '' }}>Vejiga</option>
@@ -56,7 +50,7 @@
         <option {{ preg_match("/^Otro: /", $enfermedad->tipo) ? 'selected' : '' }}>Otro</option>
       </select>
     </div>
-    <div id="input{{$j}}" class="oculto tipo-especificar ml-4 my-4 input-group">
+    <div class="oculto tipo-especificar ml-4 my-4 input-group">
       <div class="input-group-prepend">
         <span class="input-group-text">Especificar tipo</span>
       </div>
@@ -66,23 +60,17 @@
       <input name="tipos_especificar[]" class="form-control" autocomplete="off">
       @endif
     </div>
-    <?php
-      $j = $j + 1;
-    ?>
     @endforeach
-  <button type="button" anadir="#anadirmodificar{{$i}}" class="btn-anadir btn btn-info mb-4">Añadir cancer</button>
+  <button type="button" class="btn-anadir btn btn-info mb-4">Añadir cancer</button>
     <div class="d-flex justify-content-center">
       <button type="submit" class="btn btn-primary">Modificar</button>
 </form>
-      <form action="{{ route('antecedentefamiliareliminar', ['id' => $paciente->id_paciente, 'num_antecendente_familiar' => $i]) }}" method="post">
+      <form action="{{ route('antecedentefamiliareliminar', ['id' => $paciente->id_paciente, 'num_antecendente_familiar' => $loop->index]) }}" method="post">
         @CSRF
         @method('delete')
         <button class="ml-2 btn btn-warning">Eliminar</button>
       </form>
     </div>
-<?php
-  $i = $i + 1;
-?>
 <div class="my-4 dropdown-divider"></div>
 @endforeach
 <div class="mb-4 d-flex justify-content-strat">
@@ -107,36 +95,9 @@
     //Definición de el html que se van a insertar
     var enfermedad = '<div class="ml-2 my-4 input-group"><div class="input-group-prepend"><span class="input-group-text">Tipo de cancer</span></div><select onChange="anadir(this)" name="enfermedades[]" class="tipo form-control"><option>Pulmón</option><option>ORL</option><option>Vejiga</option><option>Renal</option><option>Páncreas</option><option>Esofagogástrico</option><option>Próstata</option><option>Hígado</option><option>Ginecológico</option><option>Linfático</option><option>SNC</option><option>Otro</option></select></div>';
 
-    //Función que muestra especificar tipo en el caso en el que el select sea Otro
-    $('.tipoOculto').each(function(){
-      if($(this).val() == "Otro"){
-        $(this).parent().next().css('display', 'flex');
-      }
-    });
-
-    $( "#boton_nuevocampo" ).show();
-    //Función que muestra el apartado de crear nuevo antecedente familiar
-    $( "#boton_nuevocampo" ).on("click",function(){
-      $('#nuevocampo').removeClass("oculto");
-      $('#nuevocampo').show();
-      $("main").animate({ scrollTop: $('#nuevocampo').offset().top },200);
-      $( "#boton_nuevocampo" ).hide();
-    });
-
     //Función que añade un nuevo tipo de cancer dentro del familiar
     $(".btn-anadir").click(function(){
       $(this).before(enfermedad);
-    });
-
-    //Función que muestra especificar tipo en el caso que el select sea Otro en caso contrario lo oculta
-    $(".tipoOculto").change(function(){
-      var idVer = $(this).parent().next();
-      var valorSelect = $(this).val();
-      if(valorSelect == "Otro"){
-        $(idVer).css('display', 'flex');
-      }else{
-        $(idVer).hide();
-      }
     });
   });
 </script>
@@ -155,4 +116,6 @@
     }
   }
 </script>
+<script src="{{ asset('/js/nuevocampo.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/js/especificar_otro.js') }}" type="text/javascript"></script>
 @endsection    

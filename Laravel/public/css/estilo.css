@@ -7,6 +7,19 @@ body{
   overflow-y: hidden;
 }
 
+@media (max-width: 480px) {
+  body {
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  main {
+    overflow-y: hidden;
+    overflow-x: hidden;
+  }
+}
+
 /* Layout */
 #HUBU:before {
   content: attr(data-desktoptext);
