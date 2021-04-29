@@ -488,7 +488,7 @@
       <input name="Otros_tipo_especificar" class="form-control" autocomplete="off">
     </div>
   </div>
-  <div class="d-flex justify-content-center mb-4">
+  <div class="d-flex justify-content-center my-4">
     <button type="submit" class="btn btn-primary">Guardar</button>
   </div>
 </form>

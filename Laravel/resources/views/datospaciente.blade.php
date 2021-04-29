@@ -106,32 +106,54 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">Fumador</span>
             </div>
-            <select name="fumador" class="form-control">
-                <option {{ $paciente->fumador === 0 ? 'selected' : '' }} value="0">No</option>
-                <option {{ $paciente->fumador === 1 ? 'selected' : '' }} value="1">Si</option>
-                <option {{ $paciente->fumador === null ? 'selected' : '' }} >Desconocido</option>
+            <select name="fumador" class="tipo form-control">
+                <option {{ $paciente->fumador == 'Fumador' ? 'selected' : '' }}>Fumador</option>
+                <option {{ $paciente->fumador == 'Exfumador' ? 'selected' : '' }}>Exfumador</option>
+                <option {{ $paciente->fumador == 'Nunca fumador' ? 'selected' : '' }}>Nunca fumador</option>
+                <option {{ $paciente->fumador === null ? 'selected' : '' }}>Desconocido</option>
             </select>
+        </div>
+        <div class="oculto ml-2 my-4 input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Número de<br> cigarros al día</span>
+            </div>
+            @if($paciente->num_tabaco_dia === null)
+            <input name="especificar_fumador" class="form-control" autocomplete="off">
+            @else
+            <input value="{{ $paciente->num_tabaco_dia }}" name="especificar_fumador" class="form-control" autocomplete="off">
+            @endif
         </div>
         <div  class="my-4 input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">Bebedor</span>
             </div>
             <select name="bebedor" class="form-control">
-                <option {{ $paciente->bebedor === 0 ? 'selected' : '' }} value="0">No</option>
-                <option {{ $paciente->bebedor === 1 ? 'selected' : '' }} value="1">Si</option>
-                <option {{ $paciente->bebedor === null ? 'selected' : '' }} >Desconocido</option>
+                <option {{ $paciente->bebedor == 'Bebedor' ? 'selected' : '' }}>Bebedor</option>
+                <option {{ $paciente->bebedor == 'Exbebedor' ? 'selected' : '' }}>Exbebedor</option>
+                <option {{ $paciente->bebedor == 'Nunca bebedor' ? 'selected' : '' }}>Nunca bebedor</option>
+                <option {{ $paciente->bebedor === NULL ? 'selected' : '' }}>Desconocido</option>
             </select> 
         </div>      
         <div  class="my-4 input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">Carcinógenos</span>
             </div>
-            <select name="carcinogenos" class="form-control">
-                <option {{ $paciente->carcinogenos === 0 ? 'selected' : '' }} value="0">No</option>
-                <option {{ $paciente->carcinogenos === 1 ? 'selected' : '' }} value="1">Si</option>
-                <option {{ $paciente->carcinogenos === null ? 'selected' : '' }} >Desconocido</option>
+            <select name="carcinogenos" class="tipo form-control">
+                <option {{ $paciente->carcinogenos == 'Asbesto' ? 'selected' : '' }}>Asbesto</option>
+                <option {{ preg_match("/^Otro: /", $paciente->carcinogenos) ? 'selected' : '' }}>Otro</option>
+                <option {{ $paciente->carcinogenos === null ? 'selected' : '' }}>Desconocido</option>
             </select>
-        </div>          
+        </div>   
+        <div class="oculto ml-2 my-4 input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Especificar <br>carcinógeno</span>
+            </div>
+            @if(preg_match("/^Otro: /", $paciente->carcinogenos))
+            <input value="{{ substr($paciente->carcinogenos, 6) }}" name="especificar_carcinogeno" class="form-control" autocomplete="off">
+            @else
+            <input name="especificar_carcinogeno" class="form-control" autocomplete="off">
+            @endif 
+        </div>      
         <div class="d-flex justify-content-center">
             <button id="boton_crearpaciente" type="submit" class="btn btn-primary">Guardar</button>
         </div>

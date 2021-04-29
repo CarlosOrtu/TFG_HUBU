@@ -53,19 +53,31 @@ class DatosPacienteController extends Controller
             $paciente->sexo = $request->sexo;
             $paciente->nacimiento = $request->nacimiento;
             $paciente->raza = $request->raza;
-            $paciente->profesion = $request->profesion;
+            if($request->profesion == "Otro")
+                $paciente->profesion = "Otro: ".$request->profesion_especificar;
+            else
+                $paciente->profesion = $request->profesion;
             if($request->fumador != "Desconocido"){
                 $paciente->fumador = $request->fumador;  
             }else{
                 $paciente->fumador = null;  
             }
+            if($request->fumador == "Fumador" || $request->fumador == "Exfumador")
+                $paciente->num_tabaco_dia = $request->especificar_fumador;
+            elseif($request->fumador == "Nunca fumador")
+                $paciente->num_tabaco_dia = 0;
+            else
+                $paciente->num_tabaco_dia = null;
             if($request->bebedor != "Desconocido"){
                 $paciente->bebedor = $request->bebedor;
             }else{
                 $paciente->bebedor = null;  
             }
             if($request->carcinogenos != "Desconocido"){
-                $paciente->carcinogenos = $request->carcinogenos;
+                if($request->carcinogenos == "Otro")
+                    $paciente->carcinogenos = "Otro: ".$request->especificar_carcinogeno;
+                else
+                    $paciente->carcinogenos = $request->carcinogenos;
             }else{
                 $paciente->carcinogenos = null;  
             }

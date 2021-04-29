@@ -85,31 +85,45 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">Fumador</span>
             </div>
-            <select name="fumador" class="form-control">
-                <option {{ old('fumador') == 1 ? 'selected' : '' }} value="1">Si</option>
-                <option {{ old('fumador') == 0 ? 'selected' : '' }} value="0">No</option>
-                <option {{ old('fumador') == 'desconocido' ? 'selected' : '' }} value="desconocido">Desconocido</option>
+            <select name="fumador" class="tipo form-control">
+                <option {{ old('fumador') == 'Fumador' ? 'selected' : '' }}>Fumador</option>
+                <option {{ old('fumador') == 'Exfumador' ? 'selected' : '' }}>Exfumador</option>
+                <option {{ old('fumador') == 'Nunca fumador' ? 'selected' : '' }}>Nunca fumador</option>
+                <option {{ old('fumador') == 'Desconocido' ? 'selected' : '' }}>Desconocido</option>
             </select>
+        </div>
+        <div class="oculto ml-2 my-4 input-group">
+          <div class="input-group-prepend">
+              <span class="input-group-text">Número de<br> cigarros al día</span>
+          </div>
+          <input value="{{ old('especificar_fumador') }}" name="especificar_fumador" class="form-control" autocomplete="off">
         </div>
         <div  class="my-4 input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">Bebedor</span>
             </div>
             <select name="bebedor" value="{{ old('bebedor') }}" class="form-control">
-                <option {{ old('bebedor') == 1 ? 'selected' : '' }} value="1">Si</option>
-                <option {{ old('bebedor') == 0 ? 'selected' : '' }} value="0">No</option>
-                <option {{ old('bebedor') == 'desconocido' ? 'selected' : '' }} value="desconocido">Desconocido</option>
+                <option {{ old('bebedor') == 'Bebedor' ? 'selected' : '' }}>Bebedor</option>
+                <option {{ old('bebedor') == 'Exbebedor' ? 'selected' : '' }}>Exbebedor</option>
+                <option {{ old('bebedor') == 'Nunca bebedor' ? 'selected' : '' }}>Nunca bebedor</option>
+                <option {{ old('bebedor') == 'Desconocido' ? 'selected' : '' }}>Desconocido</option>
             </select>
         </div>
         <div  class="my-4 input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">Carcinógenos</span>
             </div>
-            <select name="carcinogenos" value="{{ old('carcinogenos') }}" class="form-control">
-                <option {{ old('carcinogenos') == 1 ? 'selected' : '' }} value="1">Si</option>
-                <option {{ old('carcinogenos') == 0 ? 'selected' : '' }} value="0">No</option>
-                <option {{ old('carcinogenos') == 'desconocido' ? 'selected' : '' }} value="desconocido">Desconocido</option>
+            <select name="carcinogenos" value="{{ old('carcinogenos') }}" class="tipo form-control">
+                <option {{ old('carcinogenos') == 'Asbesto' ? 'selected' : '' }}>Asbesto</option>
+                <option {{ old('carcinogenos') == 'Otro' ? 'selected' : '' }}>Otro</option>
+                <option {{ old('carcinogenos') == 'Desconocido' ? 'selected' : '' }}>Desconocido</option>
             </select>
+        </div>
+        <div class="oculto ml-2 my-4 input-group">
+          <div class="input-group-prepend">
+              <span class="input-group-text">Especificar <br>carcinógeno</span>
+          </div>
+          <input value="{{ old('especificar_carcinogeno') }}" name="especificar_carcinogeno" class="form-control" autocomplete="off">
         </div>
         <div class="d-flex justify-content-center">
             <button id="boton_crearpaciente" type="submit" class="btn btn-primary">Confirmar</button>

@@ -15,7 +15,7 @@ $(document).ready(function(){
   });
   $('.tipo').each(function(){
       var tipo = $(this).val();
-        if( tipo == "Otro") {
+        if( tipo == "Otro" || tipo == "Fumador" || tipo == "Exfumador") {
           $(this).parent().next().css('display', 'flex');
         }else{
           $(this).parent().next().hide();
@@ -37,7 +37,7 @@ $(document).ready(function(){
   });
   $(".tipo").change(function() {
       var tipo = $(this).val();
-      if( tipo == "Otro") {
+      if( tipo == "Otro" || tipo == "Fumador" || tipo == "Exfumador") {
           $(this).parent().next().css('display', 'flex')
       }else{
           $(this).parent().next().hide();

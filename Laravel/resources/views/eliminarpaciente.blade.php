@@ -55,7 +55,14 @@
 <script type="text/javascript">
 	function confirmarEliminacion(element) {
 		var idPaciente = $(element).parent().prev().prev().prev().text();
-		const url='http://localhost:8080/TFG_HUBU/Laravel/public/eliminar/paciente/'+idPaciente;
+		var urlPrincipal = $(location).attr('origin');
+		var entorno = "<?php echo env('APP_ENV');?>";
+		if(entorno == "local"){
+			var url = urlPrincipal+'/TFG_HUBU/Laravel/public/eliminar/paciente/'+idPaciente;
+		}
+		else{
+			var url = urlPrincipal+'/eliminar/paciente'+idPaciente;
+		}
 		var apellidos = $(element).parent().prev().text();
 		var nombre = $(element).parent().prev().prev().text();
 		Swal.fire({
