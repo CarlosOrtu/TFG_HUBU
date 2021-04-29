@@ -337,8 +337,13 @@
                   <span class="input-group-text">Tratamiento <br>dirigido</span>
               </div>
               <select name="tratamiento_dirigido" class="tipo form-control">
+                @if(!empty($paciente->enfermedad))
                 <option {{ $paciente->enfermedad->tratamiento_dirigido == 1 ? 'selected' : '' }} value="1">Si</option>
                 <option {{ $paciente->enfermedad->tratamiento_dirigido == 0 ? 'selected' : '' }} value="0">No</option>
+                @else
+                <option value="1">Si</option>
+                <option value="0">No</option>
+                @endif
               </select>      
             </div>
         </div>
