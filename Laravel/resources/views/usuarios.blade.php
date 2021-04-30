@@ -60,8 +60,14 @@
 <script type="text/javascript">
 	function confirmarEliminacion(element) {
 		var idUsuario = $(element).parent().prev().prev().prev().text();
-		console.log(idUsuario)
-		const url='http://localhost:8080/TFG_HUBU/Laravel/public/eliminar/usuario/'+idUsuario;
+		var urlPrincipal = $(location).attr('origin');
+		var entorno = "<?php echo env('APP_ENV');?>";
+		if(entorno == "local"){
+			var url = urlPrincipal+'/TFG_HUBU/Laravel/public/eliminar/usuario/'+idUsuario;
+		}
+		else{
+			var url = urlPrincipal+'/eliminar/usuario/'+idUsuario;
+		}
 		var apellidos = $(element).parent().prev().text();
 		var nombre = $(element).parent().prev().prev().text();
 		Swal.fire({
@@ -74,7 +80,8 @@
 		  if (result.isConfirmed) {
 			$.ajax({
 			    url: url,
-			    type: 'GET',
+			    dataType: 'html',
+			    type: 'GET', 
 			    success: function(result) {
 			    	location.reload();
 			    }

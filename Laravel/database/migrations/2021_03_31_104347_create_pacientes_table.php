@@ -21,9 +21,9 @@ class CreatePacientesTable extends Migration
             $table->string('raza',30);
             $table->date('nacimiento');
             $table->string('profesion',30);
-            $table->string('fumador',30);
+            $table->string('fumador',30)->nullable();
             $table->integer('num_tabaco_dia',)->nullable();
-            $table->string('bebedor',30);
+            $table->string('bebedor',30)->nullable();
             $table->date('ultima_modificacion');
             $table->string('carcinogenos')->nullable();
         });

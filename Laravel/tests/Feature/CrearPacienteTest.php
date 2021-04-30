@@ -33,7 +33,6 @@ class CrearPacienteTest extends TestCase
     public function crearNuevoPacienteCorrectoTest()
     {
         //Accedemos la vista pacientes y posteriormente a la vista nuevopaciente
-        $response = $this->get('/pacientes')->assertSee('Listado de pacientes');
         $response = $this->get('/nuevo/paciente')->assertSee('Añadir paciente');
         $paciente = [
             "nombre" => "Paciente",
@@ -41,10 +40,10 @@ class CrearPacienteTest extends TestCase
             "sexo" => "Masculino",
             "nacimiento" => "1999-10-05",
             "raza" => "Caucásico",
-            "profesion" => "Bombero",
-            "fumador" => "",
-            "bebedor" => "",
-            "carcinogenos" => "",
+            "profesion" => "Pintor",
+            "fumador" => "Desconocido",
+            "bebedor" => "Desconocido",
+            "carcinogenos" => "Desconocido",
         ];
         //Realizamos la solicitud post con los datos del paciente definidos anteriormente
         $response = $this->post('/nuevo/paciente', $paciente);
@@ -62,7 +61,7 @@ class CrearPacienteTest extends TestCase
         $this->assertTrue($paciente->sexo == "Masculino");
         $this->assertTrue($paciente->nacimiento == "1999-10-05");
         $this->assertTrue($paciente->raza == "Caucásico");
-        $this->assertTrue($paciente->profesion == "Bombero");
+        $this->assertTrue($paciente->profesion == "Pintor");
         $this->assertTrue($paciente->fumador == null);
         $this->assertTrue($paciente->bebedor == null);
         $this->assertTrue($paciente->carcinogenos == null);
@@ -73,7 +72,6 @@ class CrearPacienteTest extends TestCase
     public function crearNuevoPacienteNombreVacioTest()
     {
         //Accedemos la vista pacientes y posteriormente a la vista nuevopaciente
-        $response = $this->get('/pacientes')->assertSee('Listado de pacientes');
         $response = $this->get('/nuevo/paciente')->assertSee('Añadir paciente');
         $paciente = [
             "nombre" => "",
@@ -81,10 +79,10 @@ class CrearPacienteTest extends TestCase
             "sexo" => "Masculino",
             "nacimiento" => "1999-10-05",
             "raza" => "Caucásico",
-            "profesion" => "Bombero",
-            "fumador" => "",
-            "bebedor" => "",
-            "carcinogenos" => "",
+            "profesion" => "Pintor",
+            "fumador" => "Desconocido",
+            "bebedor" => "Desconocido",
+            "carcinogenos" => "Desconocido",
         ];
         //Realizamos la solicitud post con los datos del paciente definidos anteriormente
         $response = $this->post('/nuevo/paciente', $paciente);
@@ -102,7 +100,6 @@ class CrearPacienteTest extends TestCase
     public function crearNuevoPacienteApellidosVacioTest()
     {
         //Accedemos la vista pacientes y posteriormente a la vista nuevopaciente
-        $response = $this->get('/pacientes')->assertSee('Listado de pacientes');
         $response = $this->get('/nuevo/paciente')->assertSee('Añadir paciente');
         $paciente = [
             "nombre" => "Paciente",
@@ -110,10 +107,10 @@ class CrearPacienteTest extends TestCase
             "sexo" => "Masculino",
             "nacimiento" => "1999-10-05",
             "raza" => "Caucásico",
-            "profesion" => "Bombero",
-            "fumador" => "",
-            "bebedor" => "",
-            "carcinogenos" => "",
+            "profesion" => "Pintor",
+            "fumador" => "Desconocido",
+            "bebedor" => "Desconocido",
+            "carcinogenos" => "Desconocido",
         ];
         //Realizamos la solicitud post con los datos del paciente definidos anteriormente
         $response = $this->post('/nuevo/paciente', $paciente);
@@ -131,7 +128,6 @@ class CrearPacienteTest extends TestCase
     public function crearNuevoPacienteNacimientoVacioTest()
     {
         //Accedemos la vista pacientes y posteriormente a la vista nuevopaciente
-        $response = $this->get('/pacientes')->assertSee('Listado de pacientes');
         $response = $this->get('/nuevo/paciente')->assertSee('Añadir paciente');
         $paciente = [
             "nombre" => "Paciente",
@@ -139,10 +135,10 @@ class CrearPacienteTest extends TestCase
             "sexo" => "Masculino",
             "nacimiento" => "",
             "raza" => "Caucásico",
-            "profesion" => "Bombero",
-            "fumador" => "",
-            "bebedor" => "",
-            "carcinogenos" => "",
+            "profesion" => "Pintor",
+            "fumador" => "Desconocido",
+            "bebedor" => "Desconocido",
+            "carcinogenos" => "Desconocido",
         ];
         //Realizamos la solicitud post con los datos del paciente definidos anteriormente
         $response = $this->post('/nuevo/paciente', $paciente);
@@ -160,7 +156,6 @@ class CrearPacienteTest extends TestCase
     public function crearNuevoNacimientoIncorrectoTest()
     {
         //Accedemos la vista pacientes y posteriormente a la vista nuevopaciente
-        $response = $this->get('/pacientes')->assertSee('Listado de pacientes');
         $response = $this->get('/nuevo/paciente')->assertSee('Añadir paciente');
         $paciente = [
             "nombre" => "Paciente",
@@ -168,10 +163,10 @@ class CrearPacienteTest extends TestCase
             "sexo" => "Masculino",
             "nacimiento" => "2022-10-05",
             "raza" => "Caucásico",
-            "profesion" => "Bombero",
-            "fumador" => "",
-            "bebedor" => "",
-            "carcinogenos" => "",
+            "profesion" => "Pintor",
+            "fumador" => "Desconocido",
+            "bebedor" => "Desconocido",
+            "carcinogenos" => "Desconocido",
         ];
         //Realizamos la solicitud post con los datos del paciente definidos anteriormente
         $response = $this->post('/nuevo/paciente', $paciente);

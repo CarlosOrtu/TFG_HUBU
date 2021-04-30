@@ -55,21 +55,21 @@
         </ul>
       </div>
     </nav>
-    @if (Request::url() == route('pacientes') or Request::url() == route('nuevopaciente') or Request::url() == route('vereliminarpaciente'))
+    @if (Request::routeIs('pacientes') or Request::routeIs('nuevopaciente') or Request::routeIs('vereliminarpaciente'))
     <div class="row mx-4 mt-4">
       @include('layouts.sidebarpacientes')
       <main class="col-md-9">
         @yield('content')
       </main>
     </div>
-    @elseif(Request::url() == route('usuarios') or Request::url() == route('nuevousuario') or Route::currentRouteName() == 'modificarusuario')
+    @elseif(Request::routeIs('usuarios') or Request::routeIs('nuevousuario') or Request::routeIs('modificarusuario'))
     <div class="row mx-4 mt-4">
       @include('layouts.sidebarusuarios')
       <main class="col-md-9">
         @yield('content')
       </main>
     </div>     
-    @elseif(Request::url() == route('datospersonales') or Request::url() == route('modificarcontrasena'))
+    @elseif(Request::routeIs('datospersonales') or Request::routeIs('modificarcontrasena'))
     <div class="row mx-4 mt-4"> 
       @include('layouts.sidebardatospersonales')
       <main class="col-md-9">

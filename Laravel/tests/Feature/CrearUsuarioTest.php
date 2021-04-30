@@ -50,6 +50,7 @@ class CrearUsuarioTest extends TestCase
         $response->assertRedirect('/administrar/usuarios');
         //Comprobamos que en la vista usuarios se vea el nuevo usuario
         $usuarios = Usuarios::all();
+        $response = $this->get('/administrar/usuarios');
         $view = $this->view('usuarios', ['usuarios' => $usuarios]);
         $view->assertSee('UsuarioNombre');
         $view->assertSee('Apellido1 Apellido2');
@@ -85,6 +86,7 @@ class CrearUsuarioTest extends TestCase
         $response->assertRedirect('/nuevo/usuario');
         //Comprobamos que en la vista usuarios no se vea el nuevo usuario
         $usuarios = Usuarios::all();
+        $response = $this->get('/administrar/usuarios');
         $view = $this->view('usuarios', ['usuarios' => $usuarios]);
         $view->assertDontSee('UsuarioNombre');
         $view->assertDontSee('Apellido1 Apellido2');
@@ -115,6 +117,7 @@ class CrearUsuarioTest extends TestCase
         $response->assertRedirect('/nuevo/usuario');
         //Comprobamos que en la vista usuarios se vea el nuevo usuario
         $usuarios = Usuarios::all();
+        $response = $this->get('/administrar/usuarios');
         $view = $this->view('usuarios', ['usuarios' => $usuarios]);
         $view->assertDontSee('UsuarioNombre');
         $view->assertDontSee('Apellido1 Apellido2');
@@ -146,6 +149,7 @@ class CrearUsuarioTest extends TestCase
         $response->assertRedirect('/nuevo/usuario');
         //Comprobamos que en la vista usuarios se vea el nuevo usuario
         $usuarios = Usuarios::all();
+        $response = $this->get('/administrar/usuarios');
         $view = $this->view('usuarios', ['usuarios' => $usuarios]);
         $view->assertDontSee('UsuarioNombre');
         $view->assertDontSee('Apellido1 Apellido2');
@@ -177,6 +181,7 @@ class CrearUsuarioTest extends TestCase
         $response->assertRedirect('/nuevo/usuario');
         //Comprobamos que en la vista usuarios se vea el nuevo usuario
         $usuarios = Usuarios::all();
+        $response = $this->get('/administrar/usuarios');
         $view = $this->view('usuarios', ['usuarios' => $usuarios]);
         $view->assertDontSee('UsuarioNombre');
         $view->assertDontSee('Apellido1 Apellido2');
@@ -208,6 +213,7 @@ class CrearUsuarioTest extends TestCase
         $response->assertRedirect('/nuevo/usuario');
         //Comprobamos que en la vista usuarios se vea el nuevo usuario
         $usuarios = Usuarios::all();
+        $response = $this->get('/administrar/usuarios');
         $view = $this->view('usuarios', ['usuarios' => $usuarios]);
         $view->assertDontSee('UsuarioNombre');
         $view->assertDontSee('Apellido1 Apellido2');
@@ -239,6 +245,7 @@ class CrearUsuarioTest extends TestCase
         $response->assertRedirect('/nuevo/usuario');
         //Comprobamos que en la vista usuarios no se vea el nuevo usuario
         $usuarios = Usuarios::all();
+        $response = $this->get('/administrar/usuarios');
         $view = $this->view('usuarios', ['usuarios' => $usuarios]);
         $view->assertDontSee('UsuarioNombre');
         $view->assertDontSee('Apellido1 Apellido2');
@@ -269,6 +276,7 @@ class CrearUsuarioTest extends TestCase
         $response->assertRedirect('/nuevo/usuario');
         //Comprobamos que en la vista usuarios no se vea el nuevo usuario
         $usuarios = Usuarios::all();
+        $response = $this->get('/administrar/usuarios');
         $view = $this->view('usuarios', ['usuarios' => $usuarios]);
         $view->assertDontSee('UsuarioNombre');
         $view->assertDontSee('Apellido1 Apellido2');
@@ -299,6 +307,7 @@ class CrearUsuarioTest extends TestCase
         $response->assertRedirect('/nuevo/usuario');
         //Comprobamos que en la vista usuarios no se vea el nuevo usuario
         $usuarios = Usuarios::all();
+        $response = $this->get('/administrar/usuarios');
         $view = $this->view('usuarios', ['usuarios' => $usuarios]);
         $view->assertDontSee('UsuarioNombre');
         $view->assertDontSee('Apellido1 Apellido2');
