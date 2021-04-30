@@ -277,7 +277,7 @@
                   <option {{ $paciente->enfermedad->histologia_subtipo == 'Solido' ? 'selected' : '' }}>Solido</option>
                   <option {{ $paciente->enfermedad->histologia_subtipo == 'Mucinoso' ? 'selected' : '' }}>Mucinoso</option>
                   <option {{ $paciente->enfermedad->histologia_subtipo == 'Celulas claras' ? 'selected' : '' }}>Celulas claras</option>
-                  <option {{ !in_array($paciente->enfermedad->histologia_subtipo, ['Acinar','Lepidico','Papilar','Micropapilar','Solido','Mucinoso','Celulas claras']) ? 'selected' : '' }}>Otro</option>
+                  <option {{ !in_array($paciente->enfermedad->histologia_subtipo, ['Desconocido','Acinar','Lepidico','Papilar','Micropapilar','Solido','Mucinoso','Celulas claras']) ? 'selected' : '' }}>Otro</option>
                 </select>
                 @else
                 <select name="histologia_subtipo" class="tipo @error('histologia_subtipo_especificar') is-invalid @enderror form-control">
@@ -303,8 +303,8 @@
                     <span class="input-group-text">Especificar <br>subtipo</span>
                 </div>
                 @if(!empty($paciente->enfermedad))
-                  @if(!in_array($paciente->enfermedad->histologia_subtipo, ['Acinar','Lepidico','Papilar','Micropapilar','Solido','Mucinoso','Celulas claras']))
-                  <input value="{{ $paciente->enfermedad->histologia_subtipo }}" name="histologia_subtipo_especificar" class="form-control @error('nombre') is-invalid @enderror" autocomplete="off">
+                  @if(!in_array($paciente->enfermedad->histologia_subtipo, ['Desconocido','Acinar','Lepidico','Papilar','Micropapilar','Solido','Mucinoso','Celulas claras']))
+                  <input value="{{ substr($paciente->enfermedad->histologia_subtipo, 6) }}" name="histologia_subtipo_especificar" class="form-control @error('nombre') is-invalid @enderror" autocomplete="off">
                   @else
                   <input name="histologia_subtipo_especificar" class="form-control @error('nombre') is-invalid @enderror" autocomplete="off">
                   @endif

@@ -17,7 +17,7 @@ class CreateSintomasTable extends Migration
             $table->id('id_sintoma');
             $table->unsignedBigInteger('id_enfermedad');
             $table->string('tipo');
-            $table->date('fecha_inicio')->nullable();
+            $table->date('fecha_inicio');
             $table->foreign('id_enfermedad')->references('id_enfermedad')->on('enfermedades')->onDelete('cascade')->onUpdate('cascade');
         });
     }

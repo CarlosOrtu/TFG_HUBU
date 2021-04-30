@@ -12,12 +12,6 @@
     <strong class="text-center text-dark">{{ $message }}</strong>
 </div>
 @endif
-@error('familiar')
-<div class="alert alert-danger alert-block">
-    <button type="button" class="text-dark close" data-dismiss="alert">x</button>
-    <strong class="text-center text-dark">{{ $message }}</strong>
-</div>
-@endif
 @foreach ($paciente->Antecedentes_familiares as $antecedente)
 <form action="{{ route('antecedentefamiliarmodificar', ['id' => $paciente->id_paciente, 'num_antecendente_familiar' => $loop->index]) }}" method="post">
   @CSRF

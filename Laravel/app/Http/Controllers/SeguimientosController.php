@@ -36,7 +36,6 @@ class SeguimientosController extends Controller
 		if($request->estado == "Fallecido" and $request->motivo == "Otro"){
 			$validator = Validator::make($request->all(), [
 	            'fecha' => 'required|date|before:'.$manana,
-	            'motivo_especificar' => 'required',
 	            'fecha_fallecimiento' => 'required|date|before:'.$manana,
 	        ],
 	        [

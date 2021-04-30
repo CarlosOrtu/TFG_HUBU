@@ -33,28 +33,8 @@ class AntecedentesController extends Controller
     	return view('antecedentesmedicos',['paciente' => $paciente]);
     }
 
-    public function validarDatosAntecedentesMedicos($request)
-    {
-        if($request->tipo == "Otro"){
-            $validator = Validator::make($request->all(), [
-                'tipo_especificar' => 'required',
-            ],
-            [
-                'required' => 'El campo :attribute no puede estar vacio',
-            ]);
-        }else{
-            $validator = Validator::make($request->all(),[]);
-        }
-
-        return $validator;
-    }
-
     public function crearAntecedentesMedicos(Request $request, $id)
     {
-        $validator = $this->validarDatosAntecedentesMedicos($request);
-        if($validator->fails())
-            return back()->withErrors($validator->errors())->withInput();
-
         $paciente = Pacientes::find($id);
 
         $antecedente = new Antecedentes_medicos();
@@ -73,10 +53,6 @@ class AntecedentesController extends Controller
 
     public function modificarAntecedentesMedicos(Request $request, $id, $num_antecendente_medico)
     {
-        $validator = $this->validarDatosAntecedentesMedicos($request);
-        if($validator->fails())
-            return back()->withErrors($validator->errors())->withInput();
-
         $paciente = Pacientes::find($id);
 
         //Obetenemos todos los antecendentes
@@ -118,28 +94,8 @@ class AntecedentesController extends Controller
     	return view('antecedentesoncologicos',['paciente' => $paciente]);
     }
 
-    public function validarDatosAntecedentesOncologicos($request)
-    {
-        if($request->tipo == "Otro"){
-            $validator = Validator::make($request->all(), [
-                'tipo_especificar' => 'required',
-            ],
-            [
-                'required' => 'El campo :attribute no puede estar vacio',
-            ]);
-        }else{
-            $validator = Validator::make($request->all(),[]);
-        }
-
-        return $validator;
-    }
-
     public function crearAntecedentesOncologicos(Request $request, $id)
     {
-        $validator = $this->validarDatosAntecedentesOncologicos($request);
-        if($validator->fails())
-            return back()->withErrors($validator->errors())->withInput();
-
         $paciente = Pacientes::find($id);
 
         $antecedente = new Antecedentes_oncologicos();
@@ -158,10 +114,6 @@ class AntecedentesController extends Controller
 
     public function modificarAntecedentesOncologicos(Request $request, $id, $num_antecendente_oncologico)
     {
-        $validator = $this->validarDatosAntecedentesOncologicos($request);
-        if($validator->fails())
-            return back()->withErrors($validator->errors())->withInput();
-
         $paciente = Pacientes::find($id);
         //Obetenemos todos los antecendentes
         $antecedentes = $paciente->Antecedentes_oncologicos;
@@ -201,24 +153,8 @@ class AntecedentesController extends Controller
     	return view('antecedentesfamiliares',['paciente' => $paciente]);
     }
 
-    public function validarDatosAntecedentesFamiliares($request)
-    {
-        $validator = Validator::make($request->all(), [
-            'familiar' => 'required',
-        ],
-        [
-            'required' => 'El campo :attribute no puede estar vacio',
-        ]);
-
-        return $validator;
-    }
-
     public function crearAntecedentesFamiliares(Request $request, $id)
     {
-        $validator = $this->validarDatosAntecedentesFamiliares($request);
-        if($validator->fails())
-            return back()->withErrors($validator->errors())->withInput();
-
         $paciente = Pacientes::find($id);
 
         $antecedente = new Antecedentes_familiares();
@@ -247,10 +183,6 @@ class AntecedentesController extends Controller
 
     public function modificarAntecedentesFamiliares(Request $request, $id, $num_antecendente_familiar)
     {
-        $validator = $this->validarDatosAntecedentesFamiliares($request);
-        if($validator->fails())
-            return back()->withErrors($validator->errors())->withInput();
-      
         $paciente = Pacientes::find($id);
         //Obetenemos todos los antecendentes
         $antecedentes = $paciente->Antecedentes_familiares;

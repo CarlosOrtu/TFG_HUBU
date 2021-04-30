@@ -44,33 +44,18 @@ class EnfermedadController extends Controller
         $seg = time();
         $manana = strtotime("+1 day", $seg);
         $manana = date("Y-m-d", $manana);
-        if($request->histologia_subtipo != "Otro"){
-            $validator = Validator::make($request->all(), [
-                'fecha_primera_consulta' => 'required|date|before:'.$manana,
-                'fecha_diagnostico' => 'required|date|before:'.$manana,
-                'T_tamano' => 'required|gt:0',
-            ],
-            [
-            	'required' => 'El campo :attribute no puede estar vacio',
-            	'before' => 'Introduce una fecha valida',
-            	'gt' => 'El valor ha de ser mayor que 0',
-                'date' => 'Introduce una fecha valida',
-            ]);
-        }else{
-            $validator = Validator::make($request->all(), [
-                'fecha_primera_consulta' => 'required|date|before:'.$manana,
-                'fecha_diagnostico' => 'required|date|before:'.$manana,
-                'T_tamano' => 'required|gt:0',
-                'histologia_subtipo_especificar' => 'required'
-            ],
-            [
-                'required' => 'El campo :attribute no puede est
-                ar vacio',
-                'before' => 'Introduce una fecha valida',
-                'gt' => 'El valor ha de ser mayor que 0',
-                'date' => 'Introduce una fecha valida',
-            ]); 
-        }
+        $validator = Validator::make($request->all(), [
+            'fecha_primera_consulta' => 'required|date|before:'.$manana,
+            'fecha_diagnostico' => 'required|date|before:'.$manana.'|after:'.$request->fecha_primera_consulta,
+            'T_tamano' => 'required|gt:0',
+        ],
+        [
+        	'required' => 'El campo :attribute no puede estar vacio',
+        	'before' => 'Introduce una fecha valida',
+        	'gt' => 'El valor ha de ser mayor que 0',
+            'date' => 'Introduce una fecha valida',
+            'after' => 'La fecha del diagnostico no puede ser anterior a la fecha primera fecha_primera_consulta'
+        ]);
 
         return $validator;
     }
@@ -99,7 +84,7 @@ class EnfermedadController extends Controller
         	$enfermedad->tipo_muestra = $request->tipo_muestra;
         	$enfermedad->histologia_tipo = $request->histologia_tipo;
         	if($request->histologia_subtipo == "Otro")
-        		$enfermedad->histologia_subtipo = $request->histologia_subtipo_especificar;
+        		$enfermedad->histologia_subtipo = "Otro: ".$request->histologia_subtipo_especificar;
         	else
         		$enfermedad->histologia_subtipo = $request->histologia_subtipo;
         	$enfermedad->histologia_grado = $request->fecha_primera_consulta;
@@ -135,54 +120,16 @@ class EnfermedadController extends Controller
         $manana = strtotime("+1 day", $seg);
         $manana = date("Y-m-d", $manana);
         if(isset($request->fecha_inicio)){
-            if($request->tipo == "Dolor otra localización"){
-                $validator = Validator::make($request->all(), [
-                    'fecha_inicio' => 'required|before:'.$manana,
-                    'tipo_especificar_localizacion' => 'required',
-                ],
-                [
-                    'required' => 'El campo :attribute no puede estar vacio',
-                    'before' => 'Introduce una fecha valida',
-                    'date' => 'Introduce una fecha valida',
-                ]);
-            }else if($request->tipo == "Otro"){
-                $validator = Validator::make($request->all(), [
-                    'fecha_inicio' => 'required|date|before:'.$manana,
-                    'tipo_especificar' => 'required',
-                ],
-                [
-                    'required' => 'El campo :attribute no puede estar vacio',
-                    'before' => 'Introduce una fecha valida',
-                    'date' => 'Introduce una fecha valida',
-                ]);
-            }else{
-                $validator = Validator::make($request->all(), [
-                    'fecha_inicio' => 'required|date|before:'.$manana,
-                ],
-                [
-                    'required' => 'El campo :attribute no puede estar vacio',
-                    'before' => 'Introduce una fecha valida',
-                    'date' => 'Introduce una fecha valida',
-                ]);
-            }
+            $validator = Validator::make($request->all(), [
+                'fecha_inicio' => 'required|date|before:'.$manana,
+            ],
+            [
+                'required' => 'El campo :attribute no puede estar vacio',
+                'before' => 'Introduce una fecha valida',
+                'date' => 'Introduce una fecha valida',
+            ]);
         }else{
-            if($request->tipo == "Dolor otra localización"){
-                $validator = Validator::make($request->all(), [
-                    'tipo_especificar_localizacion' => 'required',
-                ],
-                [
-                    'required' => 'El campo :attribute no puede estar vacio',
-                ]);
-            }else if($request->tipo == "Otro"){
-                $validator = Validator::make($request->all(), [
-                    'tipo_especificar' => 'required',
-                ],
-                [
-                    'required' => 'El campo :attribute no puede estar vacio',
-                ]);
-            }else{
-                $validator = Validator::make($request->all(),[]);
-            }
+            $validator = Validator::make($request->all(),[]);
         }
 
         return $validator;
@@ -220,8 +167,10 @@ class EnfermedadController extends Controller
 
             if(isset($request->fecha_inicio))
                 $fecha_sintomas = $request->fecha_inicio;
-            else
+            elseif(count($enfermedad->Sintomas) > 0)
                 $fecha_sintomas = $enfermedad->Sintomas[0]->fecha_inicio;
+            else
+                $fecha_sintomas = null;
 
             $sintoma->id_enfermedad = $idEnfermedad;
             if($request->tipo == "Dolor otra localización")
@@ -313,27 +262,9 @@ class EnfermedadController extends Controller
     	return view('metastasis',['paciente' => $paciente]);
     }
 
-    public function validarDatosMetastasis($request)
-    {
-        if($request->localizacion == "Otro"){
-            $validator = Validator::make($request->all(), [
-                'localizacion_especificar' => 'required',
-            ],
-            [
-                'required' => 'El campo :attribute no puede estar vacio',
-            ]);
-        }else{
-            $validator = Validator::make($request->all(),[]);
-        }
-
-        return $validator;
-    }
 
     public function crearMetastasis(Request $request, $id)
     {
-        $validator = $this->validarDatosMetastasis($request);
-        if($validator->fails())
-            return back()->withErrors($validator->errors())->withInput();
         $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
 
         $metastasis = new Metastasis();
@@ -353,9 +284,6 @@ class EnfermedadController extends Controller
 
     public function modificarMetastasis(Request $request, $id, $num_metastasis)
     {
-        $validator = $this->validarDatosMetastasis($request);
-        if($validator->fails())
-            return back()->withErrors($validator->errors())->withInput();
         $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
         //Obetenemos todas las metastasis
         $metastasis = Enfermedad::find($idEnfermedad)->Metastasis;
@@ -396,27 +324,9 @@ class EnfermedadController extends Controller
         return view('pruebas',['paciente' => $paciente]);
     }
 
-    public function validarDatosPruebas($request)
-    {
-        if($request->tipo == "Otro"){
-            $validator = Validator::make($request->all(), [
-                'tipo_especificar' => 'required',
-            ],
-            [
-                'required' => 'El campo :attribute no puede estar vacio',
-            ]);
-        }else{
-            $validator = Validator::make($request->all(),[]);
-        }
-
-        return $validator;
-    }
 
     public function crearPruebas(Request $request, $id)
     {
-        $validator = $this->validarDatosPruebas($request);
-        if($validator->fails())
-            return back()->withErrors($validator->errors())->withInput();
         $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
 
         $prueba = new Pruebas_realizadas();
@@ -436,9 +346,6 @@ class EnfermedadController extends Controller
 
     public function modificarPruebas(Request $request, $id, $num_prueba)
     {
-        $validator = $this->validarDatosPruebas($request);
-        if($validator->fails())
-            return back()->withErrors($validator->errors())->withInput();
         $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
         //Obetenemos todas las pruebas
         $pruebas = Enfermedad::find($idEnfermedad)->Pruebas_realizadas;
@@ -480,27 +387,8 @@ class EnfermedadController extends Controller
         return view('tecnicas',['paciente' => $paciente]);
     }
 
-    public function validarDatosTecnicas($request)
-    {
-        if($request->tipo == "Otro"){
-            $validator = Validator::make($request->all(), [
-                'tipo_especificar' => 'required',
-            ],
-            [
-                'required' => 'El campo :attribute no puede estar vacio',
-            ]);
-        }else{
-            $validator = Validator::make($request->all(),[]);
-        }
-
-        return $validator;
-    }
-
     public function crearTecnicas(Request $request, $id)
     {
-        $validator = $this->validarDatosTecnicas($request);
-        if($validator->fails())
-            return back()->withErrors($validator->errors())->withInput();
         $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
 
         $tecnica = new Tecnicas_realizadas();
@@ -520,9 +408,6 @@ class EnfermedadController extends Controller
 
     public function modificarTecnicas(Request $request, $id, $num_tecnica)
     {
-        $validator = $this->validarDatosTecnicas($request);
-        if($validator->fails())
-            return back()->withErrors($validator->errors())->withInput();
         $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
         //Obetenemos todas las técnicas
         $tecnicas = Enfermedad::find($idEnfermedad)->Tecnicas_realizadas;
@@ -564,27 +449,8 @@ class EnfermedadController extends Controller
         return view('otrostumores',['paciente' => $paciente]);
     }
 
-    public function validarDatosOtrosTumores($request)
-    {
-        if($request->tipo == "Otro"){
-            $validator = Validator::make($request->all(), [
-                'tipo_especificar' => 'required',
-            ],
-            [
-                'required' => 'El campo :attribute no puede estar vacio',
-            ]);
-        }else{
-            $validator = Validator::make($request->all(),[]);
-        }
-
-        return $validator;
-    }
-
     public function crearOtrosTumores(Request $request, $id)
     {
-        $validator = $this->validarDatosOtrosTumores($request);
-        if($validator->fails())
-            return back()->withErrors($validator->errors())->withInput();
         $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
 
         $tumor = new Otros_tumores();
@@ -604,9 +470,6 @@ class EnfermedadController extends Controller
 
     public function modificarOtrosTumores(Request $request, $id, $num_otrostumores)
     {
-        $validator = $this->validarDatosOtrosTumores($request);
-        if($validator->fails())
-            return back()->withErrors($validator->errors())->withInput();
         $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
         //Obetenemos todos los tumores
         $tumores = Enfermedad::find($idEnfermedad)->Otros_tumores;
@@ -652,24 +515,6 @@ class EnfermedadController extends Controller
             $biomarcadores = $enfermedad->Biomarcadores;
         return view('biomarcadores',['paciente' => $paciente, 'biomarcadores' => $biomarcadores]);
     }
-
-
-    //HACER
-    public function validarDatosBiomarcadores($request)
-    {
-        if($request->tipo == "Otro"){
-            $validator = Validator::make($request->all(), [
-                'tipo_especificar' => 'required',
-            ],
-            [
-                'required' => 'El campo :attribute no puede estar vacio',
-            ]);
-        }else{
-            $validator = Validator::make($request->all(),[]);
-        }
-
-        return $validator;
-    }   
 
     public function guardarBiomarcadores(Request $request, $id)
     {

@@ -18,18 +18,6 @@
     <strong class="text-center text-dark">{{ $message }}</strong>
 </div>
 @endif
-@error('especificar_administracion')
-<div class="alert alert-danger alert-block">
-    <button type="button" class="text-dark close" data-dismiss="alert">x</button>
-    <strong class="text-center text-dark">{{ $message }}</strong>
-</div>
-@endif
-@error('especificar_tipo_farmaco')
-<div class="alert alert-danger alert-block">
-    <button type="button" class="text-dark close" data-dismiss="alert">x</button>
-    <strong class="text-center text-dark">{{ $message }}</strong>
-</div>
-@endif
 @error('primer_ciclo')
 <div class="alert alert-danger alert-block">
     <button type="button" class="text-dark close" data-dismiss="alert">x</button>

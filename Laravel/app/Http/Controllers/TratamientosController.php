@@ -40,34 +40,18 @@ class TratamientosController extends Controller
     	$seg = time();
 		$manana = strtotime("+1 day", $seg);
 		$manana = date("Y-m-d", $manana);
-    	if($request->localizacion == "Otro"){
-	        $validator = Validator::make($request->all(), [
-	            'dosis' => 'required|gt:0',
-	            'localizacion_especificar' => 'required',
-	            'fecha_inicio' => 'required|date|before:'.$manana,
-	            'fecha_fin' => 'required|date|after:'.$request->fecha_inicio,
-	        ],
-	        [
-	        'gt' => 'La dosis debe ser un número positivo mayor que 0',
-	        'required' => 'El campo :attribute no puede estar vacio',
-	        'before' => 'Introduce una fecha valida',
-	        'after' => 'Fecha fin no puede ser anterior a fecha inicio',
-	        'date' => 'Introduce una fecha valida',
-	        ]);
-	    }else{
-	    	$validator = Validator::make($request->all(), [
-	            'dosis' => 'required|gt:0',
-	            'fecha_inicio' => 'date|before:'.$manana,
-	            'fecha_fin' => 'date|after:'.$request->fecha_inicio,
-	        ],
-	        [
-	        'gt' => 'La dosis debe ser un número positivo mayor que 0',
-	        'required' => 'El campo :attribute no puede estar vacio',
-	        'before' => 'Introduce una fecha valida',
-	        'after' => 'Fecha fin no puede ser anterior a fecha inicio',
-	        'date' => 'Introduce una fecha valida',
-	        ]);
-	    }
+    	$validator = Validator::make($request->all(), [
+            'dosis' => 'required|gt:0',
+            'fecha_inicio' => 'date|before:'.$manana,
+            'fecha_fin' => 'date|after:'.$request->fecha_inicio,
+        ],
+        [
+        'gt' => 'La dosis debe ser un número positivo mayor que 0',
+        'required' => 'El campo :attribute no puede estar vacio',
+        'before' => 'Introduce una fecha valida',
+        'after' => 'Fecha fin no puede ser anterior a fecha inicio',
+        'date' => 'Introduce una fecha valida',
+        ]);
 
         return $validator;
     }
@@ -274,18 +258,7 @@ class TratamientosController extends Controller
 	            'primer_ciclo' => 'required|before:'.$manana,
 	            'ultimo_ciclo' => 'required|after:'.$request->primer_ciclo,
 	        ];
-		if($request->administracion == "Otro" and $request->tipo_farmaco == "Otro"){
-		ifarray_push($restricciones,['especificar_administracion' => 'required'],['especificar_tipo_farmaco' => 'required']);
-			$validator = Validator::make($request->all(), $restricciones,$mensajeError);
-		}elseif($request->administracion == "Otro" and $request->tipo_farmaco != "Otro"){
-			array_push($restricciones,['especificar_administracion' => 'required']);			
-			$validator = Validator::make($request->all(), $restricciones,$mensajeError);
-		}elseif($request->administracion != "Otro" and $request->tipo_farmaco == "Otro"){
-			array_push($restricciones,['especificar_tipo_farmaco' => 'required']);
-	        $validator = Validator::make($request->all(), $restricciones,$mensajeError);
-		}else{
-		    $validator = Validator::make($request->all(),$restricciones,$mensajeError);		
-		}
+		$validator = Validator::make($request->all(),$restricciones,$mensajeError);		
 
         return $validator;
     }

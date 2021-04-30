@@ -12,12 +12,6 @@
     <strong class="text-center text-dark">{{ $message }}</strong>
 </div>
 @endif
-@error('tipo_especificar')
-<div class="alert alert-danger alert-block">
-    <button type="button" class="text-dark close" data-dismiss="alert">x</button>
-    <strong class="text-center text-dark">{{ $message }}</strong>
-</div>
-@endif
 @foreach ($paciente->Antecedentes_medicos as $antecedente)
 <form action="{{ route('antecedentemedicomodificar', ['id' => $paciente->id_paciente, 'num_antecendente_medico' => $loop->index]) }}" method="post">
     @CSRF

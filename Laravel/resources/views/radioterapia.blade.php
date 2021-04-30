@@ -18,12 +18,6 @@
     <strong class="text-center text-dark">{{ $message }}</strong>
 </div>
 @endif
-@error('localizacion_especificar')
-<div class="alert alert-danger alert-block">
-    <button type="button" class="text-dark close" data-dismiss="alert">x</button>
-    <strong class="text-center text-dark">{{ $message }}</strong>
-</div>
-@endif
 @error('fecha_inicio')
 <div class="alert alert-danger alert-block">
     <button type="button" class="text-dark close" data-dismiss="alert">x</button>

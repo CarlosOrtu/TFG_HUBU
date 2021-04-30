@@ -33,26 +33,14 @@ class ReevaluacionesController extends Controller
     	$seg = time();
 		$manana = strtotime("+1 day", $seg);
 		$manana = date("Y-m-d", $manana);
-		if($request->estado == "Progresión" and $request->localizacion == "Otro"){
-			$validator = Validator::make($request->all(), [
-	            'fecha' => 'required|date|before:'.$manana,
-	            'localizacion_especificar' => 'required',
-	        ],
-	        [
-	        'required' => 'El campo :attribute no puede estar vacio',
-	        'before' => 'Introduce una fecha valida',
-	        'date' => 'Introduce una fecha valida',
-	        ]);	
-		}else{
-	        $validator = Validator::make($request->all(), [
-	            'fecha' => 'required|date|before:'.$manana,
-	        ],
-	        [
-	        'required' => 'El campo :attribute no puede estar vacio',
-	        'before' => 'Introduce una fecha valida',
-	        'date' => 'Introduce una fecha valida',
-	        ]);
-    	}	
+        $validator = Validator::make($request->all(), [
+            'fecha' => 'required|date|before:'.$manana,
+        ],
+        [
+        'required' => 'El campo :attribute no puede estar vacio',
+        'before' => 'Introduce una fecha valida',
+        'date' => 'Introduce una fecha valida',
+        ]);
 
         return $validator;
     }

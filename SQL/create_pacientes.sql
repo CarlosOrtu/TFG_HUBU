@@ -88,7 +88,7 @@ CREATE TABLE sintomas(
 id_sintoma INT PRIMARY KEY NOT NULL,
 id_enfermedad INT NOT NULL,
 tipo VARCHAR(20) NOT NULL,
-fecha_inicio DATE,
+fecha_inicio DATE NOT NULL,
 FOREIGN KEY (id_enfermedad) REFERENCES enfermedades(id_enfermedad) ) ENGINE=InnoDB;
 
 CREATE TABLE biomarcadores(
