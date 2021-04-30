@@ -44,19 +44,33 @@ class EnfermedadController extends Controller
         $seg = time();
         $manana = strtotime("+1 day", $seg);
         $manana = date("Y-m-d", $manana);
-        $validator = Validator::make($request->all(), [
-            'fecha_primera_consulta' => 'required|date|before:'.$manana,
-            'fecha_diagnostico' => 'required|date|before:'.$manana.'|after:'.$request->fecha_primera_consulta,
-            'T_tamano' => 'required|gt:0',
-        ],
-        [
-        	'required' => 'El campo :attribute no puede estar vacio',
-        	'before' => 'Introduce una fecha valida',
-        	'gt' => 'El valor ha de ser mayor que 0',
-            'date' => 'Introduce una fecha valida',
-            'after' => 'La fecha del diagnostico no puede ser anterior a la fecha primera fecha_primera_consulta'
-        ]);
-
+        if($request->fecha_primera_consulta != null){
+            $validator = Validator::make($request->all(), [
+                'fecha_primera_consulta' => 'required|before:'.$manana,
+                'fecha_diagnostico' => 'required|before:'.$manana.'|after:'.$request->fecha_primera_consulta,
+                'T_tamano' => 'required|gt:0',
+            ],
+            [
+            	'required' => 'El campo :attribute no puede estar vacio',
+            	'before' => 'Introduce una fecha valida',
+            	'gt' => 'El valor ha de ser mayor que 0',
+                'date' => 'Introduce una fecha valida',
+                'after' => 'La fecha del diagnostico no puede ser anterior a la fecha primera fecha_primera_consulta'
+            ]);
+        }else{
+            $validator = Validator::make($request->all(), [
+                'fecha_primera_consulta' => 'required|before:'.$manana,
+                'fecha_diagnostico' => 'required|before:'.$manana,
+                'T_tamano' => 'required|gt:0',
+            ],
+            [
+                'required' => 'El campo :attribute no puede estar vacio',
+                'before' => 'Introduce una fecha valida',
+                'gt' => 'El valor ha de ser mayor que 0',
+                'date' => 'Introduce una fecha valida',
+                'after' => 'La fecha del diagnostico no puede ser anterior a la fecha primera fecha_primera_consulta'
+            ]);
+        }
         return $validator;
     }
 
@@ -87,7 +101,7 @@ class EnfermedadController extends Controller
         		$enfermedad->histologia_subtipo = "Otro: ".$request->histologia_subtipo_especificar;
         	else
         		$enfermedad->histologia_subtipo = $request->histologia_subtipo;
-        	$enfermedad->histologia_grado = $request->fecha_primera_consulta;
+        	$enfermedad->histologia_grado = $request->histologia_grado;
             $enfermedad->tratamiento_dirigido = $request->tratamiento_dirigido;
 
         	$enfermedad->save();

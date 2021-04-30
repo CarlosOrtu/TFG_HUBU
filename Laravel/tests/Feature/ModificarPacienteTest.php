@@ -90,7 +90,7 @@ class ModificarPacienteTest extends TestCase
 
     /** @test */
     //Caso de prueba 2
-    public function modificarPacienteCampoNombreVacio()
+    public function modificarPacienteCampoNombreVacioTest()
     {
         //Accedemos la vista de los datos del paciente
         $response = $this->get('/paciente/999')->assertSee('Datos paciente');
@@ -117,7 +117,7 @@ class ModificarPacienteTest extends TestCase
         $view = $this->view('datospaciente', ['paciente' => $paciente]);
         $view->assertDontSee('ApellidoModificado');
         $view->assertDontSee('1999-10-10');
-        //Comprobamos que los datos del paciente coincidan con los introducidos
+        //Comprobamos que los datos del paciente no se han actualizado
         $this->assertFalse($paciente->nombre == "");
         $this->assertFalse($paciente->apellidos == "ApellidoModificado");
         $this->assertFalse($paciente->sexo == "Femenino");
@@ -131,7 +131,7 @@ class ModificarPacienteTest extends TestCase
 
     /** @test */
     //Caso de prueba 3
-    public function modificarPacienteCampoApellidosVacio()
+    public function modificarPacienteCampoApellidosVacioTest()
     {
         //Accedemos la vista de los datos del paciente
         $response = $this->get('/paciente/999')->assertSee('Datos paciente');
@@ -148,7 +148,7 @@ class ModificarPacienteTest extends TestCase
         ];
         //Realizamos la solicitud put con los datos del paciente definidos anteriormente
         $response = $this->put('/paciente/999', $paciente);
-        //Comprobamos que devuelve error en el campo nombre 
+        //Comprobamos que devuelve error en el campo apellidos 
         $response->assertSessionHasErrors('apellidos');
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/paciente/999');
@@ -158,7 +158,7 @@ class ModificarPacienteTest extends TestCase
         $view = $this->view('datospaciente', ['paciente' => $paciente]);
         $view->assertDontSee('PacienteModificado');
         $view->assertDontSee('1999-10-10');
-        //Comprobamos que los datos del paciente coincidan con los introducidos
+        //Comprobamos que los datos del paciente no se han actualizado
         $this->assertFalse($paciente->nombre == "PacienteModificado");
         $this->assertFalse($paciente->apellidos == "");
         $this->assertFalse($paciente->sexo == "Femenino");
@@ -172,7 +172,7 @@ class ModificarPacienteTest extends TestCase
 
     /** @test */
     //Caso de prueba 4
-    public function modificarPacienteFechaIncorrecta()
+    public function modificarPacienteFechaIncorrectaTest()
     {
         //Accedemos la vista de los datos del paciente
         $response = $this->get('/paciente/999')->assertSee('Datos paciente');
@@ -189,7 +189,7 @@ class ModificarPacienteTest extends TestCase
         ];
         //Realizamos la solicitud put con los datos del paciente definidos anteriormente
         $response = $this->put('/paciente/999', $paciente);
-        //Comprobamos que devuelve error en el campo nombre 
+        //Comprobamos que devuelve error en el campo nacimiento 
         $response->assertSessionHasErrors('nacimiento');
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/paciente/999');
@@ -200,7 +200,7 @@ class ModificarPacienteTest extends TestCase
         $view->assertDontSee('PacienteModificado');
         $view->assertDontSee('ApellidoModificado');
         $view->assertDontSee('2022-10-10');
-        //Comprobamos que los datos del paciente coincidan con los introducidos
+        //Comprobamos que los datos del paciente no se han actualizado
         $this->assertFalse($paciente->nombre == "PacienteModificado");
         $this->assertFalse($paciente->apellidos == "ApellidoModificado");
         $this->assertFalse($paciente->sexo == "Femenino");

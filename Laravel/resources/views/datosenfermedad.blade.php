@@ -136,7 +136,6 @@
                 <select name="N_afectacion" class="form-control">
                   <option {{ $paciente->enfermedad->N_afectacion == 'Uni ganglionar' ? 'selected' : '' }}>Uni ganglionar</option>
                   <option {{ $paciente->enfermedad->N_afectacion == 'Multiestación' ? 'selected' : '' }}>Multiestación</option>
-                  <option {{ $paciente->enfermedad->N_afectacion == 3 ? 'selected' : '' }}>3</option>
                 </select>
                 @else
                 <select name="N_afectacion" class="form-control">
