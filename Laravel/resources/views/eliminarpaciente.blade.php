@@ -61,7 +61,7 @@
 			var url = urlPrincipal+'/TFG_HUBU/Laravel/public/eliminar/paciente/'+idPaciente;
 		}
 		else{
-			var url = urlPrincipal+'/eliminar/paciente'+idPaciente;
+			var url = urlPrincipal+'/eliminar/paciente/'+idPaciente;
 		}
 		var apellidos = $(element).parent().prev().text();
 		var nombre = $(element).parent().prev().prev().text();
@@ -76,6 +76,7 @@
 			$.ajax({
 			    url: url,
 			    type: 'GET',
+			    dataType: 'html',
 			    success: function(result) {
 			    	location.reload();
 			    }
