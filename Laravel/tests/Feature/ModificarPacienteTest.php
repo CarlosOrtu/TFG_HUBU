@@ -64,7 +64,6 @@ class ModificarPacienteTest extends TestCase
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/paciente/999');
         //Comprobamos que en la vista paciente se vea los datos modificados correctamente
-        $pacientes = Pacientes::all();
         $paciente = Pacientes::find(999);
         $view = $this->view('datospaciente', ['paciente' => $paciente]);
         $view->assertSee('PacienteModificado');
@@ -112,7 +111,6 @@ class ModificarPacienteTest extends TestCase
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/paciente/999');
         //Comprobamos que en la vista pacientes no se vean los datos modificados
-        $pacientes = Pacientes::all();
         $paciente = Pacientes::find(999);
         $view = $this->view('datospaciente', ['paciente' => $paciente]);
         $view->assertDontSee('ApellidoModificado');
@@ -153,7 +151,6 @@ class ModificarPacienteTest extends TestCase
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/paciente/999');
         //Comprobamos que en la vista pacientes no se vean los datos modificados
-        $pacientes = Pacientes::all();
         $paciente = Pacientes::find(999);
         $view = $this->view('datospaciente', ['paciente' => $paciente]);
         $view->assertDontSee('PacienteModificado');
@@ -194,7 +191,6 @@ class ModificarPacienteTest extends TestCase
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/paciente/999');
         //Comprobamos que en la vista pacientes no se vean los datos modificados
-        $pacientes = Pacientes::all();
         $paciente = Pacientes::find(999);
         $view = $this->view('datospaciente', ['paciente' => $paciente]);
         $view->assertDontSee('PacienteModificado');

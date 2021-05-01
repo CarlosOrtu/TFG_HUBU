@@ -61,7 +61,6 @@ class EliminarPacienteTest extends TestCase
         $usuario = Pacientes::find(999);
         $this->assertTrue(empty($usuario)); 
         //Comprobamos que el usuario no se vea
-        $usuarios = Pacientes::all();
         $response = $this->get('/pacientes');
     }
 }

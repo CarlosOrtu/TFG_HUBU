@@ -8,12 +8,12 @@ use Tests\TestCase;
 use App\Models\Pacientes;
 use App\Models\Enfermedad;
 
-class CrearSintomasTest extends TestCase
+class CrearSintomaTest extends TestCase
 {
     protected function setUp(): void
     {
         parent::setUp();
-        //Creamos el usuario a modificar
+        //Creamos el usuario 
         $paciente = new Pacientes();
         $paciente->id_paciente = 999;
         $paciente->nombre = "PacienteTest";
@@ -27,7 +27,7 @@ class CrearSintomasTest extends TestCase
         $paciente->carcinogenos = "Desconocido"; 
         $paciente->ultima_modificacion = date("Y-m-d");
         $paciente->save(); 
-
+        //Creamos la enfermedad
         $enfermedad = new Enfermedad();
         $enfermedad->id_enfermedad = 999;
         $enfermedad->id_paciente = 999;
@@ -79,7 +79,6 @@ class CrearSintomasTest extends TestCase
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/paciente/999/enfermedad/sintomas');
         //Comprobamos que en la vista sintoma se vea los datos modificados correctamente
-        $pacientes = Pacientes::all();
         $paciente = Pacientes::find(999);
         $view = $this->view('datossintomas', ['paciente' => $paciente]);
         $view->assertSee('1999-05-05');

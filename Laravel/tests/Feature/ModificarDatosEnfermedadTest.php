@@ -88,18 +88,17 @@ class ModificarDatosEnfermedadTest extends TestCase
             "histologia_grado"=> "Mal diferenciado",
             "tratamiento_dirigido"=> 0,
         ];
-        //Realizamos la solicitud put con los datos del paciente definidos anteriormente
+        //Realizamos la solicitud put con los datos de la enfermad definidos anteriormente
         $response = $this->put('/paciente/999/enfermedad/datosgenerales', $enfermedad);
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/paciente/999/enfermedad/datosgenerales');
-        //Comprobamos que en la vista paciente se vea los datos modificados correctamente
-        $pacientes = Pacientes::all();
+        //Comprobamos que en la vista enfermedad se vea los datos modificados correctamente
         $paciente = Pacientes::find(999);
         $view = $this->view('datosenfermedad', ['paciente' => $paciente]);
         $view->assertSee('1999-05-05');
         $view->assertSee('1999-06-06');
         $view->assertSee('2.2');
-        //Comprobamos que los datos del paciente coincidan con los modificados
+        //Comprobamos que los datos de la enfermedad coincidan con los modificados
         $this->assertTrue($paciente->Enfermedad->fecha_primera_consulta == "1999-05-05");
         $this->assertTrue($paciente->Enfermedad->fecha_diagnostico == "1999-06-06");
         $this->assertTrue($paciente->Enfermedad->ECOG == 1);
@@ -140,14 +139,13 @@ class ModificarDatosEnfermedadTest extends TestCase
             "histologia_grado"=> "Mal diferenciado",
             "tratamiento_dirigido"=> 0,
         ];
-        //Realizamos la solicitud put con los datos del paciente definidos anteriormente
+        //Realizamos la solicitud put con los datos de la enfermedad definidos anteriormente
         $response = $this->put('/paciente/999/enfermedad/datosgenerales', $enfermedad);
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/paciente/999/enfermedad/datosgenerales');
         //Comprobamos que devuelve error en el campo fecha primera consulta 
         $response->assertSessionHasErrors('fecha_primera_consulta');
         //Comprobamos que en la vista enfermedad no se vean los datos modificados
-        $pacientes = Pacientes::all();
         $paciente = Pacientes::find(999);
         $view = $this->view('datosenfermedad', ['paciente' => $paciente]);
         $view->assertDontSee('1999-06-06');
@@ -193,14 +191,13 @@ class ModificarDatosEnfermedadTest extends TestCase
             "histologia_grado"=> "Mal diferenciado",
             "tratamiento_dirigido"=> 0,
         ];
-        //Realizamos la solicitud put con los datos del paciente definidos anteriormente
+        //Realizamos la solicitud put con los datos de la enfermedad definidos anteriormente
         $response = $this->put('/paciente/999/enfermedad/datosgenerales', $enfermedad);
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/paciente/999/enfermedad/datosgenerales');
         //Comprobamos que devuelve error en el campo fecha primera consulta 
         $response->assertSessionHasErrors('fecha_primera_consulta');
         //Comprobamos que en la vista enfermedad no se vean los datos modificados
-        $pacientes = Pacientes::all();
         $paciente = Pacientes::find(999);
         $view = $this->view('datosenfermedad', ['paciente' => $paciente]);
         $view->assertDontSee('2022-05-05');
@@ -247,14 +244,13 @@ class ModificarDatosEnfermedadTest extends TestCase
             "histologia_grado"=> "Mal diferenciado",
             "tratamiento_dirigido"=> 0,
         ];
-        //Realizamos la solicitud put con los datos del paciente definidos anteriormente
+        //Realizamos la solicitud put con los datos de la enfermedad definidos anteriormente
         $response = $this->put('/paciente/999/enfermedad/datosgenerales', $enfermedad);
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/paciente/999/enfermedad/datosgenerales');
         //Comprobamos que devuelve error en el campo fecha dianostivo 
         $response->assertSessionHasErrors('fecha_diagnostico');
         //Comprobamos que en la vista enfermedad no se vean los datos modificados
-        $pacientes = Pacientes::all();
         $paciente = Pacientes::find(999);
         $view = $this->view('datosenfermedad', ['paciente' => $paciente]);
         $view->assertDontSee('1999-05-05');
@@ -300,14 +296,13 @@ class ModificarDatosEnfermedadTest extends TestCase
             "histologia_grado"=> "Mal diferenciado",
             "tratamiento_dirigido"=> 0,
         ];
-        //Realizamos la solicitud put con los datos del paciente definidos anteriormente
+        //Realizamos la solicitud put con los datos de la enfermedad definidos anteriormente
         $response = $this->put('/paciente/999/enfermedad/datosgenerales', $enfermedad);
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/paciente/999/enfermedad/datosgenerales');
         //Comprobamos que devuelve error en el campo fecha dianostivo 
         $response->assertSessionHasErrors('fecha_diagnostico');
         //Comprobamos que en la vista enfermedad no se vean los datos modificados
-        $pacientes = Pacientes::all();
         $paciente = Pacientes::find(999);
         $view = $this->view('datosenfermedad', ['paciente' => $paciente]);
         $view->assertDontSee('1999-05-05');
@@ -354,14 +349,13 @@ class ModificarDatosEnfermedadTest extends TestCase
             "histologia_grado"=> "Mal diferenciado",
             "tratamiento_dirigido"=> 0,
         ];
-        //Realizamos la solicitud put con los datos del paciente definidos anteriormente
+        //Realizamos la solicitud put con los datos de la enfermedad definidos anteriormente
         $response = $this->put('/paciente/999/enfermedad/datosgenerales', $enfermedad);
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/paciente/999/enfermedad/datosgenerales');
         //Comprobamos que devuelve error en el campo fecha dianostivo 
         $response->assertSessionHasErrors('fecha_diagnostico');
         //Comprobamos que en la vista enfermedad no se vean los datos modificados
-        $pacientes = Pacientes::all();
         $paciente = Pacientes::find(999);
         $view = $this->view('datosenfermedad', ['paciente' => $paciente]);
         $view->assertDontSee('1999-05-05');
@@ -387,7 +381,7 @@ class ModificarDatosEnfermedadTest extends TestCase
 
     /** @test */
     //Caso de prueba 7
-    public function modificarEnfermedadConTamanoTVacio()
+    public function modificarEnfermedadConTamanoTVacioTest()
     {
         //Accedemos la vista de los datos del paciente
         $response = $this->get('/paciente/999/enfermedad/datosgenerales')->assertSee('Datos enfermedad');
@@ -408,14 +402,13 @@ class ModificarDatosEnfermedadTest extends TestCase
             "histologia_grado"=> "Mal diferenciado",
             "tratamiento_dirigido"=> 0,
         ];
-        //Realizamos la solicitud put con los datos del paciente definidos anteriormente
+        //Realizamos la solicitud put con los datos de la enfermedad definidos anteriormente
         $response = $this->put('/paciente/999/enfermedad/datosgenerales', $enfermedad);
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/paciente/999/enfermedad/datosgenerales');
         //Comprobamos que devuelve error en el campo fecha tamaño de T 
         $response->assertSessionHasErrors('T_tamano');
         //Comprobamos que en la vista enfermedad no se vean los datos modificados
-        $pacientes = Pacientes::all();
         $paciente = Pacientes::find(999);
         $view = $this->view('datosenfermedad', ['paciente' => $paciente]);
         $view->assertDontSee('1999-05-05');
@@ -440,7 +433,7 @@ class ModificarDatosEnfermedadTest extends TestCase
 
     /** @test */
     //Caso de prueba 8
-    public function modificarEnfermedadConTamanoTNegativo()
+    public function modificarEnfermedadConTamanoTNegativoTest()
     {
         //Accedemos la vista de los datos del paciente
         $response = $this->get('/paciente/999/enfermedad/datosgenerales')->assertSee('Datos enfermedad');
@@ -461,14 +454,13 @@ class ModificarDatosEnfermedadTest extends TestCase
             "histologia_grado"=> "Mal diferenciado",
             "tratamiento_dirigido"=> 0,
         ];
-        //Realizamos la solicitud put con los datos del paciente definidos anteriormente
+        //Realizamos la solicitud put con los datos de la enfermedad definidos anteriormente
         $response = $this->put('/paciente/999/enfermedad/datosgenerales', $enfermedad);
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/paciente/999/enfermedad/datosgenerales');
         //Comprobamos que devuelve error en el campo fecha tamaño de T 
         $response->assertSessionHasErrors('T_tamano');
         //Comprobamos que en la vista enfermedad no se vean los datos modificados
-        $pacientes = Pacientes::all();
         $paciente = Pacientes::find(999);
         $view = $this->view('datosenfermedad', ['paciente' => $paciente]);
         $view->assertDontSee('1999-05-05');
