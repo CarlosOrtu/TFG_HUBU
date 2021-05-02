@@ -9,12 +9,17 @@ use App\Models\Antecedentes_medicos;
 use App\Models\Antecedentes_oncologicos;
 use App\Models\Antecedentes_familiares;
 use App\Models\Enfermedades_familiar;
+use App\Utilidades\Encriptacion;
+
 
 class AntecedentesController extends Controller
 {
+    private $encriptacion;
+
     public function __construct()
     {
         $this->middleware('auth');
+        $this->encriptacion = new Encriptacion();
     }
 
     public function actualizarfechaModificacionPaciente($paciente)
@@ -30,7 +35,8 @@ class AntecedentesController extends Controller
     public function verAntecedentesMedicos($id)
     {
     	$paciente = Pacientes::find($id);
-    	return view('antecedentesmedicos',['paciente' => $paciente]);
+        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+    	return view('antecedentesmedicos',['paciente' => $paciente,'nombre' => $nombreDesencriptado]);
     }
 
     public function crearAntecedentesMedicos(Request $request, $id)
@@ -91,7 +97,8 @@ class AntecedentesController extends Controller
   	public function verAntecedentesOncologicos($id)
     {
     	$paciente = Pacientes::find($id);
-    	return view('antecedentesoncologicos',['paciente' => $paciente]);
+        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+    	return view('antecedentesoncologicos',['paciente' => $paciente,'nombre' => $nombreDesencriptado]);
     }
 
     public function crearAntecedentesOncologicos(Request $request, $id)
@@ -150,7 +157,8 @@ class AntecedentesController extends Controller
   	public function verAntecedentesFamiliares($id)
     {
     	$paciente = Pacientes::find($id);
-    	return view('antecedentesfamiliares',['paciente' => $paciente]);
+        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+    	return view('antecedentesfamiliares',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
     }
 
     public function crearAntecedentesFamiliares(Request $request, $id)

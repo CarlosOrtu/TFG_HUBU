@@ -9,13 +9,17 @@ use App\Models\Pacientes;
 use App\Models\Tratamientos;
 use App\Models\Intenciones;
 use App\Models\Farmacos;
+use App\Utilidades\Encriptacion;
+
 
 class TratamientosController extends Controller
 {
+    private $encriptacion;
 
     public function __construct()
     {
         $this->middleware('auth');
+        $this->encriptacion = new Encriptacion();
     }
 
     public function actualizarfechaModificacionPaciente($paciente)
@@ -31,7 +35,8 @@ class TratamientosController extends Controller
     public function verRadioterapia($id)
     {
     	$paciente = Pacientes::find($id);
-    	return view('radioterapia',['paciente' => $paciente]);
+        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+    	return view('radioterapia',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
     }
 
     public function validarRadioterapia($request)
@@ -141,7 +146,8 @@ class TratamientosController extends Controller
     public function verCirugia($id)
     {
         $paciente = Pacientes::find($id);
-        return view('cirugia',['paciente' => $paciente]);
+        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+        return view('cirugia',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
     }
 
     public function validarCirugia($request)
@@ -237,7 +243,8 @@ class TratamientosController extends Controller
     public function verQuimioterapia($id)
     {
     	$paciente = Pacientes::find($id);
-    	return view('quimioterapia',['paciente' => $paciente]);
+        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+    	return view('quimioterapia',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
     }
 
     public function validarQuimioterapia($request)

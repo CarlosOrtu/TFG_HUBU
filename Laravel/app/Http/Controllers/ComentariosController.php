@@ -6,12 +6,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Pacientes;
 use App\Models\Comentarios;
+use App\Utilidades\Encriptacion;
 
 class ComentariosController extends Controller
 {
+    private $encriptacion;
+
 	public function __construct()
     {
         $this->middleware('auth');
+        $this->encriptacion = new Encriptacion();
     }
 
     public function actualizarfechaModificacionPaciente($paciente)
@@ -23,7 +27,8 @@ class ComentariosController extends Controller
     public function verComentarioNuevo($id)
     {
     	$paciente = Pacientes::find($id);
-    	return view('comentariosnuevos',['paciente' => $paciente]);
+        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+    	return view('comentariosnuevos',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
     }
 
     public function validarComentario($request)
@@ -62,7 +67,8 @@ class ComentariosController extends Controller
     	$paciente = Pacientes::find($id);
     	$comentarios = $paciente->Comentarios;
     	$comentario = $comentarios[$num_comentario];
-    	return view('comentarios',['paciente' => $paciente, 'comentario' => $comentario, 'posicion' => $num_comentario]);
+        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+    	return view('comentarios',['paciente' => $paciente, 'comentario' => $comentario, 'posicion' => $num_comentario, 'nombre' => $nombreDesencriptado]);
     }
 
     public function modificarComentario(Request $request, $id, $num_comentario)

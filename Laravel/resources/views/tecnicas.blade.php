@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="d-flex justify-content-between mb-4">
-    <h6 class="align-self-end text-white">Paciente: {{ $paciente->nombre }}</h6>
+    <h6 class="align-self-end text-white">Paciente: {{ $nombre }}</h6>
     <h1 class="align-self-center text-white panel-title">Técnicas</h1>
     <h6 class="align-self-end text-white">Ultima modificación: {{ $paciente->ultima_modificacion }}</h6>
 </div>

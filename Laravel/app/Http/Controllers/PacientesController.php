@@ -6,10 +6,12 @@ use Illuminate\Http\Request;
 use App\Models\Pacientes;
 use App\Models\Usuarios;
 use Illuminate\Support\Facades\Validator;
-
+use App\Utilidades\Encriptacion;
 
 class PacientesController extends Controller
 {
+
+    private $encriptacion;
     /**
      * Create a new controller instance.
      *
@@ -18,13 +20,14 @@ class PacientesController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->encriptacion = new Encriptacion();
     }
 
     //Metodo que retorna la vista pacientes
     public function verPacientes()
     {
         $todosPacientes = Pacientes::all();
-        return view('pacientes',['pacientes' => $todosPacientes]);
+        return view('pacientes',['pacientes' => $todosPacientes, 'encriptacion' => $this->encriptacion]);
     }
 
     //Metodo que retorna la vista crearpaciente
@@ -62,9 +65,12 @@ class PacientesController extends Controller
             return back()->withErrors($validator->errors())->withInput();
         //Creamos el objeto pacientes
         $nuevoPaciente = new Pacientes();
+        //Encriptamos el nombre y los apellidos
+        $nombreEncriptado = $this->encriptacion->encriptar($request->nombre);
+        $apellidosEncriptados = $this->encriptacion->encriptar($request->apellidos);
         //Le asignamos los valores recibidos desde el metodo POST
-        $nuevoPaciente->nombre = $request->nombre;
-        $nuevoPaciente->apellidos = $request->apellidos;
+        $nuevoPaciente->nombre = $nombreEncriptado;
+        $nuevoPaciente->apellidos = $apellidosEncriptados;
         $nuevoPaciente->sexo = $request->sexo;
         $nuevoPaciente->nacimiento = $request->nacimiento;
         $nuevoPaciente->raza = $request->raza;
@@ -96,7 +102,7 @@ class PacientesController extends Controller
     public function verEliminarPaciente()
     {
         $todosPacientes = Pacientes::all();
-        return view('eliminarpaciente',['pacientes' => $todosPacientes]);      
+        return view('eliminarpaciente',['pacientes' => $todosPacientes, 'encriptacion' => $this->encriptacion]);      
     }
 
 

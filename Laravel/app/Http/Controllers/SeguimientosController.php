@@ -6,13 +6,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Pacientes;
 use App\Models\Seguimientos;
-
+use App\Utilidades\Encriptacion;
 
 class SeguimientosController extends Controller
 {    
+	private $encriptacion;
+
 	public function __construct()
     {
         $this->middleware('auth');
+        $this->encriptacion = new Encriptacion();
     }
 
     public function actualizarfechaModificacionPaciente($paciente)
@@ -24,7 +27,8 @@ class SeguimientosController extends Controller
     public function verSeguimientoNuevo($id)
     {
     	$paciente = Pacientes::find($id);
-    	return view('seguimientosnuevos',['paciente' => $paciente]);
+    	$nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+    	return view('seguimientosnuevos',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
     }
 
     public function validarSeguimiento($request)
@@ -92,7 +96,8 @@ class SeguimientosController extends Controller
     	$paciente = Pacientes::find($id);
     	$seguimientos = $paciente->Seguimientos;
     	$seguimiento = $seguimientos[$num_seguimiento];
-    	return view('seguimientos',['paciente' => $paciente, 'seguimiento' => $seguimiento, 'posicion' => $num_seguimiento]);
+    	$nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+    	return view('seguimientos',['paciente' => $paciente, 'seguimiento' => $seguimiento, 'posicion' => $num_seguimiento, 'nombre' => $nombreDesencriptado]);
     }
 
     public function modificarSeguimiento(Request $request, $id, $num_seguimiento)

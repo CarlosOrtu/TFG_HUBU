@@ -6,18 +6,25 @@ use App\Models\Pacientes;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
+use App\Utilidades\Encriptacion;
+
 
 class DatosPacienteController extends Controller
 {
+    private $encriptacion;
+
     public function __construct()
     {
         $this->middleware('auth');
+        $this->encriptacion = new Encriptacion();
     }
 
     public function verPaciente($id)
     {
     	$paciente = Pacientes::find($id);
-    	return view('datospaciente',['paciente' => $paciente]);
+        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+        $apellidosDesencriptados = $this->encriptacion->desencriptar($paciente->apellidos);
+    	return view('datospaciente',['paciente' => $paciente, 'nombre' => $nombreDesencriptado, 'apellidos' => $apellidosDesencriptados]);
     }    
 
     public function validarDatosModificarPaciente($request)
@@ -47,9 +54,12 @@ class DatosPacienteController extends Controller
                 return back()->withErrors($validator->errors())->withInput();
             //Obtenemos el paciente actual
             $paciente = Pacientes::find($id);
+            //Encriptamos el nombre y los apellidos
+            $nombreEncriptado = $this->encriptacion->encriptar($request->nombre);
+            $apellidosEncriptados = $this->encriptacion->encriptar($request->apellidos);
             //Modificamos sus datos
-            $paciente->nombre = $request->nombre;
-            $paciente->apellidos = $request->apellidos;
+            $paciente->nombre = $nombreEncriptado;
+            $paciente->apellidos = $apellidosEncriptados;
             $paciente->sexo = $request->sexo;
             $paciente->nacimiento = $request->nacimiento;
             $paciente->raza = $request->raza;

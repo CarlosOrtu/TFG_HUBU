@@ -7,12 +7,17 @@ use App\Models\Pacientes;
 use App\Models\Reevaluaciones;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Validator;
+use App\Utilidades\Encriptacion;
  
 class ReevaluacionesController extends Controller
 {
+    private $encriptacion;
+
 	public function __construct()
     {
         $this->middleware('auth');
+        $this->encriptacion = new Encriptacion();
+
     }
 
     public function actualizarfechaModificacionPaciente($paciente)
@@ -24,7 +29,8 @@ class ReevaluacionesController extends Controller
     public function verReevaluacionNueva($id)
     {
     	$paciente = Pacientes::find($id);
-    	return view('reevaluacionesnuevas',['paciente' => $paciente]);
+        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+    	return view('reevaluacionesnuevas',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
     }
 
     public function validarReevaluacion($request)
@@ -80,7 +86,9 @@ class ReevaluacionesController extends Controller
     	$paciente = Pacientes::find($id);
     	$reevaluaciones = $paciente->Reevaluaciones;
     	$reevaluacion = $reevaluaciones[$num_reevaluacion];
-    	return view('reevaluaciones',['paciente' => $paciente, 'reevaluacion' => $reevaluacion, 'posicion' => $num_reevaluacion]);
+        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+
+    	return view('reevaluaciones',['paciente' => $paciente, 'reevaluacion' => $reevaluacion, 'posicion' => $num_reevaluacion, 'nombre' => $nombreDesencriptado]);
     }
 
     public function modificarReevaluación(Request $request, $id, $num_reevaluacion)
