@@ -35,8 +35,12 @@ class TratamientosController extends Controller
     public function verRadioterapia($id)
     {
     	$paciente = Pacientes::find($id);
-        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-    	return view('radioterapia',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        if(env('APP_ENV') == 'production'){      
+            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+        	return view('radioterapia',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        }else{
+            return view('radioterapia',['paciente' => $paciente]);
+        }
     }
 
     public function validarRadioterapia($request)
@@ -146,8 +150,12 @@ class TratamientosController extends Controller
     public function verCirugia($id)
     {
         $paciente = Pacientes::find($id);
-        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-        return view('cirugia',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        if(env('APP_ENV') == 'production'){      
+            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+            return view('cirugia',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        }else{
+            return view('cirugia',['paciente' => $paciente]);
+        }
     }
 
     public function validarCirugia($request)
@@ -243,8 +251,12 @@ class TratamientosController extends Controller
     public function verQuimioterapia($id)
     {
     	$paciente = Pacientes::find($id);
-        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-    	return view('quimioterapia',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        if(env('APP_ENV') == 'production'){      
+            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+        	return view('quimioterapia',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        }else{
+            return view('quimioterapia',['paciente' => $paciente]);
+        }
     }
 
     public function validarQuimioterapia($request)

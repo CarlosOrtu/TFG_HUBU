@@ -22,9 +22,13 @@ class DatosPacienteController extends Controller
     public function verPaciente($id)
     {
     	$paciente = Pacientes::find($id);
-        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-        $apellidosDesencriptados = $this->encriptacion->desencriptar($paciente->apellidos);
-    	return view('datospaciente',['paciente' => $paciente, 'nombre' => $nombreDesencriptado, 'apellidos' => $apellidosDesencriptados]);
+        if(env('APP_ENV') == 'production'){
+            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+            $apellidosDesencriptados = $this->encriptacion->desencriptar($paciente->apellidos);
+    	   return view('datospaciente',['paciente' => $paciente, 'nombre' => $nombreDesencriptado, 'apellidos' => $apellidosDesencriptados]);
+        }else{
+           return view('datospaciente',['paciente' => $paciente]);
+        }
     }    
 
     public function validarDatosModificarPaciente($request)
@@ -58,8 +62,13 @@ class DatosPacienteController extends Controller
             $nombreEncriptado = $this->encriptacion->encriptar($request->nombre);
             $apellidosEncriptados = $this->encriptacion->encriptar($request->apellidos);
             //Modificamos sus datos
-            $paciente->nombre = $nombreEncriptado;
-            $paciente->apellidos = $apellidosEncriptados;
+            if(env('APP_ENV') == 'production'){
+                $nuevoPaciente->nombre = $nombreEncriptado;
+                $nuevoPaciente->apellidos = $apellidosEncriptados;
+            }else{
+                $nuevoPaciente->nombre = $request->nombre;
+                $nuevoPaciente->apellidos = $request->apellidos;       
+            }
             $paciente->sexo = $request->sexo;
             $paciente->nacimiento = $request->nacimiento;
             $paciente->raza = $request->raza;

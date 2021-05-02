@@ -37,8 +37,14 @@
 	                @foreach ($pacientes as $paciente)
 	                    <tr>
 	                    	<td class="table-text text-dark left"><div>{{ $paciente->id_paciente }}</div></td>
+	                    	@env('production')
 	                        <td class="table-text text-dark"><div>{{ $encriptacion->desencriptar($paciente->nombre) }}</div></td>
 	                        <td class="table-text text-dark"><div>{{ $encriptacion->desencriptar($paciente->apellidos) }}</div></td>
+	                        @endenv
+	                        @env('local')
+	                        <td class="table-text text-dark"><div>{{ $paciente->nombre }}</div></td>
+	                        <td class="table-text text-dark"><div>{{ $paciente->apellidos }}</div></td>
+	                        @endenv
 							<td class="right">
 								<a onClick="confirmarEliminacion(this)"><input type="button" class="btn btn-warning" value="Eliminar"/></a>
 							</td>

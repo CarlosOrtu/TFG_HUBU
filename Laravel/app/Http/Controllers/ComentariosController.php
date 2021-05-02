@@ -27,8 +27,12 @@ class ComentariosController extends Controller
     public function verComentarioNuevo($id)
     {
     	$paciente = Pacientes::find($id);
-        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-    	return view('comentariosnuevos',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        if(env('APP_ENV') == 'production'){      
+            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+        	return view('comentariosnuevos',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        }else{
+            return view('comentariosnuevos',['paciente' => $paciente]);
+        }
     }
 
     public function validarComentario($request)
@@ -67,8 +71,12 @@ class ComentariosController extends Controller
     	$paciente = Pacientes::find($id);
     	$comentarios = $paciente->Comentarios;
     	$comentario = $comentarios[$num_comentario];
-        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-    	return view('comentarios',['paciente' => $paciente, 'comentario' => $comentario, 'posicion' => $num_comentario, 'nombre' => $nombreDesencriptado]);
+        if(env('APP_ENV') == 'production'){      
+            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+        	return view('comentarios',['paciente' => $paciente, 'comentario' => $comentario, 'posicion' => $num_comentario, 'nombre' => $nombreDesencriptado]);
+        }else{
+            return view('comentarios',['paciente' => $paciente, 'comentario' => $comentario, 'posicion' => $num_comentario]);
+        }
     }
 
     public function modificarComentario(Request $request, $id, $num_comentario)

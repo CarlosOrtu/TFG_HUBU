@@ -6,7 +6,12 @@
     @method('put')
     <div class="col-md-11 pl-0">
         <div class="d-flex justify-content-between mb-4">
+            @env('production')
             <h6 class="align-self-end text-white">Paciente: {{ $nombre }}</h6>
+            @endenv
+            @env('local')
+            <h6 class="align-self-end text-white">Paciente: {{ $paciente->nombre }}</h6>
+            @endenv
             <h1 class="align-self-center text-white panel-title">Datos paciente</h1>
             <h6 class="align-self-end text-white">Ultima modificación: {{ $paciente->ultima_modificacion }}</h6>
         </div>
@@ -26,7 +31,12 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">Nombre</span>
             </div>
+            @env('production')
             <input value="{{ $nombre }}" name="nombre" class="form-control @error('nombre') is-invalid @enderror" autocomplete="off">
+            @endenv
+            @env('local')
+            <input value="{{ $paciente->nombre }}" name="nombre" class="form-control @error('nombre') is-invalid @enderror" autocomplete="off">
+            @endenv
             @error('nombre')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -37,7 +47,12 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">Apellidos</span>
             </div>
+            @env('production')
             <input value="{{ $apellidos }}" name="apellidos" class="form-control @error('apellidos') is-invalid @enderror" autocomplete="off">
+            @endenv
+            @env('local')
+            <input value="{{ $paciente->apellidos }}" name="apellidos" class="form-control @error('apellidos') is-invalid @enderror" autocomplete="off">
+            @endenv
             @error('apellidos')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>

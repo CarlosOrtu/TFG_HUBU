@@ -69,8 +69,13 @@ class PacientesController extends Controller
         $nombreEncriptado = $this->encriptacion->encriptar($request->nombre);
         $apellidosEncriptados = $this->encriptacion->encriptar($request->apellidos);
         //Le asignamos los valores recibidos desde el metodo POST
-        $nuevoPaciente->nombre = $nombreEncriptado;
-        $nuevoPaciente->apellidos = $apellidosEncriptados;
+        if(env('APP_ENV') == 'production'){
+            $nuevoPaciente->nombre = $nombreEncriptado;
+            $nuevoPaciente->apellidos = $apellidosEncriptados;
+        }else{
+            $nuevoPaciente->nombre = $request->nombre;
+            $nuevoPaciente->apellidos = $request->apellidos;       
+        }
         $nuevoPaciente->sexo = $request->sexo;
         $nuevoPaciente->nacimiento = $request->nacimiento;
         $nuevoPaciente->raza = $request->raza;
@@ -83,7 +88,7 @@ class PacientesController extends Controller
         if($request->fumador == "Fumador" || $request->fumador == "Exfumador")
             $nuevoPaciente->num_tabaco_dia = $request->especificar_fumador;
         elseif($request->fumador == "Nunca fumador")
-            $paciente->num_tabaco_dia = 0;
+            $nuevoPaciente->num_tabaco_dia = 0;
         if($request->bebedor != "Desconocido")
             $nuevoPaciente->bebedor = $request->bebedor;
         if($request->carcinogenos != "Desconocido"){

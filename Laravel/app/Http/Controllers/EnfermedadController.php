@@ -40,8 +40,12 @@ class EnfermedadController extends Controller
     public function verDatosEnfermedad($id)
     {
     	$paciente = Pacientes::find($id);
-        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-    	return view('datosenfermedad',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        if(env('APP_ENV') == 'production'){
+            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+        	return view('datosenfermedad',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        }else{
+            return view('datosenfermedad',['paciente' => $paciente]);
+        }
     }
 
     public function validarDatosModificarEnfermedad($request)
@@ -130,8 +134,12 @@ class EnfermedadController extends Controller
     public function verDatosSintomas($id)
     {
     	$paciente = Pacientes::find($id);
-        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-    	return view('datossintomas',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        if(env('APP_ENV') == 'production'){
+            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+        	return view('datossintomas',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        }else{
+            return view('datossintomas',['paciente' => $paciente]);    
+        }
     }
 
     public function validarDatosSintomas($request)
@@ -279,8 +287,12 @@ class EnfermedadController extends Controller
    	public function verMetastasis($id)
     {
     	$paciente = Pacientes::find($id);
-        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-    	return view('metastasis',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        if(env('APP_ENV') == 'production'){         
+            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+        	return view('metastasis',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        }else{
+            return view('metastasis',['paciente' => $paciente]);
+        }
     }
 
 
@@ -342,8 +354,12 @@ class EnfermedadController extends Controller
     public function verPruebas($id)
     {
         $paciente = Pacientes::find($id);
-        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-        return view('pruebas',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        if(env('APP_ENV') == 'production'){         
+            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+            return view('pruebas',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        }else{
+            return view('pruebas',['paciente' => $paciente]);
+        }
     }
 
 
@@ -406,8 +422,12 @@ class EnfermedadController extends Controller
     public function verTecnicas($id)
     {
         $paciente = Pacientes::find($id);
-        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-        return view('tecnicas',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        if(env('APP_ENV') == 'production'){         
+            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+            return view('tecnicas',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        }else{
+            return view('tecnicas',['paciente' => $paciente]);
+        }
     }
 
     public function crearTecnicas(Request $request, $id)
@@ -469,8 +489,12 @@ class EnfermedadController extends Controller
     public function verOtrosTumores($id)
     {
         $paciente = Pacientes::find($id);
-        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-        return view('otrostumores',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        if(env('APP_ENV') == 'production'){         
+            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+            return view('otrostumores',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        }else{
+            return view('otrostumores',['paciente' => $paciente]);
+        }
     }
 
     public function crearOtrosTumores(Request $request, $id)
@@ -532,13 +556,17 @@ class EnfermedadController extends Controller
     public function verBiomarcadores($id)
     {
         $paciente = Pacientes::find($id);
-        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
         $enfermedad = Enfermedad::where('id_paciente',$id)->first();
         if($enfermedad == null)
             $biomarcadores = [];
         else
             $biomarcadores = $enfermedad->Biomarcadores;
-        return view('biomarcadores',['paciente' => $paciente, 'biomarcadores' => $biomarcadores, 'nombre' => $nombreDesencriptado]);
+        if(env('APP_ENV') == 'production'){         
+            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+            return view('biomarcadores',['paciente' => $paciente, 'biomarcadores' => $biomarcadores, 'nombre' => $nombreDesencriptado]);
+        }else{
+            return view('biomarcadores',['paciente' => $paciente, 'biomarcadores' => $biomarcadores]);
+        }
     }
 
     public function guardarBiomarcadores(Request $request, $id)

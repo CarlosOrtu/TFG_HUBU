@@ -27,8 +27,12 @@ class SeguimientosController extends Controller
     public function verSeguimientoNuevo($id)
     {
     	$paciente = Pacientes::find($id);
-    	$nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-    	return view('seguimientosnuevos',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        if(env('APP_ENV') == 'production'){      
+	    	$nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+	    	return view('seguimientosnuevos',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+	    }else{
+	    	return view('seguimientosnuevos',['paciente' => $paciente]);
+	    }
     }
 
     public function validarSeguimiento($request)
@@ -96,8 +100,12 @@ class SeguimientosController extends Controller
     	$paciente = Pacientes::find($id);
     	$seguimientos = $paciente->Seguimientos;
     	$seguimiento = $seguimientos[$num_seguimiento];
-    	$nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-    	return view('seguimientos',['paciente' => $paciente, 'seguimiento' => $seguimiento, 'posicion' => $num_seguimiento, 'nombre' => $nombreDesencriptado]);
+        if(env('APP_ENV') == 'production'){      
+	    	$nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+	    	return view('seguimientos',['paciente' => $paciente, 'seguimiento' => $seguimiento, 'posicion' => $num_seguimiento, 'nombre' => $nombreDesencriptado]);
+	    }else{
+	    	return view('seguimientos',['paciente' => $paciente, 'seguimiento' => $seguimiento, 'posicion' => $num_seguimiento]);
+	    }
     }
 
     public function modificarSeguimiento(Request $request, $id, $num_seguimiento)

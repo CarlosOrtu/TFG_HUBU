@@ -35,8 +35,12 @@ class AntecedentesController extends Controller
     public function verAntecedentesMedicos($id)
     {
     	$paciente = Pacientes::find($id);
-        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-    	return view('antecedentesmedicos',['paciente' => $paciente,'nombre' => $nombreDesencriptado]);
+        if(env('APP_ENV') == 'production'){
+            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+        	return view('antecedentesmedicos',['paciente' => $paciente,'nombre' => $nombreDesencriptado]);
+        }else{
+            return view('antecedentesmedicos',['paciente' => $paciente]);
+        }
     }
 
     public function crearAntecedentesMedicos(Request $request, $id)
@@ -97,8 +101,12 @@ class AntecedentesController extends Controller
   	public function verAntecedentesOncologicos($id)
     {
     	$paciente = Pacientes::find($id);
-        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-    	return view('antecedentesoncologicos',['paciente' => $paciente,'nombre' => $nombreDesencriptado]);
+        if(env('APP_ENV') == 'production'){
+            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+        	return view('antecedentesoncologicos',['paciente' => $paciente,'nombre' => $nombreDesencriptado]);
+        }else{
+            return view('antecedentesoncologicos',['paciente' => $paciente]);
+        }
     }
 
     public function crearAntecedentesOncologicos(Request $request, $id)
@@ -157,8 +165,12 @@ class AntecedentesController extends Controller
   	public function verAntecedentesFamiliares($id)
     {
     	$paciente = Pacientes::find($id);
-        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-    	return view('antecedentesfamiliares',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        if(env('APP_ENV') == 'production'){      
+            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+        	return view('antecedentesfamiliares',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        }else{
+            return view('antecedentesfamiliares',['paciente' => $paciente]);
+        }
     }
 
     public function crearAntecedentesFamiliares(Request $request, $id)

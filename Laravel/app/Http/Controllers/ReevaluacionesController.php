@@ -29,8 +29,12 @@ class ReevaluacionesController extends Controller
     public function verReevaluacionNueva($id)
     {
     	$paciente = Pacientes::find($id);
-        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-    	return view('reevaluacionesnuevas',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        if(env('APP_ENV') == 'production'){      
+            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+        	return view('reevaluacionesnuevas',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        }else{
+            return view('reevaluacionesnuevas',['paciente' => $paciente]);
+        }
     }
 
     public function validarReevaluacion($request)
@@ -86,9 +90,12 @@ class ReevaluacionesController extends Controller
     	$paciente = Pacientes::find($id);
     	$reevaluaciones = $paciente->Reevaluaciones;
     	$reevaluacion = $reevaluaciones[$num_reevaluacion];
-        $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-
-    	return view('reevaluaciones',['paciente' => $paciente, 'reevaluacion' => $reevaluacion, 'posicion' => $num_reevaluacion, 'nombre' => $nombreDesencriptado]);
+        if(env('APP_ENV') == 'production'){      
+            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+        	return view('reevaluaciones',['paciente' => $paciente, 'reevaluacion' => $reevaluacion, 'posicion' => $num_reevaluacion, 'nombre' => $nombreDesencriptado]);
+        }else{
+            return view('reevaluaciones',['paciente' => $paciente, 'reevaluacion' => $reevaluacion, 'posicion' => $num_reevaluacion]);
+        }
     }
 
     public function modificarReevaluación(Request $request, $id, $num_reevaluacion)
