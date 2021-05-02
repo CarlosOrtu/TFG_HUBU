@@ -63,11 +63,11 @@ class DatosPacienteController extends Controller
             $apellidosEncriptados = $this->encriptacion->encriptar($request->apellidos);
             //Modificamos sus datos
             if(env('APP_ENV') == 'production'){
-                $nuevoPaciente->nombre = $nombreEncriptado;
-                $nuevoPaciente->apellidos = $apellidosEncriptados;
+                $paciente->nombre = $nombreEncriptado;
+                $paciente->apellidos = $apellidosEncriptados;
             }else{
-                $nuevoPaciente->nombre = $request->nombre;
-                $nuevoPaciente->apellidos = $request->apellidos;       
+                $paciente->nombre = $request->nombre;
+                $paciente->apellidos = $request->apellidos;       
             }
             $paciente->sexo = $request->sexo;
             $paciente->nacimiento = $request->nacimiento;
