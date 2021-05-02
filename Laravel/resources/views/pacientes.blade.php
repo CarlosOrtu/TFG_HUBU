@@ -37,14 +37,13 @@
 	                @foreach ($pacientes as $paciente)
 	                    <tr>
 	                    	<td class="table-text text-dark left"><div>{{ $paciente->id_paciente }}</div></td>
-	                    	@env('production')
+	                    	@if(env('APP_ENV') == 'production')
 	                        <td class="table-text text-dark"><div>{{ $encriptacion->desencriptar($paciente->nombre) }}</div></td>
 	                        <td class="table-text text-dark"><div>{{ $encriptacion->desencriptar($paciente->apellidos) }}</div></td>
-	                        @endenv
-	                        @env('local')
+	                        @else
 	                        <td class="table-text text-dark"><div>{{ $paciente->nombre }}</div></td>
 	                        <td class="table-text text-dark"><div>{{ $paciente->apellidos }}</div></td>
-	                        @endenv
+	                        @endif
 							<td class="right">
 								<a href="{{ route('datospaciente', $paciente->id_paciente) }}" ><input type="button" class="btn btn-primary" value="Ver"/></a>
 								@if(count($paciente->Seguimientos->where('estado','Fallecido')) < 1)

@@ -31,12 +31,11 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">Nombre</span>
             </div>
-            @env('production')
+            @if(env('APP_ENV') == 'production')
             <input value="{{ $nombre }}" name="nombre" class="form-control @error('nombre') is-invalid @enderror" autocomplete="off">
-            @endenv
-            @env('local')
+            @else
             <input value="{{ $paciente->nombre }}" name="nombre" class="form-control @error('nombre') is-invalid @enderror" autocomplete="off">
-            @endenv
+            @endif
             @error('nombre')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -47,12 +46,11 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">Apellidos</span>
             </div>
-            @env('production')
+            @if(env('APP_ENV') == 'production')
             <input value="{{ $apellidos }}" name="apellidos" class="form-control @error('apellidos') is-invalid @enderror" autocomplete="off">
-            @endenv
-            @env('local')
+            @else
             <input value="{{ $paciente->apellidos }}" name="apellidos" class="form-control @error('apellidos') is-invalid @enderror" autocomplete="off">
-            @endenv
+            @endif
             @error('apellidos')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>

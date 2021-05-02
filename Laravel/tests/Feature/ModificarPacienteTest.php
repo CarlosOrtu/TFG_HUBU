@@ -57,7 +57,7 @@ class ModificarPacienteTest extends TestCase
             "profesion" => "Pintor",
             "fumador" => "Nunca fumador",
             "bebedor" => "Exbebedor",
-            "carcinogenos" => "Asbesto",
+            "carcinogenos" => "Asbesto", 
         ];
         //Realizamos la solicitud put con los datos del paciente definidos anteriormente
         $response = $this->put('/paciente/999', $paciente);
