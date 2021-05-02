@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pacientes;
+use App\Models\Usuarios;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -81,9 +82,9 @@ class PacientesController extends Controller
             $nuevoPaciente->bebedor = $request->bebedor;
         if($request->carcinogenos != "Desconocido"){
             if($request->carcinogenos == "Otro")
-                $nuevoPaciente->carcinogenos = "Otro: ".$request->carcinogenos;
-            else
                 $nuevoPaciente->carcinogenos = "Otro: ".$request->especificar_carcinogeno;
+            else
+                $nuevoPaciente->carcinogenos = $request->especificar_carcinogeno;
         }
         $nuevoPaciente->ultima_modificacion = date("Y-m-d");
         //Añadimos el paciente a la base de datos

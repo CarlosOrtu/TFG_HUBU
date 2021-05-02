@@ -13,7 +13,6 @@ use App\Http\Controllers\ReevaluacionesController;
 use App\Http\Controllers\SeguimientosController;
 use App\Http\Controllers\ComentariosController;
 
-
 //Rutas de login y logout
 Auth::routes(['register' => false,'reset' => false,'confirm' => false,'verify' => false]);
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');

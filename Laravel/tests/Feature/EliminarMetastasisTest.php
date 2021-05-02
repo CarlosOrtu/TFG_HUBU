@@ -48,12 +48,12 @@ class EliminarMetastasisTest extends TestCase
         $enfermedad->histologia_grado = "Bien diferenciado";
         $enfermedad->tratamiento_dirigido = 1;
         $enfermedad->save();
-        //Crear metastasis a modificar
-        $metastasisAModificar = new Metastasis();
-        $metastasisAModificar->id_metastasis = 999;
-        $metastasisAModificar->id_enfermedad = 999;
-        $metastasisAModificar->localizacion = "Hígado";
-        $metastasisAModificar->save();
+        //Crear metastasis a eliminar
+        $metastasisAEliminar = new Metastasis();
+        $metastasisAEliminar->id_metastasis = 999;
+        $metastasisAEliminar->id_enfermedad = 999;
+        $metastasisAEliminar->localizacion = "Hígado";
+        $metastasisAEliminar->save();
 
         //Realizamos el login con el administrador para poder acceder a todos las rutas de la web
         $response = $this->get('/login')->assertSee('Login');

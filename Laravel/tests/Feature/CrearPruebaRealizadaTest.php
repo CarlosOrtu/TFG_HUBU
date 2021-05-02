@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Pacientes;
 use App\Models\Enfermedad; 
-
+ 
 class CrearPruebaRealizadaTest extends TestCase
 {
     protected function setUp(): void

@@ -77,7 +77,7 @@ class CrearMetastasisTest extends TestCase
         $response = $this->post('/paciente/999/enfermedad/metastasis', $metastasis);
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/paciente/999/enfermedad/metastasis');
-        //Comprobamos que los datos del sintoma se han introducido correctamente
+        //Comprobamos que los datos de la metastasis se han introducido correctamente
         $paciente = Pacientes::find(999);
         $this->assertTrue($paciente->Enfermedad->Metastasis[0]->localizacion == "Hígado");
     }

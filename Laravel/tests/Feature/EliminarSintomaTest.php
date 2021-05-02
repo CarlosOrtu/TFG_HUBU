@@ -48,13 +48,13 @@ class EliminarSintomaTest extends TestCase
         $enfermedad->histologia_grado = "Bien diferenciado";
         $enfermedad->tratamiento_dirigido = 1;
         $enfermedad->save();
-        //Creamos el sintoma a modificar
-        $sintomaAModificar = new Sintomas();
-        $sintomaAModificar->id_sintoma = 999;
-        $sintomaAModificar->id_enfermedad = 999;
-        $sintomaAModificar->fecha_inicio = "1999-05-05";
-        $sintomaAModificar->tipo = "Asintomático";
-        $sintomaAModificar->save();
+        //Creamos el sintoma a eliminar
+        $sintomaAEliminar = new Sintomas();
+        $sintomaAEliminar->id_sintoma = 999;
+        $sintomaAEliminar->id_enfermedad = 999;
+        $sintomaAEliminar->fecha_inicio = "1999-05-05";
+        $sintomaAEliminar->tipo = "Asintomático";
+        $sintomaAEliminar->save();
 
         //Realizamos el login con el administrador para poder acceder a todos las rutas de la web
         $response = $this->get('/login')->assertSee('Login');

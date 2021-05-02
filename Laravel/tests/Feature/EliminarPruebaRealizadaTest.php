@@ -48,12 +48,12 @@ class EliminarPruebaRealizadaTest extends TestCase
         $enfermedad->histologia_grado = "Bien diferenciado";
         $enfermedad->tratamiento_dirigido = 1;
         $enfermedad->save();
-        //Creamos la prueba realizada a modificar 
-        $pruebaAModificar = new Pruebas_realizadas();
-        $pruebaAModificar->id_prueba = 999;
-        $pruebaAModificar->id_enfermedad = 999;
-        $pruebaAModificar->tipo = "TAC";
-        $pruebaAModificar->save();
+        //Creamos la prueba realizada a eliminar 
+        $pruebaAEliminar = new Pruebas_realizadas();
+        $pruebaAEliminar->id_prueba = 999;
+        $pruebaAEliminar->id_enfermedad = 999;
+        $pruebaAEliminar->tipo = "TAC";
+        $pruebaAEliminar->save();
         //Realizamos el login con el administrador para poder acceder a todos las rutas de la web
         $response = $this->get('/login')->assertSee('Login');
         $credentials = [

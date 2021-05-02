@@ -68,7 +68,7 @@ class CrearOtroTumorTest extends TestCase
     //Caso de prueba 1
     public function crearOtroTumorCorrectoTest()
     {
-        //Accedemos la vista pruebas
+        //Accedemos la vista otro tumor
         $response = $this->get('/paciente/999/enfermedad/otrostumores')->assertSee('Otros tumores');
         $otroTumor = [
             "tipo"=> "Mama",

@@ -68,7 +68,7 @@ class CrearTecnicaRealizadaTest extends TestCase
     //Caso de prueba 1
     public function crearTecnicaRealizadaCorrectaTest()
     {
-        //Accedemos la vista pruebas
+        //Accedemos la vista tecnicas
         $response = $this->get('/paciente/999/enfermedad/tecnicas')->assertSee('Técnicas');
         $prueba = [
             "tipo"=> "EBUS",
