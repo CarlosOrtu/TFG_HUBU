@@ -7,8 +7,6 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Pacientes;
 use App\Models\Enfermedad;
-use App\Models\Enfermedades_familiar;
-
 
 class CrearAntecedentesFamiliaresTest extends TestCase
 {

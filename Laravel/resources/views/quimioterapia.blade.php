@@ -156,7 +156,7 @@
     <div class="input-group-prepend">
         <span class="input-group-text">Número de <br>ciclos</span>
     </div>
-    <input value="{{ $tratamiento->Intenciones->numero_ciclos }}" name="num_ciclos" type="number" step="1" min="1" class="form-control" autocomplete="off">
+    <input value="{{ $tratamiento->Intenciones->numero_ciclos }}" name="num_ciclos" type="number" step="1" class="form-control" autocomplete="off">
   </div>
   <div class="my-4 input-group">
     <div class="input-group-prepend">
@@ -338,7 +338,7 @@
     <div class="input-group-prepend">
         <span class="input-group-text">Número de <br>ciclos</span>
     </div>
-    <input name="num_ciclos" type="number" step="1" min="1" class="form-control" autocomplete="off">
+    <input name="num_ciclos" type="number" step="1" class="form-control" autocomplete="off">
   </div>
   <div class="my-4 input-group">
     <div class="input-group-prepend">

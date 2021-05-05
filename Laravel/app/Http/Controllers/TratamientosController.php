@@ -272,11 +272,19 @@ class TratamientosController extends Controller
 	        'after' => 'Fecha fin no puede ser anterior a fecha inicio',
 	        'date' => 'Introduce una fecha valida',
 	        ];
-	    $restricciones = [
-	            'num_ciclos' => 'required|gt:0',
-	            'primer_ciclo' => 'required|before:'.$manana,
-	            'ultimo_ciclo' => 'required|after:'.$request->primer_ciclo,
-	        ];
+        if($request->primer_ciclo != null){
+    	    $restricciones = [
+    	            'num_ciclos' => 'required|gt:0',
+    	            'primer_ciclo' => 'required|before:'.$manana,
+    	            'ultimo_ciclo' => 'required|after:'.$request->primer_ciclo,
+    	        ];
+        }else{
+            $restricciones = [
+                    'num_ciclos' => 'required|gt:0',
+                    'primer_ciclo' => 'required|before:'.$manana,
+                    'ultimo_ciclo' => 'required',
+                ];
+        }
 		$validator = Validator::make($request->all(),$restricciones,$mensajeError);		
 
         return $validator;
@@ -354,19 +362,19 @@ class TratamientosController extends Controller
 		if(isset($request->farmacos)){
 			foreach($request->farmacos as $farmaco){
 				$farmacoModelo = new Farmacos();
-				$this->añadirFarmacosQuimioterapia($farmacoModelo,$farmaco,"Ninguno");
+				$this->añadirFarmacosQuimioterapia($farmacoModelo,$farmaco,"Ninguno",$intencion->id_intencion);
 			}	
 		}
 		if(isset($request->especificar_farmaco)){
 			foreach($request->especificar_farmaco as $farmaco){
 				$farmacoModelo = new Farmacos();
-				$this->añadirFarmacosQuimioterapia($farmacoModelo,$farmaco,"Otro");		
+				$this->añadirFarmacosQuimioterapia($farmacoModelo,$farmaco,"Otro",$intencion->id_intencion);		
 			}
 		}
 		if(isset($request->especificar_farmaco)){
 			foreach($request->especificar_farmaco_ensayo as $farmaco){
 				$farmacoModelo = new Farmacos();
-				$this->añadirFarmacosQuimioterapia($farmacoModelo,$farmaco,"Ensayo");			
+				$this->añadirFarmacosQuimioterapia($farmacoModelo,$farmaco,"Ensayo",$intencion->id_intencion);			
 			}
 		}
 
