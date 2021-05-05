@@ -384,11 +384,10 @@ class TratamientosController extends Controller
 
     public function modificarQuimioterapia(Request $request, $id, $num_quimioterapia)
     {
-    	/*
    		$validator = $this->validarQuimioterapia($request);
 	    if($validator->fails())
 	        return back()->withErrors($validator->errors())->withInput();
-		*/
+		
     	$paciente = Pacientes::find($id);
 
     	$tratamientos = Tratamientos::where('tipo','Quimioterapia')->where('id_paciente',$id)->get();
