@@ -35,7 +35,7 @@
     <nav class="navbar-hubu border navbar rounded navbar-expand-md navbar-light mt-4 mx-4 shadow-sm">
       <div class="container mx-0">
         <ul class="navbar-nav mr-auto">
-          <a id="HUBU" data-phonetext="HUBU" data-desktoptext="Hospitar universitario de Burgos" class="navbar-brand text-white" href="{{ route('pacientes') }}"></a>
+          <a id="HUBU" data-phonetext="HUBU" data-desktoptext="Hospital Universitario de Burgos" class="navbar-brand text-white" href="{{ route('pacientes') }}"></a>
         </ul>
         <ul class="navbar-nav ml-auto justify-content-end pr-5">
           <li class="nav-item dropdown">

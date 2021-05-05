@@ -173,8 +173,24 @@ class AntecedentesController extends Controller
         }
     }
 
+    public function validarDatosAntecedente($request)
+    {
+        $validator = Validator::make($request->all(), [
+            'familiar' => 'required',
+        ],
+        [
+            'required' => 'El campo :attribute no puede estar vacio',
+        ]);
+
+        return $validator;
+    }
+
     public function crearAntecedentesFamiliares(Request $request, $id)
     {
+        $validator = $this->validarDatosAntecedente($request);
+        if($validator->fails())
+                return back()->withErrors($validator->errors())->withInput();
+
         $paciente = Pacientes::find($id);
 
         $antecedente = new Antecedentes_familiares();
@@ -203,6 +219,10 @@ class AntecedentesController extends Controller
 
     public function modificarAntecedentesFamiliares(Request $request, $id, $num_antecendente_familiar)
     {
+        $validator = $this->validarDatosAntecedente($request);
+        if($validator->fails())
+            return back()->withErrors($validator->errors())->withInput();
+
         $paciente = Pacientes::find($id);
         //Obetenemos todos los antecendentes
         $antecedentes = $paciente->Antecedentes_familiares;
