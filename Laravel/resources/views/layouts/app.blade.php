@@ -174,7 +174,6 @@
             var id = $(this).attr('id');
             $('.btn.btn-toggle.text-white').each(function(){
               if(id != $(this).attr('id')){
-                console.log("Funciona");
                 $($(this).attr("data-target")).collapse('hide');
               }
             });

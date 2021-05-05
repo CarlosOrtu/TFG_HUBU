@@ -48,7 +48,7 @@ class EliminarAntecedentesMedicosTest extends TestCase
         $enfermedad->histologia_grado = "Bien diferenciado";
         $enfermedad->tratamiento_dirigido = 1;
         $enfermedad->save();
-        //Creamos el antecedente médico a modificar
+        //Creamos el antecedente médico a eliminar
         $antecedenteMedicoAEliminar = new Antecedentes_medicos();
         $antecedenteMedicoAEliminar->id_paciente = 999;
         $antecedenteMedicoAEliminar->id_antecedente_m = 999;
