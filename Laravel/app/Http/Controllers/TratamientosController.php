@@ -49,18 +49,28 @@ class TratamientosController extends Controller
     	$seg = time();
 		$manana = strtotime("+1 day", $seg);
 		$manana = date("Y-m-d", $manana);
-    	$validator = Validator::make($request->all(), [
-            'dosis' => 'required|gt:0',
-            'fecha_inicio' => 'date|before:'.$manana,
-            'fecha_fin' => 'date|after:'.$request->fecha_inicio,
-        ],
-        [
-        'gt' => 'La dosis debe ser un número positivo mayor que 0',
-        'required' => 'El campo :attribute no puede estar vacio',
-        'before' => 'Introduce una fecha valida',
-        'after' => 'Fecha fin no puede ser anterior a fecha inicio',
-        'date' => 'Introduce una fecha valida',
-        ]);
+
+        $mensajeError = [
+            'gt' => 'La dosis debe ser un número positivo mayor que 0',
+            'required' => 'El campo :attribute no puede estar vacio',
+            'before' => 'Introduce una fecha valida',
+            'after' => 'Fecha fin no puede ser anterior a fecha inicio',
+            'date' => 'Introduce una fecha valida',
+        ];
+        if($request->fecha_inicio != null){
+            $restricciones = [
+                'dosis' => 'required|gt:0',
+                'fecha_inicio' => 'required|date|before:'.$manana,
+                'fecha_fin' => 'required|date|after:'.$request->fecha_inicio,
+            ];
+        }else{
+            $restricciones = [
+                'dosis' => 'required|gt:0',
+                'fecha_inicio' => 'required|date|before:'.$manana,
+                'fecha_fin' => 'required|date',
+            ];
+        }
+        $validator = Validator::make($request->all(),$restricciones,$mensajeError);     
 
         return $validator;
     }
@@ -266,7 +276,7 @@ class TratamientosController extends Controller
 		$manana = strtotime("+1 day", $seg);
 		$manana = date("Y-m-d", $manana);
 		$mensajeError = [
-	        'gt' => 'La dosis debe ser un número positivo mayor que 0',
+	        'gt' => 'El :attribute debe ser un número positivo mayor que 0',
 	        'required' => 'El campo :attribute no puede estar vacio',
 	        'before' => 'Introduce una fecha valida',
 	        'after' => 'Fecha fin no puede ser anterior a fecha inicio',
