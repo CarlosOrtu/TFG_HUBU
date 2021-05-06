@@ -48,7 +48,7 @@
       <div class="input-group-prepend">
           <span class="input-group-text">Estado actual <br> del paciente</span>
       </div>
-      <select name="estado" class="tipoNuevo form-control">
+      <select name="estado" class="tipoTres form-control">
         <option {{ $seguimiento->estado == 'Vivo sin enfermedad' ? 'selected' : '' }}>Vivo sin enfermedad</option>
         <option {{ $seguimiento->estado == 'Vivo con enfermedad' ? 'selected' : '' }}>Vivo con enfermedad</option>
         <option {{ $seguimiento->estado == 'Fallecido' ? 'selected' : '' }}>Fallecido</option>
@@ -60,18 +60,8 @@
       </div>
       <select name="motivo" class="tipo form-control">
         <option {{ $seguimiento->fallecido_motivo == 'Fallecido' ? 'selected' : '' }}>Enfermedad</option>
-        <option {{ preg_match("/^Otro: /", $seguimiento->fallecido_motivo) ? 'selected' : '' }}>Otro</option>
+        <option {{ $seguimiento->fallecido_motivo == 'Otro' ? 'selected' : '' }}>Otro</option>
       </select>    
-    </div>
-    <div class="oculto ml-4 my-4 input-group">
-      <div class="input-group-prepend">
-          <span class="input-group-text">Especificar <br>fallecimiento</span>
-      </div>
-      @if(preg_match("/^Otro: /", $seguimiento->fallecido_motivo))
-      <input value="{{ substr($seguimiento->fallecido_motivo, 6) }}" name="motivo_especificar" class="form-control" autocomplete="off">
-      @else
-      <input name="motivo_especificar" class="form-control" autocomplete="off">
-      @endif
     </div>
     <div class="oculto ml-2 my-4 input-group">
       <div class="input-group-prepend">

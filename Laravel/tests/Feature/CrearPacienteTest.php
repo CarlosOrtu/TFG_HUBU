@@ -62,9 +62,9 @@ class CrearPacienteTest extends TestCase
         $this->assertTrue($paciente->nacimiento == "1999-10-05");
         $this->assertTrue($paciente->raza == "Caucásico");
         $this->assertTrue($paciente->profesion == "Pintor");
-        $this->assertTrue($paciente->fumador == null);
-        $this->assertTrue($paciente->bebedor == null);
-        $this->assertTrue($paciente->carcinogenos == null);
+        $this->assertTrue($paciente->fumador == "Desconocido");
+        $this->assertTrue($paciente->bebedor == "Desconocido");
+        $this->assertTrue($paciente->carcinogenos == "Desconocido");
     }
 
     /** @test */

@@ -53,7 +53,7 @@
       <div class="input-group-prepend">
           <span class="input-group-text">Estado actual <br> del paciente</span>
       </div>
-      <select name="estado" class="tipoNuevo form-control">
+      <select name="estado" class="tipoTres form-control">
         <option>Vivo sin enfermedad</option>
         <option>Vivo con enfermedad</option>
         <option>Fallecido</option>
@@ -63,16 +63,10 @@
       <div class="input-group-prepend">
           <span class="input-group-text">Motivo del <br>fallecimiento</span>
       </div>
-      <select name="motivo" class="tipo form-control">
+      <select name="motivo" class="form-control">
         <option>Enfermedad</option>
         <option>Otro</option>
       </select>    
-    </div>
-    <div class="oculto ml-4 my-4 input-group">
-      <div class="input-group-prepend">
-          <span class="input-group-text">Especificar <br>fallecimiento</span>
-      </div>
-      <input name="motivo_especificar" class="form-control" autocomplete="off">
     </div>
     <div class="oculto ml-2 my-4 input-group">
       <div class="input-group-prepend">
@@ -85,5 +79,5 @@
     </div>
 </form>
 <script src="{{ asset('/js/nuevocampo.js') }}" type="text/javascript"></script>
-<script src="{{ asset('/js/especificar_otro.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/js/especificar_otro.js?v=0.1') }}" type="text/javascript"></script>
 @endsection

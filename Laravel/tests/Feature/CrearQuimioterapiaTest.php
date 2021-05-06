@@ -296,7 +296,7 @@ class CrearQuimioterapiaTest extends TestCase
     }
 
     /** @test */
-    //Caso de prueba 6
+    //Caso de prueba 7
     public function crearQuimioterapiaFechaPrimerCicloPosteriorActualTest()
     {
         //Accedemos la vista quimioterapia

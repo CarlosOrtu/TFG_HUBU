@@ -123,7 +123,7 @@
                 <option {{ $paciente->fumador == 'Fumador' ? 'selected' : '' }}>Fumador</option>
                 <option {{ $paciente->fumador == 'Exfumador' ? 'selected' : '' }}>Exfumador</option>
                 <option {{ $paciente->fumador == 'Nunca fumador' ? 'selected' : '' }}>Nunca fumador</option>
-                <option {{ $paciente->fumador === null ? 'selected' : '' }}>Desconocido</option>
+                <option {{ $paciente->fumador === 'Desconocido' ? 'selected' : '' }}>Desconocido</option>
             </select>
         </div>
         <div class="oculto ml-2 my-4 input-group">
@@ -144,7 +144,7 @@
                 <option {{ $paciente->bebedor == 'Bebedor' ? 'selected' : '' }}>Bebedor</option>
                 <option {{ $paciente->bebedor == 'Exbebedor' ? 'selected' : '' }}>Exbebedor</option>
                 <option {{ $paciente->bebedor == 'Nunca bebedor' ? 'selected' : '' }}>Nunca bebedor</option>
-                <option {{ $paciente->bebedor === NULL ? 'selected' : '' }}>Desconocido</option>
+                <option {{ $paciente->bebedor === 'Desconocido' ? 'selected' : '' }}>Desconocido</option>
             </select> 
         </div>      
         <div  class="my-4 input-group">
@@ -154,7 +154,7 @@
             <select name="carcinogenos" class="tipo form-control">
                 <option {{ $paciente->carcinogenos == 'Asbesto' ? 'selected' : '' }}>Asbesto</option>
                 <option {{ preg_match("/^Otro: /", $paciente->carcinogenos) ? 'selected' : '' }}>Otro</option>
-                <option {{ $paciente->carcinogenos === null ? 'selected' : '' }}>Desconocido</option>
+                <option {{ $paciente->carcinogenos === 'Desconocido' ? 'selected' : '' }}>Desconocido</option>
             </select>
         </div>   
         <div class="oculto ml-2 my-4 input-group">

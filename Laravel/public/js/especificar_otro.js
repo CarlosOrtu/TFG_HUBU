@@ -45,7 +45,7 @@ $(document).ready(function(){
   });
   $('.tipoNuevo').each(function(){
       var tipo = $(this).val();
-        if( tipo == "Progresión" || tipo == "Fallecido") {
+        if( tipo == "Progresión") {
           $(this).parent().next().css('display', 'flex');
           $(this).parent().next().next().next().css('display', 'flex');
         }else{
@@ -56,7 +56,7 @@ $(document).ready(function(){
   });
   $(".tipoNuevo").change(function() {
     var tipo = $(this).val();
-    if( tipo == "Progresión" || tipo == "Fallecido") {
+    if( tipo == "Progresión") {
         $(this).parent().next().css('display', 'flex');
         $(this).parent().next().next().next().css('display', 'flex');
         if($(this).parent().next().find('select').val() == "Otro")
@@ -69,7 +69,7 @@ $(document).ready(function(){
   });
   $('.tipoTres').each(function(){
       var tipo = $(this).val();
-        if( tipo == "Si" ) {
+        if( tipo == "Si" || tipo == "Fallecido") {
           $(this).parent().next().css('display', 'flex');
           $(this).parent().next().next().css('display', 'flex');
         }else{
@@ -79,7 +79,7 @@ $(document).ready(function(){
   });
   $(".tipoTres").change(function() {
       var tipo = $(this).val();
-        if( tipo == "Si" ) {
+        if( tipo == "Si" || tipo == "Fallecido") {
           $(this).parent().next().css('display', 'flex');
           $(this).parent().next().next().css('display', 'flex');
         }else{
