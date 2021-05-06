@@ -76,6 +76,13 @@
         @yield('content')
       </main>
     </div>    
+    @elseif(preg_match("/ver/", Request::url()))
+    <div class="row mx-4 mt-4">
+      @include('layouts.sidebarverenfermedad')  
+      <main class="col-md-9">
+          @yield('content')
+      </main>
+    </div>
     @else
     <div class="row mx-4 mt-4">
       @include('layouts.sidebarenfermedad')  
