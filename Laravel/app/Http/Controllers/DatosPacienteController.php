@@ -19,6 +19,18 @@ class DatosPacienteController extends Controller
         $this->encriptacion = new Encriptacion();
     }
 
+    public function verPacienteSinModificar($id)
+    {
+        $paciente = Pacientes::find($id);
+        if(env('APP_ENV') == 'production'){
+            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+            $apellidosDesencriptados = $this->encriptacion->desencriptar($paciente->apellidos);
+           return view('verdatospaciente',['paciente' => $paciente, 'nombre' => $nombreDesencriptado, 'apellidos' => $apellidosDesencriptados]);
+        }else{
+           return view('verdatospaciente',['paciente' => $paciente]);
+        }
+    }
+
     public function verPaciente($id)
     {
     	$paciente = Pacientes::find($id);
@@ -76,30 +88,18 @@ class DatosPacienteController extends Controller
                 $paciente->profesion = "Otro: ".$request->profesion_especificar;
             else
                 $paciente->profesion = $request->profesion;
-            if($request->fumador != "Desconocido"){
-                $paciente->fumador = $request->fumador;  
-            }else{
-                $paciente->fumador = null;  
-            }
+            $paciente->fumador = $request->fumador;  
             if($request->fumador == "Fumador" || $request->fumador == "Exfumador")
                 $paciente->num_tabaco_dia = $request->especificar_fumador;
             elseif($request->fumador == "Nunca fumador")
                 $paciente->num_tabaco_dia = 0;
             else
                 $paciente->num_tabaco_dia = null;
-            if($request->bebedor != "Desconocido"){
-                $paciente->bebedor = $request->bebedor;
-            }else{
-                $paciente->bebedor = null;  
-            }
-            if($request->carcinogenos != "Desconocido"){
-                if($request->carcinogenos == "Otro")
-                    $paciente->carcinogenos = "Otro: ".$request->especificar_carcinogeno;
-                else
-                    $paciente->carcinogenos = $request->carcinogenos;
-            }else{
-                $paciente->carcinogenos = null;  
-            }
+            $paciente->bebedor = $request->bebedor;
+            if($request->carcinogenos == "Otro")
+                $paciente->carcinogenos = "Otro: ".$request->especificar_carcinogeno;
+            else
+                $paciente->carcinogenos = $request->carcinogenos;
             $paciente->ultima_modificacion = date("Y-m-d");
             //Guardamos los cambios en la base de datos a la base de datos
             $paciente->save();

@@ -32,6 +32,16 @@ class AntecedentesController extends Controller
     *	Antecedentes medicos										  *
     *																  *
   	*******************************************************************/
+    public function verAntecedentesMedicosSinModificar($id){
+        $paciente = Pacientes::find($id);
+        if(env('APP_ENV') == 'production'){
+            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+            return view('verantecedentesmedicos',['paciente' => $paciente,'nombre' => $nombreDesencriptado]);
+        }else{
+            return view('verantecedentesmedicos',['paciente' => $paciente]);
+        }
+    }
+
     public function verAntecedentesMedicos($id)
     {
     	$paciente = Pacientes::find($id);
@@ -98,6 +108,17 @@ class AntecedentesController extends Controller
     *	Antecedentes oncológicos									  *
     *																  *
   	*******************************************************************/
+    public function verAntecedentesOncologicosSinModificar($id)
+    {
+        $paciente = Pacientes::find($id);
+        if(env('APP_ENV') == 'production'){
+            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+            return view('verantecedentesoncologicos',['paciente' => $paciente,'nombre' => $nombreDesencriptado]);
+        }else{
+            return view('verantecedentesoncologicos',['paciente' => $paciente]);
+        }
+    }
+
   	public function verAntecedentesOncologicos($id)
     {
     	$paciente = Pacientes::find($id);
@@ -162,6 +183,17 @@ class AntecedentesController extends Controller
     *	Antecedentes familiares 									  *
     *																  *
   	*******************************************************************/
+    public function verAntecedentesFamiliaresSinModificar($id)
+    {
+        $paciente = Pacientes::find($id);
+        if(env('APP_ENV') == 'production'){      
+            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+            return view('verantecedentesfamiliares',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        }else{
+            return view('verantecedentesfamiliares',['paciente' => $paciente]);
+        }
+    }
+
   	public function verAntecedentesFamiliares($id)
     {
     	$paciente = Pacientes::find($id);

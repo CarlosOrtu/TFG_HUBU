@@ -19,6 +19,16 @@ class ReevaluacionesController extends Controller
         $this->encriptacion = new Encriptacion();
 
     }
+    public function verReevaluacionSinModificar($id)
+    {
+        $paciente = Pacientes::find($id);
+        if(env('APP_ENV') == 'production'){      
+            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+            return view('verreevaluaciones',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        }else{
+            return view('verreevaluaciones',['paciente' => $paciente]);
+        }
+    }
 
     public function actualizarfechaModificacionPaciente($paciente)
     {
@@ -117,7 +127,10 @@ class ReevaluacionesController extends Controller
 		    	else
 		    		$reevaluacion->progresion_localizacion = $request->localizacion;
 		    	$reevaluacion->tipo_tratamiento = $request->tipo_tratamiento;
-		    }
+		    }else{
+                $reevaluacion->progresion_localizacion = null;
+                $reevaluacion->tipo_tratamiento = null;
+            }
 	    	$reevaluacion->save();
 
 	        $this->actualizarfechaModificacionPaciente($paciente);

@@ -83,20 +83,16 @@ class PacientesController extends Controller
             $nuevoPaciente->profesion = "Otro: ".$request->profesion_especificar;
         else
             $nuevoPaciente->profesion = $request->profesion;
-        if($request->fumador != "Desconocido")
-            $nuevoPaciente->fumador = $request->fumador;  
+        $nuevoPaciente->fumador = $request->fumador;  
         if($request->fumador == "Fumador" || $request->fumador == "Exfumador")
             $nuevoPaciente->num_tabaco_dia = $request->especificar_fumador;
         elseif($request->fumador == "Nunca fumador")
             $nuevoPaciente->num_tabaco_dia = 0;
-        if($request->bebedor != "Desconocido")
-            $nuevoPaciente->bebedor = $request->bebedor;
-        if($request->carcinogenos != "Desconocido"){
-            if($request->carcinogenos == "Otro")
-                $nuevoPaciente->carcinogenos = "Otro: ".$request->especificar_carcinogeno;
-            else
-                $nuevoPaciente->carcinogenos = $request->especificar_carcinogeno;
-        }
+        $nuevoPaciente->bebedor = $request->bebedor;
+        if($request->carcinogenos == "Otro")
+            $nuevoPaciente->carcinogenos = "Otro: ".$request->especificar_carcinogeno;
+        else
+            $nuevoPaciente->carcinogenos = $request->carcinogenos;
         $nuevoPaciente->ultima_modificacion = date("Y-m-d");
         //Añadimos el paciente a la base de datos
         $nuevoPaciente->save();

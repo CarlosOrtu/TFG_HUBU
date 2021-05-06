@@ -18,6 +18,17 @@ class ComentariosController extends Controller
         $this->encriptacion = new Encriptacion();
     }
 
+    public function verComentarioSinModificar($id)
+    {
+        $paciente = Pacientes::find($id);
+        if(env('APP_ENV') == 'production'){      
+            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+            return view('vercomentarios',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        }else{
+            return view('vercomentarios',['paciente' => $paciente]);
+        }
+    }
+
     public function actualizarfechaModificacionPaciente($paciente)
     {
         $paciente->ultima_modificacion = date("Y-m-d");

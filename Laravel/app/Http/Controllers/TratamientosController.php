@@ -32,6 +32,17 @@ class TratamientosController extends Controller
     *   Radioterapia                                                  *
     *                                                                 *
     *******************************************************************/
+    public function verRadioterapiaSinModificar($id)
+    {
+        $paciente = Pacientes::find($id);
+        if(env('APP_ENV') == 'production'){      
+            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+            return view('verradioterapia',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        }else{
+            return view('verradioterapia',['paciente' => $paciente]);
+        }
+    }
+
     public function verRadioterapia($id)
     {
     	$paciente = Pacientes::find($id);
@@ -157,6 +168,17 @@ class TratamientosController extends Controller
     *   Cirugía                                                       *
     *                                                                 *
     *******************************************************************/
+    public function verCirugiaSinModificar($id)
+    {
+        $paciente = Pacientes::find($id);
+        if(env('APP_ENV') == 'production'){      
+            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+            return view('vercirugia',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        }else{
+            return view('vercirugia',['paciente' => $paciente]);
+        }
+    }
+
     public function verCirugia($id)
     {
         $paciente = Pacientes::find($id);
@@ -258,6 +280,17 @@ class TratamientosController extends Controller
     *   Quimioterapia                                                 *
     *                                                                 *
     *******************************************************************/
+    public function verQuimioterapiaSinModificar($id)
+    {
+        $paciente = Pacientes::find($id);
+        if(env('APP_ENV') == 'production'){      
+            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+            return view('verquimioterapia',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+        }else{
+            return view('verquimioterapia',['paciente' => $paciente]);
+        }
+    }
+
     public function verQuimioterapia($id)
     {
     	$paciente = Pacientes::find($id);
@@ -344,15 +377,17 @@ class TratamientosController extends Controller
 
     private function añadirFarmacosQuimioterapia($farmacoModelo, $farmaco, $tipo, $idIntencion)
     {
-    	$farmacoModelo->id_intencion = $idIntencion;
-    	if($tipo == "Ninguno"){
-			$farmacoModelo->tipo = $farmaco;
-		}elseif($tipo == "Otro"){
-			$farmacoModelo->tipo = "Otro: ".$farmaco;
-		}else{
-			$farmacoModelo->tipo = "Ensayo: ".$farmaco;
-		}
-		$farmacoModelo->save();	
+        if($tipo != "Mal"){
+        	$farmacoModelo->id_intencion = $idIntencion;
+        	if($tipo == "Ninguno"){
+    			$farmacoModelo->tipo = $farmaco;
+    		}elseif($tipo == "Otro"){
+    			$farmacoModelo->tipo = "Otro: ".$farmaco;
+    		}else{
+    			$farmacoModelo->tipo = "Ensayo: ".$farmaco;
+    		}
+    		$farmacoModelo->save();	
+        }
     }
 
     public function crearQuimioterapia(Request $request, $id)
@@ -372,7 +407,10 @@ class TratamientosController extends Controller
 		if(isset($request->farmacos)){
 			foreach($request->farmacos as $farmaco){
 				$farmacoModelo = new Farmacos();
-				$this->añadirFarmacosQuimioterapia($farmacoModelo,$farmaco,"Ninguno",$intencion->id_intencion);
+                if($farmaco == "Otro" or $farmaco == "Farmaco en ensayo clínico")
+                    $this->añadirFarmacosQuimioterapia($farmacoModelo,$farmaco,"Mal",$intencion->id_intencion);
+                else
+				    $this->añadirFarmacosQuimioterapia($farmacoModelo,$farmaco,"Ninguno",$intencion->id_intencion);
 			}	
 		}
 		if(isset($request->especificar_farmaco)){
@@ -381,7 +419,7 @@ class TratamientosController extends Controller
 				$this->añadirFarmacosQuimioterapia($farmacoModelo,$farmaco,"Otro",$intencion->id_intencion);		
 			}
 		}
-		if(isset($request->especificar_farmaco)){
+		if(isset($request->especificar_farmaco_ensayo)){
 			foreach($request->especificar_farmaco_ensayo as $farmaco){
 				$farmacoModelo = new Farmacos();
 				$this->añadirFarmacosQuimioterapia($farmacoModelo,$farmaco,"Ensayo",$intencion->id_intencion);			

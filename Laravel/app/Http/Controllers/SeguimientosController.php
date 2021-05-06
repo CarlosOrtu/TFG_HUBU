@@ -18,6 +18,17 @@ class SeguimientosController extends Controller
         $this->encriptacion = new Encriptacion();
     }
 
+    public function verSeguimientoSinModificar($id)
+    {
+    	$paciente = Pacientes::find($id);
+        if(env('APP_ENV') == 'production'){      
+	    	$nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
+	    	return view('verseguimientos',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+	    }else{
+	    	return view('verseguimientos',['paciente' => $paciente]);
+	    }
+    }
+
     public function actualizarfechaModificacionPaciente($paciente)
     {
         $paciente->ultima_modificacion = date("Y-m-d");
@@ -79,10 +90,7 @@ class SeguimientosController extends Controller
 	      	$nuevoSeguimiento->fecha = $request->fecha;
 	    	$nuevoSeguimiento->estado	 = $request->estado;
 	    	if($request->estado == "Fallecido"){
-	    		if($request->motivo == "Otro")
-					$nuevoSeguimiento->fallecido_motivo = "Otro: ".$request->motivo_especificar;
-		    	else
-		    		$nuevoSeguimiento->fallecido_motivo	 = $request->motivo;
+		    	$nuevoSeguimiento->fallecido_motivo	 = $request->motivo;
 		    	$nuevoSeguimiento->fecha_fallecimiento = $request->fecha_fallecimiento;
 		    }
 	    	$nuevoSeguimiento->save();
@@ -127,6 +135,9 @@ class SeguimientosController extends Controller
 		    	else
 		    		$seguimiento->fallecido_motivo	 = $request->motivo;
 		    	$seguimiento->fecha_fallecimiento = $request->fecha_fallecimiento;
+		    }else{
+		    	$seguimiento->fallecido_motivo = null;
+		    	$seguimiento->fecha_fallecimiento = null;
 		    }
 
 	    	$seguimiento->save();
