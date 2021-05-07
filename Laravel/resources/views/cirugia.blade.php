@@ -30,7 +30,7 @@
   <h4 class="text-white panel-title">Cirugía {{ $loop->iteration }}</h4>
   <div class="my-4 input-group">
     <div class="input-group-prepend">
-        <span class="input-group-text">Localización</span>
+        <span class="input-group-text">Tipo</span>
     </div>
     <select name="tipo" class="tipo form-control">
       <option {{ $tratamiento->subtipo == 'Neumonectomía' ? 'selected' : '' }}>Neumonectomía</option>
