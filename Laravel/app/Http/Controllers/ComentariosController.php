@@ -22,7 +22,7 @@ class ComentariosController extends Controller
     {
         $paciente = Pacientes::find($id);
         if(env('APP_ENV') == 'production'){      
-            $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->nhc);
+            $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('vercomentarios',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
         }else{
             return view('vercomentarios',['paciente' => $paciente]);
@@ -39,7 +39,7 @@ class ComentariosController extends Controller
     {
     	$paciente = Pacientes::find($id);
         if(env('APP_ENV') == 'production'){      
-            $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->nhc);
+            $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
         	return view('comentariosnuevos',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
         }else{
             return view('comentariosnuevos',['paciente' => $paciente]);
