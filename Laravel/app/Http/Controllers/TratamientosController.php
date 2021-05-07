@@ -36,8 +36,8 @@ class TratamientosController extends Controller
     {
         $paciente = Pacientes::find($id);
         if(env('APP_ENV') == 'production'){      
-            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-            return view('verradioterapia',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+            $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
+            return view('verradioterapia',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
         }else{
             return view('verradioterapia',['paciente' => $paciente]);
         }
@@ -47,8 +47,8 @@ class TratamientosController extends Controller
     {
     	$paciente = Pacientes::find($id);
         if(env('APP_ENV') == 'production'){      
-            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-        	return view('radioterapia',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+            $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
+        	return view('radioterapia',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
         }else{
             return view('radioterapia',['paciente' => $paciente]);
         }
@@ -172,8 +172,8 @@ class TratamientosController extends Controller
     {
         $paciente = Pacientes::find($id);
         if(env('APP_ENV') == 'production'){      
-            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-            return view('vercirugia',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+            $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
+            return view('vercirugia',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
         }else{
             return view('vercirugia',['paciente' => $paciente]);
         }
@@ -183,8 +183,8 @@ class TratamientosController extends Controller
     {
         $paciente = Pacientes::find($id);
         if(env('APP_ENV') == 'production'){      
-            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-            return view('cirugia',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+            $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
+            return view('cirugia',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
         }else{
             return view('cirugia',['paciente' => $paciente]);
         }
@@ -284,8 +284,8 @@ class TratamientosController extends Controller
     {
         $paciente = Pacientes::find($id);
         if(env('APP_ENV') == 'production'){      
-            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-            return view('verquimioterapia',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+            $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
+            return view('verquimioterapia',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
         }else{
             return view('verquimioterapia',['paciente' => $paciente]);
         }
@@ -295,8 +295,8 @@ class TratamientosController extends Controller
     {
     	$paciente = Pacientes::find($id);
         if(env('APP_ENV') == 'production'){      
-            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-        	return view('quimioterapia',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+            $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
+        	return view('quimioterapia',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
         }else{
             return view('quimioterapia',['paciente' => $paciente]);
         }

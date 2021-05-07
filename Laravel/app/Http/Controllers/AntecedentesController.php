@@ -35,8 +35,8 @@ class AntecedentesController extends Controller
     public function verAntecedentesMedicosSinModificar($id){
         $paciente = Pacientes::find($id);
         if(env('APP_ENV') == 'production'){
-            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-            return view('verantecedentesmedicos',['paciente' => $paciente,'nombre' => $nombreDesencriptado]);
+            $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
+            return view('verantecedentesmedicos',['paciente' => $paciente,'nombre' => $nhcDesencriptado]);
         }else{
             return view('verantecedentesmedicos',['paciente' => $paciente]);
         }
@@ -46,8 +46,8 @@ class AntecedentesController extends Controller
     {
     	$paciente = Pacientes::find($id);
         if(env('APP_ENV') == 'production'){
-            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-        	return view('antecedentesmedicos',['paciente' => $paciente,'nombre' => $nombreDesencriptado]);
+            $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
+        	return view('antecedentesmedicos',['paciente' => $paciente,'nombre' => $nhcDesencriptado]);
         }else{
             return view('antecedentesmedicos',['paciente' => $paciente]);
         }
@@ -112,8 +112,8 @@ class AntecedentesController extends Controller
     {
         $paciente = Pacientes::find($id);
         if(env('APP_ENV') == 'production'){
-            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-            return view('verantecedentesoncologicos',['paciente' => $paciente,'nombre' => $nombreDesencriptado]);
+            $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
+            return view('verantecedentesoncologicos',['paciente' => $paciente,'nombre' => $nhcDesencriptado]);
         }else{
             return view('verantecedentesoncologicos',['paciente' => $paciente]);
         }
@@ -123,8 +123,8 @@ class AntecedentesController extends Controller
     {
     	$paciente = Pacientes::find($id);
         if(env('APP_ENV') == 'production'){
-            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-        	return view('antecedentesoncologicos',['paciente' => $paciente,'nombre' => $nombreDesencriptado]);
+            $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
+        	return view('antecedentesoncologicos',['paciente' => $paciente,'nombre' => $nhcDesencriptado]);
         }else{
             return view('antecedentesoncologicos',['paciente' => $paciente]);
         }
@@ -187,8 +187,8 @@ class AntecedentesController extends Controller
     {
         $paciente = Pacientes::find($id);
         if(env('APP_ENV') == 'production'){      
-            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-            return view('verantecedentesfamiliares',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+            $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
+            return view('verantecedentesfamiliares',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
         }else{
             return view('verantecedentesfamiliares',['paciente' => $paciente]);
         }
@@ -198,8 +198,8 @@ class AntecedentesController extends Controller
     {
     	$paciente = Pacientes::find($id);
         if(env('APP_ENV') == 'production'){      
-            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-        	return view('antecedentesfamiliares',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+            $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
+        	return view('antecedentesfamiliares',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
         }else{
             return view('antecedentesfamiliares',['paciente' => $paciente]);
         }

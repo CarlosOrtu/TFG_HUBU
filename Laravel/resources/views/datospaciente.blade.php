@@ -7,7 +7,7 @@
     <div class="col-md-11 pl-0">
         <div class="d-flex justify-content-between mb-4">
             @env('production')
-            <h6 class="align-self-end text-white">Paciente: {{ $nombre }}</h6>
+            <h6 class="align-self-end text-white">Paciente: {{ $nhc }}</h6>
             @endenv
             @env('local')
             <h6 class="align-self-end text-white">Paciente: {{ $paciente->nombre }}</h6>
@@ -27,15 +27,24 @@
             <strong class="text-center text-dark">{{ $message }}</strong>
         </div>
         @endif
+        @if(env('APP_ENV') == 'production')
+        <div class="my-4 input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">NHC</span>
+            </div>
+            <input value="{{ $nhc }}" name="nhc" class="form-control @error('nhc') is-invalid @enderror" autocomplete="off">
+            @error('nhc')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror  
+        </div>
+        @else
         <div class="my-4 input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">Nombre</span>
             </div>
-            @if(env('APP_ENV') == 'production')
-            <input value="{{ $nombre }}" name="nombre" class="form-control @error('nombre') is-invalid @enderror" autocomplete="off">
-            @else
             <input value="{{ $paciente->nombre }}" name="nombre" class="form-control @error('nombre') is-invalid @enderror" autocomplete="off">
-            @endif
             @error('nombre')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -46,17 +55,14 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">Apellidos</span>
             </div>
-            @if(env('APP_ENV') == 'production')
-            <input value="{{ $apellidos }}" name="apellidos" class="form-control @error('apellidos') is-invalid @enderror" autocomplete="off">
-            @else
             <input value="{{ $paciente->apellidos }}" name="apellidos" class="form-control @error('apellidos') is-invalid @enderror" autocomplete="off">
-            @endif
             @error('apellidos')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
             @enderror  
         </div>
+        @endif
         <div  class="my-4 input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">Sexo</span>

@@ -5,6 +5,19 @@
     @CSRF
     <div class="col-md-12 pl-0">
         <h1 class="text-white text-center panel-title">Añadir paciente</h1>
+        @if(env('APP_ENV') == 'production')
+        <div class="my-4 input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">NHC</span>
+            </div>
+            <input name="nhc" value="{{ old('nhc') }}" class="form-control @error('nhc') is-invalid @enderror" autocomplete="off">
+            @error('nhc')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+        </div>
+        @else
         <div class="my-4 input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">Nombre</span>
@@ -27,6 +40,7 @@
             </span>
             @enderror
         </div>
+        @endif
         <div  class="my-4 input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">Sexo</span>

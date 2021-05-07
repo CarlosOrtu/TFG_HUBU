@@ -12,8 +12,12 @@
 	            <thead>
 	            	<tr>
 	                	<th class="left">ID Paciente</th>
-	                    <th>Nombre</th>
+	                	@if(env('APP_ENV') == 'production')
+	                	<th>Número de historia clínica</th>
+	                	@else
+	                    <th>Número de historia clinica</th>
 	                    <th>Apellidos</th>
+						@endif
 						<th class="right">Seleccionar</th>
 					</tr>
 				</thead>
@@ -22,12 +26,18 @@
 	        			<td class="left">
 	        				<input placeholder="ID" class="form-control mb-2 mr-2" type="text" autocomplete="off">
 	        			</td>
+	        			@if(env('APP_ENV') == 'production')
+	        			<td>
+	        				<input placeholder="NHC" class="form-control mb-2 mr-2" type="text" autocomplete="off">
+	        			</td>	   
+	        			@else
 	        			<td>
 	        				<input placeholder="Nombre" class="form-control mb-2 mr-2" type="text" autocomplete="off">
 	        			</td>	                            			
 	        			<td>
 	        				<input placeholder="Apellidos" class="form-control mb-2 mr-2" type="text" autocomplete="off">
 	         			</td>
+	         			@endif
 	        			<td class="right">
 	        			</td>
 	        		</tr>
@@ -38,8 +48,7 @@
 	                    <tr>
 	                    	<td class="table-text text-dark left"><div>{{ $paciente->id_paciente }}</div></td>
 	                    	@if(env('APP_ENV') == 'production')
-	                        <td class="table-text text-dark"><div>{{ $encriptacion->desencriptar($paciente->nombre) }}</div></td>
-	                        <td class="table-text text-dark"><div>{{ $encriptacion->desencriptar($paciente->apellidos) }}</div></td>
+	                        <td class="table-text text-dark"><div>{{ $encriptacion->desencriptar($paciente->NHC) }}</div></td>
 	                        @else
 	                        <td class="table-text text-dark"><div>{{ $paciente->nombre }}</div></td>
 	                        <td class="table-text text-dark"><div>{{ $paciente->apellidos }}</div></td>
@@ -59,7 +68,7 @@
 @endif
 <script type="text/javascript">
 	function confirmarEliminacion(element) {
-		var idPaciente = $(element).parent().prev().prev().prev().text();
+		var idPaciente = $(element).parent().prev().prev().text();
 		var urlPrincipal = $(location).attr('origin');
 		var entorno = "<?php echo env('APP_ENV');?>";
 		if(entorno == "local"){
@@ -68,10 +77,9 @@
 		else{
 			var url = urlPrincipal+'/eliminar/paciente/'+idPaciente;
 		}
-		var apellidos = $(element).parent().prev().text();
-		var nombre = $(element).parent().prev().prev().text();
+		var NHC = $(element).parent().prev().text();
 		Swal.fire({
-		  title: 'Estas seguro que deseas eliminar el paciente '+nombre+' '+apellidos,
+		  title: 'Estas seguro que deseas eliminar el paciente con el NHC '+NHC,
 		  icon: "warning",
 		  showDenyButton: true,
 		  confirmButtonText: 'Eliminar',

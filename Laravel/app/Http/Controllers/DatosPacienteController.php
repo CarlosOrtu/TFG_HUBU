@@ -23,9 +23,8 @@ class DatosPacienteController extends Controller
     {
         $paciente = Pacientes::find($id);
         if(env('APP_ENV') == 'production'){
-            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-            $apellidosDesencriptados = $this->encriptacion->desencriptar($paciente->apellidos);
-           return view('verdatospaciente',['paciente' => $paciente, 'nombre' => $nombreDesencriptado, 'apellidos' => $apellidosDesencriptados]);
+            $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
+           return view('verdatospaciente',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
         }else{
            return view('verdatospaciente',['paciente' => $paciente]);
         }
@@ -35,9 +34,8 @@ class DatosPacienteController extends Controller
     {
     	$paciente = Pacientes::find($id);
         if(env('APP_ENV') == 'production'){
-            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-            $apellidosDesencriptados = $this->encriptacion->desencriptar($paciente->apellidos);
-    	   return view('datospaciente',['paciente' => $paciente, 'nombre' => $nombreDesencriptado, 'apellidos' => $apellidosDesencriptados]);
+            $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
+    	   return view('datospaciente',['paciente' => $paciente, 'nhc' => $nhcDesencriptado]);
         }else{
            return view('datospaciente',['paciente' => $paciente]);
         }
@@ -48,16 +46,28 @@ class DatosPacienteController extends Controller
         $seg = time();
         $manana = strtotime("+1 day", $seg);
         $manana = date("Y-m-d", $manana);
-        $validator = Validator::make($request->all(), [
-            'nombre' => 'required',
-            'apellidos' => 'required',
-            'nacimiento' => 'required|date|before:'.$manana
-        ],
-        [
-        	'required' => 'El campo :attribute no puede estar vacio',
-        	'before' => 'Introduce una fecha valida',
-            'date' => 'Introduce una fecha valida',
-        ]);
+        if(env('APP_ENV') == 'production'){
+            $validator = Validator::make($request->all(), [
+                    'nhc' => 'required',
+                    'nacimiento' => 'required|date|before:'.$manana
+                ],
+                [
+                    'required' => 'El campo :attribute no puede estar vacio',
+                    'before' => 'Introduce una fecha valida',
+                    'date' => 'Introduce una fecha valida',
+                ]);
+        }else{
+            $validator = Validator::make($request->all(), [
+                'nombre' => 'required',
+                'apellidos' => 'required',
+                'nacimiento' => 'required|date|before:'.$manana
+            ],
+            [
+            	'required' => 'El campo :attribute no puede estar vacio',
+            	'before' => 'Introduce una fecha valida',
+                'date' => 'Introduce una fecha valida',
+            ]);
+        }
 
         return $validator;
     }
@@ -70,13 +80,11 @@ class DatosPacienteController extends Controller
                 return back()->withErrors($validator->errors())->withInput();
             //Obtenemos el paciente actual
             $paciente = Pacientes::find($id);
-            //Encriptamos el nombre y los apellidos
-            $nombreEncriptado = $this->encriptacion->encriptar($request->nombre);
-            $apellidosEncriptados = $this->encriptacion->encriptar($request->apellidos);
+            //Encriptamos el nhc
+            $nhcEncriptado = $this->encriptacion->encriptar($request->nhc);
             //Modificamos sus datos
             if(env('APP_ENV') == 'production'){
-                $paciente->nombre = $nombreEncriptado;
-                $paciente->apellidos = $apellidosEncriptados;
+                $paciente->NHC = $nhcEncriptado;
             }else{
                 $paciente->nombre = $request->nombre;
                 $paciente->apellidos = $request->apellidos;       

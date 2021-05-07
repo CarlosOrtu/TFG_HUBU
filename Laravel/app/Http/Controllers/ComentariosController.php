@@ -22,8 +22,8 @@ class ComentariosController extends Controller
     {
         $paciente = Pacientes::find($id);
         if(env('APP_ENV') == 'production'){      
-            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-            return view('vercomentarios',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+            $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->nhc);
+            return view('vercomentarios',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
         }else{
             return view('vercomentarios',['paciente' => $paciente]);
         }
@@ -39,8 +39,8 @@ class ComentariosController extends Controller
     {
     	$paciente = Pacientes::find($id);
         if(env('APP_ENV') == 'production'){      
-            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-        	return view('comentariosnuevos',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+            $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->nhc);
+        	return view('comentariosnuevos',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
         }else{
             return view('comentariosnuevos',['paciente' => $paciente]);
         }
@@ -83,8 +83,8 @@ class ComentariosController extends Controller
     	$comentarios = $paciente->Comentarios;
     	$comentario = $comentarios[$num_comentario];
         if(env('APP_ENV') == 'production'){      
-            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-        	return view('comentarios',['paciente' => $paciente, 'comentario' => $comentario, 'posicion' => $num_comentario, 'nombre' => $nombreDesencriptado]);
+            $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->nhc);
+        	return view('comentarios',['paciente' => $paciente, 'comentario' => $comentario, 'posicion' => $num_comentario, 'nombre' => $nhcDesencriptado]);
         }else{
             return view('comentarios',['paciente' => $paciente, 'comentario' => $comentario, 'posicion' => $num_comentario]);
         }

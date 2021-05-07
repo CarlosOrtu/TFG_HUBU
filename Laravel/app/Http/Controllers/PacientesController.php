@@ -42,17 +42,30 @@ class PacientesController extends Controller
         $seg = time();
         $manana = strtotime("+1 day", $seg);
         $manana = date("Y-m-d", $manana);
-        $validator = Validator::make($request->all(), [
-            'nombre' => 'required',
-            'apellidos' => 'required',
-            'nacimiento' => 'date|before:'.$manana
-        ],
-        [
-        'required' => 'El campo :attribute no puede estar vacio',
-        'same' => 'Las dos contraseñas deben coincidir',
-        'before' => 'Introduce una fecha valida',
-        'date' => 'Introduce una fecha valida',
-        ]);
+        if(env('APP_ENV') == 'production'){
+            $validator = Validator::make($request->all(), [
+                'nhc' => 'required',
+                'nacimiento' => 'date|before:'.$manana
+            ],
+            [
+            'required' => 'El campo :attribute no puede estar vacio',
+            'same' => 'Las dos contraseñas deben coincidir',
+            'before' => 'Introduce una fecha valida',
+            'date' => 'Introduce una fecha valida',
+            ]);
+        }else{
+            $validator = Validator::make($request->all(), [
+                'nombre' => 'required',
+                'apellidos' => 'required',
+                'nacimiento' => 'date|before:'.$manana
+            ],
+            [
+            'required' => 'El campo :attribute no puede estar vacio',
+            'same' => 'Las dos contraseñas deben coincidir',
+            'before' => 'Introduce una fecha valida',
+            'date' => 'Introduce una fecha valida',
+            ]);
+        }
 
         return $validator;
     }
@@ -65,13 +78,11 @@ class PacientesController extends Controller
             return back()->withErrors($validator->errors())->withInput();
         //Creamos el objeto pacientes
         $nuevoPaciente = new Pacientes();
-        //Encriptamos el nombre y los apellidos
-        $nombreEncriptado = $this->encriptacion->encriptar($request->nombre);
-        $apellidosEncriptados = $this->encriptacion->encriptar($request->apellidos);
+        //Encriptamos el nhc
+        $nhcEncriptado = $this->encriptacion->encriptar($request->nhc);
         //Le asignamos los valores recibidos desde el metodo POST
         if(env('APP_ENV') == 'production'){
-            $nuevoPaciente->nombre = $nombreEncriptado;
-            $nuevoPaciente->apellidos = $apellidosEncriptados;
+            $nuevoPaciente->nhc = $nhcEncriptado;
         }else{
             $nuevoPaciente->nombre = $request->nombre;
             $nuevoPaciente->apellidos = $request->apellidos;       

@@ -23,8 +23,8 @@ class ReevaluacionesController extends Controller
     {
         $paciente = Pacientes::find($id);
         if(env('APP_ENV') == 'production'){      
-            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-            return view('verreevaluaciones',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+            $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
+            return view('verreevaluaciones',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
         }else{
             return view('verreevaluaciones',['paciente' => $paciente]);
         }
@@ -40,8 +40,8 @@ class ReevaluacionesController extends Controller
     {
     	$paciente = Pacientes::find($id);
         if(env('APP_ENV') == 'production'){      
-            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-        	return view('reevaluacionesnuevas',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+            $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
+        	return view('reevaluacionesnuevas',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
         }else{
             return view('reevaluacionesnuevas',['paciente' => $paciente]);
         }
@@ -101,8 +101,8 @@ class ReevaluacionesController extends Controller
     	$reevaluaciones = $paciente->Reevaluaciones;
     	$reevaluacion = $reevaluaciones[$num_reevaluacion];
         if(env('APP_ENV') == 'production'){      
-            $nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-        	return view('reevaluaciones',['paciente' => $paciente, 'reevaluacion' => $reevaluacion, 'posicion' => $num_reevaluacion, 'nombre' => $nombreDesencriptado]);
+            $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
+        	return view('reevaluaciones',['paciente' => $paciente, 'reevaluacion' => $reevaluacion, 'posicion' => $num_reevaluacion, 'nombre' => $nhcDesencriptado]);
         }else{
             return view('reevaluaciones',['paciente' => $paciente, 'reevaluacion' => $reevaluacion, 'posicion' => $num_reevaluacion]);
         }

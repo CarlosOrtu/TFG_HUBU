@@ -15,13 +15,16 @@
     <table class="text-white table table-bordered">
         <tbody>
         <tr>
-            <th>Nombre</th>
+            <th>NHC</th>
             @if(env('APP_ENV') == 'production')
             <td>{{ $nombre }}</td>
             @else
             <td>{{ $paciente->nombre }}</td>
             @endif
         </tr>
+        @if(env('APP_ENV') == 'production')
+
+        @else
         <tr>
             <th>Apellidos</th>
             @if(env('APP_ENV') == 'production')
@@ -30,6 +33,7 @@
             <td>{{ $paciente->apellidos }}</td>
             @endif
         </tr>
+        @endif
         <tr>
             <th>Sexo</th>
             <td>{{ $paciente->sexo }}</td>

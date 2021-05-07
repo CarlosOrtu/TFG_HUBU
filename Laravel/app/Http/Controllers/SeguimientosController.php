@@ -22,8 +22,8 @@ class SeguimientosController extends Controller
     {
     	$paciente = Pacientes::find($id);
         if(env('APP_ENV') == 'production'){      
-	    	$nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-	    	return view('verseguimientos',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+	    	$nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
+	    	return view('verseguimientos',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
 	    }else{
 	    	return view('verseguimientos',['paciente' => $paciente]);
 	    }
@@ -39,8 +39,8 @@ class SeguimientosController extends Controller
     {
     	$paciente = Pacientes::find($id);
         if(env('APP_ENV') == 'production'){      
-	    	$nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-	    	return view('seguimientosnuevos',['paciente' => $paciente, 'nombre' => $nombreDesencriptado]);
+	    	$nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
+	    	return view('seguimientosnuevos',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
 	    }else{
 	    	return view('seguimientosnuevos',['paciente' => $paciente]);
 	    }
@@ -109,8 +109,8 @@ class SeguimientosController extends Controller
     	$seguimientos = $paciente->Seguimientos;
     	$seguimiento = $seguimientos[$num_seguimiento];
         if(env('APP_ENV') == 'production'){      
-	    	$nombreDesencriptado = $this->encriptacion->desencriptar($paciente->nombre);
-	    	return view('seguimientos',['paciente' => $paciente, 'seguimiento' => $seguimiento, 'posicion' => $num_seguimiento, 'nombre' => $nombreDesencriptado]);
+	    	$nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
+	    	return view('seguimientos',['paciente' => $paciente, 'seguimiento' => $seguimiento, 'posicion' => $num_seguimiento, 'nombre' => $nhcDesencriptado]);
 	    }else{
 	    	return view('seguimientos',['paciente' => $paciente, 'seguimiento' => $seguimiento, 'posicion' => $num_seguimiento]);
 	    }
