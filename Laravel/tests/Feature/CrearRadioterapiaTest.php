@@ -267,4 +267,5 @@ class CrearRadioterapiaTest extends TestCase
         //Comprobamos que los datos de la radioterapia no se han introducido 
         $paciente = Pacientes::find(999);
         $this->assertTrue(count($paciente->Tratamientos) == 0);
-    }}
+    }
+}

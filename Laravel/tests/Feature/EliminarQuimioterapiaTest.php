@@ -108,8 +108,6 @@ class EliminarQuimioterapiaTest extends TestCase
         $view->assertDontSee('1999-05-05');
         $view->assertDontSee('1999-06-06');
         //Comprobamos que los datos de la quimioterapia se han modificado correctamente
-        $paciente = Pacientes::find(999);
-        $paciente = Pacientes::find(999);
         $this->assertTrue(count($paciente->Tratamientos) == 0);
     }
 
