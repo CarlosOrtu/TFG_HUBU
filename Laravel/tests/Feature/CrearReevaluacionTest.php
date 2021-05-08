@@ -83,6 +83,7 @@ class CrearReevaluacionTest extends TestCase
         $reevaluaciones = $paciente->Reevaluaciones;
         $reevaluacion = $reevaluaciones[0];
         $view = $this->view('reevaluaciones',['paciente' => $paciente, 'reevaluacion' => $reevaluacion, 'posicion' => 0]);
+        $view->assertSee('1999-05-05');
         //Comprobamos que los datos de la reevaluacion se han introducido correctamente
         $this->assertTrue($paciente->Reevaluaciones[0]->fecha == "1999-05-05");
         $this->assertTrue($paciente->Reevaluaciones[0]->estado == "Recaída");

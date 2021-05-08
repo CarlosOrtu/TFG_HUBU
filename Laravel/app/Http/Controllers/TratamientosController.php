@@ -392,94 +392,102 @@ class TratamientosController extends Controller
 
     public function crearQuimioterapia(Request $request, $id)
     {
-   		$validator = $this->validarQuimioterapia($request);
-	    if($validator->fails())
-	        return back()->withErrors($validator->errors())->withInput();
+        try{
+       		$validator = $this->validarQuimioterapia($request);
+    	    if($validator->fails())
+    	        return back()->withErrors($validator->errors())->withInput();
 
-    	$paciente = Pacientes::find($id);
+        	$paciente = Pacientes::find($id);
 
-		$tratamiento = new Tratamientos();
-		$tratamiento = $this->añadirTratamientoQuimioterapia($request,$tratamiento,$id);
+    		$tratamiento = new Tratamientos();
+    		$tratamiento = $this->añadirTratamientoQuimioterapia($request,$tratamiento,$id);
 
-        $intencion = new Intenciones();
-		$intencion = $this->añadirIntencionQuimioterapia($request,$intencion,$tratamiento->id_tratamiento);        
+            $intencion = new Intenciones();
+    		$intencion = $this->añadirIntencionQuimioterapia($request,$intencion,$tratamiento->id_tratamiento);        
 
-		if(isset($request->farmacos)){
-			foreach($request->farmacos as $farmaco){
-				$farmacoModelo = new Farmacos();
-                if($farmaco == "Otro" or $farmaco == "Farmaco en ensayo clínico")
-                    $this->añadirFarmacosQuimioterapia($farmacoModelo,$farmaco,"Mal",$intencion->id_intencion);
-                else
-				    $this->añadirFarmacosQuimioterapia($farmacoModelo,$farmaco,"Ninguno",$intencion->id_intencion);
-			}	
-		}
-		if(isset($request->especificar_farmaco)){
-			foreach($request->especificar_farmaco as $farmaco){
-				$farmacoModelo = new Farmacos();
-				$this->añadirFarmacosQuimioterapia($farmacoModelo,$farmaco,"Otro",$intencion->id_intencion);		
-			}
-		}
-		if(isset($request->especificar_farmaco_ensayo)){
-			foreach($request->especificar_farmaco_ensayo as $farmaco){
-				$farmacoModelo = new Farmacos();
-				$this->añadirFarmacosQuimioterapia($farmacoModelo,$farmaco,"Ensayo",$intencion->id_intencion);			
-			}
-		}
+    		if(isset($request->farmacos)){
+    			foreach($request->farmacos as $farmaco){
+    				$farmacoModelo = new Farmacos();
+                    if($farmaco == "Otro" or $farmaco == "Farmaco en ensayo clínico")
+                        $this->añadirFarmacosQuimioterapia($farmacoModelo,$farmaco,"Mal",$intencion->id_intencion);
+                    else
+    				    $this->añadirFarmacosQuimioterapia($farmacoModelo,$farmaco,"Ninguno",$intencion->id_intencion);
+    			}	
+    		}
+    		if(isset($request->especificar_farmaco)){
+    			foreach($request->especificar_farmaco as $farmaco){
+    				$farmacoModelo = new Farmacos();
+    				$this->añadirFarmacosQuimioterapia($farmacoModelo,$farmaco,"Otro",$intencion->id_intencion);		
+    			}
+    		}
+    		if(isset($request->especificar_farmaco_ensayo)){
+    			foreach($request->especificar_farmaco_ensayo as $farmaco){
+    				$farmacoModelo = new Farmacos();
+    				$this->añadirFarmacosQuimioterapia($farmacoModelo,$farmaco,"Ensayo",$intencion->id_intencion);			
+    			}
+    		}
 
-		$this->actualizarfechaModificacionPaciente($paciente);
-		return redirect()->route('quimioterapias',$id)->with('success','Quimioterapia creada correctamente');
+    		$this->actualizarfechaModificacionPaciente($paciente);
+    		return redirect()->route('quimioterapias',$id)->with('success','Quimioterapia creada correctamente');
+        }catch(QueryException $e){
+            return redirect()->route('quimioterapias',$id)->with('SQLerror','Introduce una fecha valida');
+        }
     }
 
     public function modificarQuimioterapia(Request $request, $id, $num_quimioterapia)
     {
-   		$validator = $this->validarQuimioterapia($request);
-	    if($validator->fails())
-	        return back()->withErrors($validator->errors())->withInput();
-		
-    	$paciente = Pacientes::find($id);
+        try{
+       		$validator = $this->validarQuimioterapia($request);
+    	    if($validator->fails())
+    	        return back()->withErrors($validator->errors())->withInput();
+    		
+        	$paciente = Pacientes::find($id);
 
-    	$tratamientos = Tratamientos::where('tipo','Quimioterapia')->where('id_paciente',$id)->get();
-    	$tratamiento = $tratamientos[$num_quimioterapia];
+        	$tratamientos = Tratamientos::where('tipo','Quimioterapia')->where('id_paciente',$id)->get();
+        	$tratamiento = $tratamientos[$num_quimioterapia];
 
-    	$tratamiento = $this->añadirTratamientoQuimioterapia($request,$tratamiento,$id);
+        	$tratamiento = $this->añadirTratamientoQuimioterapia($request,$tratamiento,$id);
 
-    	$intencion = $tratamiento->Intenciones;
+        	$intencion = $tratamiento->Intenciones;
 
-		$intencion = $this->añadirIntencionQuimioterapia($request,$intencion,$tratamiento->id_tratamiento);
-		
-		$farmacos = $intencion->Farmacos;
-		$i = 0;
-		foreach($farmacos as $farmacoModelo){
-			if($request->farmacos[$i] == "Otro"){
-				$this->añadirFarmacosQuimioterapia($farmacoModelo,$request->especificar_farmaco[$i],"Otro",$intencion->id_intencion);
-			}elseif($request->farmacos[$i] == "Farmaco en ensayo clínico"){
-				$this->añadirFarmacosQuimioterapia($farmacoModelo,$request->especificar_farmaco_ensayo[$i],"Ensayo",$intencion->id_intencion);
-			}else
-				$this->añadirFarmacosQuimioterapia($farmacoModelo,$request->farmacos[$i],"Ninguno",$intencion->id_intencion);
-			$i = $i + 1;
-		}	
-		$indiceOtro = $i;
-		$indiceEnsayo = $i;
-		if(isset($request->farmacos)){
-			for($i; $i < count($request->farmacos); $i++){
-				if($request->farmacos[$i] == "Otro"){
-					$farmacoModelo = new Farmacos();
-					$this->añadirFarmacosQuimioterapia($farmacoModelo,$request->especificar_farmaco[$indiceOtro],"Otro",$intencion->id_intencion);
-					$indiceOtro = $indiceOtro + 1;
-				}elseif($request->farmacos[$i] == "Farmaco en ensayo clínico"){
-					$farmacoModelo = new Farmacos();
-					$this->añadirFarmacosQuimioterapia($farmacoModelo,$request->especificar_farmaco_ensayo[$indiceEnsayo],"Ensayo",$intencion->id_intencion);
-					$indiceEnsayo = $indiceEnsayo + 1;
-				}else{
-					$farmacoModelo = new Farmacos();
-					$this->añadirFarmacosQuimioterapia($farmacoModelo,$request->farmacos[$i],"Ninguno",$intencion->id_intencion);
-				}
-			}
-		}
+    		$intencion = $this->añadirIntencionQuimioterapia($request,$intencion,$tratamiento->id_tratamiento);
+    		
+    		$farmacos = $intencion->Farmacos;
+    		$i = 0;
+    		foreach($farmacos as $farmacoModelo){
+    			if($request->farmacos[$i] == "Otro"){
+    				$this->añadirFarmacosQuimioterapia($farmacoModelo,$request->especificar_farmaco[$i],"Otro",$intencion->id_intencion);
+    			}elseif($request->farmacos[$i] == "Farmaco en ensayo clínico"){
+    				$this->añadirFarmacosQuimioterapia($farmacoModelo,$request->especificar_farmaco_ensayo[$i],"Ensayo",$intencion->id_intencion);
+    			}else
+    				$this->añadirFarmacosQuimioterapia($farmacoModelo,$request->farmacos[$i],"Ninguno",$intencion->id_intencion);
+    			$i = $i + 1;
+    		}	
+    		$indiceOtro = $i;
+    		$indiceEnsayo = $i;
+    		if(isset($request->farmacos)){
+    			for($i; $i < count($request->farmacos); $i++){
+    				if($request->farmacos[$i] == "Otro"){
+    					$farmacoModelo = new Farmacos();
+    					$this->añadirFarmacosQuimioterapia($farmacoModelo,$request->especificar_farmaco[$indiceOtro],"Otro",$intencion->id_intencion);
+    					$indiceOtro = $indiceOtro + 1;
+    				}elseif($request->farmacos[$i] == "Farmaco en ensayo clínico"){
+    					$farmacoModelo = new Farmacos();
+    					$this->añadirFarmacosQuimioterapia($farmacoModelo,$request->especificar_farmaco_ensayo[$indiceEnsayo],"Ensayo",$intencion->id_intencion);
+    					$indiceEnsayo = $indiceEnsayo + 1;
+    				}else{
+    					$farmacoModelo = new Farmacos();
+    					$this->añadirFarmacosQuimioterapia($farmacoModelo,$request->farmacos[$i],"Ninguno",$intencion->id_intencion);
+    				}
+    			}
+    		}
 
-        $this->actualizarfechaModificacionPaciente($paciente);
+            $this->actualizarfechaModificacionPaciente($paciente);
 
-        return redirect()->route('quimioterapias',$id)->with('success','Quimioterapia modificada correctamente');
+            return redirect()->route('quimioterapias',$id)->with('success','Quimioterapia modificada correctamente');
+        }catch(QueryException $e){
+            return redirect()->route('quimioterapias',$id)->with('SQLerror','Introduce una fecha valida');
+        }
     }
 
     public function eliminarQuimioterapia($id, $num_quimioterapia)

@@ -52,7 +52,7 @@
         <option>Respuesta parcial</option>
         <option>Enfermedad estable</option>
         <option>Progresión</option>
-        <option>Recaida</option>
+        <option>Recaída</option>
       </select>
     </div>
     <div class="oculto ml-2 my-4 input-group">

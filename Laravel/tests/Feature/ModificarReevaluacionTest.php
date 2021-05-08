@@ -112,13 +112,8 @@ class ModificarReevaluacionTest extends TestCase
         $response->assertSessionHasErrors('fecha');
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/paciente/999/reevaluaciones/modificar/0');
-        //Comprobamos que en la vista reevaluacion no se ven los datos actualizados
+        //Comprobamos que los datos de la reevaluacion no se han actualizado ç
         $paciente = Pacientes::find(999);
-        $reevaluaciones = $paciente->Reevaluaciones;
-        $reevaluacion = $reevaluaciones[0];
-        $view = $this->view('reevaluaciones',['paciente' => $paciente, 'reevaluacion' => $reevaluacion, 'posicion' => 0]);
-        $view->assertDontSee('1999-05-05');
-        //Comprobamos que los datos de la reevaluacion no se han actualizado 
         $this->assertFalse($paciente->Reevaluaciones[0]->fecha == "");
         $this->assertFalse($paciente->Reevaluaciones[0]->estado == "Recaída");
     }

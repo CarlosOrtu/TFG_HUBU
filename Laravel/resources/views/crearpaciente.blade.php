@@ -1,10 +1,16 @@
 @extends('layouts.app')
-
+    
 @section('content')
 <form method="POST">
     @CSRF
     <div class="col-md-12 pl-0">
         <h1 class="text-white text-center panel-title">Añadir paciente</h1>
+        @if ($message = Session::get('SQLerror'))
+        <div class="alert alert-danger alert-block">
+            <button type="button" class="text-dark close" data-dismiss="alert">x</button>
+            <strong class="text-center text-dark">{{ $message }}</strong>
+        </div>
+        @endif
         @if(env('APP_ENV') == 'production')
         <div class="my-4 input-group">
             <div class="input-group-prepend">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\QueryException;
 use App\Models\Pacientes;
 use App\Models\Seguimientos;
 use App\Utilidades\Encriptacion;

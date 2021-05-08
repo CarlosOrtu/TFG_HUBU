@@ -11,6 +11,12 @@
     <h1 class="align-self-center text-white panel-title">Quimioterapia</h1>
     <h6 class="align-self-end text-white">Ultima modificación: {{ $paciente->ultima_modificacion }}</h6>
 </div>
+@if ($message = Session::get('SQLerror'))
+<div class="alert alert-danger alert-block">
+    <button type="button" class="text-dark close" data-dismiss="alert">x</button>
+    <strong class="text-center text-dark">{{ $message }}</strong>
+</div>
+@endif
 @if ($message = Session::get('success'))
 <div class="alert alert-success alert-block">
     <button type="button" class="text-dark close" data-dismiss="alert">x</button>

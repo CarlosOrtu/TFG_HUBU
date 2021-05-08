@@ -47,7 +47,7 @@
         <option {{ $reevaluacion->estado == 'Respuesta parcial' ? 'selected' : '' }}>Respuesta parcial</option>
         <option {{ $reevaluacion->estado == 'Enfermedad estable' ? 'selected' : '' }}>Enfermedad estable</option>
         <option {{ $reevaluacion->estado == 'Progresión' ? 'selected' : '' }}>Progresión</option>
-        <option {{ $reevaluacion->estado == 'Recaida' ? 'selected' : '' }}>Recaida</option>
+        <option {{ $reevaluacion->estado == 'Recaída' ? 'selected' : '' }}>Recaída</option>
       </select>
     </div>
     <div class="oculto ml-2 my-4 input-group">
