@@ -358,7 +358,7 @@ class TratamientosController extends Controller
 	    }
         $intencion->tratamiento_acceso_expandido = $request->tratamiento_acceso;
         $intencion->tratamiento_fuera_indicacion = $request->tratamiento_fuera;
-        $intencion->medicacion_extranjera = $request->tratamiento_fuera;
+        $intencion->medicacion_extranjera = $request->medicacion_extranjera;
         $intencion->esquema = $request->esquema;
         if($request->administracion == "Otro")
 			$intencion->modo_administracion = "Otro: ".$request->especificar_administracion;

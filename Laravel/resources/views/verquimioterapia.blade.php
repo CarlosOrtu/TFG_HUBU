@@ -29,6 +29,7 @@
         <th>Ensayo fase</th>
         <th>Acceso expandido</th>
         <th>Fuera de indicación</th>
+        <th>Medicación extranjera</th>
         <th>Esquema</th>
         <th>Administración</th>
         <th>Tipo farmaco</th>
@@ -50,6 +51,11 @@
             <td>No</td>
             @endif
             @if($quimioterapia->Intenciones->tratamiento_fuera_indicacion == 1)
+            <td>Si</td>
+            @else
+            <td>No</td>
+            @endif
+            @if($quimioterapia->Intenciones->medicacion_extranjera == 1)
             <td>Si</td>
             @else
             <td>No</td>

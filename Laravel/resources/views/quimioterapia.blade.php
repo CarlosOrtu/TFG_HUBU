@@ -105,6 +105,15 @@
   </div>
   <div class="my-4 input-group">
     <div class="input-group-prepend">
+        <span class="input-group-text">Medicación <br>extranjera</span>
+    </div>
+    <select name="medicacion_extranjera" class="form-control">
+      <option {{ $tratamiento->Intenciones->medicacion_extranjera == '1' ? 'selected' : '' }} value="1">Si</option>
+      <option {{ $tratamiento->Intenciones->medicacion_extranjera == '0' ? 'selected' : '' }} value="0">No</option>
+    </select>
+  </div>
+  <div class="my-4 input-group">
+    <div class="input-group-prepend">
         <span class="input-group-text">Esquema</span>
     </div>
     <select name="esquema" class="form-control">
@@ -126,7 +135,7 @@
     <div class="input-group-prepend">
         <span class="input-group-text">Especificar <br> modo de <br>administracion</span>
     </div>
-      @if(preg_match("/^Otro: /", $tratamiento->Intenciones->tipo_farmaco))
+      @if(preg_match("/^Otro: /", $tratamiento->Intenciones->modo_administracion))
       <input value="{{ substr($tratamiento->Intenciones->modo_administracion, 6) }}" name="especificar_administracion" class="form-control" autocomplete="off">
       @else
       <input name="especificar_administracion" class="form-control" autocomplete="off">
@@ -311,6 +320,15 @@
         <span class="input-group-text">Tratamiento <br>fuera de<br> indicacion</span>
     </div>
     <select name="tratamiento_fuera" class="form-control">
+      <option value="1">Si</option>
+      <option value="0">No</option>
+    </select>
+  </div>
+  <div class="my-4 input-group">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Medicación <br>extranjera</span>
+    </div>
+    <select name="medicacion_extranjera" class="form-control">
       <option value="1">Si</option>
       <option value="0">No</option>
     </select>

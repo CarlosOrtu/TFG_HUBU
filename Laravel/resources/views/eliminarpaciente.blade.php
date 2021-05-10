@@ -68,13 +68,14 @@
 @endif
 <script type="text/javascript">
 	function confirmarEliminacion(element) {
-		var idPaciente = $(element).parent().prev().prev().text();
 		var urlPrincipal = $(location).attr('origin');
 		var entorno = "<?php echo env('APP_ENV');?>";
 		if(entorno == "local"){
+			var idPaciente = $(element).parent().prev().prev().prev().text();
 			var url = urlPrincipal+'/TFG_HUBU/Laravel/public/eliminar/paciente/'+idPaciente;
 		}
 		else{
+			var idPaciente = $(element).parent().prev().prev().text();
 			var url = urlPrincipal+'/eliminar/paciente/'+idPaciente;
 		}
 		var NHC = $(element).parent().prev().text();
