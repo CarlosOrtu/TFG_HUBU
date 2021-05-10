@@ -12,6 +12,8 @@ use App\Http\Controllers\TratamientosController;
 use App\Http\Controllers\ReevaluacionesController;
 use App\Http\Controllers\SeguimientosController;
 use App\Http\Controllers\ComentariosController;
+use App\Http\Controllers\GraficosController;
+
 
 //Rutas de login y logout
 Auth::routes(['register' => false,'reset' => false,'confirm' => false,'verify' => false]);
@@ -149,3 +151,6 @@ Route::post('/paciente/{id}/comentarios/nuevo',  [ComentariosController::class, 
 Route::get('/paciente/{id}/comentarios/modificar/{num_comentario}',  [ComentariosController::class, 'verComentario'])->name('vermodificarcomentario');
 Route::put('/paciente/{id}/comentarios/modificar/{num_comentario}',  [ComentariosController::class, 'modificarComentario'])->name('modificarcomentario');
 Route::delete('/paciente/{id}/comentarios/modificar/{num_comentario}',  [ComentariosController::class, 'eliminarComentario'])->name('eliminarcomentario');
+
+//Rutas de visualización de las graficas
+Route::get('/ver/graficas',  [GraficosController::class, 'verGraficas'])->name('vergraficas');

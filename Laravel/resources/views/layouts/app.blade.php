@@ -17,6 +17,9 @@
     <script type = "text/javascript" src="{{ asset('/js/bootstrap.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 
+    <!-- Graficas -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
     <!-- Alertas -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
@@ -75,7 +78,13 @@
       <main class="col-md-9">
         @yield('content')
       </main>
-    </div>    
+    </div>   
+    @elseif(Request::routeIs('vergraficas'))
+    <div class="row mx-4 mt-4">
+      <div class="col-md-12">
+          @yield('content')
+      </main>
+    </div>
     @elseif(preg_match("/ver/", Request::url()))
     <div class="row mx-4 mt-4">
       @include('layouts.sidebarverenfermedad')  
@@ -83,7 +92,7 @@
           @yield('content')
       </main>
     </div>
-    @else
+    @else 
     <div class="row mx-4 mt-4">
       @include('layouts.sidebarenfermedad')  
       <main class="col-md-9">
