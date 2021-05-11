@@ -503,4 +503,23 @@ class TratamientosController extends Controller
 
     	return redirect()->route('quimioterapias',$id)->with('success','Quimioterapia eliminada correctamente');
     }
+
+    /******************************************************************
+    *                                                                 *
+    *   Secuencia                                                     *
+    *                                                                 *
+    *******************************************************************/
+    public function verSecuenciaTratamientos($id){
+        $paciente = Pacientes::find($id);
+
+        $quimioterapias = Tratamientos::where('tipo','Quimioterapia')->where('id_paciente',$id)->get();
+        $radioterapias = Tratamientos::where('tipo','Radioterapia')->where('id_paciente',$id)->get();
+        $cirugias = Tratamientos::where('tipo','Cirugia')->where('id_paciente',$id)->get();
+        if(env('APP_ENV') == 'production'){      
+            $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
+            return view('secuenciatratamientos',['paciente' => $paciente, 'nombre' => $nhcDesencriptado, 'quimioterapias' => $quimioterapias, 'radioterapias' => $radioterapias, 'cirugias' => $cirugias]);
+        }else{
+            return view('secuenciatratamientos',['paciente' => $paciente, 'quimioterapias' => $quimioterapias, 'radioterapias' => $radioterapias, 'cirugias' => $cirugias]);
+        }
+    }
 }
