@@ -16,20 +16,22 @@
 
     // Create the data table.
     var data = new google.visualization.DataTable();
-    var tipos = <?php echo($pacientes->pluck('sexo')) ?>;
-    var tiposNoRepetidos = [];
-    tipos.forEach(function(element) {
-     if(!tiposNoRepetidos.includes(element))
-      tiposNoRepetidos.push(element);
-    });
-    var numHombres = <?php echo($pacientes->where('sexo','Masculino')->count())?>;
-    var numMujeres = <?php echo($pacientes->where('sexo','Femenino')->count())?>;
-    console.log(numHombres);
+    var tipos = [];
+    var numTipos = [];
+    <?php $tipos = array_keys($pacientes->groupBy('profesion')->toArray()) ?>
+    @foreach($tipos as $tipo)
+      tipos.push({
+        key: '{{ $tipo }}',
+        value: {{ $pacientes->where('profesion',$tipo)->count() }}
+      });
+    @endforeach
+    console.log(tipos[0].key);
     data.addColumn('string', 'Sexo');
     data.addColumn('number', 'Número');
     data.addRows([
-      ['Hombres', numHombres],
-      ['Mujeres', numMujeres],
+      @for ($i = 0; $i < count($tipos) ; $i++)
+        [tipos[{{ $i }}].key,tipos[{{ $i }}].value],
+      @endfor
     ]);
 
     // Set chart options

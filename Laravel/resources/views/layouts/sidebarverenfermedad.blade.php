@@ -54,7 +54,7 @@
             <li><a href="{{ route('verquimioterapias', $paciente->id_paciente) }}" id="quimioterapia" class="rounded text-white">Quimioterapia</a></li>
             <li><a href="{{ route('verradioterapias', $paciente->id_paciente) }}" id="radioterapia" class="text-white rounded">Radioterapia</a></li>
             <li><a href="{{ route('vercirugias', $paciente->id_paciente) }}" id="cirugia" class="text-white rounded">Cirugía</a></li>
-            <li><a href="#" class="text-white rounded">Secuencia tratamientos</a></li>
+            <li><a href="{{ route('versecuencia', $paciente->id_paciente) }}" class="text-white rounded">Secuencia tratamientos</a></li>
           </ul>
         </div>
       </li>
