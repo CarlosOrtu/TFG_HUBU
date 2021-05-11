@@ -127,6 +127,9 @@ Route::get('/paciente/{id}/tratamientos/quimioterapia',  [TratamientosController
 Route::post('/paciente/{id}/tratamientos/quimioterapia', [TratamientosController::class, 'crearQuimioterapia'])->name('quimioterapiacrear');
 Route::put('/paciente/{id}/tratamientos/quimioterapia/{num_quimioterapia}', [TratamientosController::class, 'modificarQuimioterapia'])->name('quimioterapiamodificar');
 Route::delete('/paciente/{id}/tratamientos/quimioterapia/{num_quimioterapia}', [TratamientosController::class, 'eliminarQuimioterapia'])->name('quimioterapiaeliminar');
+//Ruta de visualización de secuencia de tratamientos
+Route::get('/paciente/{id}/tratamientos/secuencia',  [TratamientosController::class, 'verSecuenciaTratamientos'])->name('secuencia');
+Route::get('/paciente/{id}/ver/tratamientos/secuencia',  [TratamientosController::class, 'verSecuenciaTratamientos'])->name('versecuencia');
 
 //Rutas de visualización reevaluaciones
 Route::get('/ver/paciente/{id}/reevaluaciones',  [ReevaluacionesController::class, 'verReevaluacionSinModificar'])->name('verreevaluaciones');
