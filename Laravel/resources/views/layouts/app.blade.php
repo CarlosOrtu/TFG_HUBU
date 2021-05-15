@@ -52,6 +52,8 @@
               <div class="dropdown-divider"></div>  
               <a class="dropdown-item" href="{{ route('datospersonales') }}">Datos personales</a>
               <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{{ route('vergraficas') }}">Gráficas</a>
+              <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{ route('logout') }}">Desconectar</a>
             </div>
           </li>
@@ -79,7 +81,7 @@
         @yield('content')
       </main>
     </div>   
-    @elseif(Request::routeIs('vergraficas'))
+    @elseif(Request::routeIs('vergraficas') or Request::routeIs('imprimirgrafica'))
     <div class="row mx-4 mt-4">
       <div class="col-md-12">
           @yield('content')

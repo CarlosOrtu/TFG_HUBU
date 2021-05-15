@@ -1,49 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
-<script type="text/javascript">
-
-  // Load the Visualization API and the corechart package.
-  google.charts.load('current', {'packages':['corechart']});
-
-  // Set a callback to run when the Google Visualization API is loaded.
-  google.charts.setOnLoadCallback(drawChart);
-
-  // Callback that creates and populates a data table,
-  // instantiates the pie chart, passes in the data and 
-  // draws it.
-  function drawChart() {
-
-    // Create the data table.
-    var data = new google.visualization.DataTable();
-    var tipos = [];
-    var numTipos = [];
-    <?php $tipos = array_keys($pacientes->groupBy('profesion')->toArray()) ?>
-    @foreach($tipos as $tipo)
-      tipos.push({
-        key: '{{ $tipo }}',
-        value: {{ $pacientes->where('profesion',$tipo)->count() }}
-      });
-    @endforeach
-    console.log(tipos[0].key);
-    data.addColumn('string', 'Sexo');
-    data.addColumn('number', 'Número');
-    data.addRows([
-      @for ($i = 0; $i < count($tipos) ; $i++)
-        [tipos[{{ $i }}].key,tipos[{{ $i }}].value],
-      @endfor
-    ]);
-
-    // Set chart options
-    var options = {'title':'How Much Pizza I Ate Last Night',
-                   'width':1000,
-                   'height':800};
-
-    // Instantiate and draw our chart, passing in some options.
-    var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-    chart.draw(data, options);
-  }
-</script>
-<input >
-<div id="chart_div"></div>
+<form action="{{ route('imprimirgrafica') }}" method="post">
+@CSRF
+  <div class="row">
+    <div class="col-md-2">
+      <div class="my-4 input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Gráfica <br>dividida por</span>
+        </div>
+        <select name="opcion" class="tipo form-control">
+          @foreach(Schema::getColumnListing('Pacientes') as $columna)
+          @if($loop->index >= 3)
+          <option>{{ $columna }}</option>
+          @endif
+          @endforeach
+        </select>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Mostrar grafica</button>
+  </div>
+</form>
 @endsection

@@ -157,3 +157,4 @@ Route::delete('/paciente/{id}/comentarios/modificar/{num_comentario}',  [Comenta
 
 //Rutas de visualización de las graficas
 Route::get('/ver/graficas',  [GraficosController::class, 'verGraficas'])->name('vergraficas');
+Route::post('/ver/graficas',  [GraficosController::class, 'imprimirGraficas'])->name('imprimirgrafica');
