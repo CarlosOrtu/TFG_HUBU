@@ -29,10 +29,15 @@ class GraficosController extends Controller
    		$opcion = $request->opcion;
    		$tipos = Pacientes::select($opcion)->groupBy($opcion)->get();
    		$datosGrafica = array();
-   		foreach ($tipos as $tipo) {
-   			$numTipo = Pacientes::where($opcion,$tipo->$opcion)->count();
-   			$datosGrafica[$tipo->$opcion] = $numTipo;
-   		}
+   		if($opcion == "nacimiento"){
+
+
+   		}else{
+	   		foreach ($tipos as $tipo) {
+	   			$numTipo = Pacientes::where($opcion,$tipo->$opcion)->count();
+	   			$datosGrafica[$tipo->$opcion] = $numTipo;
+	   		}
+	   	}
    		return view('mostrargrafica',['datosGrafica' => $datosGrafica, 'tipo' => $opcion]);
    }
 }

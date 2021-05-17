@@ -10,11 +10,14 @@
             <span class="input-group-text">Gráfica <br>dividida por</span>
         </div>
         <select name="opcion" class="tipo form-control">
-          @foreach(Schema::getColumnListing('Pacientes') as $columna)
-          @if($loop->index >= 3)
-          <option>{{ $columna }}</option>
-          @endif
-          @endforeach
+          <option value="sexo">Sexo</option>
+          <option value="raza">Raza</option>
+          <option value="nacimiento">Edad</option>
+          <option value="profesion">Profesión</option>
+          <option value="fumador">Fumador</option>
+          <option value="num_tabaco_dia">Numero de cigarros</option>
+          <option value="bebedor">Bebedor</option>
+          <option value="carcinogenos">Carcinogenos</option>
         </select>
       </div>
     </div>
