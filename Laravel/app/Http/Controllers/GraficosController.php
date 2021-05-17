@@ -24,20 +24,68 @@ class GraficosController extends Controller
         return view('graficas',['pacientes' => $pacientes]);
    }
 
+   private function calcularIntervalosEdad($request)
+   {
+    $fechaActual = date('Y-m-d');
+    $datosGrafica = array();
+    $valorAnterior = null;
+    for($i = $request->edadIntervalo; $i < 100;$i += $request->edadIntervalo){
+      if($valorAnterior == null){
+        $numTipo = Pacientes::where("nacimiento",'>=',date("Y-m-d",strtotime($fechaActual."- ".$i." year")))->count();
+        $datosGrafica["Menores de ".$i] = $numTipo;
+      }else{
+        $numTipo = Pacientes::where("nacimiento",'>=',date("Y-m-d",strtotime($fechaActual."- ".$i." year")))->where("nacimiento",'<',date("Y-m-d",strtotime($fechaActual."- ".$valorAnterior." year")))->count();
+        $datosGrafica["Entre ".$valorAnterior." y ".$i] = $numTipo;
+      }
+      $valorAnterior = $i;
+    }
+    return $datosGrafica;
+   }
+
+   private function unaOpcion($opcion, $tabla){
+      $datosGrafica = array();
+      $tipos = ('App\\Models\\'.$tabla)::select($opcion)->groupBy($opcion)->get();
+      if($opcionPaciente == "nacimiento"){
+        $datosGrafica = $this->calcularIntervalosEdad($request);
+      }else{
+        foreach ($tipos as $tipo) {
+          $numTipo = ('App\\Models\\'.$tabla)::where($opcion,$tipo->$opcion)->count();
+          $datosGrafica[$tipo->$opcion] = $numTipo;
+        }
+      }
+   }
+
    public function imprimirGraficas(Request $request)
    {
-   		$opcion = $request->opcion;
-   		$tipos = Pacientes::select($opcion)->groupBy($opcion)->get();
+    if(in_array("Ninguna",$request->opciones)){
+  		$numNinguno = array_count_values($request->opciones)["Ninguna"];
+      $numDifNinguno = count($request->opciones) - $numNinguno;
+    }else{
+      $numDifNinguno = count($request->opciones);
+    } 
+    dd($numDifNinguno);
+    switch ($i) {
+        case 0:
+            break;
+        case 1:
+            unaOpcion($request->opciones[0])
+            break;
+        case 2:
+            echo "i es igual a 2";
+            break;
+    }
+      /*
+   		$tipos = Pacientes::select($opcionPaciente)->groupBy($opcionPaciente)->get();
    		$datosGrafica = array();
-   		if($opcion == "nacimiento"){
-
-
-   		}else{
+   		if($opcionPaciente == "nacimiento"){
+        $datosGrafica = $this->calcularIntervalosEdad($request);
+   		}elseif($opcionPaciente != "Ninguna"){
 	   		foreach ($tipos as $tipo) {
-	   			$numTipo = Pacientes::where($opcion,$tipo->$opcion)->count();
-	   			$datosGrafica[$tipo->$opcion] = $numTipo;
+	   			$numTipo = Pacientes::where($opcionPaciente,$tipo->$opcionPaciente)->count();
+	   			$datosGrafica[$tipo->$opcionPaciente] = $numTipo;
 	   		}
 	   	}
-   		return view('mostrargrafica',['datosGrafica' => $datosGrafica, 'tipo' => $opcion]);
+      */
+   		return view('mostrargrafica',['datosGrafica' => $datosGrafica, 'tipo' => $opcionPaciente]);
    }
 }
