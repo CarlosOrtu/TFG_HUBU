@@ -13,4 +13,9 @@ class Sintomas extends Model
 	protected $table = 'sintomas';	
 	protected $primaryKey = 'id_sintoma';
 
+	public static function getPrimaryKey()
+	{
+		return 'id_sintoma';
+	}
+
 }

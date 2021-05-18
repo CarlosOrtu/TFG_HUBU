@@ -17,10 +17,10 @@
         @foreach($paciente->Enfermedad->Metastasis as $metastasis)
         <tr>
             <th>Metástasis {{ $loop->iteration }}</th>
-            @if(preg_match("/^Otro: /", $metastasis->localizacion))
-            <td>{{ substr($metastasis->localizacion, 6) }}</td>
+            @if(preg_match("/^Otro: /", $metastasis->tipo))
+            <td>{{ substr($metastasis->tipo, 6) }}</td>
             @else
-            <td>{{ $metastasis->localizacion }}</td>
+            <td>{{ $metastasis->tipo }}</td>
             @endif
         </tr>
         @endforeach

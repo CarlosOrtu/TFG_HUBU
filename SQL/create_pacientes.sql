@@ -81,7 +81,7 @@ FOREIGN KEY (id_paciente) REFERENCES pacientes(id_paciente) ) ENGINE=InnoDB;
 CREATE TABLE mestastasis(
 id_metastasis INT PRIMARY KEY NOT NULL,
 id_enfermedad INT NOT NULL,
-localizacion VARCHAR(20) NOT NULL,
+tipo VARCHAR(20) NOT NULL,
 FOREIGN KEY (id_enfermedad) REFERENCES enfermedades(id_enfermedad) ) ENGINE=InnoDB;
 
 CREATE TABLE sintomas(

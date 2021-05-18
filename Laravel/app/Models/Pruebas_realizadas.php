@@ -12,5 +12,9 @@ class Pruebas_realizadas extends Model
     public $timestamps = false;
 	protected $table = 'pruebas_realizadas';	
 	protected $primaryKey = 'id_prueba';
-
+	
+	public static function getPrimaryKey()
+	{
+		return 'id_prueba';
+	}
 }

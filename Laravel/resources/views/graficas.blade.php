@@ -52,6 +52,36 @@
         </select>
       </div>
     </div>
+    <div class="col-md-2">
+      <div class="my-4 input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Gráfica <br>dividida por</span>
+        </div>
+        <select name="opciones[]" class="form-control">
+          <option>Ninguna</option>
+          <option value="tipo_sintoma">Tipos de sintoma</option>
+          <option value="tipo_metastasis">Tipos de metástasis</option>
+          <option value="tipo_biomarcador">Tipos de biomarcador</option>
+          <option value="subtipo_biomarcador">Subtipos de biomarcador</option>
+          <option value="tipo_prueba">Tipos de pruebas realizadas</option>
+          <option value="tipo_tecnica">Tipos de técnicas realizadas</option>
+          <option value="tipo_tumor">Tipos de otros tumores</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="my-4 input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Gráfica <br>dividida por</span>
+        </div>
+        <select name="opciones[]" class="form-control">
+          <option>Ninguna</option>
+          <option value="tipo_antecedente_medico">Tipos de antecedentes medicos</option>
+          <option value="tipo_antecedente_oncologico">Tipos de antecedentes oncológicos</option>
+          <option value="tipo_antecedente_familiar">Tipos de antecedentes familiares</option>
+        </select>
+      </div>
+    </div>
   </div>
   <div class="d-flex justify-content-center mb-4">
     <button type="submit" class="btn btn-primary">Mostrar gráfica</button>

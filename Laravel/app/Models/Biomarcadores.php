@@ -13,4 +13,9 @@ class Biomarcadores extends Model
 	protected $table = 'biomarcadores';	
 	protected $primaryKey = 'id_biomarcador';
 
+	public static function getPrimaryKey()
+	{
+		return 'id_biomarcador';
+	}
+
 }

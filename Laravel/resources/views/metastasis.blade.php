@@ -27,33 +27,33 @@
           <span class="input-group-text">Localización</span>
       </div>
       <select name="localizacion" class="tipo form-control">
-        <option {{ $Metastasis->localizacion == 'Pulmón contralatera' ? 'selected' : '' }}>Pulmón contralatera</option>
-        <option {{ $Metastasis->localizacion == 'Implantes pleurales' ? 'selected' : '' }}>Implantes pleurales</option>
-        <option {{ $Metastasis->localizacion == 'Derrame pleural' ? 'selected' : '' }}>Derrame pleural</option>
-        <option {{ $Metastasis->localizacion == 'Hígado' ? 'selected' : '' }}>Hígado</option>
-        <option {{ $Metastasis->localizacion == 'Hueso' ? 'selected' : '' }}>Hueso</option>
-        <option {{ $Metastasis->localizacion == 'Suprarrenal' ? 'selected' : '' }}>Suprarrenal</option>
-        <option {{ $Metastasis->localizacion == 'Renal' ? 'selected' : '' }}>Renal</option>
-        <option {{ $Metastasis->localizacion == 'SNC' ? 'selected' : '' }}>SNC</option>
-        <option {{ $Metastasis->localizacion == 'Derrame pericárdio' ? 'selected' : '' }}>Derrame pericárdio</option>
-        <option {{ $Metastasis->localizacion == 'Carcinomatosis meníngea' ? 'selected' : '' }}>Carcinomatosis meníngea</option>
-        <option {{ $Metastasis->localizacion == 'Linfangitis pulmonar carcinomatosa' ? 'selected' : '' }}>Linfangitis pulmonar carcinomatosa</option>
-        <option {{ $Metastasis->localizacion == 'Adenopatías supradiafragmáticas extratorácicas' ? 'selected' : '' }}>Adenopatías supradiafragmáticas extratorácicas</option>
-        <option {{ $Metastasis->localizacion == 'Adenopatías infradiafragmáticas' ? 'selected' : '' }}>Adenopatías infradiafragmáticas</option>
-        <option {{ $Metastasis->localizacion == 'Páncreas' ? 'selected' : '' }}>Páncreas</option>
-        <option {{ $Metastasis->localizacion == 'Peritoneo' ? 'selected' : '' }}>Peritoneo</option>
-        <option {{ $Metastasis->localizacion == 'Cutánea' ? 'selected' : '' }}>Cutánea</option>
-        <option {{ $Metastasis->localizacion == 'Muscular' ? 'selected' : '' }}>Muscular</option>
-        <option {{ $Metastasis->localizacion == 'Tejidos blandos' ? 'selected' : '' }}>Tejidos blandos</option>
-        <option {{ preg_match("/^Otro: /", $Metastasis->localizacion) ? 'selected' : '' }}>Otro</option>
+        <option {{ $Metastasis->tipo == 'Pulmón contralatera' ? 'selected' : '' }}>Pulmón contralatera</option>
+        <option {{ $Metastasis->tipo == 'Implantes pleurales' ? 'selected' : '' }}>Implantes pleurales</option>
+        <option {{ $Metastasis->tipo == 'Derrame pleural' ? 'selected' : '' }}>Derrame pleural</option>
+        <option {{ $Metastasis->tipo == 'Hígado' ? 'selected' : '' }}>Hígado</option>
+        <option {{ $Metastasis->tipo == 'Hueso' ? 'selected' : '' }}>Hueso</option>
+        <option {{ $Metastasis->tipo == 'Suprarrenal' ? 'selected' : '' }}>Suprarrenal</option>
+        <option {{ $Metastasis->tipo == 'Renal' ? 'selected' : '' }}>Renal</option>
+        <option {{ $Metastasis->tipo == 'SNC' ? 'selected' : '' }}>SNC</option>
+        <option {{ $Metastasis->tipo == 'Derrame pericárdio' ? 'selected' : '' }}>Derrame pericárdio</option>
+        <option {{ $Metastasis->tipo == 'Carcinomatosis meníngea' ? 'selected' : '' }}>Carcinomatosis meníngea</option>
+        <option {{ $Metastasis->tipo == 'Linfangitis pulmonar carcinomatosa' ? 'selected' : '' }}>Linfangitis pulmonar carcinomatosa</option>
+        <option {{ $Metastasis->tipo == 'Adenopatías supradiafragmáticas extratorácicas' ? 'selected' : '' }}>Adenopatías supradiafragmáticas extratorácicas</option>
+        <option {{ $Metastasis->tipo == 'Adenopatías infradiafragmáticas' ? 'selected' : '' }}>Adenopatías infradiafragmáticas</option>
+        <option {{ $Metastasis->tipo == 'Páncreas' ? 'selected' : '' }}>Páncreas</option>
+        <option {{ $Metastasis->tipo == 'Peritoneo' ? 'selected' : '' }}>Peritoneo</option>
+        <option {{ $Metastasis->tipo == 'Cutánea' ? 'selected' : '' }}>Cutánea</option>
+        <option {{ $Metastasis->tipo == 'Muscular' ? 'selected' : '' }}>Muscular</option>
+        <option {{ $Metastasis->tipo == 'Tejidos blandos' ? 'selected' : '' }}>Tejidos blandos</option>
+        <option {{ preg_match("/^Otro: /", $Metastasis->tipo) ? 'selected' : '' }}>Otro</option>
       </select>
     </div>
     <div class="oculto ml-2 my-4 input-group">
       <div class="input-group-prepend">
           <span class="input-group-text">Especificar <br>localización</span>
       </div>
-      @if(preg_match("/^Otro: /", $Metastasis->localizacion))
-      <input value="{{ substr($Metastasis->localizacion, 6) }}" name="localizacion_especificar" class="form-control" autocomplete="off">
+      @if(preg_match("/^Otro: /", $Metastasis->tipo))
+      <input value="{{ substr($Metastasis->tipo, 6) }}" name="localizacion_especificar" class="form-control" autocomplete="off">
       @else
       <input name="localizacion_especificar" class="form-control" autocomplete="off">
       @endif

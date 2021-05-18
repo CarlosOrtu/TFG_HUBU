@@ -16,7 +16,7 @@ class CreateMetastasisTable extends Migration
         Schema::create('metastasis', function (Blueprint $table) {
             $table->id('id_metastasis');
             $table->unsignedBigInteger('id_enfermedad');
-            $table->string('localizacion');
+            $table->string('tipo');
             $table->foreign('id_enfermedad')->references('id_enfermedad')->on('enfermedades')->onDelete('cascade')->onUpdate('cascade');
         });
     }

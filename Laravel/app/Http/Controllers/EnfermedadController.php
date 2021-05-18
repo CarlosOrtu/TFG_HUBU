@@ -336,9 +336,9 @@ class EnfermedadController extends Controller
 
         $metastasis->id_enfermedad = $idEnfermedad;
         if($request->localizacion == "Otro")
-            $metastasis->localizacion = "Otro: ".$request->localizacion_especificar;
+            $metastasis->tipo = "Otro: ".$request->localizacion_especificar;
         else
-            $metastasis->localizacion = $request->localizacion;
+            $metastasis->tipo = $request->localizacion;
         $metastasis->save();
 
         $paciente = Pacientes::find($id);
@@ -355,9 +355,9 @@ class EnfermedadController extends Controller
     	$metastasis = $metastasis[$num_metastasis];
     	$metastasis->id_enfermedad = $idEnfermedad;
     	if($request->localizacion == "Otro")
-    		$metastasis->localizacion = "Otro: ".$request->localizacion_especificar;
+    		$metastasis->tipo = "Otro: ".$request->localizacion_especificar;
     	else
-    		$metastasis->localizacion = $request->localizacion;
+    		$metastasis->tipo = $request->localizacion;
     	$metastasis->save();
 
         $paciente = Pacientes::find($id);
