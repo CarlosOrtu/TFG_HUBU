@@ -1,6 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
+@if ($message = Session::get('errorVacio'))
+<div class="alert alert-danger alert-block">
+    <button type="button" class="text-dark close" data-dismiss="alert">x</button>
+    <strong class="text-center text-dark">{{ $message }}</strong>
+</div>
+@endif
+@if ($message = Session::get('errorMax'))
+<div class="alert alert-danger alert-block">
+    <button type="button" class="text-dark close" data-dismiss="alert">x</button>
+    <strong class="text-center text-dark">{{ $message }}</strong>
+</div>
+@endif
+@if ($message = Session::get('errorNoExisteCampo'))
+<div class="alert alert-danger alert-block">
+    <button type="button" class="text-dark close" data-dismiss="alert">x</button>
+    <strong class="text-center text-dark">{{ $message }}</strong>
+</div>
+@endif
 <form action="{{ route('imprimirgrafica') }}" method="post">
 @CSRF
   <div class="row">
@@ -80,12 +98,18 @@
         <select name="opciones[]" class="form-control">
           <option>Ninguna</option>
           <option value="tipo_sintoma">Tipos de sintoma</option>
+          <option value="num_sintoma">Número de sintomas</option>
           <option value="tipo_metastasis">Tipos de metástasis</option>
+          <option value="num_metastasis">Número de metástasis</option>
           <option value="tipo_biomarcador">Tipos de biomarcador</option>
+          <option value="num_biomarcador">Número de biomarcadores</option>
           <option value="subtipo_biomarcador">Subtipos de biomarcador</option>
           <option value="tipo_prueba">Tipos de pruebas realizadas</option>
+          <option value="num_prueba">Número de pruebas realizadas</option>
           <option value="tipo_tecnica">Tipos de técnicas realizadas</option>
+          <option value="num_tecnica">Número de técnicas realizadas</option>
           <option value="tipo_tumor">Tipos de otros tumores</option>
+          <option value="num_tumor">Número de otros tumores</option>
         </select>
       </div>
     </div>
@@ -97,9 +121,13 @@
         <select name="opciones[]" class="form-control">
           <option>Ninguna</option>
           <option value="tipo_antecedente_medico">Tipos de antecedentes medicos</option>
+          <option value="num_antecedente_medico">Número de antecedentes medicos</option>
           <option value="tipo_antecedente_oncologico">Tipos de antecedentes oncológicos</option>
+          <option value="num_antecedente_oncologico">Número de antecedentes oncológicos</option>
           <option value="familiar_antecedente">Familiares con antecedentes</option>
+          <option value="num_familiar_antecedente">Número de familiares con antecedentes</option>
           <option value="tipo_antecedente_familiar">Tipos de antecedentes familiares</option>
+          <option value="num_antecedente_familiar">Número de antecedentes familiares</option>
         </select>
       </div>
     </div>
@@ -111,6 +139,10 @@
         <select name="opciones[]" class="form-control">
           <option>Ninguna</option>
           <option value="tipo_tratamiento">Tipo de tratamientos</option>
+          <option value="num_tratamientos">Numero de tratamientos</option>
+          <option value="num_quimioterapia">Numero de quimioterapias</option>
+          <option value="num_radioterapia">Numero de radioterapias</option>
+          <option value="num_cirugia">Numero de cirugías</option>
           <option value="intencion_quimioterapia">Intención (Quimioterapia)</option>
           <option value="ensayo_quimioterapia">Ensayo clínico (Quimioterapia)</option>
           <option value="ensayo">Tipo de ensayo clínico (Quimioterapia)</option>
@@ -129,6 +161,23 @@
           <option value="dosis">Dosis (Radioterapia)</option>
           <option value="duracion_radioterapia">Duración (Radioterapia)</option>
           <option value="tipo_cirugia">Tipo (Cirugía)</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="my-4 input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Gráfica <br>dividida por</span>
+        </div>
+        <select name="opciones[]" class="form-control">
+          <option>Ninguna</option>
+          <option value="estado">Estado de reevaluación</option>
+          <option value="num_reevaluacion">Número de reevaluaciones</option>
+          <option value="num_seguimiento">Número de seguimientos</option>
+          <option value="progresion_localizacion">Localización de la progresión</option>
+          <option value="tipo_tratamiento">Tipo de tratamiento realizado</option>
+          <option value="estado_seguimiento">Estado del paciente</option>
+          <option value="fallecido_motivo">Motivo fallecimiento</option>
         </select>
       </div>
     </div>
