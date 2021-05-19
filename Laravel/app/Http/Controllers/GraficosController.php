@@ -11,8 +11,8 @@ use App\Models\Tecnicas_realizadas;
 use App\Models\Sintomas;
 use App\Models\Otros_tumores;
 use App\Models\Enfermedad;
+use App\Models\Tratamientos;
 use Illuminate\Support\Facades\Schema;
-
 
 class GraficosController extends Controller
 {
@@ -44,6 +44,8 @@ class GraficosController extends Controller
       	}
       	$valorAnterior = $i;
     }
+    $numTipo = Pacientes::where("nacimiento",'>=',date("Y-m-d",strtotime($fechaActual."- ".$valorAnterior." year")))->count();
+	$datosGrafica["Mayores de ".$valorAnterior] = $numTipo;
 
     return $datosGrafica;
    }
@@ -87,27 +89,65 @@ class GraficosController extends Controller
    				$tabla = 'Antecedentes_medicos';
    			elseif($opciones[$numTabla] == 'tipo_antecedente_oncologico')
    				$tabla = 'Antecedentes_oncologicos';
-   			elseif($opciones[$numTabla] == 'tipo_antecedente_familiar')
+   			elseif($opciones[$numTabla] == 'familiar_antecedente')
    				$tabla = 'Antecedentes_familiares';
+   			elseif($opciones[$numTabla] == 'tipo_antecedente_familiar')
+   				$tabla = 'Enfermedades_familiar';
+   			break;
+   		case 4:
+   			if($opciones[$numTabla] == 'intencion_quimioterapia' || $opciones[$numTabla] == 'tipo_radioterapia' || $opciones[$numTabla] == 'dosis' || $opciones[$numTabla] == 'localizacion' || $opciones[$numTabla] == 'duracion_radioterapia' || $opciones[$numTabla] == 'tipo_cirugia' || $opciones[$numTabla] == 'tipo_tratamiento' ||  $opciones[$numTabla] == 'duracion_quimioterapia')
+   				$tabla = 'Tratamientos';
+   			elseif ($opciones[$numTabla] == 'farmacos_quimioterapia') 
+   				$tabla = 'Farmacos';
+   			else
+   				$tabla = 'Intenciones';
    			break;
    	}
    	return $tabla;
    }
 
-      private function obtenerDatos($tabla, $tipoSelec)
+   private function obtenerDatos($tabla, $tipoSelec)
    {
 	$tipos = ('App\\Models\\'.$tabla)::select($tipoSelec)->groupBy($tipoSelec)->get();
     foreach ($tipos as $tipo) {
-    	$numTipo = ('App\\Models\\'.$tabla)::where($tipoSelec,$tipo->$tipoSelec)->count();
+    	$numTipo = ('App\\Models\\'.$tabla)::whereNotNull($tipoSelec)->where($tipoSelec,$tipo->$tipoSelec)->count();
 		$datosGrafica[$tipo->$tipoSelec] = $numTipo;
     }
 
     return $datosGrafica;
    }
 
-   private function unaOpcion($opciones)
+   private function obtenerSubtipoTratamiento($tabla, $tipoTratamiento)
+   {
+	$tipos = ('App\\Models\\'.$tabla)::select('subtipo')->groupBy('subtipo')->get();
+    foreach ($tipos as $tipo) {
+    	$numTipo = ('App\\Models\\'.$tabla)::whereNotNull('subtipo')->where('tipo',$tipoTratamiento)->where('subtipo',$tipo->subtipo)->count();
+		$datosGrafica[$tipo->subtipo] = $numTipo;
+    }
+
+    return $datosGrafica;
+   }
+
+   private function obtenerDuracion($tipoTratamiento)
+   {
+	$tratamientos = Tratamientos::where('tipo',$tipoTratamiento)->get();
+	$diferenciasFechas = array();
+	foreach ($tratamientos as $tratamiento) {
+		$fechaIni = strtotime($tratamiento->fecha_inicio);
+		$fechaFin = strtotime($tratamiento->fecha_fin);
+		$difSegundos = $fechaFin - $fechaIni;
+		$difDias = $difSegundos/86400;
+		array_push($diferenciasFechas, $difDias);
+    }
+    $datosGrafica = array_count_values($diferenciasFechas);
+
+    return $datosGrafica;
+   }
+
+   private function unaOpcion($request)
    {
     $datosGrafica = array();
+    $opciones = $request->opciones;
     $tabla = $this->obtenerTabla($opciones);
     $opcion = $opciones[$this->obtenerValor($opciones)];
     if($tabla == 'Pacientes' or $tabla == 'Enfermedad'){
@@ -122,13 +162,28 @@ class GraficosController extends Controller
 		}else{
 			$datosGrafica = $this->obtenerDatos($tabla, 'tipo');
 		}
-	}elseif($tabla == 'Antecedentes_familiares'){
+	}elseif($tabla == 'Antecedentes_familiares')
 		$datosGrafica = $this->obtenerDatos($tabla, 'familiar');
-	}elseif($tabla == 'Antecedentes_medicos'){
+	elseif($tabla == 'Antecedentes_medicos')
 		$datosGrafica = $this->obtenerDatos($tabla, 'tipo_antecedente');
-	}else{
+	elseif($tabla == 'Intenciones' || $tabla == 'Tratamientos'){
+		if($opcion == 'tipo_tratamiento')
+			$datosGrafica = $this->obtenerDatos($tabla, 'tipo');
+		elseif($opcion == 'intencion_quimioterapia')
+			$datosGrafica = $this->obtenerSubtipoTratamiento($tabla, 'Quimioterapia');
+		elseif($opcion == 'tipo_radioterapia')
+			$datosGrafica = $this->obtenerSubtipoTratamiento($tabla, 'Radioterapia');
+		elseif($opcion == 'tipo_cirugia')
+			$datosGrafica = $this->obtenerSubtipoTratamiento($tabla, 'Cirugia');
+		elseif($opcion == 'duracion_radioterapia')
+			$datosGrafica = $this->obtenerDuracion('Radioterapia');
+		elseif($opcion == 'duracion_quimioterapia')
+			$datosGrafica = $this->obtenerDuracion('Quimioterapia');
+		else	
+			$datosGrafica = $this->obtenerDatos($tabla, $opcion);
+	}else
 		$datosGrafica = $this->obtenerDatos($tabla, 'tipo');
-	}
+	
 
       return $datosGrafica;
    }
@@ -146,7 +201,7 @@ class GraficosController extends Controller
         	$datosGrafica = null;
             break;
         case 1:
-            $datosGrafica = $this->unaOpcion($request->opciones);
+            $datosGrafica = $this->unaOpcion($request);
             break;
         case 2:
             echo "i es igual a 2";
