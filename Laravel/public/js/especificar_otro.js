@@ -36,9 +36,17 @@ $(document).ready(function(){
       }
   });
 
-    $(".tipoGrafica").change(function() {
+  $(".tipoGrafica").change(function() {
       var tipo = $(this).val();
-      console.log(tipo);
+      if(tipo == "nacimiento") {
+          $(this).parent().parent().next().css('display', 'flex')
+      }else{
+          $(this).parent().parent().next().hide();
+      }
+  });
+
+  $(".tipoGrafica").each(function() {
+      var tipo = $(this).val();
       if(tipo == "nacimiento") {
           $(this).parent().parent().next().css('display', 'flex')
       }else{
@@ -48,7 +56,6 @@ $(document).ready(function(){
 
   $(".tipo").change(function() {
       var tipo = $(this).val();
-      console.log(tipo);
       if( tipo == "Otro" || tipo == "Fumador" || tipo == "Exfumador") {
           $(this).parent().next().css('display', 'flex')
       }else{

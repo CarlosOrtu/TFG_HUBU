@@ -16,7 +16,7 @@
 
     // Create the data table.
     var data = new google.visualization.DataTable();
-    data.addColumn('string', '{{ $tipo }}');
+    data.addColumn('string', 'Tipo');
     data.addColumn('number', 'Número');
     data.addRows([
       @foreach(array_keys($datosGrafica) as $clave)
@@ -25,12 +25,19 @@
     ]);
 
     // Set chart options
-    var options = {'title':'Grafica dividida por {{ $tipo }}',
+    var options = {'title':'Grafica dividida por @foreach($tipos as $tipo) @if($loop->first) {{ $tipo }} @else {{ ' y '.$tipo }} @endif @endforeach',
                    'width':600,
                    'height':450};
 
     // Instantiate and draw our chart, passing in some options.
-    var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+    var tipoGrafica = '{{ $tipoGrafica }}';
+    console.log(tipoGrafica);
+    if(tipoGrafica == 'circular')
+      var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+    else
+      var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+   
+
     chart.draw(data, options);
   }
 </script>
