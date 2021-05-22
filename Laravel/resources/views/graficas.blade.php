@@ -23,22 +23,20 @@
 @CSRF
   <div class="row">
     <div class="col-md-2">
+      <div class="my-4 input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Tipo de<br>gráfica</span>
+        </div>
+        <select name="tipo_grafica" class="form-control">
+          <option value="circular">Gráfico circular</option>
+          <option value="barras">Gráfico de barras</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
       <label class="text-white">Datos personales</label>
-    </div>
-    <div class="col-md-2">
-      <label class="text-white">Datos enfermedad especificos</label>
-    </div>
-    <div class="col-md-2">
-      <label class="text-white">Datos enfermedad generales</label>
-    </div>
-    <div class="col-md-2">
-      <label class="text-white">Antecedentes</label>
-    </div>
-    <div class="col-md-2">
-      <label class="text-white">Tratamientos</label>
-    </div>
-    <div class="col-md-2">
-      <label class="text-white">Seguimientos y reevaluaciones</label>
     </div>
   </div>
   <div class="row">
@@ -68,6 +66,13 @@
         <input name="edadIntervalo" type="number" min="1" class="tipo form-control"></input>
       </div>
     </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <label class="text-white">Datos enfermedad especificos</label>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-md-2">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
@@ -90,6 +95,13 @@
         </select>
       </div>
     </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <label class="text-white">Datos enfermedad generales</label>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-md-2">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
@@ -113,6 +125,13 @@
         </select>
       </div>
     </div>
+  </div>
+  <div class="row">
+        <div class="col-md-2">
+      <label class="text-white">Antecedentes</label>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-md-2">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
@@ -131,6 +150,13 @@
         </select>
       </div>
     </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <label class="text-white">Tratamientos</label>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-md-2">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
@@ -164,6 +190,13 @@
         </select>
       </div>
     </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <label class="text-white">Seguimientos y reevaluaciones</label>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-md-2">
       <div class="my-4 input-group">
         <div class="input-group-prepend">

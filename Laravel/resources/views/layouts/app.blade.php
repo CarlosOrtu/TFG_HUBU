@@ -83,7 +83,7 @@
     </div>   
     @elseif(Request::routeIs('vergraficas') or Request::routeIs('imprimirgrafica'))
     <div class="row mx-4 mt-4">
-      <div class="col-md-12">
+      <main class="col-md-12">
           @yield('content')
       </main>
     </div>
