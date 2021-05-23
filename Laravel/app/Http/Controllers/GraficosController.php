@@ -15,6 +15,7 @@ use App\Models\Tratamientos;
 use App\Models\Antecedentes_familiares;
 use App\Models\Enfermedades_familiar;
 use App\Models\Biomarcadores;
+use App\Models\Seguimientos;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 
@@ -38,6 +39,7 @@ class GraficosController extends Controller
     *	Graficas un dato											  *
     *																  *
   	*******************************************************************/
+
    private function calcularIntervalosEdad($request)
    {
     $fechaActual = date('Y-m-d');
@@ -53,7 +55,7 @@ class GraficosController extends Controller
       	}
       	$valorAnterior = $i;
     }
-    $numTipo = Pacientes::where("nacimiento",'>=',date("Y-m-d",strtotime($fechaActual."- ".$valorAnterior." year")))->count();
+    $numTipo = Pacientes::where("nacimiento",'<=',date("Y-m-d",strtotime($fechaActual."- ".$valorAnterior." year")))->count();
 	$datosGrafica["Mayores de ".$valorAnterior] = $numTipo;
 
     return $datosGrafica;
@@ -293,9 +295,9 @@ class GraficosController extends Controller
     //Antecedentes familiares
   	}elseif($tabla == 'Antecedentes_familiares'){
       if($opcion == 'num_familiar_antecedente')
-        $datosGrafica = $this->obtenerNumero($tabla,'todos','id_paciente');
+        return 'num_familiar_antecedente';  
       else  
-  		return 'familiar';
+  		  return 'familiar';
     //Antecedentes medicos
     }elseif($tabla == 'Antecedentes_medicos'){
       if($opcion == 'num_antecedente_medico')
@@ -308,11 +310,11 @@ class GraficosController extends Controller
   		if($opcion == 'tipo_tratamiento')
   			return 'tipo';
   		elseif($opcion == 'duracion_radioterapia')
-  			$datosGrafica = $this->obtenerDuracion('Radioterapia');
+        return 'duracion_radioterapia';
   		elseif($opcion == 'duracion_quimioterapia')
-  			$datosGrafica = $this->obtenerDuracion('Quimioterapia');
-      	elseif($opcion == 'num_tratamientos')
-	        return 'num_tratamientos';
+  			return 'duracion_quimioterapia';
+      elseif($opcion == 'num_tratamientos')
+	      return 'num_tratamientos';
 	    elseif($opcion == 'num_quimioterapia')
 	        return 'num_tratamientos';
 	    elseif($opcion == 'num_radioterapia')
@@ -421,8 +423,12 @@ class GraficosController extends Controller
     	$divisiones = Biomarcadores::select('nombre')->groupBy('nombre')->get();
     	$opcion = 'nombre';
     	$opcionEspecifica =  'Biomarcadores.nombre';
-    }else
+    }elseif($opcion == 'estado_seguimiento'){
+      $divisiones = Seguimientos::select('estado')->groupBy('estado')->get();
+      $opcion = 'estado';
+    }else{
     	$divisiones = ('App\\Models\\'.$tabla2)::select($opcion)->groupBy($opcion)->get();
+    }
     foreach ($divisiones as $division) {
     	$valorAnterior = null;
 	    for($i = $request->edadIntervalo; $i < 100; $i += $request->edadIntervalo){
@@ -457,7 +463,7 @@ class GraficosController extends Controller
    {
     $fechaActual = date('Y-m-d');
     $datosGrafica = array();
-	$joinTablas = $this->hacerJoinTablas($tabla1,$tabla2);
+	  $joinTablas = $this->hacerJoinTablas($tabla1,$tabla2);
     $divisiones = Pacientes::select('id_paciente')->groupBy('id_paciente')->get();
     $numDatos = array();
     foreach ($divisiones as $division) {
@@ -481,9 +487,53 @@ class GraficosController extends Controller
 	    if(Pacientes::where('id_paciente',$division->id_paciente)->where("nacimiento",'<=',date("Y-m-d",strtotime($fechaActual."- ".$valorAnterior." year")))->count() != 0){
 		    $numTipo = $joinTablas->where("nacimiento",'<=',date("Y-m-d",strtotime($fechaActual."- ".$valorAnterior." year")))->where('Pacientes.id_paciente',$division->id_paciente)->count();
 		    array_push($numDatos,"Mayores de ".$valorAnterior.' y '.$numTipo);
-		}
-	}
-	$datosGrafica = array_count_values($numDatos);
+		  }
+	  }
+	  $datosGrafica = array_count_values($numDatos);
+
+    return $datosGrafica;
+   }
+
+   private function calcularIntervalosEdadDosTiposDur($tabla1, $tabla2, $tipoTratamiento, $request)
+   {
+    $fechaActual = date('Y-m-d');
+    $datosGrafica = array();
+    $joinTablas = $this->hacerJoinTablas($tabla1,$tabla2);
+    $divisiones = Tratamientos::where('tipo',$tipoTratamiento)->get();
+    $numDatos = array();
+    foreach ($divisiones as $division) {
+      $valorAnterior = null;
+      for($i = $request->edadIntervalo; $i < 100; $i += $request->edadIntervalo){
+        $joinTablas = $this->hacerJoinTablas($tabla1,$tabla2);
+          if($valorAnterior == null){
+            if(Pacientes::where('id_paciente',$division->id_paciente)->where("nacimiento",'>=',date("Y-m-d",strtotime($fechaActual."- ".$i." year")))->count() != 0){
+              $fechaIni = strtotime($division->fecha_inicio);
+              $fechaFin = strtotime($division->fecha_fin);
+              $difSegundos = $fechaFin - $fechaIni;
+              $difDias = $difSegundos/86400;
+              array_push($numDatos,"Menores de ".$i.' y '.$difDias);
+            }
+          }else{
+            if(Pacientes::where('id_paciente',$division->id_paciente)->where("nacimiento",'>=',date("Y-m-d",strtotime($fechaActual."- ".$i." year")))->where("nacimiento",'<',date("Y-m-d",strtotime($fechaActual."- ".$valorAnterior." year")))->count() != 0){
+              $fechaIni = strtotime($division->fecha_inicio);
+              $fechaFin = strtotime($division->fecha_fin);
+              $difSegundos = $fechaFin - $fechaIni;
+              $difDias = $difSegundos/86400;
+              array_push($numDatos,"Entre ".$valorAnterior." y ".$i.' y '.$difDias);
+            }
+          }
+          $valorAnterior = $i;
+      }
+      $joinTablas = $this->hacerJoinTablas($tabla1,$tabla2);
+      if(Pacientes::where('id_paciente',$division->id_paciente)->where("nacimiento",'<=',date("Y-m-d",strtotime($fechaActual."- ".$valorAnterior." year")))->count() != 0){
+        $fechaIni = strtotime($division->fecha_inicio);
+        $fechaFin = strtotime($division->fecha_fin);
+        $difSegundos = $fechaFin - $fechaIni;
+        $difDias = $difSegundos/86400;
+        array_push($numDatos,"Mayores de ".$valorAnterior.' y '.$difDias);
+      }
+    }
+    $datosGrafica = array_count_values($numDatos);
 
     return $datosGrafica;
    }
@@ -499,11 +549,16 @@ class GraficosController extends Controller
     $tabla2 = $this->obtenerTabla($opciones);
     $seleccion2 = $opciones[$this->obtenerValor($opciones)];
     $opcion2 = $this->campoASeleccionar($tabla2, $seleccion2);
-	if($opcion1 == "nacimiento"){
-		if(preg_match("/^num/", $opcion2)){
+	  if($opcion1 == "nacimiento"){
+		  if(preg_match("/^num/", $opcion2))
     		$datosGrafica = $this->calcularIntervalosEdadDosTiposNum($tabla1, $tabla2, $request);
-    	}else
-			$datosGrafica = $this->calcularIntervalosEdadDosTipos($tabla1, $tabla2, $request, $opcion2);
+      elseif($opcion2 == 'duracion_quimioterapia')
+        $datosGrafica = $this->calcularIntervalosEdadDosTiposDur($tabla1, $tabla2, 'Quimioterapia', $request);
+      elseif($opcion2 == 'duracion_radioterapia')
+        $datosGrafica = $this->calcularIntervalosEdadDosTiposDur($tabla1, $tabla2, 'Radioterapia',$request);
+    	else
+			  $datosGrafica = $this->calcularIntervalosEdadDosTipos($tabla1, $tabla2, $request, $opcion2);
+      
     }elseif($opcion1 == 'intencion_quimioterapia')
   		return null;
   	elseif($opcion1 == 'tipo_radioterapia')

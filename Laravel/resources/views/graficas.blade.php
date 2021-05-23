@@ -22,7 +22,7 @@
 <form action="{{ route('imprimirgrafica') }}" method="post">
 @CSRF
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Tipo de<br>gráfica</span>
@@ -35,12 +35,12 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-3">
       <label class="text-white">Datos personales</label>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
@@ -58,7 +58,7 @@
         </select>
       </div>
     </div>
-    <div class="oculto col-md-2">
+    <div class="oculto col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Elige intervalo<br> de edad</span>
@@ -73,7 +73,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
@@ -97,12 +97,12 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-3">
       <label class="text-white">Datos enfermedad generales</label>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
@@ -127,12 +127,12 @@
     </div>
   </div>
   <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-3">
       <label class="text-white">Antecedentes</label>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
@@ -152,12 +152,12 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-3">
       <label class="text-white">Tratamientos</label>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
@@ -192,12 +192,12 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-3">
       <label class="text-white">Seguimientos y reevaluaciones</label>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>

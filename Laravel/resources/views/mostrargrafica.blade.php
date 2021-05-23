@@ -41,5 +41,56 @@
     chart.draw(data, options);
   }
 </script>
-<div class="d-flex justify-content-center" id="chart_div"></div>
+<?php 
+  $acumulado = 0;
+?>
+<div class="d-flex justify-content-around">
+  <div class="d-flex justify-content-center mr-4" id="chart_div"></div>
+  <table class="text-white table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">{{ $tipos[0] }}</th>
+        <th scope="col">Frecuencia</th>
+        <th scope="col">Percentil</th>
+        <th scope="col">Acumulada</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach(array_keys($datosGrafica) as $clave)
+      <tr>
+        <th scope="row">{{ $clave }}</th>
+        <td>{{ $datosGrafica[$clave] }}</td>
+        <?php 
+          $total = 0;
+          foreach(array_keys($datosGrafica) as $claveTotal){
+            $total = $total + $datosGrafica[$claveTotal];
+          }
+
+          $percentil = ($datosGrafica[$clave]/$total)*100;
+        ?>    
+        <td>{{ $percentil }}</td>
+        <?php 
+          $acumulado = $acumulado + $percentil;
+        ?>
+        <td>{{ $acumulado }}</td>
+      </tr>
+      @endforeach
+      <tr>
+        <th scope="row">Total</th>
+        <?php 
+          $totalFrecuencia = 0;
+          $totalPercentil = 0;
+          foreach(array_keys($datosGrafica) as $claveTotal){
+            $totalFrecuencia = $totalFrecuencia + $datosGrafica[$claveTotal];
+            $totalPercentil = $totalPercentil + ($datosGrafica[$clave]/$total)*100;
+          }
+
+        ?>    
+        <td>{{ $totalFrecuencia }}</td>
+        <td>{{ $totalPercentil }}</td>
+        <td></td>
+      </tr>  
+    </tbody>
+  </table>
+</div>
 @endsection
