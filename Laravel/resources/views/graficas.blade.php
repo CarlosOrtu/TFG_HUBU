@@ -170,7 +170,6 @@
           <option value="num_radioterapia">Numero de radioterapias</option>
           <option value="num_cirugia">Numero de cirugías</option>
           <option value="intencion_quimioterapia">Intención (Quimioterapia)</option>
-          <option value="ensayo_quimioterapia">Ensayo clínico (Quimioterapia)</option>
           <option value="ensayo">Tipo de ensayo clínico (Quimioterapia)</option>
           <option value="ensayo_fase">Fase de ensayo clínico (Quimioterapia)</option>
           <option value="tratamiento_acceso_expandido">Tratamiento por acceso expandido (Quimioterapia)</option>

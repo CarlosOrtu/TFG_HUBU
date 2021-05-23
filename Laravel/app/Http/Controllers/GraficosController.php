@@ -316,11 +316,11 @@ class GraficosController extends Controller
       elseif($opcion == 'num_tratamientos')
 	      return 'num_tratamientos';
 	    elseif($opcion == 'num_quimioterapia')
-	        return 'num_tratamientos';
+	        return 'num_quimioterapia';
 	    elseif($opcion == 'num_radioterapia')
-	        return 'num_tratamientos';
+	        return 'num_radioterapia';
 	    elseif($opcion == 'num_cirugia')
-	        return 'num_tratamientos';
+	        return 'num_cirugia';
 	  	else	
   			return $opcion;
   	}elseif($opcion == 'estado_seguimiento')
@@ -379,8 +379,34 @@ class GraficosController extends Controller
    	$joinTablas = $this->hacerJoinTablas($tabla1,$tabla2);
    	$division1 = $this->campoASeleccionar($tabla1,$tipoSelec1);
    	$division2 = $this->campoASeleccionar($tabla2,$tipoSelec2);
-    $tipos1 = ('App\\Models\\'.$tabla1)::select($division1)->groupBy($division1)->get();
-    $tipos2 = ('App\\Models\\'.$tabla2)::select($division2)->groupBy($division2)->get();
+    if($division1 == 'intencion_quimioterapia'){
+      $tipos1 = Tratamientos::select('subtipo')->groupBy('subtipo')->where('tipo','Quimioterapia')->get();
+      $tipos2 = ('App\\Models\\'.$tabla2)::select($division2)->groupBy($division2)->get();
+      $division1 = 'subtipo';
+    }elseif($division2 == 'intencion_quimioterapia'){
+      $tipos1 = ('App\\Models\\'.$tabla1)::select($division1)->groupBy($division1)->get();
+      $tipos2 = Tratamientos::select('subtipo')->groupBy('subtipo')->where('tipo','Quimioterapia')->get();
+      $division2 = 'subtipo';
+    }elseif($division1 == 'tipo_radioterapia'){
+      $tipos1 = Tratamientos::select('subtipo')->groupBy('subtipo')->where('tipo','Radioterapia')->get();
+      $tipos2 = ('App\\Models\\'.$tabla2)::select($division2)->groupBy($division2)->get();
+      $division1 = 'subtipo';
+    }elseif($division2 == 'tipo_radioterapia'){
+      $tipos1 = ('App\\Models\\'.$tabla1)::select($division1)->groupBy($division1)->get();
+      $tipos2 = Tratamientos::select('subtipo')->groupBy('subtipo')->where('tipo','Quimioterapia')->get();
+      $division2 = 'subtipo';
+    }elseif($division1 == 'tipo_cirugia'){
+      $tipos1 = Tratamientos::select('subtipo')->groupBy('subtipo')->where('tipo','Cirugia')->get();
+      $tipos2 = ('App\\Models\\'.$tabla2)::select($division2)->groupBy($division2)->get();
+      $division1 = 'subtipo';
+    }elseif($division2 == 'tipo_cirugia'){
+      $tipos1 = ('App\\Models\\'.$tabla1)::select($division1)->groupBy($division1)->get();
+      $tipos2 = Tratamientos::select('subtipo')->groupBy('subtipo')->where('tipo','Cirugia')->get();
+      $division2 = 'subtipo';
+    }else{
+      $tipos1 = ('App\\Models\\'.$tabla1)::select($division1)->groupBy($division1)->get();
+      $tipos2 = ('App\\Models\\'.$tabla2)::select($division2)->groupBy($division2)->get();
+    }
     foreach ($tipos1 as $tipo1) {
       foreach($tipos2 as $tipo2){
         $joinTablas = $this->hacerJoinTablas($tabla1,$tabla2);
@@ -414,7 +440,7 @@ class GraficosController extends Controller
     }
     elseif($opcion == 'tipo_radioterapia'){
     	$divisiones = Tratamientos::select('subtipo')->groupBy('subtipo')->where('tipo','Radioterapia')->get();
-    	$opcion = 'subtipo';
+    	$opcion = 'subtipo'; 
     }
     elseif($opcion == 'tipo_cirugia'){
     	$divisiones = Tratamientos::select('subtipo')->groupBy('subtipo')->where('tipo','Cirugia')->get();
@@ -538,6 +564,37 @@ class GraficosController extends Controller
     return $datosGrafica;
    }
 
+   private function obtenerNumeroDosTipo($tabla1, $tabla2, $request, $opcion, $tipoSelec1, $tipoSelec2, $id)
+   {
+    $division1 = $this->campoASeleccionar($tabla1,$tipoSelec1);
+    $division2 = $this->campoASeleccionar($tabla2,$tipoSelec2);
+    $joinTablas = $this->hacerJoinTablas($tabla1,$tabla2);
+    if($id == 'id_enfermedad'){
+      $tipos1 = $joinTablas->select('Enfermedades.id_enfermedad')->groupBy('Enfermedades.id_enfermedad')->get();
+      $division1 = 'Enfermedades.id_enfermedad';
+    }else{
+      $tipos1 = $joinTablas->select('Pacientes.id_paciente')->groupBy('Pacientes.id_paciente')->get();
+      $division1 = 'Pacientes.id_paciente';
+    }
+    $tipos2 = ('App\\Models\\'.$tabla2)::select($division2)->groupBy($division2)->get();
+    $numDatos = array();
+    dd($joinTablas->get());
+    foreach ($tipos1 as $tipo1) {
+      foreach($tipos2 as $tipo2){
+        $joinTablas = $this->hacerJoinTablas($tabla1,$tabla2);
+        if($opcion == 'todos' or $opcion == 'seguimiento' or $opcion == 'reevaluacion')
+          $numTipo = $joinTablas->whereNotNull($division1)->whereNotNull($division2)->where($division1,$tipo1->$id)->where($division2,$tipo2->$division2)->count();
+        else
+          $numTipo = $joinTablas->whereNotNull($division1)->whereNotNull($division2)->where($division1,$tipo1->$id)->where($division2,$tipo2->$division2)->where('tipo',$opcion)->count();
+        array_push($numDatos,$numTipo.' y '.$tipo2->$division2);
+      }
+    }
+
+    $datosGrafica = array_count_values($numDatos);
+
+    return $datosGrafica;
+   }
+
    private function dosOpciones($request)
    {
     $datosGrafica = array();
@@ -557,24 +614,17 @@ class GraficosController extends Controller
       elseif($opcion2 == 'duracion_radioterapia')
         $datosGrafica = $this->calcularIntervalosEdadDosTiposDur($tabla1, $tabla2, 'Radioterapia',$request);
     	else
-			  $datosGrafica = $this->calcularIntervalosEdadDosTipos($tabla1, $tabla2, $request, $opcion2);
-      
-    }elseif($opcion1 == 'intencion_quimioterapia')
-  		return null;
-  	elseif($opcion1 == 'tipo_radioterapia')
-  		return null;
-  	elseif($opcion1 == 'tipo_cirugia')
-  		return null;
-    elseif($opcion1 == 'num_antecedente_oncologico')
-      	return null;
+			  $datosGrafica = $this->calcularIntervalosEdadDosTipos($tabla1, $tabla2, $request, $opcion2,'id_paciente');
+    }elseif($opcion1 == 'num_antecedente_oncologico')
+      	return $this->obtenerNumeroDosTipo($tabla1, $tabla2, $request, 'todos',$opcion1, $opcion2,'id_paciente');
     elseif($opcion1 == 'num_antecedente_familiar')
-      	return null;
+      	return $this->obtenerNumeroDosTipo($tabla1, $tabla2, $request, 'todos',$opcion1, $opcion2,'id_paciente');
     elseif($opcion1 == "num_reevaluacion")
-    	return null;
+    	return $this->obtenerNumeroDosTipo($tabla1, $tabla2, $request, 'todos',$opcion1, $opcion2,'id_paciente');
   	elseif($opcion1 == "num_seguimiento")
-    	return null;
+    	return $this->obtenerNumeroDosTipo($tabla1, $tabla2, $request, 'todos',$opcion1, $opcion2,'id_paciente');
     elseif(preg_match("/^num/", $opcion1))
-      	return null;
+      return $this->obtenerNumeroDosTipo($tabla1, $tabla2, $request, 'todos',$opcion1, $opcion2,'id_enfermedad');
     else
     	$datosGrafica = $this->obtenerDatosDosOpciones($tabla1,$tabla2,$opcion1,$opcion2);
 
