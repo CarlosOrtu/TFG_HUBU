@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Pacientes;
-use App\Models\Enfermedad;
+use App\Models\Enfermedades;
 
 class CrearSintomaTest extends TestCase
 {
@@ -28,7 +28,7 @@ class CrearSintomaTest extends TestCase
         $paciente->ultima_modificacion = date("Y-m-d");
         $paciente->save(); 
         //Creamos la enfermedad
-        $enfermedad = new Enfermedad();
+        $enfermedad = new Enfermedades();
         $enfermedad->id_enfermedad = 999;
         $enfermedad->id_paciente = 999;
         $enfermedad->fecha_primera_consulta = "1999-02-02";
@@ -83,8 +83,8 @@ class CrearSintomaTest extends TestCase
         $view = $this->view('datossintomas', ['paciente' => $paciente]);
         $view->assertSee('1999-05-05');
         //Comprobamos que los datos del sintoma se han introducido correctamente
-        $this->assertTrue($paciente->Enfermedad->Sintomas[0]->fecha_inicio == "1999-05-05");
-        $this->assertTrue($paciente->Enfermedad->Sintomas[0]->tipo == "Asintomático");
+        $this->assertTrue($paciente->Enfermedades->Sintomas[0]->fecha_inicio == "1999-05-05");
+        $this->assertTrue($paciente->Enfermedades->Sintomas[0]->tipo == "Asintomático");
     }
 
     /** @test */
@@ -105,7 +105,7 @@ class CrearSintomaTest extends TestCase
         $response->assertRedirect('/paciente/999/enfermedad/sintomas');
         //Comprobamos que los datos del sintoma no se han introducido
         $paciente = Pacientes::find(999);
-        $this->assertTrue(count($paciente->Enfermedad->Sintomas) == 0);
+        $this->assertTrue(count($paciente->Enfermedades->Sintomas) == 0);
     }
 
 
@@ -130,6 +130,6 @@ class CrearSintomaTest extends TestCase
         $view = $this->view('datossintomas', ['paciente' => $paciente]);
         $view->assertDontSee('2022-05-05');
         //Comprobamos que los datos del sintoma no se han introducido
-        $this->assertTrue(count($paciente->Enfermedad->Sintomas) == 0);
+        $this->assertTrue(count($paciente->Enfermedades->Sintomas) == 0);
     }
 }

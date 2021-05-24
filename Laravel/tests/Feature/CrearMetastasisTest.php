@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Pacientes;
-use App\Models\Enfermedad;
+use App\Models\Enfermedades;
 
 class CrearMetastasisTest extends TestCase
 {
@@ -28,7 +28,7 @@ class CrearMetastasisTest extends TestCase
         $paciente->ultima_modificacion = date("Y-m-d");
         $paciente->save(); 
         //Creamos la enfermedad
-        $enfermedad = new Enfermedad();
+        $enfermedad = new Enfermedades();
         $enfermedad->id_enfermedad = 999;
         $enfermedad->id_paciente = 999;
         $enfermedad->fecha_primera_consulta = "1999-02-02";
@@ -79,6 +79,6 @@ class CrearMetastasisTest extends TestCase
         $response->assertRedirect('/paciente/999/enfermedad/metastasis');
         //Comprobamos que los datos de la metastasis se han introducido correctamente
         $paciente = Pacientes::find(999);
-        $this->assertTrue($paciente->Enfermedad->Metastasis[0]->tipo == "Hígado");
+        $this->assertTrue($paciente->Enfermedades->Metastasis[0]->tipo == "Hígado");
     }
 }

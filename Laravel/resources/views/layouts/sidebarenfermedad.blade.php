@@ -19,7 +19,7 @@
         <div class="collapse" id="menu2">
           <ul class="btn-toggle-nav list-unstyled ml-5 pb-1 small">
             <li><a href="{{ route('datosenfermedad', $paciente->id_paciente) }}" id="datosgenerales" class="text-white rounded">Datos generales</a></li>
-            @if(isset($paciente->Enfermedad))
+            @if(isset($paciente->Enfermedades))
             <li><a href="{{ route('datossintomas', $paciente->id_paciente) }}" id="sintomas" class="text-white rounded">Sintomas</a></li>
             <li><a href="{{ route('metastasis', $paciente->id_paciente) }}" id="metastasis" class="text-white rounded">Metastasis</a></li>
             <li><a href="{{ route('biomarcadores', $paciente->id_paciente) }}" class="text-white rounded">Biomarcadores</a></li>
@@ -30,7 +30,7 @@
           </ul>
         </div>
       </li>
-      @if(isset($paciente->Enfermedad))
+      @if(isset($paciente->Enfermedades))
       <div class="dropdown-divider"></div>
       <li class="mb-1">
         <button class="btn btn-toggle text-white desplegable" id="boton3" data-toggle="collapse" data-target="#menu3" aria-expanded="false">

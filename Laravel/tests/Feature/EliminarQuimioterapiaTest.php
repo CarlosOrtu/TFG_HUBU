@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Pacientes;
-use App\Models\Enfermedad;
+use App\Models\Enfermedades;
 use App\Models\Tratamientos;
 use App\Models\Intenciones;
 use App\Models\Farmacos;
@@ -31,7 +31,7 @@ class EliminarQuimioterapiaTest extends TestCase
         $paciente->ultima_modificacion = date("Y-m-d");
         $paciente->save(); 
         //Creamos la enfermedad
-        $enfermedad = new Enfermedad();
+        $enfermedad = new Enfermedades();
         $enfermedad->id_enfermedad = 999;
         $enfermedad->id_paciente = 999;
         $enfermedad->fecha_primera_consulta = "1999-02-02";

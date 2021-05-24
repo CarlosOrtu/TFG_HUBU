@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Pacientes;
-use App\Models\Enfermedad;
+use App\Models\Enfermedades;
 
 
 class ModificarDatosEnfermedadTest extends TestCase
@@ -29,7 +29,7 @@ class ModificarDatosEnfermedadTest extends TestCase
         $paciente->ultima_modificacion = date("Y-m-d");
         $paciente->save(); 
 
-        $enfermedadAModificar = new Enfermedad();
+        $enfermedadAModificar = new Enfermedades();
         $enfermedadAModificar->id_enfermedad = 999;
         $enfermedadAModificar->id_paciente = 999;
         $enfermedadAModificar->fecha_primera_consulta = "1999-02-02";
@@ -99,21 +99,21 @@ class ModificarDatosEnfermedadTest extends TestCase
         $view->assertSee('1999-06-06');
         $view->assertSee('2.2');
         //Comprobamos que los datos de la enfermedad coincidan con los modificados
-        $this->assertTrue($paciente->Enfermedad->fecha_primera_consulta == "1999-05-05");
-        $this->assertTrue($paciente->Enfermedad->fecha_diagnostico == "1999-06-06");
-        $this->assertTrue($paciente->Enfermedad->ECOG == 1);
-        $this->assertTrue($paciente->Enfermedad->T == 1);
-        $this->assertTrue($paciente->Enfermedad->T_tamano == 2.2);
-        $this->assertTrue($paciente->Enfermedad->N == 1);
-        $this->assertTrue($paciente->Enfermedad->N_afectacion == "Multiestacion");
-        $this->assertTrue($paciente->Enfermedad->M == "0");
-        $this->assertTrue($paciente->Enfermedad->num_afec_metas == "0");
-        $this->assertTrue($paciente->Enfermedad->TNM == "IA1");
-        $this->assertTrue($paciente->Enfermedad->tipo_muestra == "Citología");
-        $this->assertTrue($paciente->Enfermedad->histologia_tipo == "Adenocarcinoma");
-        $this->assertTrue($paciente->Enfermedad->histologia_subtipo == "Acinar");
-        $this->assertTrue($paciente->Enfermedad->histologia_grado == "Mal diferenciado");
-        $this->assertTrue($paciente->Enfermedad->tratamiento_dirigido == 0);
+        $this->assertTrue($paciente->Enfermedades->fecha_primera_consulta == "1999-05-05");
+        $this->assertTrue($paciente->Enfermedades->fecha_diagnostico == "1999-06-06");
+        $this->assertTrue($paciente->Enfermedades->ECOG == 1);
+        $this->assertTrue($paciente->Enfermedades->T == 1);
+        $this->assertTrue($paciente->Enfermedades->T_tamano == 2.2);
+        $this->assertTrue($paciente->Enfermedades->N == 1);
+        $this->assertTrue($paciente->Enfermedades->N_afectacion == "Multiestacion");
+        $this->assertTrue($paciente->Enfermedades->M == "0");
+        $this->assertTrue($paciente->Enfermedades->num_afec_metas == "0");
+        $this->assertTrue($paciente->Enfermedades->TNM == "IA1");
+        $this->assertTrue($paciente->Enfermedades->tipo_muestra == "Citología");
+        $this->assertTrue($paciente->Enfermedades->histologia_tipo == "Adenocarcinoma");
+        $this->assertTrue($paciente->Enfermedades->histologia_subtipo == "Acinar");
+        $this->assertTrue($paciente->Enfermedades->histologia_grado == "Mal diferenciado");
+        $this->assertTrue($paciente->Enfermedades->tratamiento_dirigido == 0);
     }
 
     /** @test */
@@ -151,21 +151,21 @@ class ModificarDatosEnfermedadTest extends TestCase
         $view->assertDontSee('1999-06-06');
         $view->assertDontSee('2.2');
         //Comprobamos que los datos de la enfermedad no se hayan actualizado
-        $this->assertFalse($paciente->Enfermedad->fecha_primera_consulta == "");
-        $this->assertFalse($paciente->Enfermedad->fecha_diagnostico == "1999-06-06");
-        $this->assertFalse($paciente->Enfermedad->ECOG == 1);
-        $this->assertFalse($paciente->Enfermedad->T == 1);
-        $this->assertFalse($paciente->Enfermedad->T_tamano == 2.2);
-        $this->assertFalse($paciente->Enfermedad->N == 1);
-        $this->assertFalse($paciente->Enfermedad->N_afectacion == "Multiestacion");
-        $this->assertFalse($paciente->Enfermedad->M == "0");
-        $this->assertFalse($paciente->Enfermedad->num_afec_metas == "0");
-        $this->assertFalse($paciente->Enfermedad->TNM == "IA1");
-        $this->assertFalse($paciente->Enfermedad->tipo_muestra == "Citología");
-        $this->assertFalse($paciente->Enfermedad->histologia_tipo == "Adenocarcinoma");
-        $this->assertFalse($paciente->Enfermedad->histologia_subtipo == "Acinar");
-        $this->assertFalse($paciente->Enfermedad->histologia_grado == "Mal diferenciado");
-        $this->assertFalse($paciente->Enfermedad->tratamiento_dirigido == 0);
+        $this->assertFalse($paciente->Enfermedades->fecha_primera_consulta == "");
+        $this->assertFalse($paciente->Enfermedades->fecha_diagnostico == "1999-06-06");
+        $this->assertFalse($paciente->Enfermedades->ECOG == 1);
+        $this->assertFalse($paciente->Enfermedades->T == 1);
+        $this->assertFalse($paciente->Enfermedades->T_tamano == 2.2);
+        $this->assertFalse($paciente->Enfermedades->N == 1);
+        $this->assertFalse($paciente->Enfermedades->N_afectacion == "Multiestacion");
+        $this->assertFalse($paciente->Enfermedades->M == "0");
+        $this->assertFalse($paciente->Enfermedades->num_afec_metas == "0");
+        $this->assertFalse($paciente->Enfermedades->TNM == "IA1");
+        $this->assertFalse($paciente->Enfermedades->tipo_muestra == "Citología");
+        $this->assertFalse($paciente->Enfermedades->histologia_tipo == "Adenocarcinoma");
+        $this->assertFalse($paciente->Enfermedades->histologia_subtipo == "Acinar");
+        $this->assertFalse($paciente->Enfermedades->histologia_grado == "Mal diferenciado");
+        $this->assertFalse($paciente->Enfermedades->tratamiento_dirigido == 0);
     }
 
     /** @test */
@@ -204,21 +204,21 @@ class ModificarDatosEnfermedadTest extends TestCase
         $view->assertDontSee('1999-06-06');
         $view->assertDontSee('2.2');
         //Comprobamos que los datos de la enfermedad no se hayan actualizado
-        $this->assertFalse($paciente->Enfermedad->fecha_primera_consulta == "2022-05-05");
-        $this->assertFalse($paciente->Enfermedad->fecha_diagnostico == "1999-06-06");
-        $this->assertFalse($paciente->Enfermedad->ECOG == 1);
-        $this->assertFalse($paciente->Enfermedad->T == 1);
-        $this->assertFalse($paciente->Enfermedad->T_tamano == 2.2);
-        $this->assertFalse($paciente->Enfermedad->N == 1);
-        $this->assertFalse($paciente->Enfermedad->N_afectacion == "Multiestacion");
-        $this->assertFalse($paciente->Enfermedad->M == "0");
-        $this->assertFalse($paciente->Enfermedad->num_afec_metas == "0");
-        $this->assertFalse($paciente->Enfermedad->TNM == "IA1");
-        $this->assertFalse($paciente->Enfermedad->tipo_muestra == "Citología");
-        $this->assertFalse($paciente->Enfermedad->histologia_tipo == "Adenocarcinoma");
-        $this->assertFalse($paciente->Enfermedad->histologia_subtipo == "Acinar");
-        $this->assertFalse($paciente->Enfermedad->histologia_grado == "Mal diferenciado");
-        $this->assertFalse($paciente->Enfermedad->tratamiento_dirigido == 0);
+        $this->assertFalse($paciente->Enfermedades->fecha_primera_consulta == "2022-05-05");
+        $this->assertFalse($paciente->Enfermedades->fecha_diagnostico == "1999-06-06");
+        $this->assertFalse($paciente->Enfermedades->ECOG == 1);
+        $this->assertFalse($paciente->Enfermedades->T == 1);
+        $this->assertFalse($paciente->Enfermedades->T_tamano == 2.2);
+        $this->assertFalse($paciente->Enfermedades->N == 1);
+        $this->assertFalse($paciente->Enfermedades->N_afectacion == "Multiestacion");
+        $this->assertFalse($paciente->Enfermedades->M == "0");
+        $this->assertFalse($paciente->Enfermedades->num_afec_metas == "0");
+        $this->assertFalse($paciente->Enfermedades->TNM == "IA1");
+        $this->assertFalse($paciente->Enfermedades->tipo_muestra == "Citología");
+        $this->assertFalse($paciente->Enfermedades->histologia_tipo == "Adenocarcinoma");
+        $this->assertFalse($paciente->Enfermedades->histologia_subtipo == "Acinar");
+        $this->assertFalse($paciente->Enfermedades->histologia_grado == "Mal diferenciado");
+        $this->assertFalse($paciente->Enfermedades->tratamiento_dirigido == 0);
     }
 
     /** @test */
@@ -256,21 +256,21 @@ class ModificarDatosEnfermedadTest extends TestCase
         $view->assertDontSee('1999-05-05');
         $view->assertDontSee('2.2');
         //Comprobamos que los datos de la enfermedad no se hayan actualizado
-        $this->assertFalse($paciente->Enfermedad->fecha_primera_consulta == "1999-05-05");
-        $this->assertFalse($paciente->Enfermedad->fecha_diagnostico == "");
-        $this->assertFalse($paciente->Enfermedad->ECOG == 1);
-        $this->assertFalse($paciente->Enfermedad->T == 1);
-        $this->assertFalse($paciente->Enfermedad->T_tamano == 2.2);
-        $this->assertFalse($paciente->Enfermedad->N == 1);
-        $this->assertFalse($paciente->Enfermedad->N_afectacion == "Multiestacion");
-        $this->assertFalse($paciente->Enfermedad->M == "0");
-        $this->assertFalse($paciente->Enfermedad->num_afec_metas == "0");
-        $this->assertFalse($paciente->Enfermedad->TNM == "IA1");
-        $this->assertFalse($paciente->Enfermedad->tipo_muestra == "Citología");
-        $this->assertFalse($paciente->Enfermedad->histologia_tipo == "Adenocarcinoma");
-        $this->assertFalse($paciente->Enfermedad->histologia_subtipo == "Acinar");
-        $this->assertFalse($paciente->Enfermedad->histologia_grado == "Mal diferenciado");
-        $this->assertFalse($paciente->Enfermedad->tratamiento_dirigido == 0);
+        $this->assertFalse($paciente->Enfermedades->fecha_primera_consulta == "1999-05-05");
+        $this->assertFalse($paciente->Enfermedades->fecha_diagnostico == "");
+        $this->assertFalse($paciente->Enfermedades->ECOG == 1);
+        $this->assertFalse($paciente->Enfermedades->T == 1);
+        $this->assertFalse($paciente->Enfermedades->T_tamano == 2.2);
+        $this->assertFalse($paciente->Enfermedades->N == 1);
+        $this->assertFalse($paciente->Enfermedades->N_afectacion == "Multiestacion");
+        $this->assertFalse($paciente->Enfermedades->M == "0");
+        $this->assertFalse($paciente->Enfermedades->num_afec_metas == "0");
+        $this->assertFalse($paciente->Enfermedades->TNM == "IA1");
+        $this->assertFalse($paciente->Enfermedades->tipo_muestra == "Citología");
+        $this->assertFalse($paciente->Enfermedades->histologia_tipo == "Adenocarcinoma");
+        $this->assertFalse($paciente->Enfermedades->histologia_subtipo == "Acinar");
+        $this->assertFalse($paciente->Enfermedades->histologia_grado == "Mal diferenciado");
+        $this->assertFalse($paciente->Enfermedades->tratamiento_dirigido == 0);
     }
 
     /** @test */
@@ -309,21 +309,21 @@ class ModificarDatosEnfermedadTest extends TestCase
         $view->assertDontSee('2022-06-06');
         $view->assertDontSee('2.2');
         //Comprobamos que los datos de la enfermedad no se hayan actualizado
-        $this->assertFalse($paciente->Enfermedad->fecha_primera_consulta == "1999-05-05");
-        $this->assertFalse($paciente->Enfermedad->fecha_diagnostico == "2022-06-06");
-        $this->assertFalse($paciente->Enfermedad->ECOG == 1);
-        $this->assertFalse($paciente->Enfermedad->T == 1);
-        $this->assertFalse($paciente->Enfermedad->T_tamano == 2.2);
-        $this->assertFalse($paciente->Enfermedad->N == 1);
-        $this->assertFalse($paciente->Enfermedad->N_afectacion == "Multiestacion");
-        $this->assertFalse($paciente->Enfermedad->M == "0");
-        $this->assertFalse($paciente->Enfermedad->num_afec_metas == "0");
-        $this->assertFalse($paciente->Enfermedad->TNM == "IA1");
-        $this->assertFalse($paciente->Enfermedad->tipo_muestra == "Citología");
-        $this->assertFalse($paciente->Enfermedad->histologia_tipo == "Adenocarcinoma");
-        $this->assertFalse($paciente->Enfermedad->histologia_subtipo == "Acinar");
-        $this->assertFalse($paciente->Enfermedad->histologia_grado == "Mal diferenciado");
-        $this->assertFalse($paciente->Enfermedad->tratamiento_dirigido == 0);
+        $this->assertFalse($paciente->Enfermedades->fecha_primera_consulta == "1999-05-05");
+        $this->assertFalse($paciente->Enfermedades->fecha_diagnostico == "2022-06-06");
+        $this->assertFalse($paciente->Enfermedades->ECOG == 1);
+        $this->assertFalse($paciente->Enfermedades->T == 1);
+        $this->assertFalse($paciente->Enfermedades->T_tamano == 2.2);
+        $this->assertFalse($paciente->Enfermedades->N == 1);
+        $this->assertFalse($paciente->Enfermedades->N_afectacion == "Multiestacion");
+        $this->assertFalse($paciente->Enfermedades->M == "0");
+        $this->assertFalse($paciente->Enfermedades->num_afec_metas == "0");
+        $this->assertFalse($paciente->Enfermedades->TNM == "IA1");
+        $this->assertFalse($paciente->Enfermedades->tipo_muestra == "Citología");
+        $this->assertFalse($paciente->Enfermedades->histologia_tipo == "Adenocarcinoma");
+        $this->assertFalse($paciente->Enfermedades->histologia_subtipo == "Acinar");
+        $this->assertFalse($paciente->Enfermedades->histologia_grado == "Mal diferenciado");
+        $this->assertFalse($paciente->Enfermedades->tratamiento_dirigido == 0);
     }
 
     /** @test */
@@ -362,21 +362,21 @@ class ModificarDatosEnfermedadTest extends TestCase
         $view->assertDontSee('1998-06-06');
         $view->assertDontSee('2.2');
         //Comprobamos que los datos de la enfermedad no se hayan actualizado
-        $this->assertFalse($paciente->Enfermedad->fecha_primera_consulta == "1999-05-05");
-        $this->assertFalse($paciente->Enfermedad->fecha_diagnostico == "1998-06-06");
-        $this->assertFalse($paciente->Enfermedad->ECOG == 1);
-        $this->assertFalse($paciente->Enfermedad->T == 1);
-        $this->assertFalse($paciente->Enfermedad->T_tamano == 2.2);
-        $this->assertFalse($paciente->Enfermedad->N == 1);
-        $this->assertFalse($paciente->Enfermedad->N_afectacion == "Multiestacion");
-        $this->assertFalse($paciente->Enfermedad->M == "0");
-        $this->assertFalse($paciente->Enfermedad->num_afec_metas == "0");
-        $this->assertFalse($paciente->Enfermedad->TNM == "IA1");
-        $this->assertFalse($paciente->Enfermedad->tipo_muestra == "Citología");
-        $this->assertFalse($paciente->Enfermedad->histologia_tipo == "Adenocarcinoma");
-        $this->assertFalse($paciente->Enfermedad->histologia_subtipo == "Acinar");
-        $this->assertFalse($paciente->Enfermedad->histologia_grado == "Mal diferenciado");
-        $this->assertFalse($paciente->Enfermedad->tratamiento_dirigido == 0);
+        $this->assertFalse($paciente->Enfermedades->fecha_primera_consulta == "1999-05-05");
+        $this->assertFalse($paciente->Enfermedades->fecha_diagnostico == "1998-06-06");
+        $this->assertFalse($paciente->Enfermedades->ECOG == 1);
+        $this->assertFalse($paciente->Enfermedades->T == 1);
+        $this->assertFalse($paciente->Enfermedades->T_tamano == 2.2);
+        $this->assertFalse($paciente->Enfermedades->N == 1);
+        $this->assertFalse($paciente->Enfermedades->N_afectacion == "Multiestacion");
+        $this->assertFalse($paciente->Enfermedades->M == "0");
+        $this->assertFalse($paciente->Enfermedades->num_afec_metas == "0");
+        $this->assertFalse($paciente->Enfermedades->TNM == "IA1");
+        $this->assertFalse($paciente->Enfermedades->tipo_muestra == "Citología");
+        $this->assertFalse($paciente->Enfermedades->histologia_tipo == "Adenocarcinoma");
+        $this->assertFalse($paciente->Enfermedades->histologia_subtipo == "Acinar");
+        $this->assertFalse($paciente->Enfermedades->histologia_grado == "Mal diferenciado");
+        $this->assertFalse($paciente->Enfermedades->tratamiento_dirigido == 0);
     }    
 
     /** @test */
@@ -414,21 +414,21 @@ class ModificarDatosEnfermedadTest extends TestCase
         $view->assertDontSee('1999-05-05');
         $view->assertDontSee('1999-06-06');
         //Comprobamos que los datos de la enfermedad no se hayan actualizado
-        $this->assertFalse($paciente->Enfermedad->fecha_primera_consulta == "1999-05-05");
-        $this->assertFalse($paciente->Enfermedad->fecha_diagnostico == "1999-06-06");
-        $this->assertFalse($paciente->Enfermedad->ECOG == 1);
-        $this->assertFalse($paciente->Enfermedad->T == 1);
-        $this->assertFalse($paciente->Enfermedad->T_tamano == null);
-        $this->assertFalse($paciente->Enfermedad->N == 1);
-        $this->assertFalse($paciente->Enfermedad->N_afectacion == "Multiestacion");
-        $this->assertFalse($paciente->Enfermedad->M == "0");
-        $this->assertFalse($paciente->Enfermedad->num_afec_metas == "0");
-        $this->assertFalse($paciente->Enfermedad->TNM == "IA1");
-        $this->assertFalse($paciente->Enfermedad->tipo_muestra == "Citología");
-        $this->assertFalse($paciente->Enfermedad->histologia_tipo == "Adenocarcinoma");
-        $this->assertFalse($paciente->Enfermedad->histologia_subtipo == "Acinar");
-        $this->assertFalse($paciente->Enfermedad->histologia_grado == "Mal diferenciado");
-        $this->assertFalse($paciente->Enfermedad->tratamiento_dirigido == 0);
+        $this->assertFalse($paciente->Enfermedades->fecha_primera_consulta == "1999-05-05");
+        $this->assertFalse($paciente->Enfermedades->fecha_diagnostico == "1999-06-06");
+        $this->assertFalse($paciente->Enfermedades->ECOG == 1);
+        $this->assertFalse($paciente->Enfermedades->T == 1);
+        $this->assertFalse($paciente->Enfermedades->T_tamano == null);
+        $this->assertFalse($paciente->Enfermedades->N == 1);
+        $this->assertFalse($paciente->Enfermedades->N_afectacion == "Multiestacion");
+        $this->assertFalse($paciente->Enfermedades->M == "0");
+        $this->assertFalse($paciente->Enfermedades->num_afec_metas == "0");
+        $this->assertFalse($paciente->Enfermedades->TNM == "IA1");
+        $this->assertFalse($paciente->Enfermedades->tipo_muestra == "Citología");
+        $this->assertFalse($paciente->Enfermedades->histologia_tipo == "Adenocarcinoma");
+        $this->assertFalse($paciente->Enfermedades->histologia_subtipo == "Acinar");
+        $this->assertFalse($paciente->Enfermedades->histologia_grado == "Mal diferenciado");
+        $this->assertFalse($paciente->Enfermedades->tratamiento_dirigido == 0);
     }     
 
     /** @test */
@@ -467,20 +467,20 @@ class ModificarDatosEnfermedadTest extends TestCase
         $view->assertDontSee('1999-06-06');
         $view->assertDontSee('-1.0');
         //Comprobamos que los datos de la enfermedad no se hayan actualizado
-        $this->assertFalse($paciente->Enfermedad->fecha_primera_consulta == "1999-05-05");
-        $this->assertFalse($paciente->Enfermedad->fecha_diagnostico == "1999-06-06");
-        $this->assertFalse($paciente->Enfermedad->ECOG == 1);
-        $this->assertFalse($paciente->Enfermedad->T == 1);
-        $this->assertFalse($paciente->Enfermedad->T_tamano == -1.0);
-        $this->assertFalse($paciente->Enfermedad->N == 1);
-        $this->assertFalse($paciente->Enfermedad->N_afectacion == "Multiestacion");
-        $this->assertFalse($paciente->Enfermedad->M == "0");
-        $this->assertFalse($paciente->Enfermedad->num_afec_metas == "0");
-        $this->assertFalse($paciente->Enfermedad->TNM == "IA1");
-        $this->assertFalse($paciente->Enfermedad->tipo_muestra == "Citología");
-        $this->assertFalse($paciente->Enfermedad->histologia_tipo == "Adenocarcinoma");
-        $this->assertFalse($paciente->Enfermedad->histologia_subtipo == "Acinar");
-        $this->assertFalse($paciente->Enfermedad->histologia_grado == "Mal diferenciado");
-        $this->assertFalse($paciente->Enfermedad->tratamiento_dirigido == 0);
+        $this->assertFalse($paciente->Enfermedades->fecha_primera_consulta == "1999-05-05");
+        $this->assertFalse($paciente->Enfermedades->fecha_diagnostico == "1999-06-06");
+        $this->assertFalse($paciente->Enfermedades->ECOG == 1);
+        $this->assertFalse($paciente->Enfermedades->T == 1);
+        $this->assertFalse($paciente->Enfermedades->T_tamano == -1.0);
+        $this->assertFalse($paciente->Enfermedades->N == 1);
+        $this->assertFalse($paciente->Enfermedades->N_afectacion == "Multiestacion");
+        $this->assertFalse($paciente->Enfermedades->M == "0");
+        $this->assertFalse($paciente->Enfermedades->num_afec_metas == "0");
+        $this->assertFalse($paciente->Enfermedades->TNM == "IA1");
+        $this->assertFalse($paciente->Enfermedades->tipo_muestra == "Citología");
+        $this->assertFalse($paciente->Enfermedades->histologia_tipo == "Adenocarcinoma");
+        $this->assertFalse($paciente->Enfermedades->histologia_subtipo == "Acinar");
+        $this->assertFalse($paciente->Enfermedades->histologia_grado == "Mal diferenciado");
+        $this->assertFalse($paciente->Enfermedades->tratamiento_dirigido == 0);
     }             
 }

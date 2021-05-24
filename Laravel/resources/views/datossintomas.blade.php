@@ -29,7 +29,7 @@
     <strong class="text-center text-dark">{{ $message }}</strong>
 </div>
 @endif
-@if($paciente->Enfermedad->Sintomas->first() !== null)
+@if($paciente->Enfermedades->Sintomas->first() !== null)
 <form action="{{ route('modificarfechasintomas', ['id' => $paciente->id_paciente]) }}" method="post">
   @CSRF
   @method('put')
@@ -37,7 +37,7 @@
     <div class="input-group-prepend">
         <span class="input-group-text">Fecha inicio <br> de sintomas</span>
     </div>
-    <input value="{{ $paciente->Enfermedad->Sintomas->first()->fecha_inicio }}" name="fecha_inicio" type="date" class="form-control" autocomplete="off">
+    <input value="{{ $paciente->Enfermedades->Sintomas->first()->fecha_inicio }}" name="fecha_inicio" type="date" class="form-control" autocomplete="off">
   </div>
   <div class="d-flex justify-content-center">
     <button type="submit" class="btn btn-primary">Modificar</button>
@@ -45,7 +45,7 @@
 </form>
 <div class="my-4 dropdown-divider"></div>
 @endif
-@foreach ($paciente->Enfermedad->Sintomas as $sintoma)
+@foreach ($paciente->Enfermedades->Sintomas as $sintoma)
 <form action="{{ route('datossintomasmodificar', ['id' => $paciente->id_paciente, 'num_sintoma' => $loop->index]) }}" method="post">
     @CSRF
     @method('put')
@@ -106,7 +106,7 @@
 <form id="nuevocampo" class="oculto" action="{{ route('datossintomascrear', ['id' => $paciente->id_paciente, 'num_sintoma' => 0]) }}" method="post">
     @CSRF
     <h4 class="text-white panel-title">Nuevo síntoma</h4>
-    @if($paciente->Enfermedad->Sintomas->first() === null)
+    @if($paciente->Enfermedades->Sintomas->first() === null)
     <div class="my-4 input-group">
       <div class="input-group-prepend">
           <span class="input-group-text">Fecha inicio <br> de sintomas</span>

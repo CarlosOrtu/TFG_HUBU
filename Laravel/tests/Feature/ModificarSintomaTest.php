@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Pacientes;
-use App\Models\Enfermedad;
+use App\Models\Enfermedades;
 use App\Models\Sintomas;
 
 class ModificarSintomaTest extends TestCase
@@ -29,7 +29,7 @@ class ModificarSintomaTest extends TestCase
         $paciente->ultima_modificacion = date("Y-m-d");
         $paciente->save(); 
         //Creamos la enfermedad
-        $enfermedad = new Enfermedad();
+        $enfermedad = new Enfermedades();
         $enfermedad->id_enfermedad = 999;
         $enfermedad->id_paciente = 999;
         $enfermedad->fecha_primera_consulta = "1999-02-02";
@@ -90,7 +90,7 @@ class ModificarSintomaTest extends TestCase
         $view = $this->view('datossintomas', ['paciente' => $paciente]);
         $view->assertSee('1999-06-06');
         //Comprobamos que la fecha del sintoma se ha modificado correctamente
-        $this->assertTrue($paciente->Enfermedad->Sintomas[0]->fecha_inicio == "1999-06-06");
+        $this->assertTrue($paciente->Enfermedades->Sintomas[0]->fecha_inicio == "1999-06-06");
     }
 
     /** @test */
@@ -108,7 +108,7 @@ class ModificarSintomaTest extends TestCase
         $response->assertRedirect('/paciente/999/enfermedad/sintomas');
         //Comprobamos que el tipo del sintoma se ha modificado correctamente
         $paciente = Pacientes::find(999);
-        $this->assertTrue($paciente->Enfermedad->Sintomas[0]->tipo == "Tos");
+        $this->assertTrue($paciente->Enfermedades->Sintomas[0]->tipo == "Tos");
     }
 
     /** @test */
@@ -128,7 +128,7 @@ class ModificarSintomaTest extends TestCase
         $response->assertRedirect('/paciente/999/enfermedad/sintomas');
         //Comprobamos que la fecha del sintoma no se ha modificado
         $paciente = Pacientes::find(999);
-        $this->assertFalse($paciente->Enfermedad->Sintomas[0]->fecha_inicio == "");
+        $this->assertFalse($paciente->Enfermedades->Sintomas[0]->fecha_inicio == "");
     }
 
     /** @test */
@@ -151,6 +151,6 @@ class ModificarSintomaTest extends TestCase
         $view = $this->view('datossintomas', ['paciente' => $paciente]);
         $view->assertDontSee('2022-05-05');
         //Comprobamos que la fecha del sintoma no se ha modificado
-        $this->assertFalse($paciente->Enfermedad->Sintomas[0]->fecha_inicio == "2022-05-05");
+        $this->assertFalse($paciente->Enfermedades->Sintomas[0]->fecha_inicio == "2022-05-05");
     }
 }

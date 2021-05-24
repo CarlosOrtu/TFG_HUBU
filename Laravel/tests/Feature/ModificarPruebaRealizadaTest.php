@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Pacientes;
-use App\Models\Enfermedad; 
+use App\Models\Enfermedades; 
 use App\Models\Pruebas_realizadas;
 
 class ModificarPruebaRealizadaTest extends TestCase
@@ -29,7 +29,7 @@ class ModificarPruebaRealizadaTest extends TestCase
         $paciente->ultima_modificacion = date("Y-m-d");
         $paciente->save(); 
         //Creamos la enfermedad
-        $enfermedad = new Enfermedad();
+        $enfermedad = new Enfermedades();
         $enfermedad->id_enfermedad = 999;
         $enfermedad->id_paciente = 999;
         $enfermedad->fecha_primera_consulta = "1999-02-02";
@@ -85,6 +85,6 @@ class ModificarPruebaRealizadaTest extends TestCase
         $response->assertRedirect('/paciente/999/enfermedad/pruebas');
         //Comprobamos que los datos de la prueba realizada se han modificado correctamente
         $paciente = Pacientes::find(999);
-        $this->assertTrue($paciente->Enfermedad->Pruebas_realizadas[0]->tipo == "TAP");
+        $this->assertTrue($paciente->Enfermedades->Pruebas_realizadas[0]->tipo == "TAP");
     }
 }

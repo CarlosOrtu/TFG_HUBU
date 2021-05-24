@@ -17,7 +17,7 @@
     <strong class="text-center text-dark">{{ $message }}</strong>
 </div>
 @endif
-@foreach ($paciente->Enfermedad->Metastasis as $Metastasis)
+@foreach ($paciente->Enfermedades->Metastasis as $Metastasis)
 <form action="{{ route('metastasismodificar', ['id' => $paciente->id_paciente, 'num_metastasis' => $loop->index]) }}" method="post">
     @CSRF
     @method('put')

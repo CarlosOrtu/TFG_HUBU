@@ -38,9 +38,9 @@ class Pacientes extends Model
     {
         return $this->hasMany(Tratamientos::class,'id_paciente');
     }
-    public function Enfermedad()
+    public function Enfermedades()
     {
-        return $this->hasOne(Enfermedad::class,'id_paciente');
+        return $this->hasOne(Enfermedades::class,'id_paciente');
     }
     public function Comentarios()
     {

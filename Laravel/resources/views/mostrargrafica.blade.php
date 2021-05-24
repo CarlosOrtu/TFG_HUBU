@@ -15,18 +15,55 @@
   function drawChart() {
 
     var tipoGrafica = '{{ $tipoGrafica }}';
-    // Create the data table.
+
+    <?php 
+      if(count($tipos) > 1){
+        $valoresDif1 = array();
+        $valoresDif2 = array();
+        foreach(array_keys($datosGrafica) as $clave){
+          $dato1 = explode(" y ", $clave)[0];
+          $dato2 = explode(" y ", $clave)[1];
+          if(!in_array($dato1,$valoresDif1))
+            array_push($valoresDif1, $dato1);
+          if(!in_array($dato2,$valoresDif2))
+            array_push($valoresDif2, $dato2);
+        }
+      }
+    ?>
+    @if(count($tipos) > 1 and $tipoGrafica != 'circular')
+    var data = google.visualization.arrayToDataTable([
+      ['Pacientes', @foreach($valoresDif1 as $valorDif1) '{{ $valorDif1 }}', @endforeach],
+      @foreach($valoresDif2 as $valorDif2)
+      ['{{ $valorDif2 }}',
+        @foreach($valoresDif1 as $valorDif1) 
+          @if(in_array($valorDif1.' y '.$valorDif2,array_keys($datosGrafica)))
+            {{ $datosGrafica[$valorDif1.' y '.$valorDif2] }}, 
+          @else
+            0,
+          @endif
+        @endforeach
+        ],
+      @endforeach
+    ]);
+    @else
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Tipo');
-    data.addColumn('number', 'Número');
+    data.addColumn('number', 'Pacientes');
     data.addRows([
       @foreach(array_keys($datosGrafica) as $clave)
         ['{{ $clave }}',{{ $datosGrafica[$clave] }}],
       @endforeach
     ]);
+    @endif
 
     // Set chart options
     var options = {'title':'Grafica dividida por @foreach($tipos as $tipo) @if($loop->first) {{ $tipo }} @else {{ ' y '.$tipo }} @endif @endforeach',
+                  'vAxis': { title: "Número de pacientes" },
+                  @if(count($tipos) > 1)
+                  'hAxis': { title: "{{ $tipos[1] }}" },
+                  @endif
+                  'legend':{ title: "prueba" },
+
                    'width':600,
                    'height':450};
 

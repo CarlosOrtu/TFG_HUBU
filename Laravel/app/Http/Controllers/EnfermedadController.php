@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\QueryException;
 use App\Models\Pacientes;
-use App\Models\Enfermedad;
+use App\Models\Enfermedades;
 use App\Models\Sintomas;
 use App\Models\Metastasis;
 use App\Models\Pruebas_realizadas;
@@ -101,9 +101,9 @@ class EnfermedadController extends Controller
             if($validator->fails())
                 return back()->withErrors($validator->errors())->withInput();
 
-            $enfermedad = Enfermedad::where('id_paciente',$id)->first();
+            $enfermedad = Enfermedades::where('id_paciente',$id)->first();
         	if(empty($enfermedad))
-        		$enfermedad = new Enfermedad();
+        		$enfermedad = new Enfermedades();
         	$enfermedad->id_paciente = $id;
         	$enfermedad->fecha_primera_consulta = $request->fecha_primera_consulta;
         	$enfermedad->fecha_diagnostico = $request->fecha_diagnostico;
@@ -211,7 +211,7 @@ class EnfermedadController extends Controller
             
             $sintoma = new Sintomas();
 
-            $enfermedad = Pacientes::find($id)->Enfermedad;
+            $enfermedad = Pacientes::find($id)->Enfermedades;
             $idEnfermedad = $enfermedad->id_enfermedad;
 
             if(isset($request->fecha_inicio))
@@ -242,13 +242,13 @@ class EnfermedadController extends Controller
 
     public function modificarDatosSintomas(Request $request, $id, $num_sintoma)
     {
-        $enfermedad = Pacientes::find($id)->Enfermedad;
+        $enfermedad = Pacientes::find($id)->Enfermedades;
         $idEnfermedad =$enfermedad->id_enfermedad;
         
         $fecha_sintomas = $enfermedad->Sintomas[0]->fecha_inicio;
 
         //Obetenemos todos los sintomas
-        $sintomas = Enfermedad::find($idEnfermedad)->Sintomas;
+        $sintomas = Enfermedades::find($idEnfermedad)->Sintomas;
     	$sintoma = $sintomas[$num_sintoma];
     	$sintoma->id_enfermedad = $idEnfermedad;
     	if($request->tipo == "Dolor otra localización")
@@ -268,9 +268,9 @@ class EnfermedadController extends Controller
 
     public function eliminarSintoma($id, $num_sintoma)
     {
-    	$idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
+    	$idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
         //Obetenemos todos los sintomas
-        $sintomas = Enfermedad::find($idEnfermedad)->Sintomas;
+        $sintomas = Enfermedades::find($idEnfermedad)->Sintomas;
         $sintoma = $sintomas[$num_sintoma];
   		$sintoma->delete();
 
@@ -286,9 +286,9 @@ class EnfermedadController extends Controller
             $validator = $this->validarDatosFecha($request);
             if($validator->fails())
                 return back()->withErrors($validator->errors())->withInput();
-            $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
+            $idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
             //Obetenemos todos los sintomas
-            $sintomas = Enfermedad::find($idEnfermedad)->Sintomas;
+            $sintomas = Enfermedades::find($idEnfermedad)->Sintomas;
 
             foreach($sintomas as $sintoma){
                 $sintoma->fecha_inicio = $request->fecha_inicio;
@@ -330,7 +330,7 @@ class EnfermedadController extends Controller
 
     public function crearMetastasis(Request $request, $id)
     {
-        $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
+        $idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
 
         $metastasis = new Metastasis();
 
@@ -349,9 +349,9 @@ class EnfermedadController extends Controller
 
     public function modificarMetastasis(Request $request, $id, $num_metastasis)
     {
-        $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
+        $idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
         //Obetenemos todas las metastasis
-        $metastasis = Enfermedad::find($idEnfermedad)->Metastasis;
+        $metastasis = Enfermedades::find($idEnfermedad)->Metastasis;
     	$metastasis = $metastasis[$num_metastasis];
     	$metastasis->id_enfermedad = $idEnfermedad;
     	if($request->localizacion == "Otro")
@@ -368,9 +368,9 @@ class EnfermedadController extends Controller
 
     public function eliminarMetastasis($id, $num_metastasis)
     {
-    	$idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
+    	$idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
         //Obetenemos todas las metastasis
-        $metastasis = Enfermedad::find($idEnfermedad)->Metastasis;
+        $metastasis = Enfermedades::find($idEnfermedad)->Metastasis;
         $metastasis = $metastasis[$num_metastasis];
   		$metastasis->delete();
 
@@ -407,7 +407,7 @@ class EnfermedadController extends Controller
 
     public function crearPruebas(Request $request, $id)
     {
-        $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
+        $idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
 
         $prueba = new Pruebas_realizadas();
 
@@ -426,9 +426,9 @@ class EnfermedadController extends Controller
 
     public function modificarPruebas(Request $request, $id, $num_prueba)
     {
-        $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
+        $idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
         //Obetenemos todas las pruebas
-        $pruebas = Enfermedad::find($idEnfermedad)->Pruebas_realizadas;
+        $pruebas = Enfermedades::find($idEnfermedad)->Pruebas_realizadas;
         $prueba = $pruebas[$num_prueba];
         $prueba->id_enfermedad = $idEnfermedad;
         if($request->tipo == "Otro")
@@ -445,9 +445,9 @@ class EnfermedadController extends Controller
 
     public function eliminarPruebas($id, $num_prueba)
     {
-        $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
+        $idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
         //Obetenemos todas las pruebas
-        $pruebas = Enfermedad::find($idEnfermedad)->Pruebas_realizadas;
+        $pruebas = Enfermedades::find($idEnfermedad)->Pruebas_realizadas;
         $prueba = $pruebas[$num_prueba];
         $prueba->delete();
 
@@ -486,7 +486,7 @@ class EnfermedadController extends Controller
 
     public function crearTecnicas(Request $request, $id)
     {
-        $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
+        $idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
 
         $tecnica = new Tecnicas_realizadas();
 
@@ -505,9 +505,9 @@ class EnfermedadController extends Controller
 
     public function modificarTecnicas(Request $request, $id, $num_tecnica)
     {
-        $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
+        $idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
         //Obetenemos todas las técnicas
-        $tecnicas = Enfermedad::find($idEnfermedad)->Tecnicas_realizadas;
+        $tecnicas = Enfermedades::find($idEnfermedad)->Tecnicas_realizadas;
         $tecnica = $tecnicas[$num_tecnica];
         $tecnica->id_enfermedad = $idEnfermedad;
         if($request->tipo == "Otro")
@@ -524,9 +524,9 @@ class EnfermedadController extends Controller
 
     public function eliminarTecnicas($id, $num_tecnica)
     {
-        $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
+        $idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
         //Obetenemos todas las técnicas
-        $tecnicas = Enfermedad::find($idEnfermedad)->Tecnicas_realizadas;
+        $tecnicas = Enfermedades::find($idEnfermedad)->Tecnicas_realizadas;
         $tecnica = $tecnicas[$num_tecnica];
         $tecnica->delete();
 
@@ -564,7 +564,7 @@ class EnfermedadController extends Controller
 
     public function crearOtrosTumores(Request $request, $id)
     {
-        $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
+        $idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
 
         $tumor = new Otros_tumores();
 
@@ -583,9 +583,9 @@ class EnfermedadController extends Controller
 
     public function modificarOtrosTumores(Request $request, $id, $num_otrostumores)
     {
-        $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
+        $idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
         //Obetenemos todos los tumores
-        $tumores = Enfermedad::find($idEnfermedad)->Otros_tumores;
+        $tumores = Enfermedades::find($idEnfermedad)->Otros_tumores;
         $tumor = $tumores[$num_otrostumores];
         $tumor->id_enfermedad = $idEnfermedad;
         if($request->tipo == "Otro")
@@ -602,9 +602,9 @@ class EnfermedadController extends Controller
 
     public function eliminarOtrosTumores($id, $num_otrostumores)
     {
-        $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
+        $idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
         //Obetenemos todos los tumores
-        $tumores = Enfermedad::find($idEnfermedad)->Otros_tumores;
+        $tumores = Enfermedades::find($idEnfermedad)->Otros_tumores;
         $tumor = $tumores[$num_otrostumores];
         $tumor->delete();
 
@@ -621,7 +621,7 @@ class EnfermedadController extends Controller
     public function verBiomarcadoresSinModificar($id)
     {
         $paciente = Pacientes::find($id);
-        $enfermedad = Enfermedad::where('id_paciente',$id)->first();
+        $enfermedad = Enfermedades::where('id_paciente',$id)->first();
         if($enfermedad == null)
             $biomarcadores = [];
         else
@@ -637,7 +637,7 @@ class EnfermedadController extends Controller
     public function verBiomarcadores($id)
     {
         $paciente = Pacientes::find($id);
-        $enfermedad = Enfermedad::where('id_paciente',$id)->first();
+        $enfermedad = Enfermedades::where('id_paciente',$id)->first();
         if($enfermedad == null)
             $biomarcadores = [];
         else
@@ -652,7 +652,7 @@ class EnfermedadController extends Controller
 
     public function guardarBiomarcadores(Request $request, $id)
     {
-        $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
+        $idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
 
         $arrayBiomarcadores = ["NGS", "PDL1", "EGFR", "ALK","ROS1", "KRAS","BRAF", "HER2","NTRK", "FGFR1","RET", "MET", "Pl3K","TMB","Otros"];
         $numeroInputs= [2,2,1,2,1,2,2,1,2,1,1,1,1,1,1];
@@ -701,9 +701,9 @@ class EnfermedadController extends Controller
 
     public function eliminarBiomarcadores($id,$num_biomarcador)
     {
-        $idEnfermedad = Enfermedad::where('id_paciente',$id)->first()->id_enfermedad;
+        $idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
         //Obetenemos todos los biomarcadores
-        $biomarcadores = Enfermedad::find($idEnfermedad)->Biomarcadores;
+        $biomarcadores = Enfermedades::find($idEnfermedad)->Biomarcadores;
         $biomarcador = $biomarcadores[$num_biomarcador];
         $biomarcador->delete();
 
