@@ -79,6 +79,6 @@ class CrearMetastasisTest extends TestCase
         $response->assertRedirect('/paciente/999/enfermedad/metastasis');
         //Comprobamos que los datos de la metastasis se han introducido correctamente
         $paciente = Pacientes::find(999);
-        $this->assertTrue($paciente->Enfermedad->Metastasis[0]->localizacion == "Hígado");
+        $this->assertTrue($paciente->Enfermedad->Metastasis[0]->tipo == "Hígado");
     }
 }

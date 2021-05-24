@@ -52,7 +52,7 @@ class ModificarMetastasisTest extends TestCase
         $metastasisAModificar = new Metastasis();
         $metastasisAModificar->id_metastasis = 999;
         $metastasisAModificar->id_enfermedad = 999;
-        $metastasisAModificar->localizacion = "Hígado";
+        $metastasisAModificar->tipo = "Hígado";
         $metastasisAModificar->save();
 
         //Realizamos el login con el administrador para poder acceder a todos las rutas de la web
@@ -86,6 +86,6 @@ class ModificarMetastasisTest extends TestCase
         $response->assertRedirect('/paciente/999/enfermedad/metastasis');
         //Comprobamos que los datos de la metastasis se han modificado correctamente
         $paciente = Pacientes::find(999);
-        $this->assertTrue($paciente->Enfermedad->Metastasis[0]->localizacion == "Hueso");
+        $this->assertTrue($paciente->Enfermedad->Metastasis[0]->tipo == "Hueso");
     }
 }

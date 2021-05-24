@@ -52,7 +52,7 @@ class EliminarMetastasisTest extends TestCase
         $metastasisAEliminar = new Metastasis();
         $metastasisAEliminar->id_metastasis = 999;
         $metastasisAEliminar->id_enfermedad = 999;
-        $metastasisAEliminar->localizacion = "Hígado";
+        $metastasisAEliminar->tipo = "Hígado";
         $metastasisAEliminar->save();
 
         //Realizamos el login con el administrador para poder acceder a todos las rutas de la web

@@ -14,6 +14,7 @@
   // draws it.
   function drawChart() {
 
+    var tipoGrafica = '{{ $tipoGrafica }}';
     // Create the data table.
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Tipo');
@@ -29,9 +30,6 @@
                    'width':600,
                    'height':450};
 
-    // Instantiate and draw our chart, passing in some options.
-    var tipoGrafica = '{{ $tipoGrafica }}';
-    console.log(tipoGrafica);
     if(tipoGrafica == 'circular')
       var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
     else
