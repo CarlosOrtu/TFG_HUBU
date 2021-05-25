@@ -16,6 +16,7 @@ use App\Models\Antecedentes_familiares;
 use App\Models\Enfermedades_familiar;
 use App\Models\Biomarcadores;
 use App\Models\Seguimientos;
+use App\Models\Farmacos;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 
@@ -51,7 +52,7 @@ class GraficosController extends Controller
         	$datosGrafica["Menores de ".$i] = $numTipo;
       	}else{
         	$numTipo = Pacientes::where("nacimiento",'>=',date("Y-m-d",strtotime($fechaActual."- ".$i." year")))->where("nacimiento",'<',date("Y-m-d",strtotime($fechaActual."- ".$valorAnterior." year")))->count();
-        	$datosGrafica["Entre ".$valorAnterior." y ".$i] = $numTipo;
+        	$datosGrafica["Entre ".$valorAnterior."-".$i] = $numTipo;
       	}
       	$valorAnterior = $i;
     }
@@ -290,7 +291,7 @@ class GraficosController extends Controller
   			return 'tipo_biomarcador';
   		elseif($opcion == 'num_biomarcador')
         	return 'num_biomarcador';
-      	else  
+      else  
   			return 'tipo';
     //Antecedentes familiares
   	}elseif($tabla == 'Antecedentes_familiares'){
@@ -325,9 +326,11 @@ class GraficosController extends Controller
   			return $opcion;
   	}elseif($opcion == 'estado_seguimiento')
 	    return 'estado';
+  elseif($opcion == 'farmacos_quimioterapia')
+    return 'farmacos_quimioterapia';
 	elseif(preg_match("/^num/", $opcion))
 		return $opcion;
-    else
+  else
 		return 'tipo';
    }
 
@@ -341,7 +344,7 @@ class GraficosController extends Controller
       elseif($tabla2 == 'Intenciones')
         $joinTablas = DB::table('Pacientes')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
       elseif($tabla2 == 'Farmacos')
-        $joinTablas = DB::table('Pacientes')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'Enfermedades.id_enfermedad', '=', 'intenciones.id_enfermedad')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
+        $joinTablas = DB::table('Pacientes')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
       elseif($tabla2 == 'Enfermedades_familiar')
         $joinTablas = DB::table('Pacientes')->join('Antecedentes_familiares', 'Pacientes.id_paciente', '=', 'Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f','=','Enfermedades_familiar.id_antecedente_f');
       else
@@ -354,7 +357,10 @@ class GraficosController extends Controller
       elseif($tabla2 == 'Intenciones')
         $joinTablas = DB::table('Enfermedades')->join($tabla1, 'Enfermedades.id_enfermedad', '=', $tabla1.'.id_enfermedad')->join('Tratamientos','Enfermedades.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones', 'Enfermedades.id_paciente','=','Intenciones.id_paciente');
       elseif($tabla2 == 'Farmacos')
-        $joinTablas = DB::table('Enfermedades')->join($tabla1, 'Enfermedades.id_enfermedad', '=', $tabla1.'.id_enfermedad')->join('Tratamientos','Enfermedades.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones', 'Enfermedades.id_paciente','=','Intenciones.id_paciente')->join('Farmacos','Intenciones.id_intencion','=','Farmacos.id_intencion');
+        if($tabla1 == 'Enfermedades')
+          $joinTablas = DB::table('Enfermedades')->join('Tratamientos','Enfermedades.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones', 'Tratamientos.id_tratamiento','=','Intenciones.id_tratamiento')->join('Farmacos','Intenciones.id_intencion','=','Farmacos.id_intencion');
+        else
+          $joinTablas = DB::table('Enfermedades')->join($tabla1, 'Enfermedades.id_enfermedad', '=', $tabla1.'.id_enfermedad')->join('Tratamientos','Enfermedades.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones', 'Tratamientos.id_tratamiento','=','Intenciones.id_tratamiento')->join('Farmacos','Intenciones.id_intencion','=','Farmacos.id_intencion');
       else
         $joinTablas = DB::table('Enfermedades')->join($tabla1, 'Enfermedades.id_enfermedad', '=', $tabla1.'.id_enfermedad')->join('Antecedentes_familiares','Enfermedades.id_paciente','=','Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar', 'Antecedentes_familiares.id_antecedente_f','=','Enfermedades_familiar.id_antecedente_f');
 	 }elseif($tabla1 == 'Enfermedades_familiar'){
@@ -370,43 +376,60 @@ class GraficosController extends Controller
     return $joinTablas; 
    }
 
+   private function comprobarDivision($tabla, $division)
+   {
+    if($division == 'intencion_quimioterapia')
+      $tipos = Tratamientos::select('subtipo')->groupBy('subtipo')->where('tipo','Quimioterapia')->get();
+    elseif($division == 'tipo_radioterapia')
+      $tipos = Tratamientos::select('subtipo')->groupBy('subtipo')->where('tipo','Radioterapia')->get();
+    elseif($division == 'tipo_cirugia')
+      $tipos = Tratamientos::select('subtipo')->groupBy('subtipo')->where('tipo','Cirugia')->get();
+    elseif($division == 'tipo_biomarcador')
+      $tipos = Biomarcadores::select('nombre')->groupBy('nombre')->get();
+    elseif($division == 'farmacos_quimioterapia')
+      $tipos = Farmacos::select('tipo')->groupBy('tipo')->get();
+    else
+      $tipos = ('App\\Models\\'.$tabla)::select($division)->groupBy($division)->get();
+
+    return $tipos;
+   }
+
+   private function calcularNuevaDivision($division)
+   {
+    if($division == 'intencion_quimioterapia')
+      $divisionNueva = 'subtipo';
+    elseif($division == 'tipo_radioterapia')
+      $divisionNueva = 'subtipo';
+    elseif($division == 'tipo_cirugia')
+      $divisionNueva = 'subtipo';
+    elseif($division == 'tipo_biomarcador')
+      $divisionNueva = 'nombre';
+    elseif($division == 'farmacos_quimioterapia')
+      $divisionNueva = 'tipo';
+    else
+      $divisionNueva = $division;
+
+    return $divisionNueva;
+   }
+
    private function obtenerDatosDosOpciones($tabla1,$tabla2,$tipoSelec1,$tipoSelec2)
    {
    	$joinTablas = $this->hacerJoinTablas($tabla1,$tabla2);
    	$division1 = $this->campoASeleccionar($tabla1,$tipoSelec1);
    	$division2 = $this->campoASeleccionar($tabla2,$tipoSelec2);
-    if($division1 == 'intencion_quimioterapia'){
-      $tipos1 = Tratamientos::select('subtipo')->groupBy('subtipo')->where('tipo','Quimioterapia')->get();
-      $tipos2 = ('App\\Models\\'.$tabla2)::select($division2)->groupBy($division2)->get();
-      $division1 = 'subtipo';
-    }elseif($division2 == 'intencion_quimioterapia'){
-      $tipos1 = ('App\\Models\\'.$tabla1)::select($division1)->groupBy($division1)->get();
-      $tipos2 = Tratamientos::select('subtipo')->groupBy('subtipo')->where('tipo','Quimioterapia')->get();
-      $division2 = 'subtipo';
-    }elseif($division1 == 'tipo_radioterapia'){
-      $tipos1 = Tratamientos::select('subtipo')->groupBy('subtipo')->where('tipo','Radioterapia')->get();
-      $tipos2 = ('App\\Models\\'.$tabla2)::select($division2)->groupBy($division2)->get();
-      $division1 = 'subtipo';
-    }elseif($division2 == 'tipo_radioterapia'){
-      $tipos1 = ('App\\Models\\'.$tabla1)::select($division1)->groupBy($division1)->get();
-      $tipos2 = Tratamientos::select('subtipo')->groupBy('subtipo')->where('tipo','Quimioterapia')->get();
-      $division2 = 'subtipo';
-    }elseif($division1 == 'tipo_cirugia'){
-      $tipos1 = Tratamientos::select('subtipo')->groupBy('subtipo')->where('tipo','Cirugia')->get();
-      $tipos2 = ('App\\Models\\'.$tabla2)::select($division2)->groupBy($division2)->get();
-      $division1 = 'subtipo';
-    }elseif($division2 == 'tipo_cirugia'){
-      $tipos1 = ('App\\Models\\'.$tabla1)::select($division1)->groupBy($division1)->get();
-      $tipos2 = Tratamientos::select('subtipo')->groupBy('subtipo')->where('tipo','Cirugia')->get();
-      $division2 = 'subtipo';
-    }else{
-      $tipos1 = ('App\\Models\\'.$tabla1)::select($division1)->groupBy($division1)->get();
-      $tipos2 = ('App\\Models\\'.$tabla2)::select($division2)->groupBy($division2)->get();
-    }
+    $tipos1 = $this->comprobarDivision($tabla1, $division1);
+    $tipos2 = $this->comprobarDivision($tabla2, $division2);
+    $division1 = $this->calcularNuevaDivision($division1);
+    $division2 = $this->calcularNuevaDivision($division2);
     foreach ($tipos1 as $tipo1) {
       foreach($tipos2 as $tipo2){
         $joinTablas = $this->hacerJoinTablas($tabla1,$tabla2);
-        $numTipo = $joinTablas->whereNotNull($division1)->whereNotNull($division2)->where($division1,$tipo1->$division1)->where($division2,$tipo2->$division2)->count();
+        if($tabla1 == 'Farmacos')
+          $numTipo = $joinTablas->whereNotNull('Farmacos.tipo')->whereNotNull($tabla2.'.'.$division2)->where('Farmacos.tipo',$tipo1->$division1)->where($tabla2.'.'.$division2,$tipo2->$division2)->count();
+        elseif($tabla2 == 'Farmacos')
+          $numTipo = $joinTablas->whereNotNull($tabla1.'.'.$division1)->whereNotNull('Farmacos.tipo')->where($tabla1.'.'.$division1,$tipo1->$division1)->where('Farmacos.tipo',$tipo2->$division2)->count();
+        else
+          $numTipo = $joinTablas->whereNotNull($tabla1.'.'.$division1)->whereNotNull($tabla2.'.'.$division2)->where($tabla1.'.'.$division1,$tipo1->$division1)->where($tabla2.'.'.$division2,$tipo2->$division2)->count();
         $datosGrafica[$tipo1->$division1.' y '.$tipo2->$division2] = $numTipo;
       }
     }
@@ -445,9 +468,14 @@ class GraficosController extends Controller
     	$divisiones = Biomarcadores::select('nombre')->groupBy('nombre')->get();
     	$opcion = 'nombre';
     	$opcionEspecifica =  'Biomarcadores.nombre';
-    }elseif($opcion == 'estado_seguimiento'){
-      $divisiones = Seguimientos::select('estado')->groupBy('estado')->get();
-      $opcion = 'estado';
+    }elseif($opcion == 'tipo_biomarcador'){
+      $divisiones = Biomarcadores::select('nombre')->groupBy('nombre')->get();
+      $opcion = 'nombre';
+      $opcionEspecifica =  'Biomarcadores.nombre';
+    }elseif($opcion == 'farmacos_quimioterapia'){
+      $divisiones = Farmacos::select('tipo')->groupBy('tipo')->get();
+      $opcion = 'tipo';
+      $opcionEspecifica = 'Farmacos.tipo';
     }else{
     	$divisiones = ('App\\Models\\'.$tabla2)::select($opcion)->groupBy($opcion)->get();
     }
@@ -469,7 +497,7 @@ class GraficosController extends Controller
 	      		else
 	        		$numTipo = $joinTablas->where("nacimiento",'>=',date("Y-m-d",strtotime($fechaActual."- ".$i." year")))->where("nacimiento",'<',date("Y-m-d",strtotime($fechaActual."- ".$valorAnterior." year")))->whereNotNull($opcion)->where($opcion,$division->$opcion)->count();
 	        	if($numTipo != 0){
-	        		$datosGrafica["Entre ".$valorAnterior." y ".$i.' y '.$division->$opcion] = $numTipo;
+	        		$datosGrafica["Entre ".$valorAnterior."-".$i.' y '.$division->$opcion] = $numTipo;
 	        	}
 	      	}
 	      	$valorAnterior = $i;
@@ -506,7 +534,7 @@ class GraficosController extends Controller
 	      	}else{
 	      		if(Pacientes::where('id_paciente',$division->id_paciente)->where("nacimiento",'>=',date("Y-m-d",strtotime($fechaActual."- ".$i." year")))->where("nacimiento",'<',date("Y-m-d",strtotime($fechaActual."- ".$valorAnterior." year")))->count() != 0){
 		        	$numTipo = $joinTablas->where("nacimiento",'>=',date("Y-m-d",strtotime($fechaActual."- ".$i." year")))->where("nacimiento",'<',date("Y-m-d",strtotime($fechaActual."- ".$valorAnterior." year")))->where('Pacientes.id_paciente',$division->id_paciente)->count();
-		        	array_push($numDatos,"Entre ".$valorAnterior." y ".$i.' y '.$numTipo);
+		        	array_push($numDatos,"Entre ".$valorAnterior."-".$i.' y '.$numTipo);
 		        }
 	      	}
 	      	$valorAnterior = $i;
@@ -547,7 +575,7 @@ class GraficosController extends Controller
               $fechaFin = strtotime($division->fecha_fin);
               $difSegundos = $fechaFin - $fechaIni;
               $difDias = $difSegundos/86400;
-              array_push($numDatos,"Entre ".$valorAnterior." y ".$i.' y '.$difDias);
+              array_push($numDatos,"Entre ".$valorAnterior."-".$i.' y '.$difDias);
             }
           }
           $valorAnterior = $i;
@@ -638,7 +666,7 @@ class GraficosController extends Controller
     $seleccion2 = $opciones[$this->obtenerValor($opciones)];
     $opcion2 = $this->campoASeleccionar($tabla2, $seleccion2);
     if(preg_match("/^num/", $opcion2) or $opcion2 == 'duracion_quimioterapia' or $opcion2 == 'duracion_radioterapia'){
-    	if(!preg_match("/^num/", $opcion1) and $opcion1 != 'duracion_quimioterapia' and $opcion1 != 'duracion_radioterapia'){
+    	if(!preg_match("/^num/", $opcion1) and $opcion1 != 'nacimiento' and $opcion1 != 'duracion_quimioterapia' and $opcion1 != 'duracion_radioterapia'){
     		$opcion2Aux = $opcion2;
     		$opcion2 = $opcion1;
     		$opcion1 = $opcion2Aux;
@@ -680,9 +708,9 @@ class GraficosController extends Controller
    }
 
     /******************************************************************
-    *																  *
-    *	Imprimir gráficas											  *
-    *																  *
+    *																                                  *
+    *	Imprimir gráficas											                          *
+    *																                                  *
   	*******************************************************************/
    public function imprimirGraficas(Request $request)
    {

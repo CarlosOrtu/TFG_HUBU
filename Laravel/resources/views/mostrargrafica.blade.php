@@ -32,10 +32,10 @@
     ?>
     @if(count($tipos) > 1 and $tipoGrafica != 'circular')
     var data = google.visualization.arrayToDataTable([
-      ['Pacientes', @foreach($valoresDif1 as $valorDif1) '{{ $valorDif1 }}', @endforeach],
-      @foreach($valoresDif2 as $valorDif2)
-      ['{{ $valorDif2 }}',
-        @foreach($valoresDif1 as $valorDif1) 
+      ['Pacientes', @foreach($valoresDif2 as $valorDif2) '{{ $valorDif2 }}', @endforeach],
+      @foreach($valoresDif1 as $valorDif1)
+      ['{{ $valorDif1 }}',
+        @foreach($valoresDif2 as $valorDif2) 
           @if(in_array($valorDif1.' y '.$valorDif2,array_keys($datosGrafica)))
             {{ $datosGrafica[$valorDif1.' y '.$valorDif2] }}, 
           @else
@@ -59,9 +59,7 @@
     // Set chart options
     var options = {'title':'Grafica dividida por @foreach($tipos as $tipo) @if($loop->first) {{ $tipo }} @else {{ ' y '.$tipo }} @endif @endforeach',
                   'vAxis': { title: "Número de pacientes" },
-                  @if(count($tipos) > 1)
-                  'hAxis': { title: "{{ $tipos[1] }}" },
-                  @endif
+                  'hAxis': { title: "{{ $tipos[0] }}" },
                   'legend':{ title: "prueba" },
 
                    'width':600,
