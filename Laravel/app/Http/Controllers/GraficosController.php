@@ -36,11 +36,11 @@ class GraficosController extends Controller
    }
 
     /******************************************************************
-    *																  *
-    *	Graficas un dato											  *
-    *																  *
+    *																                                  *
+    *	Graficas un dato											                          *
+    *																                                  *
   	*******************************************************************/
-
+    //Obtenemos los datos para dibujar la gráfica cuando el campo es la edad
    private function calcularIntervalosEdad($request)
    {
     $fechaActual = date('Y-m-d');
@@ -62,6 +62,7 @@ class GraficosController extends Controller
     return $datosGrafica;
    }
 
+   //Obtenemos el valor del request que sea diferente a "Ninguna"
    private function obtenerValor($opciones)
    {
    	for($i = 0; $i < count($opciones); $i++){
@@ -74,6 +75,7 @@ class GraficosController extends Controller
    	return $numValor;
    }
 
+   //Obtenemos la tabla que corresponde con el dato introducido
    private function obtenerTabla($opciones)
    {
    	$numTabla = $this->obtenerValor($opciones);
@@ -125,6 +127,7 @@ class GraficosController extends Controller
    	return $tabla;
    }
 
+    //Obtenemos los datos para dibujar la gráfica cuando el campo es la nominal
    private function obtenerDatos($tabla, $tipoSelec)
    {
 	  $tipos = ('App\\Models\\'.$tabla)::select($tipoSelec)->groupBy($tipoSelec)->get();
@@ -136,6 +139,7 @@ class GraficosController extends Controller
     return $datosGrafica;
    }
 
+    //Obtenemos los datos para dibujar la gráfica cuando el campo es un subtipo de tratamiento
    private function obtenerSubtipoTratamiento($tabla, $tipoTratamiento)
    {
 	  $tipos = ('App\\Models\\'.$tabla)::select('subtipo')->groupBy('subtipo')->get();
@@ -147,6 +151,7 @@ class GraficosController extends Controller
     return $datosGrafica;
    }
 
+    //Obtenemos los datos para dibujar la gráfica cuando el campo es una duración
    private function obtenerDuracion($tipoTratamiento)
    {
   	$tratamientos = Tratamientos::where('tipo',$tipoTratamiento)->get();
@@ -163,6 +168,7 @@ class GraficosController extends Controller
     return $datosGrafica;
    }
 
+    //Obtenemos los datos para dibujar la gráfica cuando el campo es la numerico
    private function obtenerNumero($tabla,$tipo,$id)
    {
     $filas = ('App\\Models\\'.$tabla)::select($id)->groupBy($id)->get();
@@ -179,6 +185,7 @@ class GraficosController extends Controller
     return $datosGrafica;
    }
 
+   //Se obtienes los valores para dibujar la grafica cuando 
    private function obtenerEnfermedadesAnte()
    {
     $filas = Antecedentes_familiares::select('id_paciente')->groupBy('id_paciente')->get();
@@ -197,6 +204,7 @@ class GraficosController extends Controller
     return $datosGrafica;
    }
 
+   //Segun el tipo de dato se llama a una funcuion o a otra
    private function unaOpcion($request)
    {
     $datosGrafica = array();
@@ -276,10 +284,11 @@ class GraficosController extends Controller
 
 
     /******************************************************************
-    *																  *
-    *	Graficas dos datos											  *
-    *																  *
+    *																                                  *
+    *	Graficas dos datos											                        *
+    *																                                  *
   	*******************************************************************/
+    //Devolvemos el campo a seleccionar segun la request y la tabla
    private function campoASeleccionar($tabla,$opcion)
    {
     //Pacientes | Enfermedad | Seguimientos | Reevaluaciones
@@ -334,6 +343,7 @@ class GraficosController extends Controller
 		return 'tipo';
    }
 
+   //Realizamos los join entre tablas según sean necesarios
    private function hacerJoinTablas($tabla1,$tabla2)
    {
     if($tabla1 == 'Pacientes'){
@@ -376,7 +386,8 @@ class GraficosController extends Controller
     return $joinTablas; 
    }
 
-   private function comprobarDivision($tabla, $division)
+   //Calculamos los tipos segun la tabla y la division
+   private function calcularTipos($tabla, $division)
    {
     if($division == 'intencion_quimioterapia')
       $tipos = Tratamientos::select('subtipo')->groupBy('subtipo')->where('tipo','Quimioterapia')->get();
@@ -394,6 +405,7 @@ class GraficosController extends Controller
     return $tipos;
    }
 
+   //Calculamos las nuevas divisiones 
    private function calcularNuevaDivision($division)
    {
     if($division == 'intencion_quimioterapia')
@@ -412,13 +424,14 @@ class GraficosController extends Controller
     return $divisionNueva;
    }
 
+   //Obtenemos los datos para dibujar la grafica cuando los dos campos son nominales
    private function obtenerDatosDosOpciones($tabla1,$tabla2,$tipoSelec1,$tipoSelec2)
    {
    	$joinTablas = $this->hacerJoinTablas($tabla1,$tabla2);
    	$division1 = $this->campoASeleccionar($tabla1,$tipoSelec1);
    	$division2 = $this->campoASeleccionar($tabla2,$tipoSelec2);
-    $tipos1 = $this->comprobarDivision($tabla1, $division1);
-    $tipos2 = $this->comprobarDivision($tabla2, $division2);
+    $tipos1 = $this->calcularTipos($tabla1, $division1);
+    $tipos2 = $this->calcularTipos($tabla2, $division2);
     $division1 = $this->calcularNuevaDivision($division1);
     $division2 = $this->calcularNuevaDivision($division2);
     foreach ($tipos1 as $tipo1) {
@@ -437,6 +450,7 @@ class GraficosController extends Controller
     return $datosGrafica;
    }
 
+   //Obtenemos los valores de la request que no sean "Ninguna"
    private function obtenerValores($opciones)
    {
    	$valores = array();
@@ -449,53 +463,24 @@ class GraficosController extends Controller
    	return $valores;
    }
 
+   //Obtenemos los datos para dibujar la grafica cuando un campo es la edad del paciente y otro un campo nominal
    private function calcularIntervalosEdadDosTipos($tabla1, $tabla2, $request, $opcion)
    {
     $fechaActual = date('Y-m-d');
     $datosGrafica = array();
-    if($opcion == 'intencion_quimioterapia'){
-    	$divisiones = Tratamientos::select('subtipo')->groupBy('subtipo')->where('tipo','Quimioterapia')->get();
-    	$opcion = 'subtipo';
-    }
-    elseif($opcion == 'tipo_radioterapia'){
-    	$divisiones = Tratamientos::select('subtipo')->groupBy('subtipo')->where('tipo','Radioterapia')->get();
-    	$opcion = 'subtipo'; 
-    }
-    elseif($opcion == 'tipo_cirugia'){
-    	$divisiones = Tratamientos::select('subtipo')->groupBy('subtipo')->where('tipo','Cirugia')->get();
-    	$opcion = 'subtipo';
-    }elseif($opcion == 'tipo_biomarcador'){
-    	$divisiones = Biomarcadores::select('nombre')->groupBy('nombre')->get();
-    	$opcion = 'nombre';
-    	$opcionEspecifica =  'Biomarcadores.nombre';
-    }elseif($opcion == 'tipo_biomarcador'){
-      $divisiones = Biomarcadores::select('nombre')->groupBy('nombre')->get();
-      $opcion = 'nombre';
-      $opcionEspecifica =  'Biomarcadores.nombre';
-    }elseif($opcion == 'farmacos_quimioterapia'){
-      $divisiones = Farmacos::select('tipo')->groupBy('tipo')->get();
-      $opcion = 'tipo';
-      $opcionEspecifica = 'Farmacos.tipo';
-    }else{
-    	$divisiones = ('App\\Models\\'.$tabla2)::select($opcion)->groupBy($opcion)->get();
-    }
+    $divisiones = $this->calcularTipos($tabla2, $opcion);
+    $opcion = $this->calcularNuevaDivision($opcion);
     foreach ($divisiones as $division) {
     	$valorAnterior = null;
 	    for($i = $request->edadIntervalo; $i < 100; $i += $request->edadIntervalo){
 	    	$joinTablas = $this->hacerJoinTablas($tabla1,$tabla2);
 	      	if($valorAnterior == null){
-	      		if(isset($opcionEspecifica))
-	        		$numTipo = $joinTablas->where("nacimiento",'>=',date("Y-m-d",strtotime($fechaActual."- ".$i." year")))->whereNotNull($opcionEspecifica)->where($opcionEspecifica,$division->$opcion)->count();
-	      		else
-	        		$numTipo = $joinTablas->where("nacimiento",'>=',date("Y-m-d",strtotime($fechaActual."- ".$i." year")))->whereNotNull($opcion)->where($opcion,$division->$opcion)->count();
+	        	$numTipo = $joinTablas->where("nacimiento",'>=',date("Y-m-d",strtotime($fechaActual."- ".$i." year")))->whereNotNull($tabla2.'.'.$opcion)->where($tabla2.'.'.$opcion,$division->$opcion)->count();
 	        	if($numTipo != 0){
 	        		$datosGrafica["Menores de ".$i.' y '.$division->$opcion] = $numTipo;
 	        	}
 	      	}else{
-	      		if(isset($opcionEspecifica))
-	        		$numTipo = $joinTablas->where("nacimiento",'>=',date("Y-m-d",strtotime($fechaActual."- ".$i." year")))->where("nacimiento",'<',date("Y-m-d",strtotime($fechaActual."- ".$valorAnterior." year")))->whereNotNull($opcionEspecifica)->where($opcionEspecifica,$division->$opcion)->count();
-	      		else
-	        		$numTipo = $joinTablas->where("nacimiento",'>=',date("Y-m-d",strtotime($fechaActual."- ".$i." year")))->where("nacimiento",'<',date("Y-m-d",strtotime($fechaActual."- ".$valorAnterior." year")))->whereNotNull($opcion)->where($opcion,$division->$opcion)->count();
+	        	$numTipo = $joinTablas->where("nacimiento",'>=',date("Y-m-d",strtotime($fechaActual."- ".$i." year")))->where("nacimiento",'<',date("Y-m-d",strtotime($fechaActual."- ".$valorAnterior." year")))->whereNotNull($tabla2.'.'.$opcion)->where($tabla2.'.'.$opcion,$division->$opcion)->count();
 	        	if($numTipo != 0){
 	        		$datosGrafica["Entre ".$valorAnterior."-".$i.' y '.$division->$opcion] = $numTipo;
 	        	}
@@ -503,18 +488,16 @@ class GraficosController extends Controller
 	      	$valorAnterior = $i;
 	    }
 	    $joinTablas = $this->hacerJoinTablas($tabla1,$tabla2);
-	    if(isset($opcionEspecifica))
-	    	$numTipo = $joinTablas->where("nacimiento",'<=',date("Y-m-d",strtotime($fechaActual."- ".$valorAnterior." year")))->whereNotNull($opcionEspecifica)->where($opcionEspecifica,$division->$opcion)->count();
-	    else
-	    	$numTipo = $joinTablas->where("nacimiento",'<=',date("Y-m-d",strtotime($fechaActual."- ".$valorAnterior." year")))->whereNotNull($opcion)->where($opcion,$division->$opcion)->count();
+	    $numTipo = $joinTablas->where("nacimiento",'<=',date("Y-m-d",strtotime($fechaActual."- ".$valorAnterior." year")))->whereNotNull($tabla2.'.'.$opcion)->where($tabla2.'.'.$opcion,$division->$opcion)->count();
 	    if($numTipo != 0){
-			$datosGrafica["Mayores de ".$valorAnterior.' y '.$division->$opcion] = $numTipo;
-		}
-	}
+			  $datosGrafica["Mayores de ".$valorAnterior.' y '.$division->$opcion] = $numTipo;
+		  }
+	  }
 
     return $datosGrafica;
-   }
+  }
 
+   //Obtenemos los datos para dibujar la grafica cuando un campo es la edad del paciente y otro un campo numerico
    private function calcularIntervalosEdadDosTiposNum($tabla1, $tabla2, $request)
    {
     $fechaActual = date('Y-m-d');
@@ -550,6 +533,7 @@ class GraficosController extends Controller
     return $datosGrafica;
    }
 
+   //Obtenemos los datos para dibujar la grafica cuando un campo es la edad del paciente y otro la duración de un tratamiento
    private function calcularIntervalosEdadDosTiposDur($tabla1, $tabla2, $tipoTratamiento, $request)
    {
     $fechaActual = date('Y-m-d');
@@ -594,7 +578,8 @@ class GraficosController extends Controller
     return $datosGrafica;
    }
 
-   private function obtenerNumeroDosTipo($tabla1, $tabla2, $request, $opcion, $tipoSelec1, $tipoSelec2, $id)
+   //Obtenemos los datos para dibujar la grafica cuando los dos campos son nominales
+   private function obtenerNumeroDosTipo($tabla1, $tabla2, $opcion, $tipoSelec1, $tipoSelec2, $id)
    {
     $division1 = $this->campoASeleccionar($tabla1,$tipoSelec1);
     $division2 = $this->campoASeleccionar($tabla2,$tipoSelec2);
@@ -627,7 +612,8 @@ class GraficosController extends Controller
     return $datosGrafica;
    }
 
-   private function obtenerNumeroDosTipoNum($tabla1, $tabla2, $request, $opcion, $tipoSelec1, $tipoSelec2, $id)
+   //Obtenemos los datos para dibujar la grafica cuando los dos campos son numericos
+   private function obtenerNumeroDosTipoNum($tabla1, $tabla2, $opcion, $tipoSelec1, $tipoSelec2, $id)
    {
     $division1 = $this->campoASeleccionar($tabla1,$tipoSelec1);
     $division2 = $this->campoASeleccionar($tabla2,$tipoSelec2);
@@ -686,21 +672,33 @@ class GraficosController extends Controller
 			$datosGrafica = $this->calcularIntervalosEdadDosTipos($tabla1, $tabla2, $request, $opcion2,'id_paciente');
   }elseif($opcion1 == 'num_antecedente_oncologico')
     if(preg_match("/^num/", $opcion2))
-      return $this->obtenerNumeroDosTipoNum($tabla1, $tabla2, $request, 'todos',$opcion1, $opcion2,'id_paciente');
+      return $this->obtenerNumeroDosTipoNum($tabla1, $tabla2, 'todos',$opcion1, $opcion2,'id_paciente');
     elseif($opcion2 == 'duracion_quimioterapia')
       return "";
     elseif($opcion2 == 'duracion_radioterapia')
       return "";
     else
-      return $this->obtenerNumeroDosTipo($tabla1, $tabla2, $request, 'todos',$opcion1, $opcion2,'id_paciente');
+      return $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'todos',$opcion1, $opcion2,'id_paciente');
   elseif($opcion1 == 'num_antecedente_familiar')
-    return $this->obtenerNumeroDosTipo($tabla1, $tabla2, $request, 'todos',$opcion1, $opcion2,'id_paciente');
+    if(preg_match("/^num/", $opcion2))
+      return $this->obtenerNumeroDosTipoNum($tabla1, $tabla2, 'todos',$opcion1, $opcion2,'id_paciente');
+    else
+      return $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'todos',$opcion1, $opcion2,'id_paciente');
   elseif($opcion1 == "num_reevaluacion")
-    return $this->obtenerNumeroDosTipo($tabla1, $tabla2, $request, 'todos',$opcion1, $opcion2,'id_paciente');
+    if(preg_match("/^num/", $opcion2))
+      return $this->obtenerNumeroDosTipoNum($tabla1, $tabla2, 'todos',$opcion1, $opcion2,'id_paciente');
+    else
+      return $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'todos',$opcion1, $opcion2,'id_paciente');
   elseif($opcion1 == "num_seguimiento")
-    return $this->obtenerNumeroDosTipo($tabla1, $tabla2, $request, 'todos',$opcion1, $opcion2,'id_paciente');
+    if(preg_match("/^num/", $opcion2))
+      return $this->obtenerNumeroDosTipoNum($tabla1, $tabla2, 'todos',$opcion1, $opcion2,'id_paciente');
+    else  
+      return $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'todos',$opcion1, $opcion2,'id_paciente');
   elseif(preg_match("/^num/", $opcion1))
-    return $this->obtenerNumeroDosTipo($tabla1, $tabla2, $request, 'todos',$opcion1, $opcion2,'id_enfermedad');
+    if(preg_match("/^num/", $opcion2))
+      return $this->obtenerNumeroDosTipoNum($tabla1, $tabla2, 'todos',$opcion1, $opcion2,'id_paciente');
+    else
+      return $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'todos',$opcion1, $opcion2,'id_enfermedad');
   else
     $datosGrafica = $this->obtenerDatosDosOpciones($tabla1,$tabla2,$opcion1,$opcion2);
 
