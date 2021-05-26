@@ -13,6 +13,11 @@ class Pacientes extends Model
 	protected $table = 'pacientes';	
     protected $primaryKey = 'id_paciente';
 
+    public static function obtenerId()
+    {
+        return 'id_paciente';
+    }
+
 	public function Antecedentes_oncologicos()
     {
         return $this->hasMany(Antecedentes_oncologicos::class,'id_paciente');

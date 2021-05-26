@@ -45,7 +45,7 @@
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
         </div>
-        <select name="opciones[]" id="datosPersonales" class="tipoGrafica form-control">
+        <select name="opciones[]" id="datosPersonales" class="tipoGrafica form-control max">
           <option>Ninguna</option>
           <option value="sexo">Sexo</option>
           <option value="raza">Raza</option>
@@ -63,7 +63,65 @@
         <div class="input-group-prepend">
             <span class="input-group-text">Elige intervalo<br> de edad</span>
         </div>
-        <input name="edadIntervalo" type="number" min="1" class="tipo form-control"></input>
+        <input name="edadIntervalo[]" type="number" min="1" class="tipo form-control"></input>
+      </div>
+    </div>
+    <div class="d-flex align-items-center col-md-3">
+      <button type="button" id="boton_nuevocampo" class="btn btn-info">Nueva división</button>
+    </div>
+    <div class="oculto col-md-3">
+      <div class="my-4 input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Gráfica <br>dividida por</span>
+        </div>
+        <select name="opciones[]" id="datosPersonales" class="tipoGrafica form-control max">
+          <option>Ninguna</option>
+          <option value="sexo">Sexo</option>
+          <option value="raza">Raza</option>
+          <option value="nacimiento">Edad</option>
+          <option value="profesion">Profesión</option>
+          <option value="fumador">Fumador</option>
+          <option value="num_tabaco_dia">Numero de cigarros</option>
+          <option value="bebedor">Bebedor</option>
+          <option value="carcinogenos">Carcinogenos</option>
+        </select>
+      </div>
+    </div>
+    <div class="oculto col-md-3">
+      <div class="my-4 input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Elige intervalo<br> de edad</span>
+        </div>
+        <input name="edadIntervalo[]" type="number" min="1" class="tipo form-control"></input>
+      </div>
+    </div>
+    <div class="oculto align-items-center col-md-3">
+      <button type="button" id="boton_nuevocampo2" class="btn btn-info">Nueva división</button>
+    </div>
+    <div class="oculto col-md-3">
+      <div class="my-4 input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Gráfica <br>dividida por</span>
+        </div>
+        <select name="opciones[]" id="datosPersonales" class="tipoGrafica form-control max">
+          <option>Ninguna</option>
+          <option value="sexo">Sexo</option>
+          <option value="raza">Raza</option>
+          <option value="nacimiento">Edad</option>
+          <option value="profesion">Profesión</option>
+          <option value="fumador">Fumador</option>
+          <option value="num_tabaco_dia">Numero de cigarros</option>
+          <option value="bebedor">Bebedor</option>
+          <option value="carcinogenos">Carcinogenos</option>
+        </select>
+      </div>
+    </div>
+    <div class="oculto col-md-3">
+      <div class="my-4 input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Elige intervalo<br> de edad</span>
+        </div>
+        <input name="edadIntervalo[]" type="number" min="1" class="tipo form-control"></input>
       </div>
     </div>
   </div>
@@ -78,7 +136,57 @@
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
         </div>
-        <select name="opciones[]" class="form-control">
+        <select name="opciones[]" class="form-control max">
+          <option>Ninguna</option>
+          <option value="ECOG">ECOG</option>
+          <option value="T">T</option>
+          <option value="T_tamano">Tamaño T</option>
+          <option value="N">N</option>
+          <option value="N_afectacion">Afectación de N</option>
+          <option value="M">M</option>
+          <option value="num_afec_metas">Afectación ganglionar local</option>
+          <option value="tipo_muestra">Tipo de muestra</option>
+          <option value="histologia_tipo">Histología tipo</option>
+          <option value="histologia_subtipo">Histología subtipo</option>
+          <option value="histologia_grado">Histología grado</option>
+          <option value="tratamiento_dirigido">Tratamiento dirigido</option>
+        </select>
+      </div>
+    </div>
+    <div class="d-flex align-items-center col-md-3">
+      <button type="button" class="btn btn-info btn2">Nueva división</button>
+    </div>
+    <div class="oculto col-md-3">
+      <div class="my-4 input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Gráfica <br>dividida por</span>
+        </div>
+        <select name="opciones[]" class="form-control max">
+          <option>Ninguna</option>
+          <option value="ECOG">ECOG</option>
+          <option value="T">T</option>
+          <option value="T_tamano">Tamaño T</option>
+          <option value="N">N</option>
+          <option value="N_afectacion">Afectación de N</option>
+          <option value="M">M</option>
+          <option value="num_afec_metas">Afectación ganglionar local</option>
+          <option value="tipo_muestra">Tipo de muestra</option>
+          <option value="histologia_tipo">Histología tipo</option>
+          <option value="histologia_subtipo">Histología subtipo</option>
+          <option value="histologia_grado">Histología grado</option>
+          <option value="tratamiento_dirigido">Tratamiento dirigido</option>
+        </select>
+      </div>
+    </div>
+    <div class="oculto align-items-center col-md-3">
+      <button type="button" class="btn btn-info btn2">Nueva división</button>
+    </div>
+    <div class="oculto col-md-3">
+      <div class="my-4 input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Gráfica <br>dividida por</span>
+        </div>
+        <select name="opciones[]" class="form-control max">
           <option>Ninguna</option>
           <option value="ECOG">ECOG</option>
           <option value="T">T</option>
@@ -107,7 +215,59 @@
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
         </div>
-        <select name="opciones[]" class="form-control">
+        <select name="opciones[]" class="form-control max">
+          <option>Ninguna</option>
+          <option value="tipo_sintoma">Tipos de sintoma</option>
+          <option value="num_sintoma">Número de sintomas</option>
+          <option value="tipo_metastasis">Tipos de metástasis</option>
+          <option value="num_metastasis">Número de metástasis</option>
+          <option value="tipo_biomarcador">Tipos de biomarcador</option>
+          <option value="num_biomarcador">Número de biomarcadores</option>
+          <option value="subtipo_biomarcador">Subtipos de biomarcador</option>
+          <option value="tipo_prueba">Tipos de pruebas realizadas</option>
+          <option value="num_prueba">Número de pruebas realizadas</option>
+          <option value="tipo_tecnica">Tipos de técnicas realizadas</option>
+          <option value="num_tecnica">Número de técnicas realizadas</option>
+          <option value="tipo_tumor">Tipos de otros tumores</option>
+          <option value="num_tumor">Número de otros tumores</option>
+        </select>
+      </div>
+    </div>
+    <div class="d-flex align-items-center col-md-3">
+      <button type="button" class="btn btn-info btn2">Nueva división</button>
+    </div>
+    <div class="oculto col-md-3">
+      <div class="my-4 input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Gráfica <br>dividida por</span>
+        </div>
+        <select name="opciones[]" class="form-control max">
+          <option>Ninguna</option>
+          <option value="tipo_sintoma">Tipos de sintoma</option>
+          <option value="num_sintoma">Número de sintomas</option>
+          <option value="tipo_metastasis">Tipos de metástasis</option>
+          <option value="num_metastasis">Número de metástasis</option>
+          <option value="tipo_biomarcador">Tipos de biomarcador</option>
+          <option value="num_biomarcador">Número de biomarcadores</option>
+          <option value="subtipo_biomarcador">Subtipos de biomarcador</option>
+          <option value="tipo_prueba">Tipos de pruebas realizadas</option>
+          <option value="num_prueba">Número de pruebas realizadas</option>
+          <option value="tipo_tecnica">Tipos de técnicas realizadas</option>
+          <option value="num_tecnica">Número de técnicas realizadas</option>
+          <option value="tipo_tumor">Tipos de otros tumores</option>
+          <option value="num_tumor">Número de otros tumores</option>
+        </select>
+      </div>
+    </div>
+    <div class="oculto align-items-center col-md-3">
+      <button type="button" class="btn btn-info btn2">Nueva división</button>
+    </div>
+    <div class="oculto col-md-3">
+      <div class="my-4 input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Gráfica <br>dividida por</span>
+        </div>
+        <select name="opciones[]" class="form-control max">
           <option>Ninguna</option>
           <option value="tipo_sintoma">Tipos de sintoma</option>
           <option value="num_sintoma">Número de sintomas</option>
@@ -127,7 +287,7 @@
     </div>
   </div>
   <div class="row">
-        <div class="col-md-3">
+    <div class="col-md-3">
       <label class="text-white">Antecedentes</label>
     </div>
   </div>
@@ -137,7 +297,49 @@
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
         </div>
-        <select name="opciones[]" class="form-control">
+        <select name="opciones[]" class="form-control max">
+          <option>Ninguna</option>
+          <option value="tipo_antecedente_medico">Tipos de antecedentes medicos</option>
+          <option value="num_antecedente_medico">Número de antecedentes medicos</option>
+          <option value="tipo_antecedente_oncologico">Tipos de antecedentes oncológicos</option>
+          <option value="num_antecedente_oncologico">Número de antecedentes oncológicos</option>
+          <option value="familiar_antecedente">Familiares con antecedentes</option>
+          <option value="num_familiar_antecedente">Número de familiares con antecedentes</option>
+          <option value="tipo_antecedente_familiar">Tipos de antecedentes familiares</option>
+          <option value="num_antecedente_familiar">Número de antecedentes familiares</option>
+        </select>
+      </div>
+    </div>
+    <div class="d-flex align-items-center col-md-3">
+      <button type="button" class="btn btn-info btn2">Nueva división</button>
+    </div>
+    <div class="oculto col-md-3">
+      <div class="my-4 input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Gráfica <br>dividida por</span>
+        </div>
+        <select name="opciones[]" class="form-control max">
+          <option>Ninguna</option>
+          <option value="tipo_antecedente_medico">Tipos de antecedentes medicos</option>
+          <option value="num_antecedente_medico">Número de antecedentes medicos</option>
+          <option value="tipo_antecedente_oncologico">Tipos de antecedentes oncológicos</option>
+          <option value="num_antecedente_oncologico">Número de antecedentes oncológicos</option>
+          <option value="familiar_antecedente">Familiares con antecedentes</option>
+          <option value="num_familiar_antecedente">Número de familiares con antecedentes</option>
+          <option value="tipo_antecedente_familiar">Tipos de antecedentes familiares</option>
+          <option value="num_antecedente_familiar">Número de antecedentes familiares</option>
+        </select>
+      </div>
+    </div>
+    <div class="oculto align-items-center col-md-3">
+      <button type="button" class="btn btn-info btn2">Nueva división</button>
+    </div>
+    <div class="oculto col-md-3">
+      <div class="my-4 input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Gráfica <br>dividida por</span>
+        </div>
+        <select name="opciones[]" class="form-control max">
           <option>Ninguna</option>
           <option value="tipo_antecedente_medico">Tipos de antecedentes medicos</option>
           <option value="num_antecedente_medico">Número de antecedentes medicos</option>
@@ -162,7 +364,77 @@
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
         </div>
-        <select name="opciones[]" class="form-control">
+        <select name="opciones[]" class="form-control max">
+          <option>Ninguna</option>
+          <option value="tipo_tratamiento">Tipo de tratamientos</option>
+          <option value="num_tratamientos">Numero de tratamientos</option>
+          <option value="num_quimioterapia">Numero de quimioterapias</option>
+          <option value="num_radioterapia">Numero de radioterapias</option>
+          <option value="num_cirugia">Numero de cirugías</option>
+          <option value="intencion_quimioterapia">Intención (Quimioterapia)</option>
+          <option value="ensayo">Tipo de ensayo clínico (Quimioterapia)</option>
+          <option value="ensayo_fase">Fase de ensayo clínico (Quimioterapia)</option>
+          <option value="tratamiento_acceso_expandido">Tratamiento por acceso expandido (Quimioterapia)</option>
+          <option value="tratamiento_fuera_indicacion">Tratamiento fuera de indicación (Quimioterapia)</option>
+          <option value="medicacion_extranjera">Medicación extranjera (Quimioterapia)</option>
+          <option value="esquema">Esquema (Quimioterapia)</option>
+          <option value="modo_administracion">Modo de administración (Quimioterapia)</option>
+          <option value="tipo_farmaco">Tipo de fármaco (Quimioterapia)</option>
+          <option value="numero_ciclos">Número de ciclos (Quimioterapia)</option>
+          <option value="duracion_quimioterapia">Duración (Quimioterapia)</option>
+          <option value="farmacos_quimioterapia">Farmacos usados (Quimioterapia)</option>
+          <option value="tipo_radioterapia">Intención (Radioterapia)</option>
+          <option value="localizacion">Localización (Radioterapia)</option>
+          <option value="dosis">Dosis (Radioterapia)</option>
+          <option value="duracion_radioterapia">Duración (Radioterapia)</option>
+          <option value="tipo_cirugia">Tipo (Cirugía)</option>
+        </select>
+      </div>
+    </div>
+    <div class="d-flex align-items-center col-md-3">
+      <button type="button" class="btn btn-info btn2">Nueva división</button>
+    </div>
+    <div class="oculto col-md-3">
+      <div class="my-4 input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Gráfica <br>dividida por</span>
+        </div>
+        <select name="opciones[]" class="form-control max">
+          <option>Ninguna</option>
+          <option value="tipo_tratamiento">Tipo de tratamientos</option>
+          <option value="num_tratamientos">Numero de tratamientos</option>
+          <option value="num_quimioterapia">Numero de quimioterapias</option>
+          <option value="num_radioterapia">Numero de radioterapias</option>
+          <option value="num_cirugia">Numero de cirugías</option>
+          <option value="intencion_quimioterapia">Intención (Quimioterapia)</option>
+          <option value="ensayo">Tipo de ensayo clínico (Quimioterapia)</option>
+          <option value="ensayo_fase">Fase de ensayo clínico (Quimioterapia)</option>
+          <option value="tratamiento_acceso_expandido">Tratamiento por acceso expandido (Quimioterapia)</option>
+          <option value="tratamiento_fuera_indicacion">Tratamiento fuera de indicación (Quimioterapia)</option>
+          <option value="medicacion_extranjera">Medicación extranjera (Quimioterapia)</option>
+          <option value="esquema">Esquema (Quimioterapia)</option>
+          <option value="modo_administracion">Modo de administración (Quimioterapia)</option>
+          <option value="tipo_farmaco">Tipo de fármaco (Quimioterapia)</option>
+          <option value="numero_ciclos">Número de ciclos (Quimioterapia)</option>
+          <option value="duracion_quimioterapia">Duración (Quimioterapia)</option>
+          <option value="farmacos_quimioterapia">Farmacos usados (Quimioterapia)</option>
+          <option value="tipo_radioterapia">Intención (Radioterapia)</option>
+          <option value="localizacion">Localización (Radioterapia)</option>
+          <option value="dosis">Dosis (Radioterapia)</option>
+          <option value="duracion_radioterapia">Duración (Radioterapia)</option>
+          <option value="tipo_cirugia">Tipo (Cirugía)</option>
+        </select>
+      </div>
+    </div>
+    <div class="oculto align-items-center col-md-3">
+      <button type="button" class="btn btn-info btn2">Nueva división</button>
+    </div>
+    <div class="oculto col-md-3">
+      <div class="my-4 input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Gráfica <br>dividida por</span>
+        </div>
+        <select name="opciones[]" class="form-control max">
           <option>Ninguna</option>
           <option value="tipo_tratamiento">Tipo de tratamientos</option>
           <option value="num_tratamientos">Numero de tratamientos</option>
@@ -201,7 +473,47 @@
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
         </div>
-        <select name="opciones[]" class="form-control">
+        <select name="opciones[]" class="form-control max">
+          <option>Ninguna</option>
+          <option value="estado">Estado de reevaluación</option>
+          <option value="num_reevaluacion">Número de reevaluaciones</option>
+          <option value="num_seguimiento">Número de seguimientos</option>
+          <option value="progresion_localizacion">Localización de la progresión</option>
+          <option value="tipo_tratamiento">Tipo de tratamiento realizado</option>
+          <option value="estado_seguimiento">Estado del paciente</option>
+          <option value="fallecido_motivo">Motivo fallecimiento</option>
+        </select>
+      </div>
+    </div>
+    <div class="d-flex align-items-center col-md-3">
+      <button type="button" class="btn btn-info btn2">Nueva división</button>
+    </div>
+    <div class="oculto col-md-3">
+      <div class="my-4 input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Gráfica <br>dividida por</span>
+        </div>
+        <select name="opciones[]" class="form-control max">
+          <option>Ninguna</option>
+          <option value="estado">Estado de reevaluación</option>
+          <option value="num_reevaluacion">Número de reevaluaciones</option>
+          <option value="num_seguimiento">Número de seguimientos</option>
+          <option value="progresion_localizacion">Localización de la progresión</option>
+          <option value="tipo_tratamiento">Tipo de tratamiento realizado</option>
+          <option value="estado_seguimiento">Estado del paciente</option>
+          <option value="fallecido_motivo">Motivo fallecimiento</option>
+        </select>
+      </div>
+    </div>
+    <div class="oculto align-items-center col-md-3">
+      <button type="button" class="btn btn-info btn2">Nueva división</button>
+    </div>
+    <div class="oculto col-md-3">
+      <div class="my-4 input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Gráfica <br>dividida por</span>
+        </div>
+        <select name="opciones[]" class="form-control max">
           <option>Ninguna</option>
           <option value="estado">Estado de reevaluación</option>
           <option value="num_reevaluacion">Número de reevaluaciones</option>
@@ -219,4 +531,44 @@
   </div>
 </form>
 <script src="{{ asset('/js/especificar_otro.js') }}" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#boton_nuevocampo").click(function(event) {
+      $(this).parent().next().css('display', 'flex');
+      $(this).parent().next().next().next().css('display', 'flex');
+      $(this).parent().hide();
+      $(this).parent().removeClass('d-flex');
+    });
+    $(".btn.btn-info.btn2").click(function(event) {
+      $(this).parent().next().css('display', 'flex');
+      $(this).parent().next().next().css('display', 'flex');
+      $(this).parent().hide();
+      $(this).parent().removeClass('d-flex');
+    });
+    $("#boton_nuevocampo2").click(function(event) {
+      $(this).parent().next().css('display', 'flex');
+      $(this).parent().hide();
+      $(this).parent().removeClass('d-flex');
+    });
+    $(".form-control.max").change(function(event) {
+      var numDifNinguno = 0;
+      $(".form-control.max").each(function(event){
+        if($(this).val() != 'Ninguna')
+          numDifNinguno += 1;
+      });
+      console.log(numDifNinguno);
+      if(numDifNinguno == 3){
+        $(".form-control.max").each(function(event){
+          if($(this).val() == 'Ninguna')
+            $(this).prop( "disabled", true );
+        });
+      }else{
+        $(".form-control.max").each(function(event){
+          if($(this).val() == 'Ninguna')
+            $(this).prop( "disabled", false );
+        });
+      }
+    });
+});
+</script>
 @endsection

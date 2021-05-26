@@ -13,4 +13,9 @@ class Comentarios extends Model
 	protected $table = 'comentarios';	
 	protected $primaryKey = 'id_comentario';
 
+	public static function obtenerId()
+	{
+		return 'id_biomarcador';
+	}
+
 }

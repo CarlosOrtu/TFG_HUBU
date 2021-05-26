@@ -13,4 +13,9 @@ class Antecedentes_oncologicos extends Model
 	protected $table = 'antecedentes_oncologicos';	
 	protected $primaryKey = 'id_antecedente_o';
 
+	public static function obtenerId()
+	{
+		return 'id_antecedente_o';
+	}
+
 }

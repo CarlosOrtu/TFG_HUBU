@@ -13,7 +13,11 @@ class Enfermedades extends Model
 	protected $table = 'enfermedades';	
     protected $primaryKey = 'id_enfermedad';
 
-
+    public static function obtenerId()
+    {
+        return 'id_enfermedad';
+    }
+    
 	public function Metastasis()
     {
         return $this->hasMany(Metastasis::class,'id_enfermedad');

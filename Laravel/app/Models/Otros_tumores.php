@@ -13,6 +13,11 @@ class Otros_tumores extends Model
 	protected $table = 'otros_tumores';	
 	protected $primaryKey = 'id_tumor';
 
+	public static function obtenerId()
+	{
+		return 'id_tumor';
+	}
+
 	public static function getPrimaryKey()
 	{
 		return 'id_tumor';

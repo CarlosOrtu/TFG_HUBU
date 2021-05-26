@@ -13,4 +13,9 @@ class Reevaluaciones extends Model
 	protected $table = 'reevaluaciones';	
 	protected $primaryKey = 'id_reevaluacion';
 
+	public static function obtenerId()
+	{
+		return 'id_reevaluacion';
+	}
+
 }

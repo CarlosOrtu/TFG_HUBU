@@ -13,4 +13,9 @@ class Farmacos extends Model
 	protected $table = 'farmacos';	
 	protected $primaryKey = 'id_farmaco';
 
+	public static function obtenerId()
+	{
+		return 'id_farmaco';
+	}
+
 }

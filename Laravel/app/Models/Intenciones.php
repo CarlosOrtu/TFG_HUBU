@@ -13,6 +13,11 @@ class Intenciones extends Model
 	protected $table = 'intenciones';	
 	protected $primaryKey = 'id_intencion';
 
+	public static function obtenerId()
+	{
+		return 'id_intencion';
+	}
+
 
 	public function Farmacos()
     {

@@ -13,6 +13,11 @@ class Metastasis extends Model
 	protected $table = 'metastasis';	
 	protected $primaryKey = 'id_metastasis';
 
+	public static function obtenerId()
+	{
+		return 'id_metastasis';
+	}
+
 	public static function getPrimaryKey()
 	{
 		return 'id_metastasis';

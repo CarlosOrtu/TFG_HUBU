@@ -13,7 +13,7 @@ class Tecnicas_realizadas extends Model
 	protected $table = 'tecnicas_realizadas';	
 	protected $primaryKey = 'id_tecnica';
 
-	public static function getPrimaryKey()
+	public static function obtenerId()
 	{
 		return 'id_tecnica';
 	}

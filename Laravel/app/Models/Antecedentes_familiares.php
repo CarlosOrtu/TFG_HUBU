@@ -17,4 +17,9 @@ class Antecedentes_familiares extends Model
     {
         return $this->hasMany(Enfermedades_familiar::class,'id_antecedente_f');
     }
+
+    public static function obtenerId()
+	{
+		return 'id_antecedente_f';
+	}
 }

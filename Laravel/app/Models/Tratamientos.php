@@ -17,4 +17,9 @@ class Tratamientos extends Model
     {
         return $this->hasOne(Intenciones::class,'id_tratamiento');
     }	
+
+    public static function obtenerId()
+	{
+		return 'id_tratamiento';
+	}
 }

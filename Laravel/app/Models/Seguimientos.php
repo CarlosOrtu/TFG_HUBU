@@ -12,5 +12,10 @@ class Seguimientos extends Model
     public $timestamps = false;
 	protected $table = 'seguimientos';
 	protected $primaryKey = 'id_seguimiento';
+
+	public static function obtenerId()
+	{
+		return 'id_seguimiento';
+	}
 	
 }

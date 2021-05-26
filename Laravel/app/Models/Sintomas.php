@@ -13,7 +13,7 @@ class Sintomas extends Model
 	protected $table = 'sintomas';	
 	protected $primaryKey = 'id_sintoma';
 
-	public static function getPrimaryKey()
+	public static function obtenerId()
 	{
 		return 'id_sintoma';
 	}

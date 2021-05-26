@@ -13,4 +13,9 @@ class Enfermedades_familiar extends Model
 	protected $table = 'enfermedades_familiar';	
 	protected $primaryKey = 'id_enfermedad_f';
 
+	public static function obtenerId()
+	{
+		return 'id_enfermedad_f';
+	}
+
 }

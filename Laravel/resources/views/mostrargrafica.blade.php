@@ -126,4 +126,7 @@
     </tbody>
   </table>
 </div>
+<div class="mt-5 d-flex justify-content-center align-items-center">
+  <a href="{{ route('vergraficas') }}" ><input type="button" class="btn btn-info" value="Nueva gráfica"/></a>
+</div>
 @endsection
