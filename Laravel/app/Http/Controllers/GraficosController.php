@@ -1113,10 +1113,140 @@ class GraficosController extends Controller
     return $datosGrafica;
    }
 
+    /******************************************************************
+    *                                                                 *
+    * Graficas dos datos                                              *
+    *                                                                 *
+    *******************************************************************/
+
+
+    //PRUEBAS
+    private function joinTablasPaciente($tabla2)
+    {
+      if($tabla2 == 'Enfermedades')
+        $joinTablas = DB::table('Pacientes')->join('enfermedades', 'Pacientes.id_paciente', '=', 'enfermedades.id_paciente');
+      elseif($tabla2 == 'Otros_tumores' || $tabla2 == 'Tecnicas_realizadas' || $tabla2 == 'Pruebas_realizadas' || $tabla2 == 'Biomarcadores' || $tabla2 == 'Sintomas' || $tabla2 == 'Metastasis')
+        $joinTablas = DB::table('Pacientes')->join('enfermedades', 'Pacientes.id_paciente', '=', 'enfermedades.id_paciente')->join($tabla2, 'Enfermedades.id_enfermedad', '=', $tabla2.'.id_enfermedad');
+      elseif($tabla2 == 'Intenciones')
+        $joinTablas = DB::table('Pacientes')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
+      elseif($tabla2 == 'Farmacos')
+        $joinTablas = DB::table('Pacientes')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
+      elseif($tabla2 == 'Enfermedades_familiar')
+        $joinTablas = DB::table('Pacientes')->join('Antecedentes_familiares', 'Pacientes.id_paciente', '=', 'Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f','=','Enfermedades_familiar.id_antecedente_f');
+      else
+        $joinTablas = DB::table('Pacientes')->join($tabla2, 'Pacientes.id_paciente', '=', $tabla2.'.id_paciente');
+
+      return $joinTablas;
+    }
+
+    private function joinTablasEnfermedad($tabla1, $tabla2)
+    {
+      if($tabla2 == 'Enfermedades' || $tabla2 == 'Otros_tumores' || $tabla2 == 'Tecnicas_realizadas' || $tabla2 == 'Pruebas_realizadas' || $tabla2 == 'Biomarcadores' || $tabla2 == 'Sintomas' || $tabla2 == 'Metastasis')
+        $joinTablas = DB::table($tabla1)->join($tabla2, $tabla1.'.id_enfermedad', '=', $tabla2.'.id_enfermedad');
+      elseif($tabla2 == 'Seguimientos' || $tabla2 == 'Antecedentes_medicos' || $tabla2 == 'Tratamientos' || $tabla2 == 'Antecedentes_oncologicos' || $tabla2 == 'Antecedentes_familiares' || $tabla2 == 'Reevaluaciones'){
+        if($tabla1 == 'Enfermedades')
+          $joinTablas = DB::table('Enfermedades')->join($tabla2, 'Enfermedades.id_paciente','=',$tabla2.'.id_paciente');
+        else
+          $joinTablas = DB::table('Enfermedades')->join($tabla1, 'Enfermedades.id_enfermedad', '=', $tabla1.'.id_enfermedad')->join($tabla2, 'Enfermedades.id_paciente','=',$tabla2.'.id_paciente');
+      }elseif($tabla2 == 'Intenciones')
+        $joinTablas = DB::table('Enfermedades')->join($tabla1, 'Enfermedades.id_enfermedad', '=', $tabla1.'.id_enfermedad')->join('Tratamientos','Enfermedades.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones', 'Tratamientos.id_tratamiento','=','Intenciones.id_tratamiento');
+      elseif($tabla2 == 'Farmacos'){
+        if($tabla1 == 'Enfermedades')
+          $joinTablas = DB::table('Enfermedades')->join('Tratamientos','Enfermedades.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones', 'Tratamientos.id_tratamiento','=','Intenciones.id_tratamiento')->join('Farmacos','Intenciones.id_intencion','=','Farmacos.id_intencion');
+        else
+          $joinTablas = DB::table('Enfermedades')->join($tabla1, 'Enfermedades.id_enfermedad', '=', $tabla1.'.id_enfermedad')->join('Tratamientos','Enfermedades.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones', 'Tratamientos.id_tratamiento','=','Intenciones.id_tratamiento')->join('Farmacos','Intenciones.id_intencion','=','Farmacos.id_intencion');
+      }else
+        $joinTablas = DB::table('Enfermedades')->join($tabla1, 'Enfermedades.id_enfermedad', '=', $tabla1.'.id_enfermedad')->join('Antecedentes_familiares','Enfermedades.id_paciente','=','Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar', 'Antecedentes_familiares.id_antecedente_f','=','Enfermedades_familiar.id_antecedente_f');
+
+      return $joinTablas;
+    }
+
+    private function joinTablasEnfermedades_familiar($tabla2)
+    {
+      if($tabla2 == 'Intenciones')
+        $joinTablas = DB::table('Enfermedades_familiar')->join('Antecedentes_familiares', 'Enfermedades_familiar.id_antecedente_f', '=', 'Antecedentes_familiares.id_antecedente_f')->join('Tratamientos','Antecedentes_familiares.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento');   
+      else
+        $joinTablas = DB::table('Enfermedades_familiar')->join('Antecedentes_familiares', 'Enfermedades_familiar.id_antecedente_f', '=', 'Antecedentes_familiares.id_antecedente_f')->join($tabla2,'Antecedentes_familiares.id_paciente','=',$tabla2.'.id_paciente'); 
+
+      return $joinTablas;
+    }
+
+    private function joinTablasIntenciones($tabla2)
+    {
+      if($tabla2 == 'Tratamientos')
+        $joinTablas =DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento');
+      else
+        $joinTablas = DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento')->join($tabla2,'Tratamientos.id_paciente','=',$tabla2.'.id_paciente');
+
+      return $joinTablas;
+    }
+
+    private function joinTablasRestantes($tabla1, $tabla2)
+    {
+      if($tabla2 == 'Intenciones'){
+        if($tabla1 == 'Tratamientos')
+          $joinTablas = DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento');
+        else
+          $joinTablas = DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento')->join($tabla1, 'Tratamientos.id_paciente', '=', $tabla1.'.id_paciente');
+      }elseif($tabla2 == 'Farmacos')
+        $joinTablas = DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento')->join('Farmacos','Intenciones.id_intencion','=','Farmacos.id_intencion')->join($tabla1, 'Tratamientos.id_paciente', '=', $tabla1.'.id_paciente');
+      else
+       $joinTablas = DB::table($tabla1)->join($tabla2, $tabla1.'.id_paciente', '=', $tabla2.'.id_paciente');
+
+     return $joinTablas;
+    }
+
+   //Realizamos los join entre tablas según sean necesarios
+   private function hacerJoinTablasTres($tabla1,$tabla2,$primerJoin)
+   {
+    if($tabla1 == $tabla2)
+      $joinTablas = $primerJoin;
+    elseif($tabla1 == 'Pacientes')
+      $joinTablas = $this->joinTablasPaciente($tabla2);
+    elseif($tabla1 == 'Enfermedades' || $tabla1 == 'Otros_tumores' || $tabla1 == 'Tecnicas_realizadas' || $tabla1 == 'Pruebas_realizadas' || $tabla1 == 'Biomarcadores' || $tabla1 == 'Sintomas' || $tabla1 == 'Metastasis'){
+      $joinTablas = $this->joinTablasEnfermedad($tabla1, $tabla2);
+   }elseif($tabla1 == 'Enfermedades_familiar'){
+      $joinTablas = $this->joinTablasEnfermedades_familiar($tabla2);
+   }elseif($tabla1 == 'Intenciones'){
+      $joinTablas = $this->joinTablasIntenciones($tabla2);
+   }elseif($tabla1 == 'Farmacos'){
+    $joinTablas = DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento')->join('Farmacos','Intenciones.id_intencion','=','Farmacos.id_intencion')->join($tabla2,'Tratamientos.id_paciente','=',$tabla2.'.id_paciente');
+   }else{
+    $joinTablas = $this->joinTablasRestantes($tabla1, $tabla2);
+   }
+
+    return $joinTablas; 
+   }
+
+
+
+
+
+
+
+
+
+
    private function tresOpciones($request)
    {
+    $opciones = $request->opciones;
+    $tabla1 = $this->obtenerTabla($opciones);
+    $seleccion1 = $opciones[$this->obtenerValor($opciones)];
+    $opcion1 = $this->campoASeleccionar($tabla1, $seleccion1);
+    $opciones[$this->obtenerValor($opciones)] = "Ninguna";
+    $tabla2 = $this->obtenerTabla($opciones);
+    $seleccion2 = $opciones[$this->obtenerValor($opciones)];
+    $opcion2 = $this->campoASeleccionar($tabla2, $seleccion2);
+    $opciones[$this->obtenerValor($opciones)] = "Ninguna";
+    $tabla3 = $this->obtenerTabla($opciones);
+    $seleccion3 = $opciones[$this->obtenerValor($opciones)];
+    $opcion3 = $this->campoASeleccionar($tabla3, $seleccion3);   
+    $join1 = $this->hacerJoinTablas($tabla1,$tabla2);
+    $join2 = $this->hacerJoinTablas($tabla2,$tabla3);
 
-   }
+    dump($joinFinal);
+    dd();
+  }
 
     /******************************************************************
     *                                                                 *
@@ -1125,7 +1255,7 @@ class GraficosController extends Controller
     *******************************************************************/
    public function imprimirGraficas(Request $request)
    {
-    try{
+    //try{
       if(in_array("Ninguna",$request->opciones)){
         $numNinguno = array_count_values($request->opciones)["Ninguna"];
         $numDifNinguno = count($request->opciones) - $numNinguno;
@@ -1153,6 +1283,7 @@ class GraficosController extends Controller
       }
       $tipos = $this->obtenerValores($request->opciones);
       return view('mostrargrafica',['datosGrafica' => $datosGrafica, 'tipos' => $tipos, 'tipoGrafica' =>  $request->tipo_grafica]);
+      /*
     }catch (\Exception $e){
       if($e->getMessage() == 'errorDosDuraciones')
         return redirect()->route('vergraficas')->with('errorNoExisteCampo','No se pueden seleccionar las dos duraciones');
@@ -1161,5 +1292,6 @@ class GraficosController extends Controller
       $opcion = $request->opciones[$this->obtenerValor($request->opciones)];
       return redirect()->route('vergraficas')->with('errorNoExisteCampo','No hay ningun dato guardado sobre los datos introducidos');
     }
+    */
    }
 }
