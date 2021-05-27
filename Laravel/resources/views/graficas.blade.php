@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="row rounded text-center">
+  <p class="d-inline text-center border navbar rounded navbar-expand-md navbar-light shadow-sm text-white w-100">Se pueden seleccionar hasta 3 divisiones para realizar las gráficas</p>
+</div>
 @if ($message = Session::get('errorVacio'))
 <div class="alert alert-danger alert-block">
     <button type="button" class="text-dark close" data-dismiss="alert">x</button>

@@ -70,6 +70,12 @@
     else
       var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
    
+  $("#descargar").click(function() {
+    google.visualization.events.addListener(chart, 'ready', function () {
+      chart_div.innerHTML = '<img id="chart" src=' + chart.getImageURI() + '>';
+      document.getElementById("download_link").setAttribute("href", chart.getImageURI())
+    });
+  });
 
     chart.draw(data, options);
   }
@@ -124,26 +130,10 @@
         <td></td>
       </tr>  
     </tbody>
-  </table>
+  </table>  
 </div>
 <div class="mt-5 d-flex justify-content-around align-items-center">
   <button id="descargar" class="btn btn-info">Descargar gráfica</button>
   <a href="{{ route('vergraficas') }}" ><input type="button" class="btn btn-info" value="Nueva gráfica"/></a>
 </div>
-<script type="text/javascript">
-var doc = new jsPDF();
-var specialElementHandlers = {
-    '#editor': function (element, renderer) {
-        return true;
-    }
-};
-
-$('#cmd').click(function () {
-    doc.fromHTML($('#content').html(), 15, 15, {
-        'width': 170,
-            'elementHandlers': specialElementHandlers
-    });
-    doc.save('sample-file.pdf');
-});
-</script>
 @endsection
