@@ -126,7 +126,24 @@
     </tbody>
   </table>
 </div>
-<div class="mt-5 d-flex justify-content-center align-items-center">
+<div class="mt-5 d-flex justify-content-around align-items-center">
+  <button id="descargar" class="btn btn-info">Descargar gráfica</button>
   <a href="{{ route('vergraficas') }}" ><input type="button" class="btn btn-info" value="Nueva gráfica"/></a>
 </div>
+<script type="text/javascript">
+var doc = new jsPDF();
+var specialElementHandlers = {
+    '#editor': function (element, renderer) {
+        return true;
+    }
+};
+
+$('#cmd').click(function () {
+    doc.fromHTML($('#content').html(), 15, 15, {
+        'width': 170,
+            'elementHandlers': specialElementHandlers
+    });
+    doc.save('sample-file.pdf');
+});
+</script>
 @endsection
