@@ -43,7 +43,10 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-3">
+    <div class="d-flex align-items-center col-md-3 my-4">
+      <button type="button" class="boton_nuevocampo btn btn-info">Nueva división</button>
+    </div>
+    <div class="oculto col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
@@ -69,8 +72,8 @@
         <input name="edadIntervalo[]" type="number" min="1" class="tipo form-control"></input>
       </div>
     </div>
-    <div class="d-flex align-items-center col-md-3">
-      <button type="button" id="boton_nuevocampo" class="btn btn-info">Nueva división</button>
+    <div class="oculto align-items-center col-md-3 my-4">
+      <button type="button" class="boton_nuevocampo btn btn-info">Nueva división</button>
     </div>
     <div class="oculto col-md-3">
       <div class="my-4 input-group">
@@ -134,7 +137,10 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-3">
+    <div class="d-flex align-items-center col-md-3 my-4">
+      <button type="button" class="btn btn-info btn2">Nueva división</button>
+    </div>
+    <div class="oculto col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
@@ -156,7 +162,7 @@
         </select>
       </div>
     </div>
-    <div class="d-flex align-items-center col-md-3">
+    <div class="oculto align-items-center col-md-3">
       <button type="button" class="btn btn-info btn2">Nueva división</button>
     </div>
     <div class="oculto col-md-3">
@@ -213,7 +219,10 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-3">
+    <div class="d-flex align-items-center col-md-3 my-4">
+      <button type="button" class="btn btn-info btn2">Nueva división</button>
+    </div>
+    <div class="oculto col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
@@ -236,7 +245,7 @@
         </select>
       </div>
     </div>
-    <div class="d-flex align-items-center col-md-3">
+    <div class="oculto align-items-center col-md-3">
       <button type="button" class="btn btn-info btn2">Nueva división</button>
     </div>
     <div class="oculto col-md-3">
@@ -295,7 +304,10 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-3">
+    <div class="d-flex align-items-center col-md-3 my-4">
+      <button type="button" class="btn btn-info btn2">Nueva división</button>
+    </div>
+    <div class="oculto col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
@@ -313,7 +325,7 @@
         </select>
       </div>
     </div>
-    <div class="d-flex align-items-center col-md-3">
+    <div class="oculto align-items-center col-md-3">
       <button type="button" class="btn btn-info btn2">Nueva división</button>
     </div>
     <div class="oculto col-md-3">
@@ -362,7 +374,10 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-3">
+    <div class="d-flex align-items-center col-md-3 my-4">
+      <button type="button" class="btn btn-info btn2">Nueva división</button>
+    </div>
+    <div class="oculto col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
@@ -394,7 +409,7 @@
         </select>
       </div>
     </div>
-    <div class="d-flex align-items-center col-md-3">
+    <div class="oculto align-items-center col-md-3">
       <button type="button" class="btn btn-info btn2">Nueva división</button>
     </div>
     <div class="oculto col-md-3">
@@ -471,7 +486,10 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-3">
+    <div class="d-flex align-items-center col-md-3 my-4">
+      <button type="button" class="btn btn-info btn2">Nueva división</button>
+    </div>
+    <div class="oculto col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
@@ -488,7 +506,7 @@
         </select>
       </div>
     </div>
-    <div class="d-flex align-items-center col-md-3">
+    <div class="oculto align-items-center col-md-3">
       <button type="button" class="btn btn-info btn2">Nueva división</button>
     </div>
     <div class="oculto col-md-3">
@@ -536,7 +554,7 @@
 <script src="{{ asset('/js/especificar_otro.js') }}" type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-    $("#boton_nuevocampo").click(function(event) {
+    $(".boton_nuevocampo").click(function(event) {
       $(this).parent().next().css('display', 'flex');
       $(this).parent().next().next().next().css('display', 'flex');
       $(this).parent().hide();
@@ -559,7 +577,6 @@ $(document).ready(function(){
         if($(this).val() != 'Ninguna')
           numDifNinguno += 1;
       });
-      console.log(numDifNinguno);
       if(numDifNinguno == 3){
         $(".form-control.max").each(function(event){
           if($(this).val() == 'Ninguna')
