@@ -25,9 +25,9 @@ class DatosPacienteController extends Controller
         if(env('APP_ENV') == 'production'){
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
            return view('verdatospaciente',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
-        }else{
-           return view('verdatospaciente',['paciente' => $paciente]);
         }
+
+        return view('verdatospaciente',['paciente' => $paciente]);
     }
 
     public function verPaciente($id)
@@ -36,9 +36,9 @@ class DatosPacienteController extends Controller
         if(env('APP_ENV') == 'production'){
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
     	   return view('datospaciente',['paciente' => $paciente, 'nhc' => $nhcDesencriptado]);
-        }else{
-           return view('datospaciente',['paciente' => $paciente]);
         }
+
+        return view('datospaciente',['paciente' => $paciente]);
     }    
 
     public function validarDatosModificarPaciente($request)
@@ -56,18 +56,19 @@ class DatosPacienteController extends Controller
                     'before' => 'Introduce una fecha valida',
                     'date' => 'Introduce una fecha valida',
                 ]);
-        }else{
-            $validator = Validator::make($request->all(), [
-                'nombre' => 'required',
-                'apellidos' => 'required',
-                'nacimiento' => 'required|date|before:'.$manana
-            ],
-            [
-            	'required' => 'El campo :attribute no puede estar vacio',
-            	'before' => 'Introduce una fecha valida',
-                'date' => 'Introduce una fecha valida',
-            ]);
+
+            return $validator;
         }
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'required',
+            'apellidos' => 'required',
+            'nacimiento' => 'required|date|before:'.$manana
+        ],
+        [
+        	'required' => 'El campo :attribute no puede estar vacio',
+        	'before' => 'Introduce una fecha valida',
+            'date' => 'Introduce una fecha valida',
+        ]);
 
         return $validator;
     }
@@ -99,7 +100,7 @@ class DatosPacienteController extends Controller
             $paciente->fumador = $request->fumador;  
             if($request->fumador == "Fumador" || $request->fumador == "Exfumador")
                 $paciente->num_tabaco_dia = $request->especificar_fumador;
-            elseif($request->fumador == "Nunca fumador")
+            if($request->fumador == "Nunca fumador")
                 $paciente->num_tabaco_dia = 0;
             else
                 $paciente->num_tabaco_dia = null;

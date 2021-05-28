@@ -25,9 +25,9 @@ class SeguimientosController extends Controller
         if(env('APP_ENV') == 'production'){      
 	    	$nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
 	    	return view('verseguimientos',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
-	    }else{
-	    	return view('verseguimientos',['paciente' => $paciente]);
 	    }
+
+	    return view('verseguimientos',['paciente' => $paciente]);
     }
 
     public function actualizarfechaModificacionPaciente($paciente)
@@ -42,9 +42,10 @@ class SeguimientosController extends Controller
         if(env('APP_ENV') == 'production'){      
 	    	$nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
 	    	return view('seguimientosnuevos',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
-	    }else{
-	    	return view('seguimientosnuevos',['paciente' => $paciente]);
 	    }
+
+	    return view('seguimientosnuevos',['paciente' => $paciente]);
+	    
     }
 
     public function validarSeguimiento($request)
@@ -63,17 +64,19 @@ class SeguimientosController extends Controller
 	        'before' => 'Introduce una fecha valida',
 	        'date' => 'Introduce una fecha valida',
 	        ]);	
-		}else{
-	        $validator = Validator::make($request->all(), [
-	            'fecha' => 'required|date|before:'.$manana,
-	        ],
-	        [
-	        'required' => 'El campo :attribute no puede estar vacio',
-	        'before' => 'Introduce una fecha valida',
-	        'date' => 'Introduce una fecha valida',
-	        ]);
-    	}	
 
+	        return $validator;
+		}
+
+        $validator = Validator::make($request->all(), [
+            'fecha' => 'required|date|before:'.$manana,
+        ],
+        [
+        'required' => 'El campo :attribute no puede estar vacio',
+        'before' => 'Introduce una fecha valida',
+        'date' => 'Introduce una fecha valida',
+        ]);
+   
         return $validator;
     }
 
@@ -112,9 +115,9 @@ class SeguimientosController extends Controller
         if(env('APP_ENV') == 'production'){      
 	    	$nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
 	    	return view('seguimientos',['paciente' => $paciente, 'seguimiento' => $seguimiento, 'posicion' => $num_seguimiento, 'nombre' => $nhcDesencriptado]);
-	    }else{
-	    	return view('seguimientos',['paciente' => $paciente, 'seguimiento' => $seguimiento, 'posicion' => $num_seguimiento]);
 	    }
+
+	    return view('seguimientos',['paciente' => $paciente, 'seguimiento' => $seguimiento, 'posicion' => $num_seguimiento]);
     }
 
     public function modificarSeguimiento(Request $request, $id, $num_seguimiento)

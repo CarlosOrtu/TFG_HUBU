@@ -54,19 +54,21 @@ class PacientesController extends Controller
             'before' => 'Introduce una fecha valida',
             'date' => 'Introduce una fecha valida',
             ]);
-        }else{
-            $validator = Validator::make($request->all(), [
-                'nombre' => 'required',
-                'apellidos' => 'required',
-                'nacimiento' => 'date|before:'.$manana
-            ],
-            [
-            'required' => 'El campo :attribute no puede estar vacio',
-            'same' => 'Las dos contraseñas deben coincidir',
-            'before' => 'Introduce una fecha valida',
-            'date' => 'Introduce una fecha valida',
-            ]);
+
+            return $validator;
         }
+
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'required',
+            'apellidos' => 'required',
+            'nacimiento' => 'date|before:'.$manana
+        ],
+        [
+        'required' => 'El campo :attribute no puede estar vacio',
+        'same' => 'Las dos contraseñas deben coincidir',
+        'before' => 'Introduce una fecha valida',
+        'date' => 'Introduce una fecha valida',
+        ]);
 
         return $validator;
     }

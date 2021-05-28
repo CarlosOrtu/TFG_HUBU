@@ -82,50 +82,49 @@ class GraficosController extends Controller
     $numTabla = $this->obtenerValor($opciones);
     switch (true) {
       case $numTabla <= 2:
-        $tabla = 'Pacientes';
+        return 'Pacientes';
         break;
       case $numTabla <= 5:
-        $tabla = 'Enfermedades';
+        return 'Enfermedades';
         break;
       case $numTabla <= 8:
         if($opciones[$numTabla] == 'tipo_sintoma' || $opciones[$numTabla] == 'num_sintoma')
-          $tabla = 'Sintomas';
+          return 'Sintomas';
         elseif($opciones[$numTabla] == 'tipo_metastasis' || $opciones[$numTabla] == 'num_metastasis')
-          $tabla = 'Metastasis';
+          return 'Metastasis';
         elseif($opciones[$numTabla] == 'tipo_biomarcador' || $opciones[$numTabla] == 'subtipo_biomarcador' || $opciones[$numTabla] == 'num_biomarcador')
-          $tabla = 'Biomarcadores';
+          return 'Biomarcadores';
         elseif($opciones[$numTabla] == 'tipo_prueba' || $opciones[$numTabla] == 'num_prueba')
-          $tabla = 'Pruebas_realizadas';
+          return 'Pruebas_realizadas';
         elseif($opciones[$numTabla] == 'tipo_tecnica' || $opciones[$numTabla] == 'num_tecnica')
-          $tabla = 'Tecnicas_realizadas';
+          return 'Tecnicas_realizadas';
         elseif($opciones[$numTabla] == 'tipo_tumor' || $opciones[$numTabla] == 'num_tumor')
-          $tabla = 'Otros_tumores'; 
+          return 'Otros_tumores'; 
         break;  
       case $numTabla <= 11:
         if($opciones[$numTabla] == 'tipo_antecedente_medico' || $opciones[$numTabla] == 'num_antecedente_medico')
-          $tabla = 'Antecedentes_medicos';
+          return 'Antecedentes_medicos';
         elseif($opciones[$numTabla] == 'tipo_antecedente_oncologico' || $opciones[$numTabla] == 'num_antecedente_oncologico')
-          $tabla = 'Antecedentes_oncologicos';
+          return 'Antecedentes_oncologicos';
         elseif($opciones[$numTabla] == 'familiar_antecedente' || $opciones[$numTabla] == 'num_familiar_antecedente')
-          $tabla = 'Antecedentes_familiares';
+          return 'Antecedentes_familiares';
         elseif($opciones[$numTabla] == 'tipo_antecedente_familiar' || $opciones[$numTabla] == 'num_antecedente_familiar')
-          $tabla = 'Enfermedades_familiar';
+          return 'Enfermedades_familiar';
         break;
       case $numTabla <= 14:
         if($opciones[$numTabla] == 'intencion_quimioterapia' || $opciones[$numTabla] == 'tipo_radioterapia' || $opciones[$numTabla] == 'dosis' || $opciones[$numTabla] == 'localizacion' || $opciones[$numTabla] == 'duracion_radioterapia' || $opciones[$numTabla] == 'tipo_cirugia' || $opciones[$numTabla] == 'tipo_tratamiento' ||  $opciones[$numTabla] == 'duracion_quimioterapia' || preg_match("/^num_/", $opciones[$numTabla]))
-          $tabla = 'Tratamientos';
+          return 'Tratamientos';
         elseif ($opciones[$numTabla] == 'farmacos_quimioterapia') 
-          $tabla = 'Farmacos';
+          return 'Farmacos';
         else
-          $tabla = 'Intenciones';
+          return 'Intenciones';
         break;
       case $numTabla <= 17:
         if($opciones[$numTabla] == 'estado_seguimiento' || $opciones[$numTabla] == 'fallecido_motivo' || $opciones[$numTabla] == 'num_seguimiento')
-          $tabla = 'Seguimientos';
+          return 'Seguimientos';
         else
-          $tabla = 'Reevaluaciones';
+          return 'Reevaluaciones';
     }
-    return $tabla;
    }
 
     //Obtenemos los datos para dibujar la gráfica cuando el campo es la nominal
@@ -215,72 +214,68 @@ class GraficosController extends Controller
     //Pacientes | Enfermedad | Seguimientos | Reevaluaciones
     if($tabla == 'Pacientes' or $tabla == 'Enfermedades' or $tabla == 'Seguimientos' or  $tabla == 'Reevaluaciones'){
       if($opcion == "nacimiento")
-       $datosGrafica = $this->calcularIntervalosEdad($request);
-      elseif($opcion == "estado_seguimiento")
-          $datosGrafica = $this->obtenerDatos($tabla, 'estado');
-        elseif($opcion == "num_reevaluacion")
-          $datosGrafica = $this->obtenerNumero('Reevaluaciones','reevaluacion','id_paciente');
-        elseif($opcion == "num_seguimiento")
-          $datosGrafica = $this->obtenerNumero('Seguimientos','seguimiento','id_paciente');
-        else
-        $datosGrafica = $this->obtenerDatos($tabla, $opcion);
+       return $this->calcularIntervalosEdad($request);
+      if($opcion == "estado_seguimiento")
+        return $this->obtenerDatos($tabla, 'estado');
+      if($opcion == "num_reevaluacion")
+        return $this->obtenerNumero('Reevaluaciones','reevaluacion','id_paciente');
+      if($opcion == "num_seguimiento")
+        return $this->obtenerNumero('Seguimientos','seguimiento','id_paciente');
+      return $this->obtenerDatos($tabla, $opcion);
+    }
     //Biomarcadores
-    }elseif($tabla == 'Biomarcadores'){
+    if($tabla == 'Biomarcadores'){
       if($opcion == 'tipo_biomarcador')
-        $datosGrafica = $this->obtenerDatos($tabla, 'nombre');
-      elseif($opcion == 'num_biomarcador')
-          $datosGrafica = $this->obtenerNumero($tabla, 'todos','id_enfermedad');
-        else  
-        $datosGrafica = $this->obtenerDatos($tabla, 'tipo');
+        return $this->obtenerDatos($tabla, 'nombre');
+      if($opcion == 'num_biomarcador')
+        return $this->obtenerNumero($tabla, 'todos','id_enfermedad');
+      return $this->obtenerDatos($tabla, 'tipo');
     //Antecedentes familiares
-    }elseif($tabla == 'Antecedentes_familiares'){
+    }
+    if($tabla == 'Antecedentes_familiares'){
       if($opcion == 'num_familiar_antecedente')
-        $datosGrafica = $this->obtenerNumero($tabla,'todos','id_paciente');
-      else  
-        $datosGrafica = $this->obtenerDatos($tabla, 'familiar');
+        return $this->obtenerNumero($tabla,'todos','id_paciente');
+      return $this->obtenerDatos($tabla, 'familiar');
     //Antecedentes medicos
-    }elseif($tabla == 'Antecedentes_medicos'){
+    }
+    if($tabla == 'Antecedentes_medicos'){
       if($opcion == 'num_antecedente_medico')
-        $datosGrafica = $this->obtenerNumero($tabla,'todos','id_paciente');
-      else  
-        $datosGrafica = $this->obtenerDatos($tabla, 'tipo_antecedente');
+        return $this->obtenerNumero($tabla,'todos','id_paciente');
+      return $this->obtenerDatos($tabla, 'tipo_antecedente');
     }
     //Intenciones | Tratamientos
-    elseif($tabla == 'Intenciones' || $tabla == 'Tratamientos'){
+    if($tabla == 'Intenciones' || $tabla == 'Tratamientos'){
       if($opcion == 'tipo_tratamiento')
-        $datosGrafica = $this->obtenerDatos($tabla, 'tipo');
-      elseif($opcion == 'intencion_quimioterapia')
-        $datosGrafica = $this->obtenerSubtipoTratamiento($tabla, 'Quimioterapia');
-      elseif($opcion == 'tipo_radioterapia')
-        $datosGrafica = $this->obtenerSubtipoTratamiento($tabla, 'Radioterapia');
-      elseif($opcion == 'tipo_cirugia')
-        $datosGrafica = $this->obtenerSubtipoTratamiento($tabla, 'Cirugia');
-      elseif($opcion == 'duracion_radioterapia')
-        $datosGrafica = $this->obtenerDuracion('Radioterapia');
-      elseif($opcion == 'duracion_quimioterapia')
-        $datosGrafica = $this->obtenerDuracion('Quimioterapia');
-        elseif($opcion == 'num_tratamientos')
-          $datosGrafica = $this->obtenerNumero('Tratamientos','todos','id_paciente');
-      elseif($opcion == 'num_quimioterapia')
-          $datosGrafica = $this->obtenerNumero('Tratamientos','Quimioterapia','id_paciente');
-      elseif($opcion == 'num_radioterapia')
-          $datosGrafica = $this->obtenerNumero('Tratamientos','Radioterapia','id_paciente');
-      elseif($opcion == 'num_cirugia')
-          $datosGrafica = $this->obtenerNumero('Tratamientos','Cirugia','id_paciente');
-      else  
-        $datosGrafica = $this->obtenerDatos($tabla, $opcion);
-    }elseif($opcion == 'estado_seguimiento')
-          $datosGrafica = $this->obtenerDatos($tabla, 'estado');
-      elseif($opcion == 'num_antecedente_oncologico')
-          $datosGrafica = $this->obtenerNumero($tabla,'todos','id_paciente');
-      elseif($opcion == 'num_antecedente_familiar')
-          $datosGrafica = $this->obtenerEnfermedadesAnte();
-      elseif(preg_match("/^num/", $opcion))
-          $datosGrafica = $this->obtenerNumero($tabla,'todos','id_enfermedad');
-      else
-        $datosGrafica = $this->obtenerDatos($tabla, 'tipo');
-  
-    return $datosGrafica;
+        return $this->obtenerDatos($tabla, 'tipo');
+      if($opcion == 'intencion_quimioterapia')
+        return $this->obtenerSubtipoTratamiento($tabla, 'Quimioterapia');
+      if($opcion == 'tipo_radioterapia')
+        return $this->obtenerSubtipoTratamiento($tabla, 'Radioterapia');
+      if($opcion == 'tipo_cirugia')
+        return $this->obtenerSubtipoTratamiento($tabla, 'Cirugia');
+      if($opcion == 'duracion_radioterapia')
+        return $this->obtenerDuracion('Radioterapia');
+      if($opcion == 'duracion_quimioterapia')
+        return $this->obtenerDuracion('Quimioterapia');
+      if($opcion == 'num_tratamientos')
+        return $this->obtenerNumero('Tratamientos','todos','id_paciente');
+      if($opcion == 'num_quimioterapia')
+          return $this->obtenerNumero('Tratamientos','Quimioterapia','id_paciente');
+      if($opcion == 'num_radioterapia')
+          return $this->obtenerNumero('Tratamientos','Radioterapia','id_paciente');
+      if($opcion == 'num_cirugia')
+        return $this->obtenerNumero('Tratamientos','Cirugia','id_paciente');
+      return $this->obtenerDatos($tabla, $opcion);
+    }
+    if($opcion == 'estado_seguimiento')
+      return $this->obtenerDatos($tabla, 'estado');
+    if($opcion == 'num_antecedente_oncologico')
+      return $this->obtenerNumero($tabla,'todos','id_paciente');
+    if($opcion == 'num_antecedente_familiar')
+      return $this->obtenerEnfermedadesAnte();
+    if(preg_match("/^num/", $opcion))
+      return $this->obtenerNumero($tabla,'todos','id_enfermedad');
+    return $this->obtenerDatos($tabla, 'tipo');
    }
 
 
@@ -293,136 +288,121 @@ class GraficosController extends Controller
    private function campoASeleccionar($tabla,$opcion)
    {
     //Pacientes | Enfermedad | Seguimientos | Reevaluaciones
-    if($tabla == 'Pacientes' or $tabla == 'Enfermedades' or $tabla == 'Seguimientos' or  $tabla == 'Reevaluaciones')
+    if($tabla == 'Pacientes' or $tabla == 'Enfermedades' or $tabla == 'Seguimientos' or  $tabla == 'Reevaluaciones'){
       if($opcion == 'estado_seguimiento')
         return 'estado';
-      else
-       return $opcion;
+      return $opcion;
+   }
     //Biomarcadores
-    elseif($tabla == 'Biomarcadores'){
+    if($tabla == 'Biomarcadores'){
       if($opcion == 'tipo_biomarcador')
         return 'tipo_biomarcador';
-      elseif($opcion == 'num_biomarcador')
-          return 'num_biomarcador';
-      else  
-        return 'tipo';
+      if($opcion == 'num_biomarcador')
+        return 'num_biomarcador';
+      return 'tipo';
+    }
     //Antecedentes familiares
-    }elseif($tabla == 'Antecedentes_familiares'){
+    if($tabla == 'Antecedentes_familiares'){
       if($opcion == 'num_familiar_antecedente')
         return 'num_familiar_antecedente';  
-      else  
-        return 'familiar';
+      return 'familiar';
     //Antecedentes medicos
-    }elseif($tabla == 'Antecedentes_medicos'){
+    }
+    if($tabla == 'Antecedentes_medicos'){
       if($opcion == 'num_antecedente_medico')
         return 'num_antecedente_medico';
-      else  
       return 'tipo_antecedente';
     }
     //Intenciones | Tratamientos
-    elseif($tabla == 'Intenciones' || $tabla == 'Tratamientos'){
+    if($tabla == 'Intenciones' || $tabla == 'Tratamientos'){
       if($opcion == 'tipo_tratamiento')
         return 'tipo';
-      elseif($opcion == 'duracion_radioterapia')
+      if($opcion == 'duracion_radioterapia')
         return 'duracion_radioterapia';
-      elseif($opcion == 'duracion_quimioterapia')
+      if($opcion == 'duracion_quimioterapia')
         return 'duracion_quimioterapia';
-      elseif($opcion == 'num_tratamientos')
+      if($opcion == 'num_tratamientos')
         return 'num_tratamientos';
-      elseif($opcion == 'num_quimioterapia')
-          return 'num_quimioterapia';
-      elseif($opcion == 'num_radioterapia')
-          return 'num_radioterapia';
-      elseif($opcion == 'num_cirugia')
-          return 'num_cirugia';
-      else  
-        return $opcion;
-    }elseif($opcion == 'farmacos_quimioterapia')
-      return 'farmacos_quimioterapia';
-    elseif(preg_match("/^num/", $opcion))
+      if($opcion == 'num_quimioterapia')
+        return 'num_quimioterapia';
+      if($opcion == 'num_radioterapia')
+        return 'num_radioterapia';
+      if($opcion == 'num_cirugia')
+        return 'num_cirugia';
       return $opcion;
-    else
-      return 'tipo';
+    }
+    if($opcion == 'farmacos_quimioterapia')
+      return 'farmacos_quimioterapia';
+    if(preg_match("/^num/", $opcion))
+      return $opcion;
+    
+    return 'tipo';
     }
 
     private function joinTablasPaciente($tabla2)
     {
       if($tabla2 == 'Enfermedades')
-        $joinTablas = DB::table('Pacientes')->join('enfermedades', 'Pacientes.id_paciente', '=', 'enfermedades.id_paciente');
-      elseif($tabla2 == 'Otros_tumores' || $tabla2 == 'Tecnicas_realizadas' || $tabla2 == 'Pruebas_realizadas' || $tabla2 == 'Biomarcadores' || $tabla2 == 'Sintomas' || $tabla2 == 'Metastasis')
-        $joinTablas = DB::table('Pacientes')->join('enfermedades', 'Pacientes.id_paciente', '=', 'enfermedades.id_paciente')->join($tabla2, 'Enfermedades.id_enfermedad', '=', $tabla2.'.id_enfermedad');
-      elseif($tabla2 == 'Intenciones')
-        $joinTablas = DB::table('Pacientes')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-      elseif($tabla2 == 'Farmacos')
-        $joinTablas = DB::table('Pacientes')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-      elseif($tabla2 == 'Enfermedades_familiar')
-        $joinTablas = DB::table('Pacientes')->join('Antecedentes_familiares', 'Pacientes.id_paciente', '=', 'Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f','=','Enfermedades_familiar.id_antecedente_f');
-      else
-        $joinTablas = DB::table('Pacientes')->join($tabla2, 'Pacientes.id_paciente', '=', $tabla2.'.id_paciente');
+        return DB::table('Pacientes')->join('enfermedades', 'Pacientes.id_paciente', '=', 'enfermedades.id_paciente');
+      if($tabla2 == 'Otros_tumores' || $tabla2 == 'Tecnicas_realizadas' || $tabla2 == 'Pruebas_realizadas' || $tabla2 == 'Biomarcadores' || $tabla2 == 'Sintomas' || $tabla2 == 'Metastasis')
+        return DB::table('Pacientes')->join('enfermedades', 'Pacientes.id_paciente', '=', 'enfermedades.id_paciente')->join($tabla2, 'Enfermedades.id_enfermedad', '=', $tabla2.'.id_enfermedad');
+      if($tabla2 == 'Intenciones')
+        return DB::table('Pacientes')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
+      if($tabla2 == 'Farmacos')
+        return DB::table('Pacientes')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
+      if($tabla2 == 'Enfermedades_familiar')
+        return DB::table('Pacientes')->join('Antecedentes_familiares', 'Pacientes.id_paciente', '=', 'Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f','=','Enfermedades_familiar.id_antecedente_f');
+      return DB::table('Pacientes')->join($tabla2, 'Pacientes.id_paciente', '=', $tabla2.'.id_paciente');
 
-      return $joinTablas;
     }
 
     private function joinTablasEnfermedad($tabla1, $tabla2)
     {
       if($tabla2 == 'Enfermedades' || $tabla2 == 'Otros_tumores' || $tabla2 == 'Tecnicas_realizadas' || $tabla2 == 'Pruebas_realizadas' || $tabla2 == 'Biomarcadores' || $tabla2 == 'Sintomas' || $tabla2 == 'Metastasis')
-        $joinTablas = DB::table($tabla1)->join($tabla2, $tabla1.'.id_enfermedad', '=', $tabla2.'.id_enfermedad');
-      elseif($tabla2 == 'Seguimientos' || $tabla2 == 'Antecedentes_medicos' || $tabla2 == 'Tratamientos' || $tabla2 == 'Antecedentes_oncologicos' || $tabla2 == 'Antecedentes_familiares' || $tabla2 == 'Reevaluaciones'){
+        return DB::table($tabla1)->join($tabla2, $tabla1.'.id_enfermedad', '=', $tabla2.'.id_enfermedad');
+      if($tabla2 == 'Seguimientos' || $tabla2 == 'Antecedentes_medicos' || $tabla2 == 'Tratamientos' || $tabla2 == 'Antecedentes_oncologicos' || $tabla2 == 'Antecedentes_familiares' || $tabla2 == 'Reevaluaciones'){
         if($tabla1 == 'Enfermedades')
-          $joinTablas = DB::table('Enfermedades')->join($tabla2, 'Enfermedades.id_paciente','=',$tabla2.'.id_paciente');
-        else
-          $joinTablas = DB::table('Enfermedades')->join($tabla1, 'Enfermedades.id_enfermedad', '=', $tabla1.'.id_enfermedad')->join($tabla2, 'Enfermedades.id_paciente','=',$tabla2.'.id_paciente');
-      }elseif($tabla2 == 'Intenciones')
+          return DB::table('Enfermedades')->join($tabla2, 'Enfermedades.id_paciente','=',$tabla2.'.id_paciente');
+        return DB::table('Enfermedades')->join($tabla1, 'Enfermedades.id_enfermedad', '=', $tabla1.'.id_enfermedad')->join($tabla2, 'Enfermedades.id_paciente','=',$tabla2.'.id_paciente');
+      }
+      if($tabla2 == 'Intenciones'){
+        if($tabla1 == 'Enfermedades')
+          return DB::table('Enfermedades')->join('Tratamientos','Enfermedades.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones', 'Tratamientos.id_tratamiento','=','Intenciones.id_tratamiento');
+        return DB::table('Enfermedades')->join($tabla1, 'Enfermedades.id_enfermedad', '=', $tabla1.'.id_enfermedad')->join('Tratamientos','Enfermedades.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones', 'Tratamientos.id_tratamiento','=','Intenciones.id_tratamiento');
+      }
+      if($tabla2 == 'Farmacos'){
+        if($tabla1 == 'Enfermedades')
+          return DB::table('Enfermedades')->join('Tratamientos','Enfermedades.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones', 'Tratamientos.id_tratamiento','=','Intenciones.id_tratamiento')->join('Farmacos','Intenciones.id_intencion','=','Farmacos.id_intencion');
+        return DB::table('Enfermedades')->join($tabla1, 'Enfermedades.id_enfermedad', '=', $tabla1.'.id_enfermedad')->join('Tratamientos','Enfermedades.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones', 'Tratamientos.id_tratamiento','=','Intenciones.id_tratamiento')->join('Farmacos','Intenciones.id_intencion','=','Farmacos.id_intencion');
+      }
       if($tabla1 == 'Enfermedades')
-        $joinTablas = DB::table('Enfermedades')->join('Tratamientos','Enfermedades.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones', 'Tratamientos.id_tratamiento','=','Intenciones.id_tratamiento');
-      else
-        $joinTablas = DB::table('Enfermedades')->join($tabla1, 'Enfermedades.id_enfermedad', '=', $tabla1.'.id_enfermedad')->join('Tratamientos','Enfermedades.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones', 'Tratamientos.id_tratamiento','=','Intenciones.id_tratamiento');
-      elseif($tabla2 == 'Farmacos'){
-        if($tabla1 == 'Enfermedades')
-          $joinTablas = DB::table('Enfermedades')->join('Tratamientos','Enfermedades.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones', 'Tratamientos.id_tratamiento','=','Intenciones.id_tratamiento')->join('Farmacos','Intenciones.id_intencion','=','Farmacos.id_intencion');
-        else
-          $joinTablas = DB::table('Enfermedades')->join($tabla1, 'Enfermedades.id_enfermedad', '=', $tabla1.'.id_enfermedad')->join('Tratamientos','Enfermedades.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones', 'Tratamientos.id_tratamiento','=','Intenciones.id_tratamiento')->join('Farmacos','Intenciones.id_intencion','=','Farmacos.id_intencion');
-      }else{
-        if($tabla1 == 'Enfermedades')
-          $joinTablas = DB::table('Enfermedades')->join('Antecedentes_familiares','Enfermedades.id_paciente','=','Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar', 'Antecedentes_familiares.id_antecedente_f','=','Enfermedades_familiar.id_antecedente_f');
-        else
-          $joinTablas = DB::table('Enfermedades')->join($tabla1, 'Enfermedades.id_enfermedad', '=', $tabla1.'.id_enfermedad')->join('Antecedentes_familiares','Enfermedades.id_paciente','=','Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar', 'Antecedentes_familiares.id_antecedente_f','=','Enfermedades_familiar.id_antecedente_f');
-    }
-
-      return $joinTablas;
+        return DB::table('Enfermedades')->join('Antecedentes_familiares','Enfermedades.id_paciente','=','Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar', 'Antecedentes_familiares.id_antecedente_f','=','Enfermedades_familiar.id_antecedente_f');
+      return DB::table('Enfermedades')->join($tabla1, 'Enfermedades.id_enfermedad', '=', $tabla1.'.id_enfermedad')->join('Antecedentes_familiares','Enfermedades.id_paciente','=','Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar', 'Antecedentes_familiares.id_antecedente_f','=','Enfermedades_familiar.id_antecedente_f');
     }
 
     private function joinTablasEnfermedades_familiar($tabla2)
     {
       if($tabla2 == 'Intenciones')
-        $joinTablas = DB::table('Enfermedades_familiar')->join('Antecedentes_familiares', 'Enfermedades_familiar.id_antecedente_f', '=', 'Antecedentes_familiares.id_antecedente_f')->join('Tratamientos','Antecedentes_familiares.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento');   
-      else
-        $joinTablas = DB::table('Enfermedades_familiar')->join('Antecedentes_familiares', 'Enfermedades_familiar.id_antecedente_f', '=', 'Antecedentes_familiares.id_antecedente_f')->join($tabla2,'Antecedentes_familiares.id_paciente','=',$tabla2.'.id_paciente'); 
-
-      return $joinTablas;
+        return DB::table('Enfermedades_familiar')->join('Antecedentes_familiares', 'Enfermedades_familiar.id_antecedente_f', '=', 'Antecedentes_familiares.id_antecedente_f')->join('Tratamientos','Antecedentes_familiares.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento');   
+      return DB::table('Enfermedades_familiar')->join('Antecedentes_familiares', 'Enfermedades_familiar.id_antecedente_f', '=', 'Antecedentes_familiares.id_antecedente_f')->join($tabla2,'Antecedentes_familiares.id_paciente','=',$tabla2.'.id_paciente'); 
     }
 
     private function joinTablasIntenciones($tabla2)
     {
       if($tabla2 == 'Tratamientos')
-        $joinTablas =DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento');
-      else
-        $joinTablas = DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento')->join($tabla2,'Tratamientos.id_paciente','=',$tabla2.'.id_paciente');
-
-      return $joinTablas;
+        return DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento');
+      return DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento')->join($tabla2,'Tratamientos.id_paciente','=',$tabla2.'.id_paciente');
     }
 
     private function joinTablasRestantes($tabla1, $tabla2)
     {
       if($tabla2 == 'Intenciones'){
         if($tabla1 == 'Tratamientos')
-          $joinTablas = DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento');
-        else
-          $joinTablas = DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento')->join($tabla1, 'Tratamientos.id_paciente', '=', $tabla1.'.id_paciente');
-      }elseif($tabla2 == 'Farmacos')
-        $joinTablas = DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento')->join('Farmacos','Intenciones.id_intencion','=','Farmacos.id_intencion')->join($tabla1, 'Tratamientos.id_paciente', '=', $tabla1.'.id_paciente');
-      else
-       $joinTablas = DB::table($tabla1)->join($tabla2, $tabla1.'.id_paciente', '=', $tabla2.'.id_paciente');
+          return DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento');
+        return DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento')->join($tabla1, 'Tratamientos.id_paciente', '=', $tabla1.'.id_paciente');
+      }
+      if($tabla2 == 'Farmacos')
+        return DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento')->join('Farmacos','Intenciones.id_intencion','=','Farmacos.id_intencion')->join($tabla1, 'Tratamientos.id_paciente', '=', $tabla1.'.id_paciente');
+      return DB::table($tabla1)->join($tabla2, $tabla1.'.id_paciente', '=', $tabla2.'.id_paciente');
 
      return $joinTablas;
     }
@@ -431,60 +411,53 @@ class GraficosController extends Controller
    private function hacerJoinTablas($tabla1,$tabla2)
    {
     if($tabla1 == $tabla2)
-      $joinTablas = DB::table($tabla1);
-    elseif($tabla1 == 'Pacientes')
-      $joinTablas = $this->joinTablasPaciente($tabla2);
-    elseif($tabla1 == 'Enfermedades' || $tabla1 == 'Otros_tumores' || $tabla1 == 'Tecnicas_realizadas' || $tabla1 == 'Pruebas_realizadas' || $tabla1 == 'Biomarcadores' || $tabla1 == 'Sintomas' || $tabla1 == 'Metastasis'){
-      $joinTablas = $this->joinTablasEnfermedad($tabla1, $tabla2);
-   }elseif($tabla1 == 'Enfermedades_familiar'){
-      $joinTablas = $this->joinTablasEnfermedades_familiar($tabla2);
-   }elseif($tabla1 == 'Intenciones'){
-      $joinTablas = $this->joinTablasIntenciones($tabla2);
-   }elseif($tabla1 == 'Farmacos'){
-    $joinTablas = DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento')->join('Farmacos','Intenciones.id_intencion','=','Farmacos.id_intencion')->join($tabla2,'Tratamientos.id_paciente','=',$tabla2.'.id_paciente');
-   }else{
-    $joinTablas = $this->joinTablasRestantes($tabla1, $tabla2);
-   }
+      return DB::table($tabla1);
+    if($tabla1 == 'Pacientes')
+      return $this->joinTablasPaciente($tabla2);
+    if($tabla1 == 'Enfermedades' || $tabla1 == 'Otros_tumores' || $tabla1 == 'Tecnicas_realizadas' || $tabla1 == 'Pruebas_realizadas' || $tabla1 == 'Biomarcadores' || $tabla1 == 'Sintomas' || $tabla1 == 'Metastasis')
+      return $this->joinTablasEnfermedad($tabla1, $tabla2);
+   if($tabla1 == 'Enfermedades_familiar')
+      return $this->joinTablasEnfermedades_familiar($tabla2);
+   if($tabla1 == 'Intenciones')
+      return $this->joinTablasIntenciones($tabla2);
+   if($tabla1 == 'Farmacos')
+    return DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento')->join('Farmacos','Intenciones.id_intencion','=','Farmacos.id_intencion')->join($tabla2,'Tratamientos.id_paciente','=',$tabla2.'.id_paciente');
+   return $this->joinTablasRestantes($tabla1, $tabla2);
 
-    return $joinTablas; 
    }
 
    //Calculamos los tipos segun la tabla y la division
    private function calcularTipos($tabla, $division)
    {
     if($division == 'intencion_quimioterapia')
-      $tipos = Tratamientos::select('subtipo')->groupBy('subtipo')->where('tipo','Quimioterapia')->get();
-    elseif($division == 'tipo_radioterapia')
-      $tipos = Tratamientos::select('subtipo')->groupBy('subtipo')->where('tipo','Radioterapia')->get();
-    elseif($division == 'tipo_cirugia')
-      $tipos = Tratamientos::select('subtipo')->groupBy('subtipo')->where('tipo','Cirugia')->get();
-    elseif($division == 'tipo_biomarcador')
-      $tipos = Biomarcadores::select('nombre')->groupBy('nombre')->get();
-    elseif($division == 'farmacos_quimioterapia')
-      $tipos = Farmacos::select('tipo')->groupBy('tipo')->get();
-    else
-      $tipos = ('App\\Models\\'.$tabla)::select($division)->groupBy($division)->get();
+      return Tratamientos::select('subtipo')->groupBy('subtipo')->where('tipo','Quimioterapia')->get();
+    if($division == 'tipo_radioterapia')
+      return Tratamientos::select('subtipo')->groupBy('subtipo')->where('tipo','Radioterapia')->get();
+    if($division == 'tipo_cirugia')
+      return Tratamientos::select('subtipo')->groupBy('subtipo')->where('tipo','Cirugia')->get();
+    if($division == 'tipo_biomarcador')
+      return Biomarcadores::select('nombre')->groupBy('nombre')->get();
+    if($division == 'farmacos_quimioterapia')
+      return Farmacos::select('tipo')->groupBy('tipo')->get();
+    return ('App\\Models\\'.$tabla)::select($division)->groupBy($division)->get();
 
-    return $tipos;
    }
 
    //Calculamos las nuevas divisiones 
    private function calcularNuevaDivision($division)
    {
     if($division == 'intencion_quimioterapia')
-      $divisionNueva = 'subtipo';
-    elseif($division == 'tipo_radioterapia')
-      $divisionNueva = 'subtipo';
-    elseif($division == 'tipo_cirugia')
-      $divisionNueva = 'subtipo';
-    elseif($division == 'tipo_biomarcador')
-      $divisionNueva = 'nombre';
-    elseif($division == 'farmacos_quimioterapia')
-      $divisionNueva = 'tipo';
-    else
-      $divisionNueva = $division;
+      return 'subtipo';
+    if($division == 'tipo_radioterapia')
+      return 'subtipo';
+    if($division == 'tipo_cirugia')
+      return 'subtipo';
+    if($division == 'tipo_biomarcador')
+      return 'nombre';
+    if($division == 'farmacos_quimioterapia')
+      return 'tipo';
+    return $division;
 
-    return $divisionNueva;
    }
 
    //Obtenemos los datos para dibujar la grafica cuando los dos campos son nominales
@@ -916,52 +889,47 @@ class GraficosController extends Controller
    private function datosGraficaNacimiento($opcion2, $tabla1, $tabla2, $request)
    {
     if($opcion2 == 'num_quimioterapia')
-      $datosGrafica = $this->calcularIntervalosEdadDosTiposNumTrat($tabla1, $tabla2, $request, 'Quimioterapia');
-    elseif($opcion2 == 'num_radioterapia')
-      $datosGrafica = $this->calcularIntervalosEdadDosTiposNumTrat($tabla1, $tabla2, $request, 'Radioterapia');
-    elseif($opcion2 == 'num_cirugia')
-      $datosGrafica =$this->calcularIntervalosEdadDosTiposNumTrat($tabla1, $tabla2, $request, 'Cirugia');
-    elseif(preg_match("/^num_/", $opcion2))
-      $datosGrafica = $this->calcularIntervalosEdadDosTiposNum($tabla1, $tabla2, $request);
-    elseif($opcion2 == 'duracion_quimioterapia')
-      $datosGrafica = $this->calcularIntervalosEdadDosTiposDur($tabla1, $tabla2, 'Quimioterapia', $request);
-    elseif($opcion2 == 'duracion_radioterapia')
-      $datosGrafica = $this->calcularIntervalosEdadDosTiposDur($tabla1, $tabla2, 'Radioterapia',$request);
-    else
-      $datosGrafica = $this->calcularIntervalosEdadDosTipos($tabla1, $tabla2, $request, $opcion2,'id_paciente');
+      return $this->calcularIntervalosEdadDosTiposNumTrat($tabla1, $tabla2, $request, 'Quimioterapia');
+    if($opcion2 == 'num_radioterapia')
+      return $this->calcularIntervalosEdadDosTiposNumTrat($tabla1, $tabla2, $request, 'Radioterapia');
+    if($opcion2 == 'num_cirugia')
+      return $this->calcularIntervalosEdadDosTiposNumTrat($tabla1, $tabla2, $request, 'Cirugia');
+    if(preg_match("/^num_/", $opcion2))
+      return $this->calcularIntervalosEdadDosTiposNum($tabla1, $tabla2, $request);
+    if($opcion2 == 'duracion_quimioterapia')
+      return $this->calcularIntervalosEdadDosTiposDur($tabla1, $tabla2, 'Quimioterapia', $request);
+    if($opcion2 == 'duracion_radioterapia')
+      return $this->calcularIntervalosEdadDosTiposDur($tabla1, $tabla2, 'Radioterapia',$request);
+    return $this->calcularIntervalosEdadDosTipos($tabla1, $tabla2, $request, $opcion2,'id_paciente');
 
-    return $datosGrafica;
    }
 
    private function datosGraficaAntecedentes($tabla1, $tabla2 ,$opcion1, $opcion2)
    {
     if($tabla2 == 'Tratamientos'){
       if($opcion2 == 'intencion_quimioterapia')
-        $datosGrafica = $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'Quimioterapia',$opcion1, $opcion2,'id_paciente');
-      elseif($opcion2 == 'tipo_radioterapia')
-        $datosGrafica = $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'Radioterapia',$opcion1, $opcion2,'id_paciente');
-      elseif($opcion2 == 'tipo_cirugia')
-        $datosGrafica = $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'Cirugia',$opcion1, $opcion2,'id_paciente');
-      elseif($opcion2 == 'num_tratamientos')
-        $datosGrafica = $this->obtenerNumeroDosTipoNum($tabla1, $tabla2, 'todos','id_paciente');
-      elseif($opcion2 == 'num_cirugia')
-        $datosGrafica = $this->obtenerNumeroDosTipoNum($tabla1, $tabla2, 'Cirugia','id_paciente');
-      elseif($opcion2 == 'num_radioterapia')
-        $datosGrafica = $this->obtenerNumeroDosTipoNum($tabla1, $tabla2, 'Radioterapia','id_paciente');
-      elseif($opcion2 == 'num_quimioterapia')
-        $datosGrafica = $this->obtenerNumeroDosTipoNum($tabla1, $tabla2, 'Quimioterapia','id_paciente');
-      elseif($opcion2 == 'duracion_quimioterapia')
-        $datosGrafica = $this->obtenerNumeroDosTipoDur($tabla1, $tabla2,'Quimioterapia', $opcion1,'id_paciente');
-      elseif($opcion2 == 'duracion_radioterapia')
-        $datosGrafica = $this->obtenerNumeroDosTipoDur($tabla1, $tabla2,'Radioterapia', $opcion1,'id_paciente');
-      else
-        $datosGrafica = $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'todos',$opcion1, $opcion2,'id_paciente'); 
-    }elseif(preg_match("/^num_/", $opcion2))
-      $datosGrafica = $this->obtenerNumeroDosTipoNum($tabla1, $tabla2, 'todos','id_paciente');
-    else
-      $datosGrafica = $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'todos',$opcion1, $opcion2,'id_paciente');
-
-    return $datosGrafica;
+        return $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'Quimioterapia',$opcion1, $opcion2,'id_paciente');
+      if($opcion2 == 'tipo_radioterapia')
+        return $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'Radioterapia',$opcion1, $opcion2,'id_paciente');
+      if($opcion2 == 'tipo_cirugia')
+        return $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'Cirugia',$opcion1, $opcion2,'id_paciente');
+      if($opcion2 == 'num_tratamientos')
+        return $this->obtenerNumeroDosTipoNum($tabla1, $tabla2, 'todos','id_paciente');
+      if($opcion2 == 'num_cirugia')
+        return $this->obtenerNumeroDosTipoNum($tabla1, $tabla2, 'Cirugia','id_paciente');
+      if($opcion2 == 'num_radioterapia')
+        return $this->obtenerNumeroDosTipoNum($tabla1, $tabla2, 'Radioterapia','id_paciente');
+      if($opcion2 == 'num_quimioterapia')
+        return $this->obtenerNumeroDosTipoNum($tabla1, $tabla2, 'Quimioterapia','id_paciente');
+      if($opcion2 == 'duracion_quimioterapia')
+        return $this->obtenerNumeroDosTipoDur($tabla1, $tabla2,'Quimioterapia', $opcion1,'id_paciente');
+      if($opcion2 == 'duracion_radioterapia')
+        return $this->obtenerNumeroDosTipoDur($tabla1, $tabla2,'Radioterapia', $opcion1,'id_paciente');
+      return $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'todos',$opcion1, $opcion2,'id_paciente'); 
+    }
+    if(preg_match("/^num_/", $opcion2))
+      return $this->obtenerNumeroDosTipoNum($tabla1, $tabla2, 'todos','id_paciente');
+    return $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'todos',$opcion1, $opcion2,'id_paciente');
    }
 
 
@@ -969,55 +937,47 @@ class GraficosController extends Controller
    {
     if(preg_match("/^num_/", $opcion2)){
       $datosGrafica = $this->obtenerNumeroDosTipoNum($tabla2, $tabla1, $tipo ,'id_paciente'); 
-      $datosGrafica = $this->arrayClaveInvertida($datosGrafica);
+      return $this->arrayClaveInvertida($datosGrafica);
     }
-    elseif($opcion2 == 'duracion_quimioterapia')
-      $datosGrafica = $this->obtenerNumeroDosTipoDurTratamiento($tabla1, $tabla2, 'Quimioterapia', $tipo, $opcion1, 'id_paciente'); 
-    elseif($opcion2 == 'duracion_radioterapia')
-      $datosGrafica = $this->obtenerNumeroDosTipoDurTratamiento($tabla1, $tabla2, 'Radioterapia', $tipo, $opcion1, 'id_paciente'); 
-    else
-      $datosGrafica = $this->obtenerNumeroDosTipo($tabla1, $tabla2, $tipo, $opcion1, $opcion2, 'id_paciente');
-    
-    return $datosGrafica;
+    if($opcion2 == 'duracion_quimioterapia')
+      return $this->obtenerNumeroDosTipoDurTratamiento($tabla1, $tabla2, 'Quimioterapia', $tipo, $opcion1, 'id_paciente'); 
+    if($opcion2 == 'duracion_radioterapia')
+      return $this->obtenerNumeroDosTipoDurTratamiento($tabla1, $tabla2, 'Radioterapia', $tipo, $opcion1, 'id_paciente'); 
+    return $this->obtenerNumeroDosTipo($tabla1, $tabla2, $tipo, $opcion1, $opcion2, 'id_paciente');
    }
 
    private function datosGraficaEnfermedad($tabla1, $tabla2 ,$opcion1, $opcion2)
    {
     if($tabla2 == 'Tratamientos'){
       if($opcion2 == 'intencion_quimioterapia')
-        $datosGrafica = $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'Quimioterapia',$opcion1, $opcion2,'id_enfermedad');
-      elseif($opcion2 == 'tipo_radioterapia')
-        $datosGrafica = $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'Radioterapia',$opcion1, $opcion2,'id_enfermedad');
-      elseif($opcion2 == 'tipo_cirugia')
-        $datosGrafica = $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'Cirugia',$opcion1, $opcion2,'id_enfermedad');
-      elseif($opcion2 == 'num_tratamientos')
-        $datosGrafica = $this->obtenerNumeroDosTipoNum($tabla1, $tabla2, 'todos','id_enfermedad');
-      elseif($opcion2 == 'duracion_quimioterapia')
-        $datosGrafica = $this->obtenerNumeroDosTipoDur($tabla1, $tabla2, 'Quimioterapia', $opcion1, 'id_enfermedad'); 
-      elseif($opcion2 == 'duracion_radioterapia')
-        $datosGrafica = $this->obtenerNumeroDosTipoDur($tabla1, $tabla2, 'Radioterapia', $opcion1, 'id_enfermedad' ); 
-      elseif($opcion2 == 'num_cirugia')
-        $datosGrafica = $this->obtenerNumeroDosTipoNum($tabla1, $tabla2, 'Cirugia','id_enfermedad');
-      elseif($opcion2 == 'num_radioterapia')
-        $datosGrafica = $this->obtenerNumeroDosTipoNum($tabla1, $tabla2, 'Radioterapia','id_enfermedad');
-      elseif($opcion2 == 'num_quimioterapia')
-        $datosGrafica = $this->obtenerNumeroDosTipoNum($tabla1, $tabla2, 'Quimioterapia','id_enfermedad');
-      else
-        $datosGrafica = $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'todos',$opcion1, $opcion2,'id_enfermedad'); 
-    }elseif(preg_match("/^num_/", $opcion2))
-      $datosGrafica = $this->obtenerNumeroDosTipoNum($tabla1, $tabla2, 'todos','id_enfermedad');
-    else
-      $datosGrafica = $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'todos',$opcion1, $opcion2,'id_enfermedad'); 
-    return $datosGrafica;
+        return $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'Quimioterapia',$opcion1, $opcion2,'id_enfermedad');
+      if($opcion2 == 'tipo_radioterapia')
+        return $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'Radioterapia',$opcion1, $opcion2,'id_enfermedad');
+      if($opcion2 == 'tipo_cirugia')
+        return $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'Cirugia',$opcion1, $opcion2,'id_enfermedad');
+      if($opcion2 == 'num_tratamientos')
+        return $this->obtenerNumeroDosTipoNum($tabla1, $tabla2, 'todos','id_enfermedad');
+      if($opcion2 == 'duracion_quimioterapia')
+        return $this->obtenerNumeroDosTipoDur($tabla1, $tabla2, 'Quimioterapia', $opcion1, 'id_enfermedad'); 
+      if($opcion2 == 'duracion_radioterapia')
+        return $this->obtenerNumeroDosTipoDur($tabla1, $tabla2, 'Radioterapia', $opcion1, 'id_enfermedad' ); 
+      if($opcion2 == 'num_cirugia')
+        return $this->obtenerNumeroDosTipoNum($tabla1, $tabla2, 'Cirugia','id_enfermedad');
+      if($opcion2 == 'num_radioterapia')
+        return $this->obtenerNumeroDosTipoNum($tabla1, $tabla2, 'Radioterapia','id_enfermedad');
+      if($opcion2 == 'num_quimioterapia')
+        return $this->obtenerNumeroDosTipoNum($tabla1, $tabla2, 'Quimioterapia','id_enfermedad');
+      return $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'todos',$opcion1, $opcion2,'id_enfermedad'); 
+    }
+    if(preg_match("/^num_/", $opcion2))
+      return $this->obtenerNumeroDosTipoNum($tabla1, $tabla2, 'todos','id_enfermedad');
+    return $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'todos',$opcion1, $opcion2,'id_enfermedad'); 
    }
 
    private function datosGraficaReevaYSegui($tabla1, $tabla2 ,$opcion1, $opcion2){
     if($opcion2 == 'num_reevaluacion' or $opcion2 == 'num_seguimiento')
-      $datosGrafica = $this->obtenerNumeroDosTipoNum($tabla1, $tabla2, 'todos','id_paciente');
-    else
-      $datosGrafica = $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'todos',$opcion1, $opcion2,'id_paciente'); 
-
-    return $datosGrafica;
+      return $this->obtenerNumeroDosTipoNum($tabla1, $tabla2, 'todos','id_paciente');
+    return $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'todos',$opcion1, $opcion2,'id_paciente'); 
    }
 
 
@@ -1036,19 +996,26 @@ class GraficosController extends Controller
 
    private function datosGraficaDuracion($tabla1, $tabla2, $tipo, $opcion1, $opcion2)
    {
-    if($opcion1 == 'num_quimioterapia')
-      $datosGrafica = $this->obtenerNumeroDosTipoDurTratamiento($tabla1, $tabla2, $tipo, 'Quimioterapia', $opcion1, 'id_paciente');  
-    elseif($opcion1 == 'num_radioterapia')
-      $datosGrafica = $this->obtenerNumeroDosTipoDurTratamiento($tabla1, $tabla2, $tipo, 'Radioterapia', $opcion1, 'id_paciente');  
-    elseif($opcion1 == 'num_cirugia')
+    if($opcion1 == 'num_quimioterapia'){
+      $datosGrafica = $this->obtenerNumeroDosTipoDurTratamiento($tabla1, $tabla2, $tipo, 'Quimioterapia', $opcion1, 'id_paciente'); 
+      return $this->arrayClaveInvertida($datosGrafica); 
+    }
+    if($opcion1 == 'num_radioterapia'){
+      $datosGrafica = $this->obtenerNumeroDosTipoDurTratamiento($tabla1, $tabla2, $tipo, 'Radioterapia', $opcion1, 'id_paciente'); 
+      return $this->arrayClaveInvertida($datosGrafica); 
+    }
+    if($opcion1 == 'num_cirugia'){
       $datosGrafica = $this->obtenerNumeroDosTipoDurTratamiento($tabla1, $tabla2, $tipo, 'Cirugia', $opcion1, 'id_paciente'); 
-    elseif(preg_match("/^num_/", $opcion1))
+      return $this->arrayClaveInvertida($datosGrafica);
+    }
+    if(preg_match("/^num_/", $opcion1)){
       $datosGrafica = $this->obtenerNumeroDosTipoDur($tabla1, $tabla2, $tipo, $opcion1, 'id_paciente');
-    elseif($opcion1 == 'duracion_radioterapia' or $opcion1 == 'duracion_quimioterapia')
+      return $this->arrayClaveInvertida($datosGrafica);
+    }
+    if($opcion1 == 'duracion_radioterapia' or $opcion1 == 'duracion_quimioterapia'){
       throw new \Exception('errorDosDuraciones');
-    else
-      $datosGrafica = $this->obtenerDuracionYNominal($tabla1, $tabla2, $tipo, $opcion1, $opcion2,'id_paciente');
-
+    }
+    $datosGrafica = $this->obtenerDuracionYNominal($tabla1, $tabla2, $tipo, $opcion1, $opcion2,'id_paciente');
     return $this->arrayClaveInvertida($datosGrafica);
    }
 
@@ -1058,24 +1025,34 @@ class GraficosController extends Controller
       $id = 'id_enfermedad';
     else
       $id = 'id_paciente';
-    if($opcion1 == 'num_quimioterapia')
+    if($opcion1 == 'num_quimioterapia'){
       $datosGrafica = $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'Quimioterapia',$opcion1, $opcion2, 'id_paciente' ,true);
-    elseif($opcion1 == 'num_radioterapia')
+      return $this->arrayClaveInvertida($datosGrafica);
+    }
+    if($opcion1 == 'num_radioterapia'){
       $datosGrafica = $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'Radioterapia',$opcion1, $opcion2,'id_paciente',true);
-    elseif($opcion1 == 'num_cirugia')
+      return $this->arrayClaveInvertida($datosGrafica);
+    }
+    if($opcion1 == 'num_cirugia'){
       $datosGrafica = $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'Cirugia',$opcion1, $opcion2, 'id_paciente',true);
-    elseif($opcion1 == 'num_sintoma' or $opcion1 == 'num_metastasis' or $opcion1 == 'num_biomarcador' or $opcion1 == 'num_prueba' or $opcion1 == 'num_tecnica' or $opcion1 == 'num_tumor')
+      return $this->arrayClaveInvertida($datosGrafica);
+    }
+    if($opcion1 == 'num_sintoma' or $opcion1 == 'num_metastasis' or $opcion1 == 'num_biomarcador' or $opcion1 == 'num_prueba' or $opcion1 == 'num_tecnica' or $opcion1 == 'num_tumor'){
       $datosGrafica = $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'todos',$opcion1, $opcion2,'id_enfermedad',true);
-    elseif(preg_match("/^num_/", $opcion1))
+      return $this->arrayClaveInvertida($datosGrafica);
+    }
+    if(preg_match("/^num_/", $opcion1)){
       $datosGrafica = $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'todos',$opcion1, $opcion2,'id_paciente',true);
-    elseif($opcion1 == 'duracion_quimioterapia')
+      return $this->arrayClaveInvertida($datosGrafica);
+    }
+    if($opcion1 == 'duracion_quimioterapia'){
       return $this->obtenerDuracionYNominal($tabla2, $tabla1, 'Quimioterapia', $opcion2, $opcion1,'id_paciente');
-    elseif($opcion1 == 'duracion_radioterapia')
+    }
+    if($opcion1 == 'duracion_radioterapia'){
       return $this->obtenerDuracionYNominal($tabla2, $tabla1, 'Radioterapia', $opcion2, $opcion1,'id_paciente');
-    else
-      return $this->obtenerDatosDosOpciones($tabla2,$tabla1,$opcion2,$opcion1);
+    }
+    return $this->obtenerDatosDosOpciones($tabla2,$tabla1,$opcion2,$opcion1);
 
-    return $this->arrayClaveInvertida($datosGrafica);
   }
 
    private function dosOpciones($request)
@@ -1095,29 +1072,26 @@ class GraficosController extends Controller
     if($opcion1 == "nacimiento")
       return $this->datosGraficaNacimiento($opcion2, $tabla1, $tabla2, $request);
     //Cuando el primer campo es un antecedente numerico
-    elseif($opcion1 == 'num_antecedente_oncologico' or $opcion1 == 'num_antecedente_medico' or $opcion1 == 'num_familiar_antecedente' or $opcion1 == 'num_antecedente_familiar')
+    if($opcion1 == 'num_antecedente_oncologico' or $opcion1 == 'num_antecedente_medico' or $opcion1 == 'num_familiar_antecedente' or $opcion1 == 'num_antecedente_familiar')
       return $this->datosGraficaAntecedentes($tabla1, $tabla2 ,$opcion1, $opcion2);
-    elseif($opcion1 == 'num_quimioterapia')
+    if($opcion1 == 'num_quimioterapia')
       return $this->datosGraficaTratamientos($tabla1, $tabla2 ,'Quimioterapia', $opcion1, $opcion2,);
-    elseif($opcion1 == 'num_radioterapia')
+    if($opcion1 == 'num_radioterapia')
       return $this->datosGraficaTratamientos($tabla1, $tabla2 ,'Radioterapia', $opcion1 ,$opcion2);
-    elseif($opcion1 == 'num_cirugia')
+    if($opcion1 == 'num_cirugia')
       return $this->datosGraficaTratamientos($tabla1, $tabla2 ,'Cirugia', $opcion1, $opcion2);
-    elseif($opcion1 == 'num_tratamientos')
+    if($opcion1 == 'num_tratamientos')
       return $this->datosGraficaTratamientos($tabla1, $tabla2 ,'todos', $opcion1, $opcion2);
-    elseif($opcion1 == 'num_reevaluacion' or $opcion1 == 'num_seguimiento')
+    if($opcion1 == 'num_reevaluacion' or $opcion1 == 'num_seguimiento')
       return $this->datosGraficaReevaYSegui($tabla1, $tabla2 ,$opcion1, $opcion2);
-    elseif(preg_match("/^num_/", $opcion1))
+    if(preg_match("/^num_/", $opcion1))
       return $this->datosGraficaEnfermedad($tabla1, $tabla2 ,$opcion1, $opcion2);
-    elseif ($opcion1 == 'duracion_quimioterapia')
+    if ($opcion1 == 'duracion_quimioterapia')
       return $this->datosGraficaDuracion($tabla2, $tabla1, 'Quimioterapia', $opcion2 ,$opcion1);
-    elseif ($opcion1 == 'duracion_radioterapia') 
+    if ($opcion1 == 'duracion_radioterapia') 
       return $this->datosGraficaDuracion($tabla2, $tabla1, 'Radioterapia', $opcion2 ,$opcion1);
-    else{
-      return $this->datosGraficaNominal($tabla2, $tabla1,$opcion2, $opcion1);
-    }
 
-    return $datosGrafica;
+    return $this->datosGraficaNominal($tabla2, $tabla1,$opcion2, $opcion1);
    }
 
     /******************************************************************
@@ -1126,36 +1100,33 @@ class GraficosController extends Controller
     *                                                                 *
     *******************************************************************/
 
-
-    /*
+/*
     //PRUEBAS
-    private function joinTablasPaciente($tabla2)
+    private function joinTablasPacienteTres($tabla2 ,$primerJoin)
     {
       if($tabla2 == 'Enfermedades')
-        $joinTablas = DB::table('Pacientes')->join('enfermedades', 'Pacientes.id_paciente', '=', 'enfermedades.id_paciente');
-      elseif($tabla2 == 'Otros_tumores' || $tabla2 == 'Tecnicas_realizadas' || $tabla2 == 'Pruebas_realizadas' || $tabla2 == 'Biomarcadores' || $tabla2 == 'Sintomas' || $tabla2 == 'Metastasis')
-        $joinTablas = DB::table('Pacientes')->join('enfermedades', 'Pacientes.id_paciente', '=', 'enfermedades.id_paciente')->join($tabla2, 'Enfermedades.id_enfermedad', '=', $tabla2.'.id_enfermedad');
-      elseif($tabla2 == 'Intenciones')
-        $joinTablas = DB::table('Pacientes')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-      elseif($tabla2 == 'Farmacos')
-        $joinTablas = DB::table('Pacientes')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-      elseif($tabla2 == 'Enfermedades_familiar')
-        $joinTablas = DB::table('Pacientes')->join('Antecedentes_familiares', 'Pacientes.id_paciente', '=', 'Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f','=','Enfermedades_familiar.id_antecedente_f');
-      else
-        $joinTablas = DB::table('Pacientes')->join($tabla2, 'Pacientes.id_paciente', '=', $tabla2.'.id_paciente');
+        return DB::table('Pacientes')->join('enfermedades', 'Pacientes.id_paciente', '=', 'enfermedades.id_paciente');
+      if($tabla2 == 'Otros_tumores' || $tabla2 == 'Tecnicas_realizadas' || $tabla2 == 'Pruebas_realizadas' || $tabla2 == 'Biomarcadores' || $tabla2 == 'Sintomas' || $tabla2 == 'Metastasis')
+        return DB::table('Pacientes')->join('enfermedades', 'Pacientes.id_paciente', '=', 'enfermedades.id_paciente')->join($primerJoin, 'Enfermedades.id_enfermedad', '=', $tabla2.'.id_enfermedad');
+      if($tabla2 == 'Intenciones')
+        return DB::table('Pacientes')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
+      if($tabla2 == 'Farmacos')
+        return DB::table('Pacientes')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
+      if($tabla2 == 'Enfermedades_familiar')
+        return DB::table('Pacientes')->join('Antecedentes_familiares', 'Pacientes.id_paciente', '=', 'Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f','=','Enfermedades_familiar.id_antecedente_f');
+      return DB::table('Pacientes')->join($tabla2, 'Pacientes.id_paciente', '=', $tabla2.'.id_paciente');
 
-      return $joinTablas;
     }
 
-    private function joinTablasEnfermedad($tabla1, $tabla2)
+    private function joinTablasEnfermedadTres($tabla1, $tabla2 ,$primerJoin)
     {
       if($tabla2 == 'Enfermedades' || $tabla2 == 'Otros_tumores' || $tabla2 == 'Tecnicas_realizadas' || $tabla2 == 'Pruebas_realizadas' || $tabla2 == 'Biomarcadores' || $tabla2 == 'Sintomas' || $tabla2 == 'Metastasis')
-        $joinTablas = DB::table($tabla1)->join($tabla2, $tabla1.'.id_enfermedad', '=', $tabla2.'.id_enfermedad');
+        $joinTablas = DB::table($tabla1)->join($primerJoin, $tabla1.'.id_enfermedad', '=', $tabla2.'.id_enfermedad');
       elseif($tabla2 == 'Seguimientos' || $tabla2 == 'Antecedentes_medicos' || $tabla2 == 'Tratamientos' || $tabla2 == 'Antecedentes_oncologicos' || $tabla2 == 'Antecedentes_familiares' || $tabla2 == 'Reevaluaciones'){
         if($tabla1 == 'Enfermedades')
-          $joinTablas = DB::table('Enfermedades')->join($tabla2, 'Enfermedades.id_paciente','=',$tabla2.'.id_paciente');
+          $joinTablas = DB::table('Enfermedades')->join($primerJoin, 'Enfermedades.id_paciente','=',$tabla2.'.id_paciente');
         else
-          $joinTablas = DB::table('Enfermedades')->join($tabla1, 'Enfermedades.id_enfermedad', '=', $tabla1.'.id_enfermedad')->join($tabla2, 'Enfermedades.id_paciente','=',$tabla2.'.id_paciente');
+          $joinTablas = DB::table('Enfermedades')->join($tabla1, 'Enfermedades.id_enfermedad', '=', $tabla1.'.id_enfermedad')->join($primerJoin, 'Enfermedades.id_paciente','=',$tabla2.'.id_paciente');
       }elseif($tabla2 == 'Intenciones')
         $joinTablas = DB::table('Enfermedades')->join($tabla1, 'Enfermedades.id_enfermedad', '=', $tabla1.'.id_enfermedad')->join('Tratamientos','Enfermedades.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones', 'Tratamientos.id_tratamiento','=','Intenciones.id_tratamiento');
       elseif($tabla2 == 'Farmacos'){
@@ -1169,27 +1140,27 @@ class GraficosController extends Controller
       return $joinTablas;
     }
 
-    private function joinTablasEnfermedades_familiar($tabla2)
+    private function joinTablasEnfermedades_familiarTres($tabla2, $primerJoin)
     {
       if($tabla2 == 'Intenciones')
         $joinTablas = DB::table('Enfermedades_familiar')->join('Antecedentes_familiares', 'Enfermedades_familiar.id_antecedente_f', '=', 'Antecedentes_familiares.id_antecedente_f')->join('Tratamientos','Antecedentes_familiares.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento');   
       else
-        $joinTablas = DB::table('Enfermedades_familiar')->join('Antecedentes_familiares', 'Enfermedades_familiar.id_antecedente_f', '=', 'Antecedentes_familiares.id_antecedente_f')->join($tabla2,'Antecedentes_familiares.id_paciente','=',$tabla2.'.id_paciente'); 
+        $joinTablas = DB::table('Enfermedades_familiar')->join('Antecedentes_familiares', 'Enfermedades_familiar.id_antecedente_f', '=', 'Antecedentes_familiares.id_antecedente_f')->join($primerJoin,'Antecedentes_familiares.id_paciente','=',$tabla2.'.id_paciente'); 
 
       return $joinTablas;
     }
 
-    private function joinTablasIntenciones($tabla2)
+    private function joinTablasIntencionesTres($tabla2,$primerJoin)
     {
       if($tabla2 == 'Tratamientos')
         $joinTablas =DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento');
       else
-        $joinTablas = DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento')->join($tabla2,'Tratamientos.id_paciente','=',$tabla2.'.id_paciente');
+        $joinTablas = DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento')->join($primerJoin,'Tratamientos.id_paciente','=',$tabla2.'.id_paciente');
 
       return $joinTablas;
     }
 
-    private function joinTablasRestantes($tabla1, $tabla2)
+    private function joinTablasRestantesTres($tabla1, $tabla2,$primerJoin)
     {
       if($tabla2 == 'Intenciones'){
         if($tabla1 == 'Tratamientos')
@@ -1199,7 +1170,7 @@ class GraficosController extends Controller
       }elseif($tabla2 == 'Farmacos')
         $joinTablas = DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento')->join('Farmacos','Intenciones.id_intencion','=','Farmacos.id_intencion')->join($tabla1, 'Tratamientos.id_paciente', '=', $tabla1.'.id_paciente');
       else
-       $joinTablas = DB::table($tabla1)->join($tabla2, $tabla1.'.id_paciente', '=', $tabla2.'.id_paciente');
+       $joinTablas = DB::table($tabla1)->join($primerJoin, $tabla1.'.id_paciente', '=', $tabla2.'.id_paciente');
 
      return $joinTablas;
     }
@@ -1210,30 +1181,23 @@ class GraficosController extends Controller
     if($tabla1 == $tabla2)
       $joinTablas = $primerJoin;
     elseif($tabla1 == 'Pacientes')
-      $joinTablas = $this->joinTablasPaciente($tabla2);
+      $joinTablas = $this->joinTablasPacienteTres($tabla2,$primerJoin);
     elseif($tabla1 == 'Enfermedades' || $tabla1 == 'Otros_tumores' || $tabla1 == 'Tecnicas_realizadas' || $tabla1 == 'Pruebas_realizadas' || $tabla1 == 'Biomarcadores' || $tabla1 == 'Sintomas' || $tabla1 == 'Metastasis'){
-      $joinTablas = $this->joinTablasEnfermedad($tabla1, $tabla2);
+      $joinTablas = $this->joinTablasEnfermedadTres($tabla1, $tabla2,$primerJoin);
    }elseif($tabla1 == 'Enfermedades_familiar'){
-      $joinTablas = $this->joinTablasEnfermedades_familiar($tabla2);
+      $joinTablas = $this->joinTablasEnfermedades_familiarTres($tabla2,$primerJoin);
    }elseif($tabla1 == 'Intenciones'){
-      $joinTablas = $this->joinTablasIntenciones($tabla2);
+      $joinTablas = $this->joinTablasIntencionesTres($tabla2,$primerJoin);
    }elseif($tabla1 == 'Farmacos'){
-    $joinTablas = DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento')->join('Farmacos','Intenciones.id_intencion','=','Farmacos.id_intencion')->join($tabla2,'Tratamientos.id_paciente','=',$tabla2.'.id_paciente');
+    $joinTablas = DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento')->join('Farmacos','Intenciones.id_intencion','=','Farmacos.id_intencion')->join($primerJoin,'Tratamientos.id_paciente','=',$tabla2.'.id_paciente');
    }else{
-    $joinTablas = $this->joinTablasRestantes($tabla1, $tabla2);
+    $joinTablas = $this->joinTablasRestantesTres($tabla1, $tabla2,$primerJoin);
    }
 
     return $joinTablas; 
    }
 
-
-*/
-
-
-
-
-
-
+  */
 
    private function tresOpciones($request)
    {
@@ -1250,12 +1214,11 @@ class GraficosController extends Controller
     $seleccion3 = $opciones[$this->obtenerValor($opciones)];
     $opcion3 = $this->campoASeleccionar($tabla3, $seleccion3);   
     $join1 = $this->hacerJoinTablas($tabla1,$tabla2);
-    $join2 = $this->hacerJoinTablas($tabla2,$tabla3);
+    $join2 = $this->hacerJoinTablasTres($tabla1,$tabla2,$join1);
 
     dump($joinFinal);
     dd();
   }
-
     /******************************************************************
     *                                                                 *
     * Imprimir gráficas                                               *

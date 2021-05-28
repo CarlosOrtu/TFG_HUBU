@@ -41,7 +41,7 @@ class DatosPersonalesController extends Controller
     public function validarContrasenas($request)
     {
         $validator = Validator::make($request->all(), [
-            'contrasena_antigua' => ['required', new ComprobarContrasenasIguales],
+            'contrasena_antigua' => ['required', new ComprobarContrasenasIguales()],
             'contrasena_nueva' => 'required|same:contrasena_nueva_repetida',
             'contrasena_nueva_repetida' => 'required'
         ],

@@ -24,9 +24,9 @@ class ComentariosController extends Controller
         if(env('APP_ENV') == 'production'){      
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('vercomentarios',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
-        }else{
-            return view('vercomentarios',['paciente' => $paciente]);
         }
+
+        return view('vercomentarios',['paciente' => $paciente]);
     }
 
     public function actualizarfechaModificacionPaciente($paciente)
@@ -41,9 +41,9 @@ class ComentariosController extends Controller
         if(env('APP_ENV') == 'production'){      
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
         	return view('comentariosnuevos',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
-        }else{
-            return view('comentariosnuevos',['paciente' => $paciente]);
         }
+
+        return view('comentariosnuevos',['paciente' => $paciente]);
     }
 
     public function validarComentario($request)
@@ -85,9 +85,9 @@ class ComentariosController extends Controller
         if(env('APP_ENV') == 'production'){      
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->nhc);
         	return view('comentarios',['paciente' => $paciente, 'comentario' => $comentario, 'posicion' => $num_comentario, 'nombre' => $nhcDesencriptado]);
-        }else{
-            return view('comentarios',['paciente' => $paciente, 'comentario' => $comentario, 'posicion' => $num_comentario]);
         }
+
+        return view('comentarios',['paciente' => $paciente, 'comentario' => $comentario, 'posicion' => $num_comentario]);
     }
 
     public function modificarComentario(Request $request, $id, $num_comentario)

@@ -43,9 +43,9 @@ class EnfermedadController extends Controller
         if(env('APP_ENV') == 'production'){
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('verdatosenfermedad',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
-        }else{
-            return view('verdatosenfermedad',['paciente' => $paciente]);
         }
+
+        return view('verdatosenfermedad',['paciente' => $paciente]);
     }
 
     public function verDatosEnfermedad($id)
@@ -54,9 +54,9 @@ class EnfermedadController extends Controller
         if(env('APP_ENV') == 'production'){
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
         	return view('datosenfermedad',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
-        }else{
-            return view('datosenfermedad',['paciente' => $paciente]);
         }
+
+        return view('datosenfermedad',['paciente' => $paciente]);
     }
 
     public function validarDatosModificarEnfermedad($request)
@@ -77,20 +77,22 @@ class EnfermedadController extends Controller
                 'date' => 'Introduce una fecha valida',
                 'after' => 'La fecha del diagnostico no puede ser anterior a la fecha primera fecha_primera_consulta'
             ]);
-        }else{
-            $validator = Validator::make($request->all(), [
-                'fecha_primera_consulta' => 'required|before:'.$manana,
-                'fecha_diagnostico' => 'required|before:'.$manana,
-                'T_tamano' => 'required|gt:0',
-            ],
-            [
-                'required' => 'El campo :attribute no puede estar vacio',
-                'before' => 'Introduce una fecha valida',
-                'gt' => 'El valor ha de ser mayor que 0',
-                'date' => 'Introduce una fecha valida',
-                'after' => 'La fecha del diagnostico no puede ser anterior a la fecha primera fecha_primera_consulta'
-            ]);
+
+            return $validator;
         }
+        $validator = Validator::make($request->all(), [
+            'fecha_primera_consulta' => 'required|before:'.$manana,
+            'fecha_diagnostico' => 'required|before:'.$manana,
+            'T_tamano' => 'required|gt:0',
+        ],
+        [
+            'required' => 'El campo :attribute no puede estar vacio',
+            'before' => 'Introduce una fecha valida',
+            'gt' => 'El valor ha de ser mayor que 0',
+            'date' => 'Introduce una fecha valida',
+            'after' => 'La fecha del diagnostico no puede ser anterior a la fecha primera fecha_primera_consulta'
+        ]);
+
         return $validator;
     }
 
@@ -147,9 +149,9 @@ class EnfermedadController extends Controller
         if(env('APP_ENV') == 'production'){
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('verdatossintomas',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
-        }else{
-            return view('verdatossintomas',['paciente' => $paciente]);    
-        }    
+        }
+
+        return view('verdatossintomas',['paciente' => $paciente]);     
     }
 
     public function verDatosSintomas($id)
@@ -158,9 +160,9 @@ class EnfermedadController extends Controller
         if(env('APP_ENV') == 'production'){
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
         	return view('datossintomas',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
-        }else{
-            return view('datossintomas',['paciente' => $paciente]);    
         }
+
+        return view('datossintomas',['paciente' => $paciente]);    
     }
 
     public function validarDatosSintomas($request)
@@ -177,9 +179,11 @@ class EnfermedadController extends Controller
                 'before' => 'Introduce una fecha valida',
                 'date' => 'Introduce una fecha valida',
             ]);
-        }else{
-            $validator = Validator::make($request->all(),[]);
+
+            return $validator;
         }
+
+        $validator = Validator::make($request->all(),[]);
 
         return $validator;
     }
@@ -224,7 +228,7 @@ class EnfermedadController extends Controller
             $sintoma->id_enfermedad = $idEnfermedad;
             if($request->tipo == "Dolor otra localización")
                 $sintoma->tipo = "Localización: ".$request->tipo_especificar_localizacion;
-            elseif($request->tipo == "Otro")
+            if($request->tipo == "Otro")
                 $sintoma->tipo = "Otro: ".$request->tipo_especificar;
             else
                 $sintoma->tipo = $request->tipo;
@@ -253,7 +257,7 @@ class EnfermedadController extends Controller
     	$sintoma->id_enfermedad = $idEnfermedad;
     	if($request->tipo == "Dolor otra localización")
     		$sintoma->tipo = "Localización: ".$request->tipo_especificar_localizacion;
-    	elseif($request->tipo == "Otro")
+    	if($request->tipo == "Otro")
     		$sintoma->tipo = "Otro: ".$request->tipo_especificar;
     	else
     		$sintoma->tipo = $request->tipo;
@@ -311,9 +315,9 @@ class EnfermedadController extends Controller
         if(env('APP_ENV') == 'production'){         
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('vermetastasis',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
-        }else{
-            return view('vermetastasis',['paciente' => $paciente]);
         }
+
+        return view('vermetastasis',['paciente' => $paciente]);
     }
 
    	public function verMetastasis($id)
@@ -322,9 +326,9 @@ class EnfermedadController extends Controller
         if(env('APP_ENV') == 'production'){         
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
         	return view('metastasis',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
-        }else{
-            return view('metastasis',['paciente' => $paciente]);
         }
+
+        return view('metastasis',['paciente' => $paciente]);
     }
 
 
@@ -389,9 +393,9 @@ class EnfermedadController extends Controller
         if(env('APP_ENV') == 'production'){         
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('verpruebas',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
-        }else{
-            return view('verpruebas',['paciente' => $paciente]);
-        } 
+        }
+
+        return view('verpruebas',['paciente' => $paciente]);
     }
     public function verPruebas($id)
     {
@@ -399,9 +403,9 @@ class EnfermedadController extends Controller
         if(env('APP_ENV') == 'production'){         
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('pruebas',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
-        }else{
-            return view('pruebas',['paciente' => $paciente]);
         }
+
+        return view('pruebas',['paciente' => $paciente]);
     }
 
 
@@ -467,9 +471,9 @@ class EnfermedadController extends Controller
         if(env('APP_ENV') == 'production'){         
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('vertecnicas',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
-        }else{
-            return view('vertecnicas',['paciente' => $paciente]);
         }
+
+        return view('vertecnicas',['paciente' => $paciente]);
     }
 
     public function verTecnicas($id)
@@ -478,9 +482,9 @@ class EnfermedadController extends Controller
         if(env('APP_ENV') == 'production'){         
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('tecnicas',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
-        }else{
-            return view('tecnicas',['paciente' => $paciente]);
         }
+
+        return view('tecnicas',['paciente' => $paciente]);
     }
 
 
@@ -546,9 +550,9 @@ class EnfermedadController extends Controller
         if(env('APP_ENV') == 'production'){         
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('verotrostumores',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
-        }else{
-            return view('verotrostumores',['paciente' => $paciente]);
         }
+
+        return view('verotrostumores',['paciente' => $paciente]);
     }
 
     public function verOtrosTumores($id)
@@ -557,9 +561,9 @@ class EnfermedadController extends Controller
         if(env('APP_ENV') == 'production'){         
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('otrostumores',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
-        }else{
-            return view('otrostumores',['paciente' => $paciente]);
         }
+
+        return view('otrostumores',['paciente' => $paciente]);
     }
 
     public function crearOtrosTumores(Request $request, $id)
@@ -629,9 +633,9 @@ class EnfermedadController extends Controller
         if(env('APP_ENV') == 'production'){         
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('verbiomarcadores',['paciente' => $paciente, 'biomarcadores' => $biomarcadores, 'nombre' => $nhcDesencriptado]);
-        }else{
-            return view('verbiomarcadores',['paciente' => $paciente, 'biomarcadores' => $biomarcadores]);
         }
+
+        return view('verbiomarcadores',['paciente' => $paciente, 'biomarcadores' => $biomarcadores]);
     }
 
     public function verBiomarcadores($id)
@@ -645,9 +649,9 @@ class EnfermedadController extends Controller
         if(env('APP_ENV') == 'production'){         
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('biomarcadores',['paciente' => $paciente, 'biomarcadores' => $biomarcadores, 'nombre' => $nhcDesencriptado]);
-        }else{
-            return view('biomarcadores',['paciente' => $paciente, 'biomarcadores' => $biomarcadores]);
         }
+
+        return view('biomarcadores',['paciente' => $paciente, 'biomarcadores' => $biomarcadores]);
     }
 
     public function guardarBiomarcadores(Request $request, $id)
@@ -673,7 +677,7 @@ class EnfermedadController extends Controller
                         else
                             $nuevoBiomarcador->subtipo = $request->{$biomarcador.'_subtipo'};
                     }
-                }else if($biomarcador == "KRAS" or $biomarcador == "BRAF"){
+                }elseif($biomarcador == "KRAS" or $biomarcador == "BRAF"){
                   if($request->{$biomarcador.'_tipo'} == "Mutado"){
                         if($request->{$biomarcador.'_subtipo'} == "Otra")
                             $nuevoBiomarcador->subtipo = 'Otro: '.$request->{$biomarcador.'_subtipo_especificar'};

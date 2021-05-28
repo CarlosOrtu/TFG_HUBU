@@ -25,8 +25,9 @@ class ReevaluacionesController extends Controller
         if(env('APP_ENV') == 'production'){      
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('verreevaluaciones',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
-        }else{
-            return view('verreevaluaciones',['paciente' => $paciente]);
+        }
+
+        return view('verreevaluaciones',['paciente' => $paciente]);
         }
     }
 
@@ -42,8 +43,9 @@ class ReevaluacionesController extends Controller
         if(env('APP_ENV') == 'production'){      
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
         	return view('reevaluacionesnuevas',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
-        }else{
-            return view('reevaluacionesnuevas',['paciente' => $paciente]);
+        }
+
+        return view('reevaluacionesnuevas',['paciente' => $paciente]);
         }
     }
 
@@ -103,8 +105,9 @@ class ReevaluacionesController extends Controller
         if(env('APP_ENV') == 'production'){      
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
         	return view('reevaluaciones',['paciente' => $paciente, 'reevaluacion' => $reevaluacion, 'posicion' => $num_reevaluacion, 'nombre' => $nhcDesencriptado]);
-        }else{
-            return view('reevaluaciones',['paciente' => $paciente, 'reevaluacion' => $reevaluacion, 'posicion' => $num_reevaluacion]);
+        }
+
+        return view('reevaluaciones',['paciente' => $paciente, 'reevaluacion' => $reevaluacion, 'posicion' => $num_reevaluacion]);
         }
     }
 
