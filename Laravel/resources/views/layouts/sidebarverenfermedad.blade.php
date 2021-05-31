@@ -11,7 +11,7 @@
           </ul>
         </div>
       </li>
-      @if(isset($paciente->Enfermedad))
+      @if(isset($paciente->Enfermedades))
       <div class="dropdown-divider"></div>
       <li class="mb-1">
         <button class="btn btn-toggle text-white desplegable" id="boton2" data-toggle="collapse" data-target="#menu2" aria-expanded="false">
@@ -30,7 +30,7 @@
         </div>
       </li>
       @endif
-      @if(isset($paciente->Enfermedad))
+      @if(isset($paciente->Enfermedades))
       <div class="dropdown-divider"></div>
       <li class="mb-1">
         <button class="btn btn-toggle text-white desplegable" id="boton3" data-toggle="collapse" data-target="#menu3" aria-expanded="false">
