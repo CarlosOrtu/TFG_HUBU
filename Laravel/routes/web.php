@@ -13,6 +13,7 @@ use App\Http\Controllers\ReevaluacionesController;
 use App\Http\Controllers\SeguimientosController;
 use App\Http\Controllers\ComentariosController;
 use App\Http\Controllers\GraficosController;
+use App\Http\Controllers\PercentilesController;
 
 
 //Rutas de login y logout
@@ -158,3 +159,6 @@ Route::delete('/paciente/{id}/comentarios/modificar/{num_comentario}',  [Comenta
 //Rutas de visualización de las graficas
 Route::get('/ver/graficas',  [GraficosController::class, 'verGraficas'])->name('vergraficas');
 Route::post('/ver/graficas',  [GraficosController::class, 'imprimirGraficas'])->name('imprimirgrafica');
+
+//Rutas de visualización de percentiles
+Route::get('/ver/percentiles',  [PercentilesController::class, 'verPercentiles'])->name('verpercentiles');
