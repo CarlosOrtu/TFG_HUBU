@@ -44,7 +44,9 @@
   </div>
   <div class="row">
     <div class="d-flex align-items-center col-md-3 my-4">
-      <button type="button" class="boton_nuevocampo btn btn-info">Nueva división</button>
+      <button type="button" class="boton_nuevocampo btn btn-info"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2 mt-1 bi bi-plus" viewBox="0 0 16 16">
+  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+</svg>Nueva división</button>
     </div>
     <div class="oculto col-md-3">
       <div class="my-4 input-group">
@@ -73,7 +75,9 @@
       </div>
     </div>
     <div class="oculto align-items-center col-md-3 my-4">
-      <button type="button" class="boton_nuevocampo btn btn-info">Nueva división</button>
+      <button type="button" class="boton_nuevocampo btn btn-info"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2 mt-1 bi bi-plus" viewBox="0 0 16 16">
+  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+</svg>Nueva división</button>
     </div>
     <div class="oculto col-md-3">
       <div class="my-4 input-group">
@@ -102,7 +106,9 @@
       </div>
     </div>
     <div class="oculto align-items-center col-md-3">
-      <button type="button" id="boton_nuevocampo2" class="btn btn-info">Nueva división</button>
+      <button type="button" id="boton_nuevocampo2" class="btn btn-info"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2 mt-1 bi bi-plus" viewBox="0 0 16 16">
+  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+</svg>Nueva división</button>
     </div>
     <div class="oculto col-md-3">
       <div class="my-4 input-group">
@@ -138,14 +144,16 @@
   </div>
   <div class="row">
     <div class="d-flex align-items-center col-md-3 my-4">
-      <button type="button" class="btn btn-info btn2">Nueva división</button>
+      <button type="button" class="btn btn-info btn2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2 mt-1 bi bi-plus" viewBox="0 0 16 16">
+  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+</svg>Nueva división</button>
     </div>
     <div class="oculto col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
         </div>
-        <select name="opciones[]" class="form-control max">
+        <select name="opciones[]" class="form-control max simple">
           <option>Ninguna</option>
           <option value="ECOG">ECOG</option>
           <option value="T">T</option>
@@ -163,14 +171,16 @@
       </div>
     </div>
     <div class="oculto align-items-center col-md-3">
-      <button type="button" class="btn btn-info btn2">Nueva división</button>
+      <button type="button" class="btn btn-info btn2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2 mt-1 bi bi-plus" viewBox="0 0 16 16">
+  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+</svg>Nueva división</button>
     </div>
     <div class="oculto col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
         </div>
-        <select name="opciones[]" class="form-control max">
+        <select name="opciones[]" class="form-control max simple">
           <option>Ninguna</option>
           <option value="ECOG">ECOG</option>
           <option value="T">T</option>
@@ -188,14 +198,16 @@
       </div>
     </div>
     <div class="oculto align-items-center col-md-3">
-      <button type="button" class="btn btn-info btn2">Nueva división</button>
+      <button type="button" class="btn btn-info btn2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2 mt-1 bi bi-plus" viewBox="0 0 16 16">
+  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+</svg>Nueva división</button>
     </div>
     <div class="oculto col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
         </div>
-        <select name="opciones[]" class="form-control max">
+        <select name="opciones[]" class="form-control max simple">
           <option>Ninguna</option>
           <option value="ECOG">ECOG</option>
           <option value="T">T</option>
@@ -220,14 +232,16 @@
   </div>
   <div class="row">
     <div class="d-flex align-items-center col-md-3 my-4">
-      <button type="button" class="btn btn-info btn2">Nueva división</button>
+      <button type="button" class="btn btn-info btn2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2 mt-1 bi bi-plus" viewBox="0 0 16 16">
+  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+</svg>Nueva división</button>
     </div>
     <div class="oculto col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
         </div>
-        <select name="opciones[]" class="form-control max">
+        <select name="opciones[]" class="form-control max simple">
           <option>Ninguna</option>
           <option value="tipo_sintoma">Tipos de sintoma</option>
           <option value="num_sintoma">Número de sintomas</option>
@@ -246,14 +260,16 @@
       </div>
     </div>
     <div class="oculto align-items-center col-md-3">
-      <button type="button" class="btn btn-info btn2">Nueva división</button>
+      <button type="button" class="btn btn-info btn2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2 mt-1 bi bi-plus" viewBox="0 0 16 16">
+  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+</svg>Nueva división</button>
     </div>
     <div class="oculto col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
         </div>
-        <select name="opciones[]" class="form-control max">
+        <select name="opciones[]" class="form-control max simple">
           <option>Ninguna</option>
           <option value="tipo_sintoma">Tipos de sintoma</option>
           <option value="num_sintoma">Número de sintomas</option>
@@ -272,14 +288,16 @@
       </div>
     </div>
     <div class="oculto align-items-center col-md-3">
-      <button type="button" class="btn btn-info btn2">Nueva división</button>
+      <button type="button" class="btn btn-info btn2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2 mt-1 bi bi-plus" viewBox="0 0 16 16">
+  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+</svg>Nueva división</button>
     </div>
     <div class="oculto col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
         </div>
-        <select name="opciones[]" class="form-control max">
+        <select name="opciones[]" class="form-control max simple">
           <option>Ninguna</option>
           <option value="tipo_sintoma">Tipos de sintoma</option>
           <option value="num_sintoma">Número de sintomas</option>
@@ -305,14 +323,16 @@
   </div>
   <div class="row">
     <div class="d-flex align-items-center col-md-3 my-4">
-      <button type="button" class="btn btn-info btn2">Nueva división</button>
+      <button type="button" class="btn btn-info btn2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2 mt-1 bi bi-plus" viewBox="0 0 16 16">
+  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+</svg>Nueva división</button>
     </div>
     <div class="oculto col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
         </div>
-        <select name="opciones[]" class="form-control max">
+        <select name="opciones[]" class="form-control max simple">
           <option>Ninguna</option>
           <option value="tipo_antecedente_medico">Tipos de antecedentes medicos</option>
           <option value="num_antecedente_medico">Número de antecedentes medicos</option>
@@ -326,14 +346,16 @@
       </div>
     </div>
     <div class="oculto align-items-center col-md-3">
-      <button type="button" class="btn btn-info btn2">Nueva división</button>
+      <button type="button" class="btn btn-info btn2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2 mt-1 bi bi-plus" viewBox="0 0 16 16">
+  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+</svg>Nueva división</button>
     </div>
     <div class="oculto col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
         </div>
-        <select name="opciones[]" class="form-control max">
+        <select name="opciones[]" class="form-control max simple">
           <option>Ninguna</option>
           <option value="tipo_antecedente_medico">Tipos de antecedentes medicos</option>
           <option value="num_antecedente_medico">Número de antecedentes medicos</option>
@@ -347,14 +369,16 @@
       </div>
     </div>
     <div class="oculto align-items-center col-md-3">
-      <button type="button" class="btn btn-info btn2">Nueva división</button>
+      <button type="button" class="btn btn-info btn2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2 mt-1 bi bi-plus" viewBox="0 0 16 16">
+  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+</svg>Nueva división</button>
     </div>
     <div class="oculto col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
         </div>
-        <select name="opciones[]" class="form-control max">
+        <select name="opciones[]" class="form-control max simple">
           <option>Ninguna</option>
           <option value="tipo_antecedente_medico">Tipos de antecedentes medicos</option>
           <option value="num_antecedente_medico">Número de antecedentes medicos</option>
@@ -375,14 +399,16 @@
   </div>
   <div class="row">
     <div class="d-flex align-items-center col-md-3 my-4">
-      <button type="button" class="btn btn-info btn2">Nueva división</button>
+      <button type="button" class="btn btn-info btn2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2 mt-1 bi bi-plus" viewBox="0 0 16 16">
+  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+</svg>Nueva división</button>
     </div>
     <div class="oculto col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
         </div>
-        <select name="opciones[]" class="form-control max">
+        <select name="opciones[]" class="form-control max simple">
           <option>Ninguna</option>
           <option value="tipo_tratamiento">Tipo de tratamientos</option>
           <option value="num_tratamientos">Numero de tratamientos</option>
@@ -410,14 +436,16 @@
       </div>
     </div>
     <div class="oculto align-items-center col-md-3">
-      <button type="button" class="btn btn-info btn2">Nueva división</button>
+      <button type="button" class="btn btn-info btn2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2 mt-1 bi bi-plus" viewBox="0 0 16 16">
+  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+</svg>Nueva división</button>
     </div>
     <div class="oculto col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
         </div>
-        <select name="opciones[]" class="form-control max">
+        <select name="opciones[]" class="form-control max simple">
           <option>Ninguna</option>
           <option value="tipo_tratamiento">Tipo de tratamientos</option>
           <option value="num_tratamientos">Numero de tratamientos</option>
@@ -445,14 +473,16 @@
       </div>
     </div>
     <div class="oculto align-items-center col-md-3">
-      <button type="button" class="btn btn-info btn2">Nueva división</button>
+      <button type="button" class="btn btn-info btn2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2 mt-1 bi bi-plus" viewBox="0 0 16 16">
+  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+</svg>Nueva división</button>
     </div>
     <div class="oculto col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
         </div>
-        <select name="opciones[]" class="form-control max">
+        <select name="opciones[]" class="form-control max simple">
           <option>Ninguna</option>
           <option value="tipo_tratamiento">Tipo de tratamientos</option>
           <option value="num_tratamientos">Numero de tratamientos</option>
@@ -487,14 +517,16 @@
   </div>
   <div class="row">
     <div class="d-flex align-items-center col-md-3 my-4">
-      <button type="button" class="btn btn-info btn2">Nueva división</button>
+      <button type="button" class="btn btn-info btn2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2 mt-1 bi bi-plus" viewBox="0 0 16 16">
+  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+</svg>Nueva división</button>
     </div>
     <div class="oculto col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
         </div>
-        <select name="opciones[]" class="form-control max">
+        <select name="opciones[]" class="form-control max simple">
           <option>Ninguna</option>
           <option value="estado">Estado de reevaluación</option>
           <option value="num_reevaluacion">Número de reevaluaciones</option>
@@ -507,14 +539,16 @@
       </div>
     </div>
     <div class="oculto align-items-center col-md-3">
-      <button type="button" class="btn btn-info btn2">Nueva división</button>
+      <button type="button" class="btn btn-info btn2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2 mt-1 bi bi-plus" viewBox="0 0 16 16">
+  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+</svg>Nueva división</button>
     </div>
     <div class="oculto col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
         </div>
-        <select name="opciones[]" class="form-control max">
+        <select name="opciones[]" class="form-control max simple">
           <option>Ninguna</option>
           <option value="estado">Estado de reevaluación</option>
           <option value="num_reevaluacion">Número de reevaluaciones</option>
@@ -527,14 +561,16 @@
       </div>
     </div>
     <div class="oculto align-items-center col-md-3">
-      <button type="button" class="btn btn-info btn2">Nueva división</button>
+      <button type="button" class="btn btn-info btn2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2 mt-1 bi bi-plus" viewBox="0 0 16 16">
+  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+</svg>Nueva división</button>
     </div>
     <div class="oculto col-md-3">
       <div class="my-4 input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Gráfica <br>dividida por</span>
         </div>
-        <select name="opciones[]" class="form-control max">
+        <select name="opciones[]" class="form-control max simple">
           <option>Ninguna</option>
           <option value="estado">Estado de reevaluación</option>
           <option value="num_reevaluacion">Número de reevaluaciones</option>
@@ -571,6 +607,44 @@ $(document).ready(function(){
       $(this).parent().hide();
       $(this).parent().removeClass('d-flex');
     });
+    $(".form-control.max.simple").each(function(event){
+      if($(this).val() != 'Ninguna'){
+          $(this).parent().parent().prev().hide();
+          $(this).parent().parent().prev().removeClass('d-flex');
+          $(this).css('display', 'flex');
+          $(this).parent().parent().css('display', 'flex');
+          $(this).parent().parent().next().css('display', 'flex');
+        }
+      });
+    $(".tipoGrafica.form-control.max").each(function(event){
+      if($(this).val() != 'Ninguna'){
+          $(this).parent().parent().prev().hide();
+          $(this).parent().parent().prev().removeClass('d-flex');
+          $(this).css('display', 'flex');
+          $(this).parent().parent().css('display', 'flex');
+          $(this).parent().parent().next().next().css('display', 'flex');
+        }
+      });
+    $(".form-control.max").each(function(event) {
+      var numDifNinguno = 0;
+      $(".form-control.max").each(function(event){
+        if($(this).val() != 'Ninguna')
+          numDifNinguno += 1;
+      });
+      if(numDifNinguno == 3){
+        $(".form-control.max").each(function(event){
+          if($(this).val() == 'Ninguna'){
+            $(".btn.btn-info").hide();
+          }
+        });
+      }else{
+        $(".form-control.max").each(function(event){
+          if($(this).val() == 'Ninguna'){
+            $(".btn.btn-info").css('display', 'flex');
+          }
+        });
+      }
+    });
     $(".form-control.max").change(function(event) {
       var numDifNinguno = 0;
       $(".form-control.max").each(function(event){
@@ -579,13 +653,15 @@ $(document).ready(function(){
       });
       if(numDifNinguno == 3){
         $(".form-control.max").each(function(event){
-          if($(this).val() == 'Ninguna')
-            $(this).prop( "disabled", true );
+          if($(this).val() == 'Ninguna'){
+            $(".btn.btn-info").hide();
+          }
         });
       }else{
         $(".form-control.max").each(function(event){
-          if($(this).val() == 'Ninguna')
-            $(this).prop( "disabled", false );
+          if($(this).val() == 'Ninguna'){
+            $(".btn.btn-info").css('display', 'flex');
+          }
         });
       }
     });
