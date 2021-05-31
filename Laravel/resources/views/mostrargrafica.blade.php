@@ -65,19 +65,17 @@
                    'width':600,
                    'height':450};
 
-    if(tipoGrafica == 'circular')
+    if(tipoGrafica == 'circular'){
       var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-    else
+    }else
       var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-   
-  $("#descargar").click(function() {
+
     google.visualization.events.addListener(chart, 'ready', function () {
-      chart_div.innerHTML = '<img id="chart" src=' + chart.getImageURI() + '>';
-      document.getElementById("download_link").setAttribute("href", chart.getImageURI())
+      document.getElementById("descargar").setAttribute("href", chart.getImageURI())
     });
-  });
 
     chart.draw(data, options);
+  
   }
 </script>
 <?php 
@@ -85,7 +83,7 @@
 ?>
 <div class="d-flex justify-content-around">
   <div class="d-flex justify-content-center mr-4" id="chart_div"></div>
-  <table class="text-white table table-bordered">
+  <table id="tabla_grafica" class="text-white table table-bordered">
     <thead>
       <tr>
         <th scope="col">@foreach($tipos as $tipo) @if($loop->first) {{ $tipo }} @else {{ ' y '.$tipo }} @endif @endforeach</th>
@@ -105,7 +103,7 @@
             $total = $total + $datosGrafica[$claveTotal];
           }
 
-          $percentil = ($datosGrafica[$clave]/$total)*100;
+          $percentil = round(($datosGrafica[$clave]/$total)*100,2);
         ?>    
         <td>{{ $percentil }}</td>
         <?php 
@@ -121,7 +119,7 @@
           $totalPercentil = 0;
           foreach(array_keys($datosGrafica) as $claveTotal){
             $totalFrecuencia = $totalFrecuencia + $datosGrafica[$claveTotal];
-            $totalPercentil = $totalPercentil + ($datosGrafica[$clave]/$total)*100;
+            $totalPercentil = $totalPercentil + round(($datosGrafica[$claveTotal]/$total)*100,2);
           }
 
         ?>    
@@ -132,8 +130,27 @@
     </tbody>
   </table>  
 </div>
-<div class="mt-5 d-flex justify-content-around align-items-center">
-  <button id="descargar" class="btn btn-info">Descargar gráfica</button>
-  <a href="{{ route('vergraficas') }}" ><input type="button" class="btn btn-info" value="Nueva gráfica"/></a>
+<div class="row mt-5 d-flex justify-content-around align-items-center">
+  <a id="descargar" class="btn btn-info" href="/" download="grafica"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2 bi bi-download" viewBox="0 0 16 16">
+  <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+  <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+</svg>Descargar gráfica</a>
+  <a onclick="exportarExcel(this)" href="" class="text-white btn btn-info"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2 bi bi-download" viewBox="0 0 16 16">
+  <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+  <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+</svg></span>Descargar tabla</a>
 </div>
+<div class="row mt-5 d-flex justify-content-center align-items-center">
+  <a href="{{ route('vergraficas') }}" ><input type="button" class="px-5 btn btn-info" value="Nueva gráfica"/></a>
+</div>
+<script type="text/javascript">
+function exportarExcel(elem) {
+  var table = document.getElementById("tabla_grafica");
+  var html = table.outerHTML;
+  var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
+  elem.setAttribute("href", url);
+  elem.setAttribute("download", "TablaGrafica.xls"); // Choose the file name
+  return false;
+}
+</script>
 @endsection
