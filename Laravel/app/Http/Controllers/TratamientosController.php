@@ -38,6 +38,7 @@ class TratamientosController extends Controller
         if(env('APP_ENV') == 'production'){      
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('verradioterapia',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
+        }
             
         return view('verradioterapia',['paciente' => $paciente]);
     }

@@ -28,7 +28,6 @@ class ReevaluacionesController extends Controller
         }
 
         return view('verreevaluaciones',['paciente' => $paciente]);
-        }
     }
 
     public function actualizarfechaModificacionPaciente($paciente)
@@ -46,7 +45,6 @@ class ReevaluacionesController extends Controller
         }
 
         return view('reevaluacionesnuevas',['paciente' => $paciente]);
-        }
     }
 
     public function validarReevaluacion($request)
@@ -108,7 +106,6 @@ class ReevaluacionesController extends Controller
         }
 
         return view('reevaluaciones',['paciente' => $paciente, 'reevaluacion' => $reevaluacion, 'posicion' => $num_reevaluacion]);
-        }
     }
 
     public function modificarReevaluación(Request $request, $id, $num_reevaluacion)
