@@ -13,3 +13,6 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 sonar-project.properties.txt
+/sonar-scanner-4.6.2.2472-windows
+\.scannerwork
+sonar-project.properties
