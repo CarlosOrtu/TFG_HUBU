@@ -14,7 +14,7 @@ use App\Http\Controllers\SeguimientosController;
 use App\Http\Controllers\ComentariosController;
 use App\Http\Controllers\GraficosController;
 use App\Http\Controllers\PercentilesController;
-
+use App\Http\Controllers\ExportarDatosController;
 
 //Rutas de login y logout
 Auth::routes(['register' => false,'reset' => false,'confirm' => false,'verify' => false]);
@@ -162,3 +162,7 @@ Route::post('/ver/graficas',  [GraficosController::class, 'imprimirGraficas'])->
 
 //Rutas de visualización de percentiles
 Route::get('/ver/percentiles',  [PercentilesController::class, 'verPercentiles'])->name('verpercentiles');
+
+//Rutas para exportar los datos
+Route::get('/ver/exportardatos', [ExportarDatosController::class, 'verExportarDatos'])->name('verexportardatos');
+Route::post('/ver/exportardatos', [ExportarDatosController::class, 'exportarDatos'])->name('exportardatos');
