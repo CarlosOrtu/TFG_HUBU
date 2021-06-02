@@ -54,7 +54,7 @@ class PercentilesController extends Controller
     		$sumatorioDistancias += pow(abs($dato - $media), 2);
     	}
 
-    	return sqrt($sumatorioDistancias/count($listaOrdenada));
+    	return sqrt($sumatorioDistancias/(count($listaOrdenada) -1 ));
     }
 
     private function calcularSkewness($listaOrdenada, $media, $desviacion)
@@ -65,7 +65,7 @@ class PercentilesController extends Controller
     	}
     	if($desviacion == 0)
     		return 0;
-    	return $sumatorioDistancias/(count($listaOrdenada) * pow($desviacion, 3));
+    	return $sumatorioDistancias/((count($listaOrdenada) -1) * pow($desviacion, 3));
     }
 
     private function calcularKurtosis($listaOrdenada, $media, $desviacion)
@@ -76,7 +76,7 @@ class PercentilesController extends Controller
     	}
     	if($desviacion == 0)
     		return 0;
-    	return $sumatorioDistancias/(count($listaOrdenada) * pow($desviacion, 4));
+    	return $sumatorioDistancias/((count($listaOrdenada) -1) * pow($desviacion, 4));
     }
 
     private function calcularPercentil($listaOrdenada, $percentil)
