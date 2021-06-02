@@ -162,6 +162,7 @@ Route::post('/ver/graficas',  [GraficosController::class, 'imprimirGraficas'])->
 
 //Rutas de visualización de percentiles
 Route::get('/ver/percentiles',  [PercentilesController::class, 'verPercentiles'])->name('verpercentiles');
+Route::post('/ver/percentiles',  [PercentilesController::class, 'imprimirPercentiles'])->name('imprimirpercentiles');
 
 //Rutas para exportar los datos
 Route::get('/ver/exportardatos', [ExportarDatosController::class, 'verExportarDatos'])->name('verexportardatos');

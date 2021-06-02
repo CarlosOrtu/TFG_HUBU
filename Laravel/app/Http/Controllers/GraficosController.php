@@ -33,7 +33,7 @@ class GraficosController extends Controller
    {
       $pacientes = Pacientes::all();
       $columnas = Schema::getColumnListing('Pacientes');
-      return view('graficas',['pacientes' => $pacientes]);
+      return view('graficas', ['pacientes' => $pacientes]);
    }
 
     /******************************************************************
