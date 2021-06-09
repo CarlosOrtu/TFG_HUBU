@@ -15,6 +15,8 @@ use App\Http\Controllers\ComentariosController;
 use App\Http\Controllers\GraficosController;
 use App\Http\Controllers\PercentilesController;
 use App\Http\Controllers\ExportarDatosController;
+use App\Http\Controllers\BaseDeDatosSinteticaController;
+
 
 //Rutas de login y logout
 Auth::routes(['register' => false,'reset' => false,'confirm' => false,'verify' => false]);
@@ -167,3 +169,7 @@ Route::post('/ver/percentiles',  [PercentilesController::class, 'imprimirPercent
 //Rutas para exportar los datos
 Route::get('/ver/exportardatos', [ExportarDatosController::class, 'verExportarDatos'])->name('verexportardatos');
 Route::post('/ver/exportardatos', [ExportarDatosController::class, 'exportarDatos'])->name('exportardatos');
+
+//Rutas para crear la base de datos sintética
+Route::get('/ver/basesintetica', [BaseDeDatosSinteticaController::class, 'verBaseSintetica'])->name('verbasesintetica');
+Route::post('/ver/basesintetica', [BaseDeDatosSinteticaController::class, 'crearBaseSintetica'])->name('crearbasesintetica');

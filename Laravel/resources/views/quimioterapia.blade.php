@@ -222,9 +222,7 @@
       <option {{ $farmaco->tipo == 'Trametinib' ? 'selected' : '' }}>Trametinib</option>
       <option {{ $farmaco->tipo == 'Tepotinib' ? 'selected' : '' }}>Tepotinib</option>
       <option {{ $farmaco->tipo == 'Capmatinib' ? 'selected' : '' }}>Capmatinib</option>
-      <option {{ $farmaco->tipo == 'Tepotinib' ? 'selected' : '' }}>Tepotinib</option>
       <option {{ $farmaco->tipo == 'Trastuzumab-deruxtecán' ? 'selected' : '' }}>Trastuzumab-deruxtecán</option>
-      <option {{ $farmaco->tipo == 'Tepotinib' ? 'selected' : '' }}>Tepotinib</option>
       <option {{ preg_match("/^Ensayo: /", $farmaco->tipo) ? 'selected' : '' }}>Farmaco en ensayo clínico</option>
       <option {{ preg_match("/^Otro: /", $farmaco->tipo) ? 'selected' : '' }}>Otro</option>
     </select>

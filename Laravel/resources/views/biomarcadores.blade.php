@@ -35,8 +35,8 @@
           <span class="input-group-text">Tipo de muestra</span>
         </div>
         <select name="NGS_tipo" class="form-control">
-          <option>Biopsia solida</option>
-          <option>Biopsia liquida</option>
+          <option>Biopsia sólida</option>
+          <option>Biopsia líquida</option>
         </select>
       </div>
     </div>
@@ -73,7 +73,7 @@
         </div>
         <select name="PDL1_tipo" class="form-control">
           <option>En célula tumorales con IHQ</option>
-          <option>Score copmbinado/CPS</option>
+          <option>Score combinado/CPS</option>
         </select>
       </div>
     </div>
