@@ -6,8 +6,9 @@
       google.charts.setOnLoadCallback(drawChart);
 
   function drawChart() {
+
     var data = google.visualization.arrayToDataTable([
-      [ '{{ $tipoDato }}',@foreach($datosGraficaPercentil as $dato) {{ $dato }} , @endforeach]
+      [ '{{ $tipoDato }}', {{ $percentiles[0] }}, {{ $percentiles[3] }}, {{ $percentiles[5] }}, {{ $percentiles[8] }} ]
       // Treat first row as data as well.
     ], true);
 
