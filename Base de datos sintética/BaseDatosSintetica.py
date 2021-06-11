@@ -104,12 +104,12 @@ motivoFallecimiento = ["Enfermedad", "Otro"]
 fake = Faker('es_ES')
 
 #Variables media y moda para las distribuciones normales
-mediaTumor = float(sys.argv[2])
-desviacionTumor = float(sys.argv[3])
-mediaDosis = float(sys.argv[4])
-desviacionDosis = float(sys.argv[5])
-lambdaCigarros = float(sys.argv[6])
-lambdaCiclos = float(sys.argv[7])
+mediaTumor = float(sys.argv[2].replace(',', '.'))
+desviacionTumor = float(sys.argv[3].replace(',', '.'))
+mediaDosis = float(sys.argv[4].replace(',', '.'))
+desviacionDosis = float(sys.argv[5].replace(',', '.'))
+lambdaCigarros = float(sys.argv[6].replace(',', '.'))
+lambdaCiclos = float(sys.argv[7].replace(',', '.'))
 
 def main():
     miConexion, cur = establecerConexionBase()

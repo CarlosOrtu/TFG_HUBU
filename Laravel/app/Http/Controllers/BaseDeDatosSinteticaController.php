@@ -22,7 +22,6 @@ class BaseDeDatosSinteticaController extends Controller
 
     public function crearBaseSintetica(Request $request)
     { 	
-    	$text = 'The text you are desperate to analyze :)';
     	$process = new Process(['py', 'C:\wamp64\www\TFG_HUBU\Base de datos sintética\BaseDatosSintetica.py', $request->num_pacientes, $request->media_tamano_tumor, $request->desviacion_tamano_tumor, $request->media_dosis, $request->desviacion_dosis, $request->lambda_cigarros, $request->lambda_ciclos, $request->p_tablas]);
 		$process->run();
 
