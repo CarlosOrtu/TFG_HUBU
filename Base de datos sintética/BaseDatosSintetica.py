@@ -148,7 +148,6 @@ def main():
             insertarSeguimiento(x, cur, miConexion)
         miConexion.commit()
 
-
     miConexion.close()
 
 def obtenerNumeroTablas():
