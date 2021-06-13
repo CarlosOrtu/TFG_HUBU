@@ -253,7 +253,18 @@ table.dataTable thead tr th{
   border-right-width: 0px !important  ;
 }
 
-/*Prueba*/
 .oculto{
   display: none;
+}
+
+/* Boton de ayuda */
+
+.boton_ayuda {
+  color: white;
+  margin-top: 2%;
+}
+
+.ayuda {
+  z-index: 999;
+  background-color: #0D1117;
 }
