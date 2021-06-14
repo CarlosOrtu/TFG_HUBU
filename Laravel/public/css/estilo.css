@@ -1,9 +1,9 @@
 /* Fondo */
-body{
+body {
 	height: 100vh;
   margin: 0;
   background-color: #0D1117;
-  background-attachment:fixed;
+  background-attachment: fixed;
   overflow-y: hidden;
 }
 
@@ -21,7 +21,7 @@ body{
 }
 
 /* Layout */
-#HUBU:before {
+#HUBU::before {
   content: attr(data-desktoptext);
 }
 
@@ -34,7 +34,7 @@ body{
 }
 
 main {
-  height: 85vh; 
+  height: 85vh;
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -45,7 +45,7 @@ main {
   }
 }
 
-.dropdown-menu{
+.dropdown-menu {
   left: -10%;
 }
 
@@ -57,24 +57,23 @@ main {
 
 .btn-toggle-nav a {
   display: inline-flex;
-  padding: .1875rem .5rem;
-  margin-top: .125rem;
+  padding: 0.1875rem 0.5rem;
+  margin-top: 0.125rem;
   text-decoration: none;
-  margin-bottom: .25rem;
+  margin-bottom: 0.25rem;
 }
 
 .btn-toggle {
   display: inline-flex;
   align-items: center;
-  padding: .25rem .5rem;
+  padding: 0.25rem 0.5rem;
   font-weight: 600;
-  color: rgba(0, 0, 0, .65);
-  
+  color: rgba(0, 0, 0, 0.65);
   border: 0;
 }
 .btn-toggle:hover,
 .btn-toggle:focus {
-  color: rgba(0, 0, 0, .85);
+  color: rgba(0, 0, 0, 0.85);
   background-color: black;
 }
 
@@ -83,11 +82,11 @@ main {
   line-height: 0;
   content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
   transition: transform .35s ease;
-  transform-origin: .5em 50%;
+  transform-origin: 0.5em 50%;
 }
 
 .btn-toggle[aria-expanded="true"] {
-  color: rgba(0, 0, 0, .85);
+  color: rgba(0, 0, 0, 0.85);
 }
 .btn-toggle[aria-expanded="true"]::before {
   transform: rotate(90deg);
@@ -99,7 +98,7 @@ main {
 }
 
 /* Login */
-.login{
+.login {
 	margin-top: 10%;
 }
 
@@ -119,7 +118,7 @@ main {
 }
 
 /* Botones e inputs */
-.input-group-text{
+.input-group-text {
   width: 120px;
   justify-content: center;
 }
@@ -130,47 +129,47 @@ main {
 
 .btn.btn-info {
   color: white;
-  background-color: rgba(10,40,100,0.8);
+  background-color: rgba(10, 40, 100, 0.8);
   border-color: #fafafa;
 }
 
 .btn.btn-info:hover {
   color: white;
-  background-color: rgba(10,40,200,0.8);
+  background-color: rgba(10, 40, 200, 0.8);
   border-color: #fafafa;
 }
 
 .btn.btn-info:active {
-  background-color: rgba(10,40,200,0.8) !important;
+  background-color: rgba(10, 40, 200, 0.8) !important;
   border-color: #fafafa !important;
 }
 
 .btn.btn-warning {
   color: white;
-  background-color: rgba(100,60,60);
+  background-color: rgba(100, 60, 60);
   border-color: #fafafa;
 }
 
 .btn.btn-warning:hover {
-  background-color: rgba(200,60,60);
+  background-color: rgba(200, 60, 60);
 }
 
 .btn.btn-warning:active {
-  background-color: rgba(200,60,60) !important;
+  background-color: rgba(200, 60, 60) !important;
   border-color: #fafafa !important;
 }
 
 .btn.btn-primary {
-  background-color: rgba(10,100,40,0.8);
+  background-color: rgba(10, 100, 40, 0.8);
   border-color: #fafafa;
 }
 
 .btn.btn-primary:hover {
-  background-color: rgba(10,150,40,0.8);
+  background-color: rgba(10, 150, 40, 0.8);
 }
 
 .btn.btn-primary:active {
-  background-color: rgba(10,150,40,0.8) !important;
+  background-color: rgba(10, 150, 40, 0.8) !important;
   border-color: black !important;
 }
 
@@ -180,23 +179,23 @@ main {
 
 .input-group-text {
   background-color: #161b22; 
-  border-color: #fafafa; 
+  border-color: #fafafa;
   color: #fafafa;
 }
 
-.form-control{
+.form-control {
   background-color: #fafafa;
   color: black;
   height: auto;
 }
 
 .btn.btn-toggle:hover {
-  background-color: black; 
+  background-color: black;
 }
 
 /* Datatable */ 
 .dataTables_length select {
-    color: #fafafa;
+  color: #fafafa;
 }
 
 .dataTables_length option {
@@ -220,20 +219,20 @@ main {
 }
 
 #tablaPacientes tfoot {
-    display: table-header-group;
-    background-color: #808080;
+  display: table-header-group;
+  background-color: #808080;
 }
 
 .table-dark {
-    background-color: #161b22;
-    border-radius: 1rem;
+  background-color: #161b22;
+  border-radius: 1rem;
 }
 
 #tablaPacientes_filter {
   display: none;
 }
 
-table.dataTable tbody tr{
+table.dataTable tbody tr {
   background-color: #fafafa;
 }
 
