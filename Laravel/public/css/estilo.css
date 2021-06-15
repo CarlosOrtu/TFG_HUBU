@@ -108,7 +108,7 @@ main {
 
 .titulo-login {
 	background-color: transparent;
-	border: none;
+  border: none;
 	margin: auto;
 }
 
@@ -121,6 +121,9 @@ main {
 .input-group-text {
   width: 120px;
   justify-content: center;
+  background-color: #161b22; 
+  border-color: #fafafa;
+  color: #fafafa;
 }
 
 .container {
@@ -175,12 +178,6 @@ main {
 
 .btn-primary:focus {
   box-shadow: 0 0 0 0.1rem rgb(0 0 0 / 50%);
-}
-
-.input-group-text {
-  background-color: #161b22; 
-  border-color: #fafafa;
-  color: #fafafa;
 }
 
 .form-control {
@@ -241,11 +238,11 @@ table.dataTable.biomarcadores thead {
 }
 
 table.dataTable thead tr th{
-  border-top-width: 0px !important;
+  border-top-width: 0 !important;
 }
 
 .left {
-  border-left-width: 0px !important;
+  border-left-width: 0 !important;
 }
 
 .right {
