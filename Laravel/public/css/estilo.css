@@ -1,8 +1,8 @@
 /* Fondo */
 body {
-	height: 100vh;
+  height: 100vh;
   margin: 0;
-  background-color: #0D1117;
+  background-color: #0d1117;
   background-attachment: fixed;
   overflow-y: hidden;
 }
@@ -40,7 +40,7 @@ main {
 }
 
 @media (max-width: 480px) {
-  #HUBU:before {
+  #HUBU::before {
     content: attr(data-phonetext);
   }
 }
@@ -71,8 +71,8 @@ main {
   color: rgba(0, 0, 0, 0.65);
   border: 0;
 }
-.btn-toggle:hover,
-.btn-toggle:focus {
+
+.btn-toggle:hover, .btn-toggle:focus {
   color: rgba(0, 0, 0, 0.85);
   background-color: black;
 }
@@ -81,7 +81,7 @@ main {
   width: 1.25em;
   line-height: 0;
   content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
-  transition: transform .35s ease;
+  transition: transform 0.35s ease;
   transform-origin: 0.5em 50%;
 }
 
@@ -99,7 +99,7 @@ main {
 
 /* Login */
 .login {
-	margin-top: 10%;
+  margin-top: 10%;
 }
 
 #login {
@@ -107,9 +107,9 @@ main {
 }
 
 .titulo-login {
-	background-color: transparent;
+  background-color: transparent;
   border: none;
-	margin: auto;
+  margin: auto;
 }
 
 .contenido-login {
@@ -121,7 +121,7 @@ main {
 .input-group-text {
   width: 120px;
   justify-content: center;
-  background-color: #161b22; 
+  background-color: #161b22;
   border-color: #fafafa;
   color: #fafafa;
 }
@@ -190,7 +190,7 @@ main {
   background-color: black;
 }
 
-/* Datatable */ 
+/* Datatable */
 .dataTables_length select {
   color: #fafafa;
 }
@@ -237,7 +237,7 @@ table.dataTable.biomarcadores thead {
   background-color: #161b22;
 }
 
-table.dataTable thead tr th{
+table.dataTable thead tr th {
   border-top-width: 0 !important;
 }
 
@@ -246,10 +246,10 @@ table.dataTable thead tr th{
 }
 
 .right {
-  border-right-width: 0px !important  ;
+  border-right-width: 0 !important  ;
 }
 
-.oculto{
+.oculto {
   display: none;
 }
 
