@@ -14,7 +14,7 @@
   </div>
   <table class="text-white table table-bordered">
       <tbody>
-        @foreach($paciente->Enfermedad->Tecnicas_realizadas as $tecnicas)
+        @foreach($paciente->Enfermedades->Tecnicas_realizadas as $tecnicas)
         <tr>
             <th>Técnica {{ $loop->iteration }}</th>
             @if(preg_match("/^Otro: /", $tecnicas->tipo))

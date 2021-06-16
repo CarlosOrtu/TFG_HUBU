@@ -864,7 +864,7 @@ class GraficosController extends Controller
     return $datosGrafica;
    }
 
-   private function obtenerDuracionYNominal($tabla1, $tabla2, $tipoTratamiento, $tipoSelec1, $idTabla)
+   private function obtenerDuracionYNominal($tabla1, $tabla2, $tipoTratamiento, $tipoSelec1)
    {
     $joinTablas = $this->hacerJoinTablas($tabla1,$tabla2);
     $tipos1 = Tratamientos::where('tipo',$tipoTratamiento)->get();

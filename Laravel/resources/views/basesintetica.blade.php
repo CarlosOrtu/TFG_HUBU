@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+@if ($message = Session::get('success'))
+<div class="alert alert-success alert-block">
+    <button type="button" class="text-dark close" data-dismiss="alert">x</button>
+    <strong class="text-center text-dark">{{ $message }}</strong>
+</div>
+@endif
 <form action="{{ route('crearbasesintetica') }}" method="post">
 @CSRF
   <div class="row">

@@ -14,7 +14,7 @@
   </div>
   <table class="text-white table table-bordered">
       <tbody>
-        @foreach($paciente->Enfermedad->Biomarcadores as $biomarcador)
+        @foreach($paciente->Enfermedades->Biomarcadores as $biomarcador)
         <tr>
             <th>Biomarcador {{ $loop->iteration }}</th>
             <td>{{ $biomarcador->nombre }}

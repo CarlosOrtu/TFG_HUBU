@@ -16,67 +16,67 @@
       <tbody>
         <tr>
             <th>Fecha rimera consulta</th>
-            <td>{{ $paciente->enfermedad->fecha_primera_consulta }}</td>
+            <td>{{ $paciente->Enfermedades->fecha_primera_consulta }}</td>
         </tr>
         <tr>
             <th>Fecha diagnostico</th>
-            <td>{{ $paciente->enfermedad->fecha_diagnostico}}</td>
+            <td>{{ $paciente->Enfermedades->fecha_diagnostico}}</td>
         </tr>
         <tr>
             <th>ECOG</th>
-            <td>{{ $paciente->enfermedad->ECOG }}</td>
+            <td>{{ $paciente->Enfermedades->ECOG }}</td>
         </tr>
         <tr>
             <th>T</th>
-            <td>{{ $paciente->enfermedad->T }}</td>
+            <td>{{ $paciente->Enfermedades->T }}</td>
         </tr>
         <tr>
             <th>Tamaño T</th>
-            <td>{{ $paciente->enfermedad->T_tamano }}</td>
+            <td>{{ $paciente->Enfermedades->T_tamano }}</td>
         </tr>
         <tr>
             <th>N</th>
-            <td>{{ $paciente->enfermedad->N }}</td>
+            <td>{{ $paciente->Enfermedades->N }}</td>
         </tr>
         <tr>
             <th>Afectación N</th>
-            <td>{{ $paciente->enfermedad->N_afectacion }}</td>
+            <td>{{ $paciente->Enfermedades->N_afectacion }}</td>
         </tr>
         <tr>
             <th>M</th>
-            <td>{{ $paciente->enfermedad->M }}</td>
+            <td>{{ $paciente->Enfermedades->M }}</td>
         </tr>
         <tr>
             <th>Número de afectación</th>
-            <td>{{ $paciente->enfermedad->num_afec_metas }}</td>
+            <td>{{ $paciente->Enfermedades->num_afec_metas }}</td>
         </tr>
         <tr>
             <th>TNM</th>
-            <td>{{ $paciente->enfermedad->TNM }}</td>
+            <td>{{ $paciente->Enfermedades->TNM }}</td>
         </tr>
         <tr>
             <th>Tipo de muestra</th>
-            <td>{{ $paciente->enfermedad->tipo_muestra }}</td>
+            <td>{{ $paciente->Enfermedades->tipo_muestra }}</td>
         </tr>
         <tr>
             <th>Tipo de histología</th>
-            <td>{{ $paciente->enfermedad->histologia_tipo }}</td>
+            <td>{{ $paciente->Enfermedades->histologia_tipo }}</td>
         </tr>
         <tr>
             <th>Subipo de histología</th>
-            @if(preg_match("/^Otro: /", $paciente->enfermedad->histologia_subtipo))
-            <td>{{ substr($paciente->enfermedad->histologia_subtipo, 6) }}</td>
+            @if(preg_match("/^Otro: /", $paciente->Enfermedades->histologia_subtipo))
+            <td>{{ substr($paciente->Enfermedades->histologia_subtipo, 6) }}</td>
             @else
-            <td>{{ $paciente->enfermedad->histologia_subtipo }}</td>
+            <td>{{ $paciente->Enfermedades->histologia_subtipo }}</td>
             @endif
         </tr>
         <tr>
             <th>Grado de histología</th>
-            <td>{{ $paciente->enfermedad->histologia_grado }}</td>
+            <td>{{ $paciente->Enfermedades->histologia_grado }}</td>
         </tr>
         <tr>
             <th>Tratamiento dirigido</th>
-            @if($paciente->enfermedad->tratamiento_dirigido == 1)
+            @if($paciente->Enfermedades->tratamiento_dirigido == 1)
             <td>Si</td>
             @else
             <td>No</td>

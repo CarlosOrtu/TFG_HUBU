@@ -88,7 +88,7 @@
       <tr>
         <th scope="col">@foreach($tipos as $tipo) @if($loop->first) {{ $tipo }} @else {{ ' y '.$tipo }} @endif @endforeach</th>
         <th scope="col">Frecuencia</th>
-        <th scope="col">Percentil</th>
+        <th scope="col">Porcentaje</th>
         <th scope="col">Acumulada</th>
       </tr>
     </thead>

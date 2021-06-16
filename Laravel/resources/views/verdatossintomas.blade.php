@@ -15,12 +15,12 @@
   <table class="text-white table table-bordered">
       <tbody>
         <tr>
-            @if($paciente->Enfermedad->Sintomas->first() != null)
+            @if($paciente->Enfermedades->Sintomas->first() != null)
             <th>Fecha inicio sintomas</th>
-            <td>{{ $paciente->Enfermedad->Sintomas->first()->fecha_inicio }}</td>
+            <td>{{ $paciente->Enfermedades->Sintomas->first()->fecha_inicio }}</td>
             @endif
         </tr>
-        @foreach($paciente->Enfermedad->Sintomas as $sintoma)
+        @foreach($paciente->Enfermedades->Sintomas as $sintoma)
         <tr>
             <th>Síntoma {{ $loop->iteration }}</th>
             @if(preg_match("/^Otro: /", $sintoma->tipo))

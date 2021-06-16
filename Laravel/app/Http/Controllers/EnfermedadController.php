@@ -601,7 +601,7 @@ class EnfermedadController extends Controller
         $paciente = Pacientes::find($idPaciente);
         $this->actualizarfechaModificacionPaciente($paciente);
 
-        return redirect()->route('otrostumores',$iidPaciented)->with('success','Tumor modificado correctamente');
+        return redirect()->route('otrostumores',$idPaciented)->with('success','Tumor modificado correctamente');
     }
 
     public function eliminarOtrosTumores($idPaciente, $num_otrostumores)
