@@ -1,95 +1,85 @@
 \capitulo{3}{Conceptos teóricos}
-Encriptación simetrica de datos sensibles.
 
-Distribuciones estadisticas.
+\section{Encriptación simétrica} 
 
-Modelo Vista Controlador + middleware
+La encriptación de datos es un método mediante el cual un conjunto de caracteres se modifican para convertirlos en otros completamente diferentes del cual no se podrá volver a obtener el conjunto original a no ser que se disponga de la clave o las claves necesarias. Existen dos tipos diferentes de encriptación, simétrica y asimétrica\cite{encriptacion}. 
 
-Apartado estadistico (percentiles, Skewness, etc)
+La encriptación simétrica se basa en lograr tanto el cifrado como el descifrado mediante el uso de una sola clave, por lo tanto la seguridad de este método depende en la capacidad que se va a tener para que una persona no autorizada no tenga acceso a esta clave\cite{simetrico}. Estos algoritmos tienen dos tipos dependiendo de la división que se haga del mensaje original, cifrado de bloque y cifrado de flujo\cite{tiposcifrado}.
 
-Correccion de Bessel
+\subsection{Cifrado de bloque}
+En el cifrado de bloque el mensaje original se divide en bloques de tamaño fijo de bits, normalmente suelen ser de tamaño 64 o 128 bits, estos bloques se encriptan de manera fija para todos sus elementos. El inconveniente de este tipo de cifrado es que si existen secuencias repetidas de caracteres en el texto original, también existirán estos caracteres repetidos en el texto encriptado\cite{cifradobloque}. Existen diferentes esquemas de cifrado dentro de los cifrados de bloque, los más importantes son DES, 3-DES, RC2, RC5, RC6 y AES\cite{simetrico}.
 
+\subsubsection{AES}
+El algoritmo AES (Advanced Encryption Standard) agrupa el mensaje original en bloques de longitud variable, aunque el estándar fija el tamaño en 128 bits y la representación de estos bloques sería una matriz de 4x4 bytes. Lo mismo ocurre con la clave, tiene tres posibles longitudes 128, 192 y 256 y en el caso del AES-128 la contraseña se almacena de la misma manera que cada segmento del mensaje, en una matriz de 4x4. A parte de esta clave inicial se generan un conjunto de 10 subclaves, una por cada iteración del algoritmo. Cada una de estar iteraciones realiza 4 operaciones básicas SubBytes, ShiftRows, MixColumns y AddRoundKey y para descifrar se realizan las mismas iteraciones y los mismos algoritmos pero de forma inversa\cite{AES}.
 
+\section{Arquitectura MVC}\label{MVC}
 
+La arquitectura Modelo-Vista-Controlador sirve para separar el código dependiendo de la funcionalidad de este, así conseguir lograr 3 capas con un trabajo especifico en cada una de ellas\cite{MVC}. Actualmente algunos frameworks como Laravel integran este tipo de arquitectura pero añadiendo capas extra como las rutas y los middleware como podemos ver en la imagen \ref{fig:MVC_Laravel}.
 
-En aquellos proyectos que necesiten para su comprensión y desarrollo de unos conceptos teóricos de una determinada materia o de un determinado dominio de conocimiento, debe existir un apartado que sintetice dichos conceptos.
+\imagen{MVC_Laravel}{Arquitectura MVC Laravel}
 
-Algunos conceptos teóricos de \LaTeX \footnote{Créditos a los proyectos de Álvaro López Cantero: Configurador de Presupuestos y Roberto Izquierdo Amo: PLQuiz}.
+\subsection{Modelo}
 
-\section{Secciones}
+Es la capa que se encarga de interactuar con los datos, por lo tanto tendrá que tener la capacidad de añadir, modificar y eliminar los datos que sean necesarios. Lo normal suele ser usar alguna librería o algún mecanismo que incluya el framework para no tener que trabajar directamente con consultas SQL y permitir trabajar con objetos y clases lo que supone una abstracción de base de datos y persistencia en objetos\cite{MVC}.
 
-Las secciones se incluyen con el comando section.
+\subsection{Vista}
 
-\subsection{Subsecciones}
+Las vistas son la capa que va a servir como interfaz al usuario y le va a permitir interactuar y visualizar los datos sin trabajar directamente con ellos ya que de esto se encargan las otras dos capas. Las vistas suelen estar escritas en HTML y CSS principalmente, pudiendo incluir otros lenguajes como JavaScript o PHP e incluso procesadores de plantillas como Blade Templates de Laravel\cite{MVC}.
 
-Además de secciones tenemos subsecciones.
+\subsection{Controlador}
 
-\subsubsection{Subsubsecciones}
+Los controladores son aquellos que implementan la lógica de negocio que va a actuar como enlace entre las acciones que realice el usuario en la vista y los modelos. Pueden estar escritos en muchos lenguajes como PHP, Python, NodeJS, Java, C\# o Ruby\cite{MVC}.
 
-Y subsecciones. 
+\section{Estadística}
 
+\subsection{Conceptos estadísticos}
+\textbf{Media:} Es una medida de tendencia que no indica el punto medio de un conjunto de datos\cite{media}.
 
-\section{Referencias}
+\begin{equation} 
+Media(x) = \overline{x} = \frac{\sum_{i=1}^{n}x_{i}}{n}
+\end{equation}
 
-Las referencias se incluyen en el texto usando cite \cite{wiki:latex}. Para citar webs, artículos o libros \cite{koza92}.
+\textbf{Varianza:} Es una medida de dispersión que nos indica la distancia de un conjunto de datos a su media\cite{varianza}.
 
+\begin{equation} 
+Varianza(x) =  \sigma = \sqrt{\frac{\sum_{i=1}^{n}(x_{i}-\overline{x})^{2}}{n-1}}
+\end{equation}
 
-\section{Imágenes}
+\textbf{Desviación:} Es la varianza al cuadrado\cite{varianza}.
 
-Se pueden incluir imágenes con los comandos standard de \LaTeX, pero esta plantilla dispone de comandos propios como por ejemplo el siguiente:
+\begin{equation} 
+Desviación(x) =  \sigma^{2} = \frac{\sum_{i=1}^{n}(x_{i}-\overline{x})^{2}}{n-1}
+\end{equation}
 
-\imagen{escudoInfor}{Autómata para una expresión vacía}
+\textbf{Percentil:} Es una medida de posición que indica el porcentaje de datos que están por debajo de un valor\cite{percentil}.
 
+\textbf{Oblicuidad:} Es una medida que nos indica que tan asimétrica es una distribución respecto a su media\cite{oblicuidad}.
 
+\begin{equation} 
+Oblicuidad(x) = \frac{\sum_{i=1}^{n}(x_{i}-\overline{x})^3}{(n-1)\cdot S^3}
+\end{equation}
 
-\section{Listas de items}
+\textbf{Curtosis:} Es una medida que segun aumenta su valor nos indica que existe una concentración de valores tanto cerca de la media como muy lejos de ella, al tiempo que en los valores intermedios disminuye esta concentración\cite{curtosis}. 
 
-Existen tres posibilidades:
-
-\begin{itemize}
-	\item primer item.
-	\item segundo item.
-\end{itemize}
-
-\begin{enumerate}
-	\item primer item.
-	\item segundo item.
-\end{enumerate}
-
-\begin{description}
-	\item[Primer item] más información sobre el primer item.
-	\item[Segundo item] más información sobre el segundo item.
-\end{description}
+\begin{equation} 
+Curtosis(x) = \frac{\sum_{i=1}^{n}(x_{i}-\overline{x})^4}{(n-1)\cdot S^4}
+\end{equation}
 	
-\begin{itemize}
-\item 
-\end{itemize}
+\textbf{Corrección de Bessel:} La corrección de Bessel se usa para corregir el sesgo estadístico cuando no se esta trabajando con la población entera sino que se esta trabajando con una muestra y consiste en sustituir n en el divisor por n-1, como he realizado en todos los conceptos anteriormente explicados\cite{bessel}.
 
-\section{Tablas}
 
-Igualmente se pueden usar los comandos específicos de \LaTeX o bien usar alguno de los comandos de la plantilla.
+\subsection{Distribuciones de probabilidad}
 
-\tablaSmall{Herramientas y tecnologías utilizadas en cada parte del proyecto}{l c c c c}{herramientasportipodeuso}
-{ \multicolumn{1}{l}{Herramientas} & App AngularJS & API REST & BD & Memoria \\}{ 
-HTML5 & X & & &\\
-CSS3 & X & & &\\
-BOOTSTRAP & X & & &\\
-JavaScript & X & & &\\
-AngularJS & X & & &\\
-Bower & X & & &\\
-PHP & & X & &\\
-Karma + Jasmine & X & & &\\
-Slim framework & & X & &\\
-Idiorm & & X & &\\
-Composer & & X & &\\
-JSON & X & X & &\\
-PhpStorm & X & X & &\\
-MySQL & & & X &\\
-PhpMyAdmin & & & X &\\
-Git + BitBucket & X & X & X & X\\
-Mik\TeX{} & & & & X\\
-\TeX{}Maker & & & & X\\
-Astah & & & & X\\
-Balsamiq Mockups & X & & &\\
-VersionOne & X & X & X & X\\
-} 
+Las distribuciones son funciones que indican la probabilidad que ocurra cierto suceso. Según sea el tipo de variable continua o discreta se elegirá un tipo de distribución u otro.
+
+\textbf{Distribución normal:} Es una distribución de valores continuos definida por dos parámetros, la media {\textmu} y la desviación $\sigma$, la función de densidad es simétrica respecto a su media y dependiendo de la desviación va a tener una anchura determinada\cite{distribuciones}.
+
+\imagen{distribucion_normal}{Gráfica de densidad de la distribución normal}
+
+\textbf{Distribución de poisson:} Es una distribución de valores discretos la cual esta definida por un parámetro $\lambda$, y este parámetro representara el valor que es más probable de obtener dentro de la gráfica.
+
+\imagen{distribucion_poisson}{Tres gráficas de la distribución de poisson según $\lambda$}
+
+\textbf{Distribución geométrica:} Es una distribución de valores discretos la cual esta definida por un parámetro p, y este parámetro indica la probabilidad de obtener el resultado.
+
+\imagen{distribucion_geometrica}{Gráfica de una distribución geométrica}
