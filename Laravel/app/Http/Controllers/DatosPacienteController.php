@@ -19,9 +19,9 @@ class DatosPacienteController extends Controller
         $this->encriptacion = new Encriptacion();
     }
 
-    public function verPacienteSinModificar($id)
+    public function verPacienteSinModificar($idPaciente)
     {
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         if(env('APP_ENV') == 'production'){
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
            return view('verdatospaciente',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
@@ -30,9 +30,9 @@ class DatosPacienteController extends Controller
         return view('verdatospaciente',['paciente' => $paciente]);
     }
 
-    public function verPaciente($id)
+    public function verPaciente($idPaciente)
     {
-    	$paciente = Pacientes::find($id);
+    	$paciente = Pacientes::find($idPaciente);
         if(env('APP_ENV') == 'production'){
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
     	   return view('datospaciente',['paciente' => $paciente, 'nhc' => $nhcDesencriptado]);
@@ -73,14 +73,14 @@ class DatosPacienteController extends Controller
         return $validator;
     }
 
-    public function cambiarDatosPaciente(Request $request, $id)
+    public function cambiarDatosPaciente(Request $request, $idPaciente)
     {
         try{
         	$validator = $this->validarDatosModificarPaciente($request);
             if($validator->fails())
                 return back()->withErrors($validator->errors())->withInput();
             //Obtenemos el paciente actual
-            $paciente = Pacientes::find($id);
+            $paciente = Pacientes::find($idPaciente);
             //Encriptamos el nhc
             $nhcEncriptado = $this->encriptacion->encriptar($request->nhc);
             //Modificamos sus datos
@@ -113,9 +113,9 @@ class DatosPacienteController extends Controller
             //Guardamos los cambios en la base de datos a la base de datos
             $paciente->save();
 
-            return redirect()->route('datospaciente',$id)->with('success','Paciente modificado correctamente');
+            return redirect()->route('datospaciente',$idPaciente)->with('success','Paciente modificado correctamente');
         }catch(QueryException $e){
-            return redirect()->route('datospaciente',$id)->with('SQLerror','Introduce una fecha valida');
+            return redirect()->route('datospaciente',$idPaciente)->with('SQLerror','Introduce una fecha valida');
         }
         
     }

@@ -37,9 +37,9 @@ class EnfermedadController extends Controller
     *	Datos enfermedad											  *
     *																  *
   	*******************************************************************/
-    public function verDatosEnfermedadSinModificar($id)
+    public function verDatosEnfermedadSinModificar($idPaciente)
     {
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         if(env('APP_ENV') == 'production'){
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('verdatosenfermedad',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
@@ -48,9 +48,9 @@ class EnfermedadController extends Controller
         return view('verdatosenfermedad',['paciente' => $paciente]);
     }
 
-    public function verDatosEnfermedad($id)
+    public function verDatosEnfermedad($idPaciente)
     {
-    	$paciente = Pacientes::find($id);
+    	$paciente = Pacientes::find($idPaciente);
         if(env('APP_ENV') == 'production'){
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
         	return view('datosenfermedad',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
@@ -96,17 +96,17 @@ class EnfermedadController extends Controller
         return $validator;
     }
 
-    public function guardarDatosEnfermedad(Request $request, $id)
+    public function guardarDatosEnfermedad(Request $request, $idPaciente)
     {
         try{
         	$validator = $this->validarDatosModificarEnfermedad($request);
             if($validator->fails())
                 return back()->withErrors($validator->errors())->withInput();
 
-            $enfermedad = Enfermedades::where('id_paciente',$id)->first();
+            $enfermedad = Enfermedades::where('id_paciente',$idPaciente)->first();
         	if(empty($enfermedad))
         		$enfermedad = new Enfermedades();
-        	$enfermedad->id_paciente = $id;
+        	$enfermedad->id_paciente = $idPaciente;
         	$enfermedad->fecha_primera_consulta = $request->fecha_primera_consulta;
         	$enfermedad->fecha_diagnostico = $request->fecha_diagnostico;
         	$enfermedad->ECOG = $request->ECOG;
@@ -128,13 +128,13 @@ class EnfermedadController extends Controller
 
         	$enfermedad->save();
 
-            $paciente = Pacientes::find($id);
+            $paciente = Pacientes::find($idPaciente);
             $this->actualizarfechaModificacionPaciente($paciente);
 
 
-        	return redirect()->route('datosenfermedad',$id)->with('success','Datos enfermedad guardados correctamente');
+        	return redirect()->route('datosenfermedad',$idPaciente)->with('success','Datos enfermedad guardados correctamente');
         }catch(QueryException $e){
-            return redirect()->route('datosenfermedad',$id)->with('SQLerror','Introduce una fecha valida');
+            return redirect()->route('datosenfermedad',$idPaciente)->with('SQLerror','Introduce una fecha valida');
         }
     }
 
@@ -143,9 +143,9 @@ class EnfermedadController extends Controller
     *	Datos sintoma											      *
     *																  *
   	*******************************************************************/
-    public function verDatosSintomasSinModificar($id)
+    public function verDatosSintomasSinModificar($idPaciente)
     {
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         if(env('APP_ENV') == 'production'){
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('verdatossintomas',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
@@ -154,9 +154,9 @@ class EnfermedadController extends Controller
         return view('verdatossintomas',['paciente' => $paciente]);     
     }
 
-    public function verDatosSintomas($id)
+    public function verDatosSintomas($idPaciente)
     {
-    	$paciente = Pacientes::find($id);
+    	$paciente = Pacientes::find($idPaciente);
         if(env('APP_ENV') == 'production'){
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
         	return view('datossintomas',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
@@ -206,7 +206,7 @@ class EnfermedadController extends Controller
 
     }
 
-    public function crearDatosSintomas(Request $request, $id)
+    public function crearDatosSintomas(Request $request, $idPaciente)
     {
         try{
             $validator = $this->validarDatosSintomas($request);
@@ -215,7 +215,7 @@ class EnfermedadController extends Controller
             
             $sintoma = new Sintomas();
 
-            $enfermedad = Pacientes::find($id)->Enfermedades;
+            $enfermedad = Pacientes::find($idPaciente)->Enfermedades;
             $idEnfermedad = $enfermedad->id_enfermedad;
 
             if(isset($request->fecha_inicio))
@@ -235,18 +235,18 @@ class EnfermedadController extends Controller
             $sintoma->fecha_inicio = $fecha_sintomas;    
             $sintoma->save();
 
-            $paciente = Pacientes::find($id);
+            $paciente = Pacientes::find($idPaciente);
             $this->actualizarfechaModificacionPaciente($paciente);
 
-            return redirect()->route('datossintomas',$id)->with('success','Sintoma creado correctamente');
+            return redirect()->route('datossintomas',$idPaciente)->with('success','Sintoma creado correctamente');
         }catch(QueryException $e){
-            return redirect()->route('datossintomas',$id)->with('SQLerror','Introduce una fecha valida');
+            return redirect()->route('datossintomas',$idPaciente)->with('SQLerror','Introduce una fecha valida');
         }
     }
 
-    public function modificarDatosSintomas(Request $request, $id, $num_sintoma)
+    public function modificarDatosSintomas(Request $request, $idPaciente, $num_sintoma)
     {
-        $enfermedad = Pacientes::find($id)->Enfermedades;
+        $enfermedad = Pacientes::find($idPaciente)->Enfermedades;
         $idEnfermedad =$enfermedad->id_enfermedad;
         
         $fecha_sintomas = $enfermedad->Sintomas[0]->fecha_inicio;
@@ -264,33 +264,33 @@ class EnfermedadController extends Controller
     	$sintoma->fecha_inicio = $fecha_sintomas;	
     	$sintoma->save();
 
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         $this->actualizarfechaModificacionPaciente($paciente);
 
-    	return redirect()->route('datossintomas',$id)->with('success','Sintoma modificado correctamente');
+    	return redirect()->route('datossintomas',$idPaciente)->with('success','Sintoma modificado correctamente');
     }
 
-    public function eliminarSintoma($id, $num_sintoma)
+    public function eliminarSintoma($idPaciente, $num_sintoma)
     {
-    	$idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
+    	$idEnfermedad = Enfermedades::where('id_paciente',$idPaciente)->first()->id_enfermedad;
         //Obetenemos todos los sintomas
         $sintomas = Enfermedades::find($idEnfermedad)->Sintomas;
         $sintoma = $sintomas[$num_sintoma];
   		$sintoma->delete();
 
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         $this->actualizarfechaModificacionPaciente($paciente);
 
-  		return redirect()->route('datossintomas',$id)->with('success','Sintoma eliminado correctamente');
+  		return redirect()->route('datossintomas',$idPaciente)->with('success','Sintoma eliminado correctamente');
     }
 
-    public function modificarFechaSintomas(Request $request, $id)
+    public function modificarFechaSintomas(Request $request, $idPaciente)
     {
         try{
             $validator = $this->validarDatosFecha($request);
             if($validator->fails())
                 return back()->withErrors($validator->errors())->withInput();
-            $idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
+            $idEnfermedad = Enfermedades::where('id_paciente',$idPaciente)->first()->id_enfermedad;
             //Obetenemos todos los sintomas
             $sintomas = Enfermedades::find($idEnfermedad)->Sintomas;
 
@@ -298,9 +298,9 @@ class EnfermedadController extends Controller
                 $sintoma->fecha_inicio = $request->fecha_inicio;
                 $sintoma->save();
             }
-            return redirect()->route('datossintomas',$id)->with('success','Fecha modificada correctamente');
+            return redirect()->route('datossintomas',$idPaciente)->with('success','Fecha modificada correctamente');
         }catch(QueryException $e){
-            return redirect()->route('datossintomas',$id)->with('SQLerror','Introduce una fecha valida');
+            return redirect()->route('datossintomas',$idPaciente)->with('SQLerror','Introduce una fecha valida');
         }
     }
 
@@ -309,9 +309,9 @@ class EnfermedadController extends Controller
     *	Metastasis											          *
     *																  *
   	*******************************************************************/
-    public function verMetastasisSinModificar($id)
+    public function verMetastasisSinModificar($idPaciente)
     {
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         if(env('APP_ENV') == 'production'){         
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('vermetastasis',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
@@ -320,9 +320,9 @@ class EnfermedadController extends Controller
         return view('vermetastasis',['paciente' => $paciente]);
     }
 
-   	public function verMetastasis($id)
+   	public function verMetastasis($idPaciente)
     {
-    	$paciente = Pacientes::find($id);
+    	$paciente = Pacientes::find($idPaciente);
         if(env('APP_ENV') == 'production'){         
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
         	return view('metastasis',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
@@ -332,9 +332,9 @@ class EnfermedadController extends Controller
     }
 
 
-    public function crearMetastasis(Request $request, $id)
+    public function crearMetastasis(Request $request, $idPaciente)
     {
-        $idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
+        $idEnfermedad = Enfermedades::where('id_paciente',$idPaciente)->first()->id_enfermedad;
 
         $metastasis = new Metastasis();
 
@@ -345,15 +345,15 @@ class EnfermedadController extends Controller
             $metastasis->tipo = $request->localizacion;
         $metastasis->save();
 
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         $this->actualizarfechaModificacionPaciente($paciente);
 
-        return redirect()->route('metastasis',$id)->with('success','Metastasis creada correctamente');
+        return redirect()->route('metastasis',$idPaciente)->with('success','Metastasis creada correctamente');
     }
 
-    public function modificarMetastasis(Request $request, $id, $num_metastasis)
+    public function modificarMetastasis(Request $request, $idPaciente, $num_metastasis)
     {
-        $idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
+        $idEnfermedad = Enfermedades::where('id_paciente',$idPaciente)->first()->id_enfermedad;
         //Obetenemos todas las metastasis
         $metastasis = Enfermedades::find($idEnfermedad)->Metastasis;
     	$metastasis = $metastasis[$num_metastasis];
@@ -364,32 +364,32 @@ class EnfermedadController extends Controller
     		$metastasis->tipo = $request->localizacion;
     	$metastasis->save();
 
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         $this->actualizarfechaModificacionPaciente($paciente);
 
-    	return redirect()->route('metastasis',$id)->with('success','Metastasis modificada correctamente');
+    	return redirect()->route('metastasis',$idPaciente)->with('success','Metastasis modificada correctamente');
     }
 
     public function eliminarMetastasis($id, $num_metastasis)
     {
-    	$idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
+    	$idEnfermedad = Enfermedades::where('id_paciente',$idPaciente)->first()->id_enfermedad;
         //Obetenemos todas las metastasis
         $metastasis = Enfermedades::find($idEnfermedad)->Metastasis;
         $metastasis = $metastasis[$num_metastasis];
   		$metastasis->delete();
 
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         $this->actualizarfechaModificacionPaciente($paciente);
-  		return redirect()->route('metastasis',$id)->with('success','Metastasis eliminada correctamente');
+  		return redirect()->route('metastasis',$idPaciente)->with('success','Metastasis eliminada correctamente');
     }
     /******************************************************************
     *                                                                 *
     *   Pruebas                                                       *
     *                                                                 *
     *******************************************************************/
-    public function verPruebasSinModificar($id)
+    public function verPruebasSinModificar($idPaciente)
     {
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         if(env('APP_ENV') == 'production'){         
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('verpruebas',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
@@ -397,9 +397,9 @@ class EnfermedadController extends Controller
 
         return view('verpruebas',['paciente' => $paciente]);
     }
-    public function verPruebas($id)
+    public function verPruebas($idPaciente)
     {
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         if(env('APP_ENV') == 'production'){         
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('pruebas',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
@@ -409,9 +409,9 @@ class EnfermedadController extends Controller
     }
 
 
-    public function crearPruebas(Request $request, $id)
+    public function crearPruebas(Request $request, $idPaciente)
     {
-        $idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
+        $idEnfermedad = Enfermedades::where('id_paciente',$idPaciente)->first()->id_enfermedad;
 
         $prueba = new Pruebas_realizadas();
 
@@ -422,15 +422,15 @@ class EnfermedadController extends Controller
             $prueba->tipo = $request->tipo;
         $prueba->save();
 
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         $this->actualizarfechaModificacionPaciente($paciente);
 
-        return redirect()->route('pruebas',$id)->with('success','Prueba creada correctamente');
+        return redirect()->route('pruebas',$idPaciente)->with('success','Prueba creada correctamente');
     }
 
-    public function modificarPruebas(Request $request, $id, $num_prueba)
+    public function modificarPruebas(Request $request, $idPaciente, $num_prueba)
     {
-        $idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
+        $idEnfermedad = Enfermedades::where('id_paciente',$idPaciente)->first()->id_enfermedad;
         //Obetenemos todas las pruebas
         $pruebas = Enfermedades::find($idEnfermedad)->Pruebas_realizadas;
         $prueba = $pruebas[$num_prueba];
@@ -441,33 +441,33 @@ class EnfermedadController extends Controller
             $prueba->tipo = $request->tipo;
         $prueba->save();
 
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         $this->actualizarfechaModificacionPaciente($paciente);
 
-        return redirect()->route('pruebas',$id)->with('success','Prueba modificada correctamente');
+        return redirect()->route('pruebas',$idPaciente)->with('success','Prueba modificada correctamente');
     }
 
-    public function eliminarPruebas($id, $num_prueba)
+    public function eliminarPruebas($idPaciente, $num_prueba)
     {
-        $idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
+        $idEnfermedad = Enfermedades::where('id_paciente',$idPaciente)->first()->id_enfermedad;
         //Obetenemos todas las pruebas
         $pruebas = Enfermedades::find($idEnfermedad)->Pruebas_realizadas;
         $prueba = $pruebas[$num_prueba];
         $prueba->delete();
 
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         $this->actualizarfechaModificacionPaciente($paciente);
 
-        return redirect()->route('pruebas',$id)->with('success','Prueba eliminada correctamente');
+        return redirect()->route('pruebas',$idPaciente)->with('success','Prueba eliminada correctamente');
     }
     /******************************************************************
     *                                                                 *
     *   Técnicas                                                       *
     *                                                                 *
     *******************************************************************/
-    public function verTecnicasSinModificar($id)
+    public function verTecnicasSinModificar($idPaciente)
     {
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         if(env('APP_ENV') == 'production'){         
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('vertecnicas',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
@@ -476,9 +476,9 @@ class EnfermedadController extends Controller
         return view('vertecnicas',['paciente' => $paciente]);
     }
 
-    public function verTecnicas($id)
+    public function verTecnicas($idPaciente)
     {
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         if(env('APP_ENV') == 'production'){         
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('tecnicas',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
@@ -488,9 +488,9 @@ class EnfermedadController extends Controller
     }
 
 
-    public function crearTecnicas(Request $request, $id)
+    public function crearTecnicas(Request $request, $idPaciente)
     {
-        $idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
+        $idEnfermedad = Enfermedades::where('id_paciente',$idPaciente)->first()->id_enfermedad;
 
         $tecnica = new Tecnicas_realizadas();
 
@@ -501,15 +501,15 @@ class EnfermedadController extends Controller
             $tecnica->tipo = $request->tipo;
         $tecnica->save();
 
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         $this->actualizarfechaModificacionPaciente($paciente);
 
-        return redirect()->route('tecnicas',$id)->with('success','Tecnica creada correctamente');
+        return redirect()->route('tecnicas',$idPaciente)->with('success','Tecnica creada correctamente');
     }
 
-    public function modificarTecnicas(Request $request, $id, $num_tecnica)
+    public function modificarTecnicas(Request $request, $idPaciente, $num_tecnica)
     {
-        $idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
+        $idEnfermedad = Enfermedades::where('id_paciente',$idPaciente)->first()->id_enfermedad;
         //Obetenemos todas las técnicas
         $tecnicas = Enfermedades::find($idEnfermedad)->Tecnicas_realizadas;
         $tecnica = $tecnicas[$num_tecnica];
@@ -520,33 +520,33 @@ class EnfermedadController extends Controller
             $tecnica->tipo = $request->tipo;
         $tecnica->save();
 
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         $this->actualizarfechaModificacionPaciente($paciente);
 
-        return redirect()->route('tecnicas',$id)->with('success','Tecnica modificada correctamente');
+        return redirect()->route('tecnicas',$idPaciente)->with('success','Tecnica modificada correctamente');
     }
 
-    public function eliminarTecnicas($id, $num_tecnica)
+    public function eliminarTecnicas($idPaciente, $num_tecnica)
     {
-        $idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
+        $idEnfermedad = Enfermedades::where('id_paciente',$idPaciente)->first()->id_enfermedad;
         //Obetenemos todas las técnicas
         $tecnicas = Enfermedades::find($idEnfermedad)->Tecnicas_realizadas;
         $tecnica = $tecnicas[$num_tecnica];
         $tecnica->delete();
 
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         $this->actualizarfechaModificacionPaciente($paciente);
 
-        return redirect()->route('tecnicas',$id)->with('success','Tecnica eliminada correctamente');
+        return redirect()->route('tecnicas',$idPaciente)->with('success','Tecnica eliminada correctamente');
     }
     /******************************************************************
     *                                                                 *
     *   Otros tumores                                                 *
     *                                                                 *
     *******************************************************************/
-    public function verOtrosTumoresSinModificar($id)
+    public function verOtrosTumoresSinModificar($idPaciente)
     {
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         if(env('APP_ENV') == 'production'){         
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('verotrostumores',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
@@ -555,9 +555,9 @@ class EnfermedadController extends Controller
         return view('verotrostumores',['paciente' => $paciente]);
     }
 
-    public function verOtrosTumores($id)
+    public function verOtrosTumores($idPaciente)
     {
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         if(env('APP_ENV') == 'production'){         
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('otrostumores',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
@@ -566,9 +566,9 @@ class EnfermedadController extends Controller
         return view('otrostumores',['paciente' => $paciente]);
     }
 
-    public function crearOtrosTumores(Request $request, $id)
+    public function crearOtrosTumores(Request $request, $idPaciente)
     {
-        $idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
+        $idEnfermedad = Enfermedades::where('id_paciente',$idPaciente)->first()->id_enfermedad;
 
         $tumor = new Otros_tumores();
 
@@ -579,15 +579,15 @@ class EnfermedadController extends Controller
             $tumor->tipo = $request->tipo;
         $tumor->save();
 
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         $this->actualizarfechaModificacionPaciente($paciente);
 
-        return redirect()->route('otrostumores',$id)->with('success','Tumor creado correctamente');
+        return redirect()->route('otrostumores',$idPaciente)->with('success','Tumor creado correctamente');
     }
 
-    public function modificarOtrosTumores(Request $request, $id, $num_otrostumores)
+    public function modificarOtrosTumores(Request $request, $idPaciente, $num_otrostumores)
     {
-        $idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
+        $idEnfermedad = Enfermedades::where('id_paciente',$idPaciente)->first()->id_enfermedad;
         //Obetenemos todos los tumores
         $tumores = Enfermedades::find($idEnfermedad)->Otros_tumores;
         $tumor = $tumores[$num_otrostumores];
@@ -598,34 +598,34 @@ class EnfermedadController extends Controller
             $tumor->tipo = $request->tipo;
         $tumor->save();
 
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         $this->actualizarfechaModificacionPaciente($paciente);
 
-        return redirect()->route('otrostumores',$id)->with('success','Tumor modificado correctamente');
+        return redirect()->route('otrostumores',$iidPaciented)->with('success','Tumor modificado correctamente');
     }
 
-    public function eliminarOtrosTumores($id, $num_otrostumores)
+    public function eliminarOtrosTumores($idPaciente, $num_otrostumores)
     {
-        $idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
+        $idEnfermedad = Enfermedades::where('id_paciente',$idPaciente)->first()->id_enfermedad;
         //Obetenemos todos los tumores
         $tumores = Enfermedades::find($idEnfermedad)->Otros_tumores;
         $tumor = $tumores[$num_otrostumores];
         $tumor->delete();
 
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         $this->actualizarfechaModificacionPaciente($paciente);
 
-        return redirect()->route('otrostumores',$id)->with('success','Tumor eliminado correctamente');
+        return redirect()->route('otrostumores',$idPaciente)->with('success','Tumor eliminado correctamente');
     }
     /******************************************************************
     *                                                                 *
     *   Biomarcadores                                                 *
     *                                                                 *
     *******************************************************************/
-    public function verBiomarcadoresSinModificar($id)
+    public function verBiomarcadoresSinModificar($idPaciente)
     {
-        $paciente = Pacientes::find($id);
-        $enfermedad = Enfermedades::where('id_paciente',$id)->first();
+        $paciente = Pacientes::find($idPaciente);
+        $enfermedad = Enfermedades::where('id_paciente',$idPaciente)->first();
         if($enfermedad == null)
             $biomarcadores = [];
         else
@@ -638,10 +638,10 @@ class EnfermedadController extends Controller
         return view('verbiomarcadores',['paciente' => $paciente, 'biomarcadores' => $biomarcadores]);
     }
 
-    public function verBiomarcadores($id)
+    public function verBiomarcadores($idPaciente)
     {
-        $paciente = Pacientes::find($id);
-        $enfermedad = Enfermedades::where('id_paciente',$id)->first();
+        $paciente = Pacientes::find($idPaciente);
+        $enfermedad = Enfermedades::where('id_paciente',$idPaciente)->first();
         if($enfermedad == null)
             $biomarcadores = [];
         else
@@ -654,9 +654,9 @@ class EnfermedadController extends Controller
         return view('biomarcadores',['paciente' => $paciente, 'biomarcadores' => $biomarcadores]);
     }
 
-    public function guardarBiomarcadores(Request $request, $id)
+    public function guardarBiomarcadores(Request $request, $idPaciente)
     {
-        $idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
+        $idEnfermedad = Enfermedades::where('id_paciente',$idPaciente)->first()->id_enfermedad;
 
         $arrayBiomarcadores = ["NGS", "PDL1", "EGFR", "ALK","ROS1", "KRAS","BRAF", "HER2","NTRK", "FGFR1","RET", "MET", "Pl3K","TMB","Otros"];
         $numeroInputs= [2,2,1,2,1,2,2,1,2,1,1,1,1,1,1];
@@ -697,23 +697,23 @@ class EnfermedadController extends Controller
             $i = $i + 1;
         }
 
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         $this->actualizarfechaModificacionPaciente($paciente);
 
-        return redirect()->route('biomarcadores',$id)->with('success','Biomarcadores creados correctamente');
+        return redirect()->route('biomarcadores',$idPaciente)->with('success','Biomarcadores creados correctamente');
     }
 
-    public function eliminarBiomarcadores($id,$num_biomarcador)
+    public function eliminarBiomarcadores($idPaciente,$num_biomarcador)
     {
-        $idEnfermedad = Enfermedades::where('id_paciente',$id)->first()->id_enfermedad;
+        $idEnfermedad = Enfermedades::where('id_paciente',$idPaciente)->first()->id_enfermedad;
         //Obetenemos todos los biomarcadores
         $biomarcadores = Enfermedades::find($idEnfermedad)->Biomarcadores;
         $biomarcador = $biomarcadores[$num_biomarcador];
         $biomarcador->delete();
 
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         $this->actualizarfechaModificacionPaciente($paciente);
 
-        return redirect()->route('biomarcadores',$id)->with('success','Biomarcador eliminado correctamente');
+        return redirect()->route('biomarcadores',$idPaciente)->with('success','Biomarcador eliminado correctamente');
     }
 }

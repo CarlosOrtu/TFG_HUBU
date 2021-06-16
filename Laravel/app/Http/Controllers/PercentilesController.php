@@ -61,7 +61,7 @@ class PercentilesController extends Controller
     {
     	$sumatorioDistancias = 0;
     	foreach($listaOrdenada as $dato){
-    		$sumatorioDistancias += pow(abs($dato - $media), 3);
+    		$sumatorioDistancias += pow($dato - $media, 3);
     	}
     	if($desviacion == 0)
     		return 0;
@@ -72,7 +72,7 @@ class PercentilesController extends Controller
     {
     	$sumatorioDistancias = 0;
     	foreach($listaOrdenada as $dato){
-    		$sumatorioDistancias += pow(abs($dato - $media), 4);
+    		$sumatorioDistancias += pow($dato - $media, 4);
     	}
     	if($desviacion == 0)
     		return 0;
@@ -130,7 +130,7 @@ class PercentilesController extends Controller
     	return $datos;
     }
 
-    private function obtenerNumerosEnfermedadesFamiliar($dato)
+    private function obtenerNumerosEnfermedadesFamiliar()
     {
     	$pacientes = Pacientes::all();
     	$datos = array();
@@ -158,7 +158,7 @@ class PercentilesController extends Controller
     	return $datos;
     }
 
-    private function obetenerNumerosCiclos($dato)
+    private function obetenerNumerosCiclos()
     {
     	$pacientes = Pacientes::all();
     	$datos = array();
@@ -175,7 +175,7 @@ class PercentilesController extends Controller
     	return $datos;
     }
 
-    private function obetenerNumerosDosis($dato)
+    private function obetenerNumerosDosis()
     {
     	$pacientes = Pacientes::all();
     	$datos = array();
@@ -206,15 +206,15 @@ class PercentilesController extends Controller
     		return $this->obtenerNumerosPacientesOrdenados($dato);
     	}
     	if($dato == 'Enfermedades_familiar'){
-    		return $this->obtenerNumerosEnfermedadesFamiliar($dato);
+    		return $this->obtenerNumerosEnfermedadesFamiliar();
     	}
     	if($dato == 'Quimioterapia' || $dato == 'Radioterapia' || $dato == 'Cirugia'){
     		return $this->obetenerNumerosTiposDeTratamiento($dato);
     	}
     	if($dato == 'numero_ciclos')
-    		return $this->obetenerNumerosCiclos($dato);
+    		return $this->obetenerNumerosCiclos();
 
-    	return $this->obetenerNumerosDosis($dato);
+    	return $this->obetenerNumerosDosis();
 
    	}
 

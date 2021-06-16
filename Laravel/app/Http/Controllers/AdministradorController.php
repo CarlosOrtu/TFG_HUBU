@@ -29,7 +29,6 @@ class AdministradorController extends Controller
 
     public function verCrearNuevoUsuario()
     {
-        $todosUsuarios = Usuarios::all();
         return view('crearusuario');
     }
 
@@ -51,12 +50,12 @@ class AdministradorController extends Controller
         return $validator;
     }
 
-    public function validarDatosModificarUsuario($request,$id)
+    public function validarDatosModificarUsuario($request, $idPaciente)
     {
         $validator = Validator::make($request->all(), [
             'nombre' => 'required',
             'apellidos' => 'required',
-            'correo' => ['required','email', new CorreoUnico($id)],
+            'correo' => ['required','email', new CorreoUnico($idPaciente)],
         ],
         [
         'required' => 'El campo :attribute no puede estar vacio',
@@ -84,26 +83,26 @@ class AdministradorController extends Controller
         return redirect()->route('usuarios');
     }
 
-    public function eliminarUsuario($id)
+    public function eliminarUsuario($idPaciente)
     {
-        $usuarioEliminar = Usuarios::find($id);
+        $usuarioEliminar = Usuarios::find($idPaciente);
 
         $usuarioEliminar->delete();
         return redirect()->route('usuarios');
     }
 
-    public function verModificarUsuario($id){
-        $usuarioModificar = Usuarios::find($id);
+    public function verModificarUsuario($idPaciente){
+        $usuarioModificar = Usuarios::find($idPaciente);
         return view('modificarusuario',['usuario' => $usuarioModificar]);
     }
 
-    public function modificarUsuario(Request $request,$id){
-        $validator = $this->validarDatosModificarUsuario($request,$id);
+    public function modificarUsuario(Request $request,$idPaciente){
+        $validator = $this->validarDatosModificarUsuario($request,$idPaciente);
         //Comprobamos que las contraseñas coicidan
         if($validator->fails())
             return back()->withErrors($validator->errors())->withInput();    
 
-        $usuarioModificar = Usuarios::find($id);
+        $usuarioModificar = Usuarios::find($idPaciente);
         $usuarioModificar->nombre = $request->nombre;
         $usuarioModificar->apellidos = $request->apellidos;
         $usuarioModificar->email = $request->correo;

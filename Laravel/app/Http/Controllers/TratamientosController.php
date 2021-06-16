@@ -32,9 +32,9 @@ class TratamientosController extends Controller
     *   Radioterapia                                                  *
     *                                                                 *
     *******************************************************************/
-    public function verRadioterapiaSinModificar($id)
+    public function verRadioterapiaSinModificar($idPaciente)
     {
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         if(env('APP_ENV') == 'production'){      
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('verradioterapia',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
@@ -43,9 +43,9 @@ class TratamientosController extends Controller
         return view('verradioterapia',['paciente' => $paciente]);
     }
 
-    public function verRadioterapia($id)
+    public function verRadioterapia($idPaciente)
     {
-    	$paciente = Pacientes::find($id);
+    	$paciente = Pacientes::find($idPaciente);
         if(env('APP_ENV') == 'production'){      
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
         	return view('radioterapia',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
@@ -75,30 +75,35 @@ class TratamientosController extends Controller
                 'fecha_inicio' => 'required|date|before:'.$manana,
                 'fecha_fin' => 'required|date|after:'.$request->fecha_inicio,
             ];
-        }else{
-            $restricciones = [
-                'dosis' => 'required|gt:0',
-                'fecha_inicio' => 'required|date|before:'.$manana,
-                'fecha_fin' => 'required|date',
-            ];
+
+            $validator = Validator::make($request->all(),$restricciones,$mensajeError);     
+
+            return $validator;
         }
+
+        $restricciones = [
+            'dosis' => 'required|gt:0',
+            'fecha_inicio' => 'required|date|before:'.$manana,
+            'fecha_fin' => 'required|date',
+        ];
+
         $validator = Validator::make($request->all(),$restricciones,$mensajeError);     
 
         return $validator;
     }
 
-    public function crearRadioterapia(Request $request, $id)
+    public function crearRadioterapia(Request $request, $idPaciente)
     {
     	try{
 	        $validator = $this->validarRadioterapia($request);
 	        if($validator->fails())
 	            return back()->withErrors($validator->errors())->withInput();
 
-	    	$paciente = Pacientes::find($id);
+	    	$paciente = Pacientes::find($idPaciente);
 
 			$tratamiento = new Tratamientos();
 
-	        $tratamiento->id_paciente = $id;
+	        $tratamiento->id_paciente = $idPaciente;
 	        $tratamiento->tipo = "Radioterapia";
 	        if($request->localizacion == "Otro")
 	            $tratamiento->localizacion = "Otro: ".$request->localizacion_especificar;
@@ -112,24 +117,24 @@ class TratamientosController extends Controller
 
 	        $this->actualizarfechaModificacionPaciente($paciente);
 
-	        return redirect()->route('radioterapias',$id)->with('success','Radioterapia creada correctamente');
+	        return redirect()->route('radioterapias',$idPaciente)->with('success','Radioterapia creada correctamente');
 	    }catch(QueryException $e){
-            return redirect()->route('radioterapias',$id)->with('SQLerror','Introduce una fecha valida');
+            return redirect()->route('radioterapias',$idPaciente)->with('SQLerror','Introduce una fecha valida');
         }
     }
 
-    public function modificarRadioterapia(Request $request, $id, $num_radioterapia)
+    public function modificarRadioterapia(Request $request, $idPaciente, $num_radioterapia)
     {
     	try{
 	    	$validator = $this->validarRadioterapia($request);
 	        if($validator->fails())
 	            return back()->withErrors($validator->errors())->withInput();
 
-	    	$paciente = Pacientes::find($id);
+	    	$paciente = Pacientes::find($idPaciente);
 
-	    	$tratamientos = Tratamientos::where('tipo','Radioterapia')->where('id_paciente',$id)->get();
+	    	$tratamientos = Tratamientos::where('tipo','Radioterapia')->where('id_paciente',$idPaciente)->get();
 	    	$tratamiento = $tratamientos[$num_radioterapia];
-	    	$tratamiento->id_paciente = $id;
+	    	$tratamiento->id_paciente = $idPaciente;
 	        $tratamiento->tipo = "Radioterapia";
 	        if($request->localizacion == "Otro")
 	            $tratamiento->localizacion = "Otro: ".$request->localizacion_especificar;
@@ -143,25 +148,25 @@ class TratamientosController extends Controller
 
 	        $this->actualizarfechaModificacionPaciente($paciente);
 
-	        return redirect()->route('radioterapias',$id)->with('success','Radioterapia modificada correctamente');
+	        return redirect()->route('radioterapias',$idPaciente)->with('success','Radioterapia modificada correctamente');
 	    }catch(QueryException $e){
-            return redirect()->route('radioterapias',$id)->with('SQLerror','Introduce una fecha valida');
+            return redirect()->route('radioterapias',$idPaciente)->with('SQLerror','Introduce una fecha valida');
         }
     }
 
-    public function eliminarRadioterapia(Request $request, $id, $num_radioterapia)
+    public function eliminarRadioterapia($idPaciente, $num_radioterapia)
     {
-	    $tratamientos = Tratamientos::where('tipo','Radioterapia')->where('id_paciente',$id)->get();
+	    $tratamientos = Tratamientos::where('tipo','Radioterapia')->where('id_paciente',$idPaciente)->get();
     	$tratamiento = $tratamientos[$num_radioterapia];
 
-    	$paciente = Pacientes::find($id);
+    	$paciente = Pacientes::find($idPaciente);
 
 
     	$tratamiento->delete();
 
     	$this->actualizarfechaModificacionPaciente($paciente);
 
-    	return redirect()->route('radioterapias',$id)->with('success','Radioterapia eliminada correctamente');
+    	return redirect()->route('radioterapias',$idPaciente)->with('success','Radioterapia eliminada correctamente');
     }
 
     /******************************************************************
@@ -169,9 +174,9 @@ class TratamientosController extends Controller
     *   Cirugía                                                       *
     *                                                                 *
     *******************************************************************/
-    public function verCirugiaSinModificar($id)
+    public function verCirugiaSinModificar($idPaciente)
     {
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         if(env('APP_ENV') == 'production'){      
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('vercirugia',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
@@ -181,9 +186,9 @@ class TratamientosController extends Controller
 
     }
 
-    public function verCirugia($id)
+    public function verCirugia($idPaciente)
     {
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         if(env('APP_ENV') == 'production'){      
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('cirugia',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
@@ -210,18 +215,18 @@ class TratamientosController extends Controller
         return $validator;
     }
 
-    public function crearCirugia(Request $request, $id)
+    public function crearCirugia(Request $request, $idPaciente)
     {
     	try{
 	        $validator = $this->validarCirugia($request);
 	        if($validator->fails())
 	            return back()->withErrors($validator->errors())->withInput();
 
-	    	$paciente = Pacientes::find($id);
+	    	$paciente = Pacientes::find($idPaciente);
 
 			$tratamiento = new Tratamientos();
 
-	        $tratamiento->id_paciente = $id;
+	        $tratamiento->id_paciente = $idPaciente;
 	        $tratamiento->tipo = "Cirugia";
 			$tratamiento->subtipo = $request->tipo;
 	        $tratamiento->fecha_inicio = $request->fecha;
@@ -231,24 +236,24 @@ class TratamientosController extends Controller
 
 	        $this->actualizarfechaModificacionPaciente($paciente);
 
-	        return redirect()->route('cirugias',$id)->with('success','Cirugía creada correctamente');
+	        return redirect()->route('cirugias',$idPaciente)->with('success','Cirugía creada correctamente');
 	    }catch(QueryException $e){
-            return redirect()->route('cirugias',$id)->with('SQLerror','Introduce una fecha valida');
+            return redirect()->route('cirugias',$idPaciente)->with('SQLerror','Introduce una fecha valida');
         }    	
     }
 
-    public function modificarCirugia(Request $request, $id, $num_cirugia)
+    public function modificarCirugia(Request $request, $idPaciente, $num_cirugia)
     {
     	try{
 	    	$validator = $this->validarCirugia($request);
 	        if($validator->fails())
 	            return back()->withErrors($validator->errors())->withInput();
 
-	    	$paciente = Pacientes::find($id);
+	    	$paciente = Pacientes::find($idPaciente);
 
-	    	$tratamientos = Tratamientos::where('tipo','Cirugia')->where('id_paciente',$id)->get();
+	    	$tratamientos = Tratamientos::where('tipo','Cirugia')->where('id_paciente',$idPaciente)->get();
 	    	$tratamiento = $tratamientos[$num_cirugia];
-	    	$tratamiento->id_paciente = $id;
+	    	$tratamiento->id_paciente = $idPaciente;
 	        $tratamiento->tipo = "Cirugia";
 			$tratamiento->subtipo = $request->tipo;
 	        $tratamiento->fecha_inicio = $request->fecha;
@@ -257,24 +262,24 @@ class TratamientosController extends Controller
 
 	        $this->actualizarfechaModificacionPaciente($paciente);
 
-	        return redirect()->route('cirugias',$id)->with('success','Cirugía modificada correctamente');
+	        return redirect()->route('cirugias',$idPaciente)->with('success','Cirugía modificada correctamente');
 	    }catch(QueryException $e){
-            return redirect()->route('cirugias',$id)->with('SQLerror','Introduce una fecha valida');
+            return redirect()->route('cirugias',$idPaciente)->with('SQLerror','Introduce una fecha valida');
         }
     }
 
-	public function eliminarCirugia(Request $request, $id, $num_cirugia)
+	public function eliminarCirugia($idPaciente, $num_cirugia)
     {
-       	$paciente = Pacientes::find($id);
+       	$paciente = Pacientes::find($idPaciente);
 
-	    $tratamientos = Tratamientos::where('tipo','Cirugia')->where('id_paciente',$id)->get();
+	    $tratamientos = Tratamientos::where('tipo','Cirugia')->where('id_paciente',$idPaciente)->get();
 	    $tratamiento = $tratamientos[$num_cirugia];
 
     	$tratamiento->delete();
 
     	$this->actualizarfechaModificacionPaciente($paciente);
 
-    	return redirect()->route('cirugias',$id)->with('success','Radioterapia eliminada correctamente');
+    	return redirect()->route('cirugias',$idPaciente)->with('success','Radioterapia eliminada correctamente');
     }
 
     /******************************************************************
@@ -282,9 +287,9 @@ class TratamientosController extends Controller
     *   Quimioterapia                                                 *
     *                                                                 *
     *******************************************************************/
-    public function verQuimioterapiaSinModificar($id)
+    public function verQuimioterapiaSinModificar($idPaciente)
     {
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         if(env('APP_ENV') == 'production'){      
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('verquimioterapia',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
@@ -293,9 +298,9 @@ class TratamientosController extends Controller
         return view('verquimioterapia',['paciente' => $paciente]);
     }
 
-    public function verQuimioterapia($id)
+    public function verQuimioterapia($idPaciente)
     {
-    	$paciente = Pacientes::find($id);
+    	$paciente = Pacientes::find($idPaciente);
         if(env('APP_ENV') == 'production'){      
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
         	return view('quimioterapia',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
@@ -336,9 +341,9 @@ class TratamientosController extends Controller
         return $validator;
     }
 
-    private function añadirTratamientoQuimioterapia(Request $request,$tratamiento,$id)
+    private function añadirTratamientoQuimioterapia(Request $request,$tratamiento,$idPaciente)
     {
-    	$tratamiento->id_paciente = $id;
+    	$tratamiento->id_paciente = $idPaciente;
         $tratamiento->tipo = "Quimioterapia";   
         $tratamiento->subtipo = $request->intencion;
         $tratamiento->fecha_inicio = $request->primer_ciclo;
@@ -394,17 +399,17 @@ class TratamientosController extends Controller
         }
     }
 
-    public function crearQuimioterapia(Request $request, $id)
+    public function crearQuimioterapia(Request $request, $idPaciente)
     {
         try{
        		$validator = $this->validarQuimioterapia($request);
     	    if($validator->fails())
     	        return back()->withErrors($validator->errors())->withInput();
 
-        	$paciente = Pacientes::find($id);
+        	$paciente = Pacientes::find($idPaciente);
 
     		$tratamiento = new Tratamientos();
-    		$tratamiento = $this->añadirTratamientoQuimioterapia($request,$tratamiento,$id);
+    		$tratamiento = $this->añadirTratamientoQuimioterapia($request,$tratamiento,$idPaciente);
 
             $intencion = new Intenciones();
     		$intencion = $this->añadirIntencionQuimioterapia($request,$intencion,$tratamiento->id_tratamiento);        
@@ -432,25 +437,25 @@ class TratamientosController extends Controller
     		}
 
     		$this->actualizarfechaModificacionPaciente($paciente);
-    		return redirect()->route('quimioterapias',$id)->with('success','Quimioterapia creada correctamente');
+    		return redirect()->route('quimioterapias',$idPaciente)->with('success','Quimioterapia creada correctamente');
         }catch(QueryException $e){
-            return redirect()->route('quimioterapias',$id)->with('SQLerror','Introduce una fecha valida');
+            return redirect()->route('quimioterapias',$idPaciente)->with('SQLerror','Introduce una fecha valida');
         }
     }
 
-    public function modificarQuimioterapia(Request $request, $id, $num_quimioterapia)
+    public function modificarQuimioterapia(Request $request, $idPaciente, $num_quimioterapia)
     {
         try{
        		$validator = $this->validarQuimioterapia($request);
     	    if($validator->fails())
     	        return back()->withErrors($validator->errors())->withInput();
     		
-        	$paciente = Pacientes::find($id);
+        	$paciente = Pacientes::find($idPaciente);
 
-        	$tratamientos = Tratamientos::where('tipo','Quimioterapia')->where('id_paciente',$id)->get();
+        	$tratamientos = Tratamientos::where('tipo','Quimioterapia')->where('id_paciente',$idPaciente)->get();
         	$tratamiento = $tratamientos[$num_quimioterapia];
 
-        	$tratamiento = $this->añadirTratamientoQuimioterapia($request,$tratamiento,$id);
+        	$tratamiento = $this->añadirTratamientoQuimioterapia($request,$tratamiento,$idPaciente);
 
         	$intencion = $tratamiento->Intenciones;
 
@@ -490,24 +495,24 @@ class TratamientosController extends Controller
 
             $this->actualizarfechaModificacionPaciente($paciente);
 
-            return redirect()->route('quimioterapias',$id)->with('success','Quimioterapia modificada correctamente');
+            return redirect()->route('quimioterapias',$idPaciente)->with('success','Quimioterapia modificada correctamente');
         }catch(QueryException $e){
-            return redirect()->route('quimioterapias',$id)->with('SQLerror','Introduce una fecha valida');
+            return redirect()->route('quimioterapias',$idPaciente)->with('SQLerror','Introduce una fecha valida');
         }
     }
 
-    public function eliminarQuimioterapia($id, $num_quimioterapia)
+    public function eliminarQuimioterapia($idPaciente, $num_quimioterapia)
     {
-    	$paciente = Pacientes::find($id);
+    	$paciente = Pacientes::find($idPaciente);
 
-	    $tratamientos = Tratamientos::where('tipo','Quimioterapia')->where('id_paciente',$id)->get();
+	    $tratamientos = Tratamientos::where('tipo','Quimioterapia')->where('id_paciente',$idPaciente)->get();
 	    $tratamiento = $tratamientos[$num_quimioterapia];
 
     	$tratamiento->delete();
 
     	$this->actualizarfechaModificacionPaciente($paciente);
 
-    	return redirect()->route('quimioterapias',$id)->with('success','Quimioterapia eliminada correctamente');
+    	return redirect()->route('quimioterapias',$idPaciente)->with('success','Quimioterapia eliminada correctamente');
     }
 
     /******************************************************************
@@ -515,12 +520,12 @@ class TratamientosController extends Controller
     *   Secuencia                                                     *
     *                                                                 *
     *******************************************************************/
-    public function verSecuenciaTratamientos($id){
-        $paciente = Pacientes::find($id);
+    public function verSecuenciaTratamientos($idPaciente){
+        $paciente = Pacientes::find($idPaciente);
 
-        $quimioterapias = Tratamientos::where('tipo','Quimioterapia')->where('id_paciente',$id)->get();
-        $radioterapias = Tratamientos::where('tipo','Radioterapia')->where('id_paciente',$id)->get();
-        $cirugias = Tratamientos::where('tipo','Cirugia')->where('id_paciente',$id)->get();
+        $quimioterapias = Tratamientos::where('tipo','Quimioterapia')->where('id_paciente',$idPaciente)->get();
+        $radioterapias = Tratamientos::where('tipo','Radioterapia')->where('id_paciente',$idPaciente)->get();
+        $cirugias = Tratamientos::where('tipo','Cirugia')->where('id_paciente',$idPaciente)->get();
         if(env('APP_ENV') == 'production'){      
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('secuenciatratamientos',['paciente' => $paciente, 'nombre' => $nhcDesencriptado, 'quimioterapias' => $quimioterapias, 'radioterapias' => $radioterapias, 'cirugias' => $cirugias]);

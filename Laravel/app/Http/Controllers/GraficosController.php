@@ -32,7 +32,6 @@ class GraficosController extends Controller
    public function verGraficas()
    {
       $pacientes = Pacientes::all();
-      $columnas = Schema::getColumnListing('Pacientes');
       return view('graficas', ['pacientes' => $pacientes]);
    }
 
@@ -169,15 +168,15 @@ class GraficosController extends Controller
    }
 
     //Obtenemos los datos para dibujar la gráfica cuando el campo es la numerico
-   private function obtenerNumero($tabla,$tipo,$id)
+   private function obtenerNumero($tabla,$tipo,$idTabla)
    {
-    $filas = ('App\\Models\\'.$tabla)::select($id)->groupBy($id)->get();
+    $filas = ('App\\Models\\'.$tabla)::select($idTabla)->groupBy($idTabla)->get();
     $numDatos = array();
     foreach ($filas as $fila) {
       if($tipo == 'todos' || $tipo == 'seguimiento' || $tipo == 'reevaluacion')
-        $numDato = ('App\\Models\\'.$tabla)::where($id,$fila->$id)->count();
+        $numDato = ('App\\Models\\'.$tabla)::where($idTabla,$fila->$idTabla)->count();
       else
-        $numDato = ('App\\Models\\'.$tabla)::where($id,$fila->$id)->where('tipo',$tipo)->count();
+        $numDato = ('App\\Models\\'.$tabla)::where($idTabla,$fila->$idTabla)->where('tipo',$tipo)->count();
       array_push($numDatos, $numDato);
     }
     $datosGrafica = array_count_values($numDatos);
@@ -191,9 +190,9 @@ class GraficosController extends Controller
     $filas = Antecedentes_familiares::select('id_paciente')->groupBy('id_paciente')->get();
     $numEnfermedades = array();
     foreach ($filas as $fila) {
-      $antecedentesFamPaciente = Antecedentes_familiares::where('id_paciente',$fila->id_paciente)->get();
+      $antFamPaciente = Antecedentes_familiares::where('id_paciente',$fila->id_paciente)->get();
       $numEnfermedadTotal = 0;
-      foreach($antecedentesFamPaciente as $antecedente){
+      foreach($antFamPaciente as $antecedente){
         $numEnfermedad = Enfermedades_familiar::where('id_antecedente_f',$antecedente->id_antecedente_f)->count();
         $numEnfermedadTotal = $numEnfermedad + $numEnfermedadTotal;
       }
@@ -207,7 +206,6 @@ class GraficosController extends Controller
    //Segun el tipo de dato se llama a una funcuion o a otra
    private function unaOpcion($request)
    {
-    $datosGrafica = array();
     $opciones = $request->opciones;
     $tabla = $this->obtenerTabla($opciones);
     $opcion = $opciones[$this->obtenerValor($opciones)];
@@ -655,7 +653,6 @@ class GraficosController extends Controller
    {
     $fechaActual = date('Y-m-d');
     $datosGrafica = array();
-    $joinTablas = $this->hacerJoinTablas($tabla1,$tabla2);
     $divisiones = Tratamientos::where('tipo',$tipoTratamiento)->get();
     $numDatos = array();
     $intervaloEdad = $this->obtenerEdad($request);
@@ -688,7 +685,7 @@ class GraficosController extends Controller
    }
 
    //Obtenemos los datos para dibujar la grafica cuando un campo es nominal y otro numerico
-   private function obtenerNumeroDosTipo($tabla1, $tabla2, $opcion, $tipoSelec1, $tipoSelec2, $id, $reves = false)
+   private function obtenerNumeroDosTipo($tabla1, $tabla2, $opcion, $tipoSelec1, $tipoSelec2, $idTabla, $reves = false)
    {
     if($reves == true)
       $joinTablas = $this->hacerJoinTablas($tabla2,$tabla1);
@@ -696,7 +693,7 @@ class GraficosController extends Controller
       $joinTablas = $this->hacerJoinTablas($tabla1,$tabla2);
     $division1 = $this->campoASeleccionar($tabla1,$tipoSelec1);
     $division2 = $this->campoASeleccionar($tabla2,$tipoSelec2);
-    if($id == 'id_enfermedad'){
+    if($idTabla == 'id_enfermedad'){
       $tipos1 = $joinTablas->select($tabla1.'.id_enfermedad')->groupBy($tabla1.'.id_enfermedad')->get();
       $division1 = $tabla1.'.id_enfermedad';
     }elseif ($tabla1 == 'Enfermedades_familiar') {
@@ -722,13 +719,13 @@ class GraficosController extends Controller
           $joinTablas = $this->hacerJoinTablas($tabla1,$tabla2);
         if($opcion == 'todos' || $opcion == 'seguimiento' || $opcion == 'reevaluacion'){
           if($tabla1 == 'Enfermedades_familiar')
-            $numTipo = $joinTablas->whereNotNull($tabla2.'.'.$division2)->where($division1,$tipo1->$id)->where($tabla2.'.'.$division2,$tipo2->$division2)->count();
+            $numTipo = $joinTablas->whereNotNull($tabla2.'.'.$division2)->where($division1,$tipo1->$idTabla)->where($tabla2.'.'.$division2,$tipo2->$division2)->count();
           elseif($opcion == 'todos' || $opcion == 'seguimiento' || $opcion == 'reevaluacion')
-            $numTipo = $joinTablas->whereNotNull($tabla2.'.'.$division2)->where($division1,$tipo1->$id)->where($tabla2.'.'.$division2,$tipo2->$division2)->count();
+            $numTipo = $joinTablas->whereNotNull($tabla2.'.'.$division2)->where($division1,$tipo1->$idTabla)->where($tabla2.'.'.$division2,$tipo2->$division2)->count();
           else
-            $numTipo = $joinTablas->whereNotNull($tabla2.'.'.$division2)->where($division1,$tipo1->$id)->where($tabla2.'.'.$division2,$tipo2->$division2)->where('tipo',$opcion)->count();        }
+            $numTipo = $joinTablas->whereNotNull($tabla2.'.'.$division2)->where($division1,$tipo1->$idTabla)->where($tabla2.'.'.$division2,$tipo2->$division2)->where('tipo',$opcion)->count();        }
         else
-          $numTipo = $joinTablas->whereNotNull($tabla2.'.'.$division2)->where($division1,$tipo1->$id)->where($tabla2.'.'.$division2,$tipo2->$division2)->where('Tratamientos.tipo',$opcion)->count();
+          $numTipo = $joinTablas->whereNotNull($tabla2.'.'.$division2)->where($division1,$tipo1->$idTabla)->where($tabla2.'.'.$division2,$tipo2->$division2)->where('Tratamientos.tipo',$opcion)->count();
         if($tipo2->$division2 == null)
           array_push($numDatos,$numTipo.' y ninguna'); 
         else
@@ -812,17 +809,17 @@ class GraficosController extends Controller
    }
 
    //Obtenemos los datos para dibujar la grafica cuando un campo es númerico de tratamiento y otro de duración
-   private function obtenerNumeroDosTipoDurTratamiento($tabla1, $tabla2, $tipoTratamientoDur, $tipoTratamiento, $tipoSelec1, $id)
+   private function obtenerNumeroDosTipoDurTratamiento($tabla1, $tabla2, $tipoTratamientoDur, $tipoTratamiento, $tipoSelec1, $idTabla)
    {
     $division2 = $this->campoASeleccionar($tabla1,$tipoSelec1);
     $joinTablas = $this->hacerJoinTablas($tabla1,$tabla2);
     $tipos1 = Tratamientos::where('tipo',$tipoTratamientoDur)->get();
-    $tipos2 = $joinTablas->select($tabla1.'.'.$id)->where('tipo', $tipoTratamiento)->groupBy($tabla1.'.'.$id)->get();
+    $tipos2 = $joinTablas->select($tabla1.'.'.$idTabla)->where('tipo', $tipoTratamiento)->groupBy($tabla1.'.'.$idTabla)->get();
     $numDatos = array();
     foreach ($tipos1 as $tipo1) {
       foreach($tipos2 as $tipo2){
         $joinTablas = $this->hacerJoinTablas($tabla1,$tabla2);
-        $numTipo2 = $joinTablas->where('Tratamientos.tipo',$tipoTratamientoDur)->where('Tratamientos.id_paciente',$tipo1->id_paciente)->where($tabla1.'.'.$id,$tipo2->$id)->count();
+        $numTipo2 = $joinTablas->where('Tratamientos.tipo',$tipoTratamientoDur)->where('Tratamientos.id_paciente',$tipo1->id_paciente)->where($tabla1.'.'.$idTabla,$tipo2->$idTabla)->count();
         $fechaIni = strtotime($tipo1->fecha_inicio);
         $fechaFin = strtotime($tipo1->fecha_fin);
         $difSegundos = $fechaFin - $fechaIni;
@@ -837,7 +834,7 @@ class GraficosController extends Controller
    }
 
    //Obtenemos los datos para dibujar la grafica cuando un campo es númerico y otro de duración
-   private function obtenerNumeroDosTipoDur($tabla1, $tabla2, $tipoTratamiento, $tipoSelec1, $id)
+   private function obtenerNumeroDosTipoDur($tabla1, $tabla2, $tipoTratamiento, $tipoSelec1, $idTabla)
    {
     $division2 = $this->campoASeleccionar($tabla1,$tipoSelec1);
     $joinTablas = $this->hacerJoinTablas($tabla1,$tabla2);
@@ -845,7 +842,7 @@ class GraficosController extends Controller
     if($tabla1 == 'Enfermedades_familiar')
       $tipos2 = $joinTablas->select('Antecedentes_familiares.id_paciente')->groupBy('Antecedentes_familiares.id_paciente')->get();
     else
-      $tipos2 = $joinTablas->select($tabla1.'.'.$id)->groupBy($tabla1.'.'.$id)->get();
+      $tipos2 = $joinTablas->select($tabla1.'.'.$idTabla)->groupBy($tabla1.'.'.$idTabla)->get();
     $numDatos = array();
     foreach ($tipos1 as $tipo1) {
       foreach($tipos2 as $tipo2){
@@ -853,7 +850,7 @@ class GraficosController extends Controller
         if($tabla1 == 'Enfermedades_familiar')
           $numTipo2 = $joinTablas->where('Tratamientos.tipo',$tipoTratamiento)->where('Tratamientos.id_paciente',$tipo1->id_paciente)->where('Antecedentes_familiares.id_paciente',$tipo2->id_paciente)->count();
         else
-          $numTipo2 = $joinTablas->where('Tratamientos.tipo',$tipoTratamiento)->where('Tratamientos.id_paciente',$tipo1->id_paciente)->where($tabla1.'.'.$id,$tipo2->$id)->count();
+          $numTipo2 = $joinTablas->where('Tratamientos.tipo',$tipoTratamiento)->where('Tratamientos.id_paciente',$tipo1->id_paciente)->where($tabla1.'.'.$idTabla,$tipo2->$idTabla)->count();
         $fechaIni = strtotime($tipo1->fecha_inicio);
         $fechaFin = strtotime($tipo1->fecha_fin);
         $difSegundos = $fechaFin - $fechaIni;
@@ -867,7 +864,7 @@ class GraficosController extends Controller
     return $datosGrafica;
    }
 
-   private function obtenerDuracionYNominal($tabla1, $tabla2, $tipoTratamiento, $tipoSelec1, $tipoSelec2, $id)
+   private function obtenerDuracionYNominal($tabla1, $tabla2, $tipoTratamiento, $tipoSelec1, $idTabla)
    {
     $joinTablas = $this->hacerJoinTablas($tabla1,$tabla2);
     $tipos1 = Tratamientos::where('tipo',$tipoTratamiento)->get();
@@ -1050,10 +1047,6 @@ class GraficosController extends Controller
 
    public function datosGraficaNominal($tabla1, $tabla2,$opcion1, $opcion2)
    {
-    if($tabla2 == 'Enfermedades' || $tabla2 == 'Metastasis' || $tabla2 == 'Sintomas' || $tabla2 == 'Biomarcadores' || $tabla2 == 'Pruebas_realizadas' || $tabla2 == 'Tecnicas_realizadas' || $tabla2 == 'Otros_tumores')
-      $id = 'id_enfermedad';
-    else
-      $id = 'id_paciente';
     if($opcion1 == 'num_quimioterapia'){
       $datosGrafica = $this->obtenerNumeroDosTipo($tabla1, $tabla2, 'Quimioterapia',$opcion1, $opcion2, 'id_paciente' ,true);
       return $this->arrayClaveInvertida($datosGrafica);
@@ -1122,836 +1115,6 @@ class GraficosController extends Controller
 
     return $this->datosGraficaNominal($tabla2, $tabla1,$opcion2, $opcion1);
    }
-
-    /******************************************************************
-    *                                                                 *
-    * Graficas tres datos                                             *
-    *                                                                 *
-    *******************************************************************/
-    /*
-    private function joinTablasEnfermedad($tabla1, $tabla2)
-    {
-      if($tabla2 == 'Enfermedades' || $tabla2 == 'Otros_tumores' || $tabla2 == 'Tecnicas_realizadas' || $tabla2 == 'Pruebas_realizadas' || $tabla2 == 'Biomarcadores' || $tabla2 == 'Sintomas' || $tabla2 == 'Metastasis')
-        return DB::table($tabla1)->join($tabla2, $tabla1.'.id_enfermedad', '=', $tabla2.'.id_enfermedad');
-      if($tabla2 == 'Seguimientos' || $tabla2 == 'Antecedentes_medicos' || $tabla2 == 'Tratamientos' || $tabla2 == 'Antecedentes_oncologicos' || $tabla2 == 'Antecedentes_familiares' || $tabla2 == 'Reevaluaciones'){
-        if($tabla1 == 'Enfermedades')
-          return DB::table('Enfermedades')->join($tabla2, 'Enfermedades.id_paciente','=',$tabla2.'.id_paciente');
-
-        return DB::table('Enfermedades')->join($tabla1, 'Enfermedades.id_enfermedad', '=', $tabla1.'.id_enfermedad')->join($tabla2, 'Enfermedades.id_paciente','=',$tabla2.'.id_paciente');
-      }
-      if($tabla2 == 'Intenciones'){
-        if($tabla1 == 'Enfermedades')
-          return DB::table('Enfermedades')->join('Tratamientos','Enfermedades.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones', 'Tratamientos.id_tratamiento','=','Intenciones.id_tratamiento');
-
-        return DB::table('Enfermedades')->join($tabla1, 'Enfermedades.id_enfermedad', '=', $tabla1.'.id_enfermedad')->join('Tratamientos','Enfermedades.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones', 'Tratamientos.id_tratamiento','=','Intenciones.id_tratamiento');
-      }
-      if($tabla2 == 'Farmacos'){
-        if($tabla1 == 'Enfermedades')
-          return DB::table('Enfermedades')->join('Tratamientos','Enfermedades.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones', 'Tratamientos.id_tratamiento','=','Intenciones.id_tratamiento')->join('Farmacos','Intenciones.id_intencion','=','Farmacos.id_intencion');
-
-        return DB::table('Enfermedades')->join($tabla1, 'Enfermedades.id_enfermedad', '=', $tabla1.'.id_enfermedad')->join('Tratamientos','Enfermedades.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones', 'Tratamientos.id_tratamiento','=','Intenciones.id_tratamiento')->join('Farmacos','Intenciones.id_intencion','=','Farmacos.id_intencion');
-      }
-      if($tabla1 == 'Enfermedades')
-        return DB::table('Enfermedades')->join('Antecedentes_familiares','Enfermedades.id_paciente','=','Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar', 'Antecedentes_familiares.id_antecedente_f','=','Enfermedades_familiar.id_antecedente_f');
-
-      return DB::table('Enfermedades')->join($tabla1, 'Enfermedades.id_enfermedad', '=', $tabla1.'.id_enfermedad')->join('Antecedentes_familiares','Enfermedades.id_paciente','=','Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar', 'Antecedentes_familiares.id_antecedente_f','=','Enfermedades_familiar.id_antecedente_f');
-    }
-
-    private function joinTablasEnfermedades_familiar($tabla2)
-    {
-      if($tabla2 == 'Intenciones')
-        return DB::table('Enfermedades_familiar')->join('Antecedentes_familiares', 'Enfermedades_familiar.id_antecedente_f', '=', 'Antecedentes_familiares.id_antecedente_f')->join('Tratamientos','Antecedentes_familiares.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento');   
-
-      return DB::table('Enfermedades_familiar')->join('Antecedentes_familiares', 'Enfermedades_familiar.id_antecedente_f', '=', 'Antecedentes_familiares.id_antecedente_f')->join($tabla2,'Antecedentes_familiares.id_paciente','=',$tabla2.'.id_paciente'); 
-    }
-
-    private function joinTablasIntenciones($tabla2)
-    {
-      if($tabla2 == 'Tratamientos')
-        return DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento');
-
-      return DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento')->join($tabla2,'Tratamientos.id_paciente','=',$tabla2.'.id_paciente');
-    }
-
-    private function joinTablasRestantes($tabla1, $tabla2)
-    {
-      if($tabla2 == 'Intenciones'){
-        if($tabla1 == 'Tratamientos')
-          return DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento');
-
-        return DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento')->join($tabla1, 'Tratamientos.id_paciente', '=', $tabla1.'.id_paciente');
-      }
-      if($tabla2 == 'Farmacos')
-        return DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento')->join('Farmacos','Intenciones.id_intencion','=','Farmacos.id_intencion')->join($tabla1, 'Tratamientos.id_paciente', '=', $tabla1.'.id_paciente');
-
-      return DB::table($tabla1)->join($tabla2, $tabla1.'.id_paciente', '=', $tabla2.'.id_paciente');
-    }
-
-   //Realizamos los join entre tablas según sean necesarios
-   private function hacerJoinTablas($tabla1,$tabla2)
-   {
-    if($tabla1 == $tabla2)
-      return DB::table($tabla1);
-    if($tabla1 == 'Pacientes')
-      return $this->joinTablasPaciente($tabla2);
-    if($tabla1 == 'Enfermedades' || $tabla1 == 'Otros_tumores' || $tabla1 == 'Tecnicas_realizadas' || $tabla1 == 'Pruebas_realizadas' || $tabla1 == 'Biomarcadores' || $tabla1 == 'Sintomas' || $tabla1 == 'Metastasis')
-      return $this->joinTablasEnfermedad($tabla1, $tabla2);
-   if($tabla1 == 'Enfermedades_familiar')
-      return $this->joinTablasEnfermedades_familiar($tabla2);
-   if($tabla1 == 'Intenciones')
-      return $this->joinTablasIntenciones($tabla2);
-   if($tabla1 == 'Farmacos')
-    return DB::table('Tratamientos')->join('Intenciones', 'Tratamientos.id_tratamiento', '=', 'Intenciones.id_tratamiento')->join('Farmacos','Intenciones.id_intencion','=','Farmacos.id_intencion')->join($tabla2,'Tratamientos.id_paciente','=',$tabla2.'.id_paciente');
-
-   return $this->joinTablasRestantes($tabla1, $tabla2);
-
-   }
-   */
-    private function joinPacientesEnfermedad($tabla2, $tabla3)
-    {
-      if($tabla3 == 'Enfermedades')
-          return DB::table('Pacientes')->join('enfermedades', 'Pacientes.id_paciente', '=', 'enfermedades.id_paciente');
-      if($tabla3 == 'Otros_tumores' || $tabla3 == 'Tecnicas_realizadas' || $tabla3 == 'Pruebas_realizadas' || $tabla3 == 'Biomarcadores' || $tabla3 == 'Sintomas' || $tabla3 == 'Metastasis')
-          return DB::table('Pacientes')->join('enfermedades', 'Pacientes.id_paciente', '=', 'enfermedades.id_paciente')->join($tabla3,'Enfermedades.id_enfermedad', '=' , $tabla3.'.id_enfermedad');
-      if($tabla3 == 'Intenciones')  
-        return DB::table('Pacientes')->join('enfermedades', 'Pacientes.id_paciente', '=', 'enfermedades.id_paciente')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-      if($tabla3 == 'Farmacos')
-        return DB::table('Pacientes')->join('enfermedades', 'Pacientes.id_paciente', '=', 'enfermedades.id_paciente')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-      if($tabla3 == 'Enfermedades_familiar')
-        return DB::table('Pacientes')->join('enfermedades', 'Pacientes.id_paciente', '=', 'enfermedades.id_paciente')->join('Antecedentes_familiares', 'Pacientes.id_paciente', '=', 'Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f','=','Enfermedades_familiar.id_antecedente_f');
-
-      return DB::table('Pacientes')->join('Enfermedades', 'Pacientes.id_paciente', '=', 'Enfermedades.id_paciente')->join($tabla3, 'Pacientes.id_paciente', '=', $tabla3.'.id_paciente'); 
-    }
-
-    private function joinPacientesDatosEnfermedad($tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3)
-        return DB::table('Pacientes')->join('enfermedades', 'Pacientes.id_paciente', '=', 'enfermedades.id_paciente')->join($tabla2,'Enfermedades.id_enfermedad', '=' , $tabla2.'.id_enfermedad');
-      if($tabla3 == 'Otros_tumores' || $tabla3 == 'Tecnicas_realizadas' || $tabla3 == 'Pruebas_realizadas' || $tabla3 == 'Biomarcadores' || $tabla3 == 'Sintomas' || $tabla3 == 'Metastasis')
-          return DB::table('Pacientes')->join('enfermedades', 'Pacientes.id_paciente', '=', 'enfermedades.id_paciente')->join($tabla2,'Enfermedades.id_enfermedad', '=' , $tabla2.'.id_enfermedad')->join($tabla3,'Enfermedades.id_enfermedad', '=' , $tabla3.'.id_enfermedad');
-      if($tabla3 == 'Intenciones')  
-        return DB::table('Pacientes')->join('enfermedades', 'Pacientes.id_paciente', '=', 'enfermedades.id_paciente')->join($tabla2,'Enfermedades.id_enfermedad', '=' , $tabla2.'.id_enfermedad')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-      if($tabla3 == 'Farmacos')
-        return DB::table('Pacientes')->join('enfermedades', 'Pacientes.id_paciente', '=', 'enfermedades.id_paciente')->join($tabla2,'Enfermedades.id_enfermedad', '=' , $tabla2.'.id_enfermedad')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-      if($tabla3 == 'Enfermedades_familiar')
-        return DB::table('Pacientes')->join('enfermedades', 'Pacientes.id_paciente', '=', 'enfermedades.id_paciente')->join($tabla2,'Enfermedades.id_enfermedad', '=' , $tabla2.'.id_enfermedad')->join('Antecedentes_familiares', 'Pacientes.id_paciente', '=', 'Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f','=','Enfermedades_familiar.id_antecedente_f');
-
-      return DB::table('Pacientes')->join('Enfermedades', 'Pacientes.id_paciente', '=', 'Enfermedades.id_paciente')->join($tabla3, 'Pacientes.id_paciente', '=', $tabla3.'.id_paciente')->join($tabla2,'Enfermedades.id_enfermedad', '=' , $tabla2.'.id_enfermedad');     
-    }
-
-    private function joinPacientesAntecedentes($tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3)
-        return DB::table('Pacientes')->join($tabla2,'Pacientes.id_paciente', '=' , $tabla2.'.id_paciente');
-      if($tabla3 == 'Intenciones')  
-        return DB::table('Pacientes')->join($tabla2,'Pacientes.id_paciente', '=' , $tabla2.'.id_paciente')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-      if($tabla3 == 'Farmacos')
-        return DB::table('Pacientes')->join($tabla2,'Pacientes.id_paciente', '=' , $tabla2.'.id_paciente')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-      if($tabla3 == 'Enfermedades_familiar')
-        return DB::table('Pacientes')->join($tabla2,'Pacientes.id_paciente', '=' , $tabla2.'.id_paciente')->join('Antecedentes_familiares', 'Pacientes.id_paciente', '=', 'Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f','=','Enfermedades_familiar.id_antecedente_f');
-
-      return DB::table('Pacientes')->join($tabla2, 'Pacientes.id_paciente', '=', $tabla2.'.id_paciente')->join($tabla3,'Pacientes.id_paciente', '=' , $tabla3.'.id_paciente');  
-
-    }
-
-    private function joinPacientesEnfermedadesFamiliar($tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3)
-        return DB::table('Pacientes')->join('Antecedentes_familiares','Pacientes.id_paciente','=','Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f', '=' , 'Enfermedades_familiar.id_antecedente_f');
-      if($tabla3 == 'Intenciones')  
-        return DB::table('Pacientes')->join('Antecedentes_familiares','Pacientes.id_paciente','=','Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f', '=' , 'Enfermedades_familiar.id_antecedente_f')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-      if($tabla3 == 'Farmacos')
-        return DB::table('Pacientes')->join('Antecedentes_familiares','Pacientes.id_paciente','=','Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f', '=' , 'Enfermedades_familiar.id_antecedente_f')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-
-      return DB::table('Pacientes')->join('Antecedentes_familiares','Pacientes.id_paciente','=','Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f', '=' , 'Enfermedades_familiar.id_antecedente_f')->join($tabla3,'Pacientes.id_paciente', '=' , $tabla3.'.id_paciente');  
-    }
-
-    private function joinPacientesTratamientos($tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3)
-        return DB::table('Pacientes')->join('Tratamientos','Pacientes.id_paciente','=','Tratamientos.id_paciente');
-      if($tabla3 == 'Intenciones')  
-        return DB::table('Pacientes')->join('Tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-      if($tabla3 == 'Farmacos')
-        return DB::table('Pacientes')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-
-      return DB::table('Pacientes')->join('Tratamientos','Pacientes.id_paciente','=','Tratamientos.id_paciente')->join($tabla3,'Pacientes.id_paciente', '=' , $tabla3.'.id_paciente');  
-    }
-
-    private function joinPacientesIntenciones($tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3 or $tabla3 == 'Tratamientos')
-        return DB::table('Pacientes')->join('Tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-      if($tabla3 == 'Farmacos')
-        return DB::table('Pacientes')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-
-      return DB::table('Pacientes')->join('Tratamientos','Pacientes.id_paciente','=','Tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join($tabla3,'Pacientes.id_paciente', '=' , $tabla3.'.id_paciente');
-    }
-
-    private function joinPacientesFarmacos($tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3 or $tabla3 == 'Tratamientos' or $tabla3 == 'Intenciones')
-        return DB::table('Pacientes')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-
-      return DB::table('Pacientes')->join('Tratamientos','Pacientes.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones','Tratamientos.id_tratamiento','=','Intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion')->join($tabla3,'Pacientes.id_paciente', '=' , $tabla3.'.id_paciente');  
-    }
-
-    private function joinPacientesSeguimientoReevaluaciones($tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3)
-        return DB::table('Pacientes')->join($tabla2,'Pacientes.id_paciente','=',$tabla2.'.id_paciente');
-
-      return DB::table('Pacientes')->join($tabla2,'Pacientes.id_paciente','=',$tabla2.'.id_paciente')->join($tabla3,'Pacientes.id_paciente','=',$tabla3.'.id_paciente'); 
-    }
-
-    private function joinTresTablasPaciente($tabla1, $tabla2, $tabla3)
-    {
-      if($tabla2 == 'Pacientes' and $tabla3 == 'Pacientes')
-        return DB::table('Pacientes');
-      if($tabla2 == 'Enfermedades')
-        return $this->joinPacientesEnfermedad($tabla2, $tabla3);
-      if($tabla2 == 'Otros_tumores' || $tabla2 == 'Tecnicas_realizadas' || $tabla2 == 'Pruebas_realizadas' || $tabla2 == 'Biomarcadores' || $tabla2 == 'Sintomas' || $tabla2 == 'Metastasis')
-        return $this->joinPacientesDatosEnfermedad($tabla2, $tabla3);
-      if($tabla2 == 'Antecedentes_familiares' || $tabla2 == 'Antecedentes_medicos' || $tabla2 == 'Antecedentes_oncologicos')
-        return $this->joinPacientesAntecedentes($tabla2, $tabla3);
-      if($tabla2 == 'Enfermedades_familiar')
-        return $this->joinPacientesEnfermedadesFamiliar($tabla2, $tabla3);
-      if($tabla2 == 'Tratamientos')
-        return $this->joinPacientesTratamientos($tabla2, $tabla3);
-      if($tabla2 == 'Intenciones')
-        return $this->joinPacientesIntenciones($tabla2, $tabla3);
-      if($tabla2 == 'Farmacos') 
-        return $this->joinPacientesFarmacos($tabla2, $tabla3);
-      if($tabla2 == 'Seguimientos' or $tabla2 == 'Reevaluaciones') 
-        return $this->joinPacientesSeguimientoReevaluaciones($tabla2, $tabla3);
-    }
-
-    private function joinEnfermedadesDatosEnfermedad($tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3)
-        return DB::table('Enfermedades')->join($tabla2,'Enfermedades.id_enfermedad', '=' , $tabla2.'.id_enfermedad');
-      if($tabla3 == 'Otros_tumores' || $tabla3 == 'Tecnicas_realizadas' || $tabla3 == 'Pruebas_realizadas' || $tabla3 == 'Biomarcadores' || $tabla3 == 'Sintomas' || $tabla3 == 'Metastasis')
-          return DB::table('Pacientes')->join($tabla2,'Enfermedades.id_enfermedad', '=' , $tabla2.'.id_enfermedad')->join($tabla3,'Enfermedades.id_enfermedad', '=' , $tabla3.'.id_enfermedad');
-      if($tabla3 == 'Intenciones')  
-        return DB::table('Enfermedades')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join($tabla2,'Enfermedades.id_enfermedad', '=' , $tabla2.'.id_enfermedad')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-      if($tabla3 == 'Farmacos')
-        return DB::table('Enfermedades')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join($tabla2,'Enfermedades.id_enfermedad', '=' , $tabla2.'.id_enfermedad')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-      if($tabla3 == 'Enfermedades_familiar')
-        return DB::table('Enfermedades')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join($tabla2,'Enfermedades.id_enfermedad', '=' , $tabla2.'.id_enfermedad')->join('Antecedentes_familiares', 'Pacientes.id_paciente', '=', 'Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f','=','Enfermedades_familiar.id_antecedente_f');
-
-      return DB::table('Enfermedades')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join($tabla3, 'Pacientes.id_paciente', '=', $tabla3.'.id_paciente')->join($tabla2,'Enfermedades.id_enfermedad', '=' , $tabla2.'.id_enfermedad');     
-    }
-
-    private function joinEnfermedadesAntecedentes($tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3)
-        return DB::table('Enfermedades')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join($tabla2,'Pacientes.id_paciente', '=' , $tabla2.'.id_paciente');
-      if($tabla3 == 'Intenciones')  
-        return DB::table('Enfermedades')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join($tabla2,'Pacientes.id_paciente', '=' , $tabla2.'.id_paciente')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-      if($tabla3 == 'Farmacos')
-        return DB::table('Enfermedades')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join($tabla2,'Pacientes.id_paciente', '=' , $tabla2.'.id_paciente')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-      if($tabla3 == 'Enfermedades_familiar')
-        return DB::table('Enfermedades')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join($tabla2,'Pacientes.id_paciente', '=' , $tabla2.'.id_paciente')->join('Antecedentes_familiares', 'Pacientes.id_paciente', '=', 'Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f','=','Enfermedades_familiar.id_antecedente_f');
-
-      return DB::table('Enfermedades')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join($tabla2, 'Pacientes.id_paciente', '=', $tabla2.'.id_paciente')->join($tabla3,'Pacientes.id_paciente', '=' , $tabla3.'.id_paciente');  
-    }
-
-
-    private function joinEnfermedadesEnfermedadesFamiliar($tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3)
-        return DB::table('Enfermedades')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('Antecedentes_familiares','Pacientes.id_paciente','=','Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f', '=' , 'Enfermedades_familiar.id_antecedente_f');
-      if($tabla3 == 'Intenciones')  
-        return DB::table('Enfermedades')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('Antecedentes_familiares','Pacientes.id_paciente','=','Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f', '=' , 'Enfermedades_familiar.id_antecedente_f')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-      if($tabla3 == 'Farmacos')
-        return DB::table('Enfermedades')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('Antecedentes_familiares','Pacientes.id_paciente','=','Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f', '=' , 'Enfermedades_familiar.id_antecedente_f')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-
-      return DB::table('Enfermedades')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('Antecedentes_familiares','Pacientes.id_paciente','=','Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f', '=' , 'Enfermedades_familiar.id_antecedente_f')->join($tabla3,'Pacientes.id_paciente', '=' , $tabla3.'.id_paciente');  
-    }
-
-    private function joinEnfermedadesTratamientos($tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3)
-        return DB::table('Enfermedades')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('Tratamientos','Pacientes.id_paciente','=','Tratamientos.id_paciente');
-      if($tabla3 == 'Intenciones')  
-        return DB::table('Enfermedades')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('Tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-      if($tabla3 == 'Farmacos')
-        return DB::table('Enfermedades')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-
-      return DB::table('Enfermedades')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('Tratamientos','Pacientes.id_paciente','=','Tratamientos.id_paciente')->join($tabla3,'Pacientes.id_paciente', '=' , $tabla3.'.id_paciente');  
-    }
-
-    private function joinEnfermedadesIntenciones($tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3 or $tabla3 == 'Tratamientos')
-        return DB::table('Enfermedades')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('Tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-      if($tabla3 == 'Farmacos')
-        return DB::table('Enfermedades')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-
-      return DB::table('Enfermedades')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('Tratamientos','Pacientes.id_paciente','=','Tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join($tabla3,'Pacientes.id_paciente', '=' , $tabla3.'.id_paciente');
-    }
-
-    private function joinEnfermedadesFarmacos($tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3 or $tabla3 == 'Intenciones' or $tabla3 == 'Tratamientos')
-        return DB::table('Enfermedades')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-
-      return DB::table('Enfermedades')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('Tratamientos','Pacientes.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones','Tratamientos.id_tratamiento','=','Intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion')->join($tabla3,'Pacientes.id_paciente', '=' , $tabla3.'.id_paciente');  
-    }
-
-    private function joinEnfermedadesSeguimientoReevaluaciones($tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3)
-        return DB::table('Enfermedades')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join($tabla2,'Pacientes.id_paciente','=',$tabla2.'.id_paciente');
-
-      return DB::table('Enfermedades')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join($tabla2,'Pacientes.id_paciente','=',$tabla2.'.id_paciente')->join($tabla3,'Pacientes.id_paciente','=',$tabla3.'.id_paciente'); 
-    }
-
-    private function joinTresTablasEnfermedad($tabla1,$tabla2,$tabla3)
-    {
-      if($tabla2 == 'Enfermedades' and $tabla3 == 'Enfermedades')
-        return DB::table('Enfermedades');
-      if($tabla2 == 'Otros_tumores' || $tabla2 == 'Tecnicas_realizadas' || $tabla2 == 'Pruebas_realizadas' || $tabla2 == 'Biomarcadores' || $tabla2 == 'Sintomas' || $tabla2 == 'Metastasis')
-        return $this->joinEnfermedadesDatosEnfermedad($tabla2, $tabla3);
-      if($tabla2 == 'Antecedentes_familiares' || $tabla2 == 'Antecedentes_medicos' || $tabla2 == 'Antecedentes_oncologicos')
-        return $this->joinEnfermedadesAntecedentes($tabla2, $tabla3);
-      if($tabla2 == 'Enfermedades_familiar')
-        return $this->joinEnfermedadesEnfermedadesFamiliar($tabla2, $tabla3);
-      if($tabla2 == 'Tratamientos')
-        return $this->joinEnfermedadesTratamientos($tabla2, $tabla3);
-      if($tabla2 == 'Intenciones')
-        return $this->joinEnfermedadesIntenciones($tabla2, $tabla3);
-      if($tabla2 == 'Farmacos') 
-        return $this->joinEnfermedadesFarmacos($tabla2, $tabla3);
-      if($tabla2 == 'Seguimientos' or $tabla2 == 'Reevaluaciones') 
-        return $this->joinEnfermedadesSeguimientoReevaluaciones($tabla2, $tabla3);
-    }
-
-    private function joinDatosEnfermedadDatosEnfermedad($tabla1, $tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3)
-        return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join($tabla2,'Enfermedades.id_enfermedad', '=' , $tabla2.'.id_enfermedad');
-      if($tabla3 == 'Otros_tumores' || $tabla3 == 'Tecnicas_realizadas' || $tabla3 == 'Pruebas_realizadas' || $tabla3 == 'Biomarcadores' || $tabla3 == 'Sintomas' || $tabla3 == 'Metastasis')
-          return DB::table('Pacientes')->join($tabla2,'Enfermedades.id_enfermedad', '=' , $tabla2.'.id_enfermedad')->join($tabla3,'Enfermedades.id_enfermedad', '=' , $tabla3.'.id_enfermedad');
-      if($tabla3 == 'Intenciones'){
-        if($tabla2 == $tabla1)
-          return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');          
-
-        return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join($tabla2,'Enfermedades.id_enfermedad', '=' , $tabla2.'.id_enfermedad')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-      }
-      if($tabla3 == 'Farmacos'){
-        if($tabla2 == $tabla1)
-          return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');   
-             
-        return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join($tabla2,'Enfermedades.id_enfermedad', '=' , $tabla2.'.id_enfermedad')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-      }
-      if($tabla3 == 'Enfermedades_familiar'){
-        if($tabla2 == $tabla1)
-          return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('Antecedentes_familiares', 'Pacientes.id_paciente', '=', 'Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f','=','Enfermedades_familiar.id_antecedente_f');
-
-        return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join($tabla2,'Enfermedades.id_enfermedad', '=' , $tabla2.'.id_enfermedad')->join('Antecedentes_familiares', 'Pacientes.id_paciente', '=', 'Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f','=','Enfermedades_familiar.id_antecedente_f');
-      }
-      if($tabla2 == $tabla1)
-        return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join($tabla3, 'Pacientes.id_paciente', '=', $tabla3.'.id_paciente'); 
-
-      return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join($tabla3, 'Pacientes.id_paciente', '=', $tabla3.'.id_paciente')->join($tabla2,'Enfermedades.id_enfermedad', '=' , $tabla2.'.id_enfermedad');  
-    }
-
-    private function joinDatosEnfermedadAntecedentes($tabla1, $tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3)
-        return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join($tabla2,'Pacientes.id_paciente', '=' , $tabla2.'.id_paciente');
-      if($tabla3 == 'Intenciones')  
-        return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join($tabla2,'Pacientes.id_paciente', '=' , $tabla2.'.id_paciente')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-      if($tabla3 == 'Farmacos')
-        return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join($tabla2,'Pacientes.id_paciente', '=' , $tabla2.'.id_paciente')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-      if($tabla3 == 'Enfermedades_familiar')
-        return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join($tabla2,'Pacientes.id_paciente', '=' , $tabla2.'.id_paciente')->join('Antecedentes_familiares', 'Pacientes.id_paciente', '=', 'Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f','=','Enfermedades_familiar.id_antecedente_f');
-
-      return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join($tabla2, 'Pacientes.id_paciente', '=', $tabla2.'.id_paciente')->join($tabla3,'Pacientes.id_paciente', '=' , $tabla3.'.id_paciente');  
-    }
-
-    private function joinDatosEnfermedadEnfermedadesFamiliar($tabla1, $tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3)
-        return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('Antecedentes_familiares','Pacientes.id_paciente','=','Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f', '=' , 'Enfermedades_familiar.id_antecedente_f');
-      if($tabla3 == 'Intenciones')  
-        return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('Antecedentes_familiares','Pacientes.id_paciente','=','Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f', '=' , 'Enfermedades_familiar.id_antecedente_f')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-      if($tabla3 == 'Farmacos')
-        return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('Antecedentes_familiares','Pacientes.id_paciente','=','Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f', '=' , 'Enfermedades_familiar.id_antecedente_f')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-
-      return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('Antecedentes_familiares','Pacientes.id_paciente','=','Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f', '=' , 'Enfermedades_familiar.id_antecedente_f')->join($tabla3,'Pacientes.id_paciente', '=' , $tabla3.'.id_paciente');  
-    }
-
-    private function joinDatosEnfermedadTratamientos($tabla1, $tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3)
-        return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('Tratamientos','Pacientes.id_paciente','=','Tratamientos.id_paciente');
-      if($tabla3 == 'Intenciones')  
-        return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('Tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-      if($tabla3 == 'Farmacos')
-        return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-
-      return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('Tratamientos','Pacientes.id_paciente','=','Tratamientos.id_paciente')->join($tabla3,'Pacientes.id_paciente', '=' , $tabla3.'.id_paciente');  
-    }
-
-    private function joinDatosEnfermedadIntenciones($tabla1, $tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3 or $tabla3 == 'Tratamientos')
-        return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('Tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-      if($tabla3 == 'Farmacos')
-        return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-
-      return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('Tratamientos','Pacientes.id_paciente','=','Tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join($tabla3,'Pacientes.id_paciente', '=' , $tabla3.'.id_paciente');
-    }
-
-    private function joinDatosEnfermedadFarmacos($tabla1, $tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3 or $tabla3 == 'Intenciones' or $tabla3 == 'Tratamientos')
-        return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('tratamientos', 'Pacientes.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-
-      return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join('Tratamientos','Pacientes.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones','Tratamientos.id_tratamiento','=','Intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion')->join($tabla3,'Pacientes.id_paciente', '=' , $tabla3.'.id_paciente');  
-    }
-
-    private function joinDatosEnfermedadSeguimientoReevaluaciones($tabla1, $tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3)
-        return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join($tabla2,'Pacientes.id_paciente','=',$tabla2.'.id_paciente');
-
-      return DB::table($tabla1)->join('Enfermedades',$tabla1.'.id_enfermedad','=','Enfermedades.id_enfermedad')->join('Pacientes', 'Enfermedades.id_paciente', '=', 'Pacientes.id_paciente')->join($tabla2,'Pacientes.id_paciente','=',$tabla2.'.id_paciente')->join($tabla3,'Pacientes.id_paciente','=',$tabla3.'.id_paciente'); 
-    }
-
-    private function joinTresTablasDatosEnfermedad($tabla1,$tabla2,$tabla3)
-    {
-      if($tabla2 == $tabla1 and $tabla3 == $tabla1)
-        return DB::table($tabla1);
-      if($tabla2 == 'Otros_tumores' || $tabla2 == 'Tecnicas_realizadas' || $tabla2 == 'Pruebas_realizadas' || $tabla2 == 'Biomarcadores' || $tabla2 == 'Sintomas' || $tabla2 == 'Metastasis')
-        return $this->joinDatosEnfermedadDatosEnfermedad($tabla1, $tabla2, $tabla3);
-      if($tabla2 == 'Antecedentes_familiares' || $tabla2 == 'Antecedentes_medicos' || $tabla2 == 'Antecedentes_oncologicos')
-        return $this->joinDatosEnfermedadAntecedentes($tabla1, $tabla2, $tabla3);
-      if($tabla2 == 'Enfermedades_familiar')
-        return $this->joinDatosEnfermedadEnfermedadesFamiliar($tabla1, $tabla2, $tabla3);
-      if($tabla2 == 'Tratamientos')
-        return $this->joinDatosEnfermedadTratamientos($tabla1, $tabla2, $tabla3);
-      if($tabla2 == 'Intenciones')
-        return $this->joinDatosEnfermedadIntenciones($tabla1, $tabla2, $tabla3);
-      if($tabla2 == 'Farmacos') 
-        return $this->joinDatosEnfermedadFarmacos($tabla1, $tabla2, $tabla3);
-      if($tabla2 == 'Seguimientos' or $tabla2 == 'Reevaluaciones') 
-        return $this->joinDatosEnfermedadSeguimientoReevaluaciones($tabla1, $tabla2, $tabla3);
-    } 
-
-    private function joinAntecedenteAntecedentes($tabla1, $tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3)
-        return DB::table($tabla1)->join($tabla2, $tabla1.'.id_paciente', '=' , $tabla2.'.id_paciente');
-      if($tabla3 == 'Intenciones')  
-        return DB::table($tabla1)->join($tabla2, $tabla1.'.id_paciente','=',$tabla2.'.id_paciente')->join('tratamientos', $tabla1.'.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-      if($tabla3 == 'Farmacos')
-        return DB::table($tabla1)->join($tabla2, $tabla1.'.id_paciente','=',$tabla2.'.id_paciente')->join('tratamientos', $tabla1.'.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-      if($tabla3 == 'Enfermedades_familiar'){
-        if($tabla1 == 'Antecedentes_familiares')
-          return DB::table($tabla1)->join($tabla2, $tabla1.'.id_paciente','=',$tabla2.'.id_paciente')->join('Enfermedades_familiar',$tabla1.'.id_antecedente_f','=','Enfermedades_familiar.id_antecedente_f');
-        if($tabla2 == 'Antecedentes_familiares')
-          return DB::table($tabla1)->join($tabla2, $tabla1.'.id_paciente','=',$tabla2.'.id_paciente')->join('Enfermedades_familiar',$tabla2.'.id_antecedente_f','=','Enfermedades_familiar.id_antecedente_f');
-
-        return DB::table($tabla1)->join($tabla2, $tabla1.'.id_paciente','=',$tabla2.'.id_paciente')->join('Antecedentes_familiares', $tabla1.'.id_paciente', '=', 'Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f','=','Enfermedades_familiar.id_antecedente_f');
-      }
-
-      return DB::table($tabla1)->join($tabla2, $tabla1.'.id_paciente','=',$tabla2.'.id_paciente')->join($tabla3,$tabla1.'.id_paciente', '=' , $tabla3.'.id_paciente');      
-    }
-
-    private function joinAntecedenteEnfermedadesFamiliar($tabla1, $tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3){
-        if($tabla1 == 'Antecedentes_familiares')
-          return DB::table($tabla1)->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f', '=' , 'Enfermedades_familiar.id_antecedente_f');
-
-        return DB::table($tabla1)->join('Antecedentes_familiares',$tabla1.'.id_paciente','=','Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f', '=' , 'Enfermedades_familiar.id_antecedente_f');
-      }
-      if($tabla3 == 'Intenciones'){
-        if($tabla1 == 'Antecedentes_familiares')
-          return DB::table($tabla1)->join('Enfermedades_familiar',$tabla1.'.id_antecedente_f', '=' , 'Enfermedades_familiar.id_antecedente_f')->join('tratamientos', $tabla1.'.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-
-        return DB::table($tabla1)->join('Antecedentes_familiares',$tabla1.'.id_paciente','=','Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f', '=' , 'Enfermedades_familiar.id_antecedente_f')->join('tratamientos', $tabla1.'.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-      }
-      if($tabla3 == 'Farmacos'){
-        if($tabla1 == 'Antecedentes_familiares')
-          return DB::table($tabla1)->join('Enfermedades_familiar',$tabla1.'.id_antecedente_f', '=' , 'Enfermedades_familiar.id_antecedente_f')->join('tratamientos', $tabla1.'.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-
-        return DB::table($tabla1)->join('Antecedentes_familiares',$tabla1.'.id_paciente','=','Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f', '=' , 'Enfermedades_familiar.id_antecedente_f')->join('tratamientos', $tabla1.'.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-      }
-
-      if($tabla1 == 'Antecedentes_familiares')
-        return DB::table($tabla1)->join('Enfermedades_familiar',$tabla1.'.id_antecedente_f', '=' , 'Enfermedades_familiar.id_antecedente_f')->join($tabla3, $tabla1.'.id_paciente', '=' , $tabla3.'.id_paciente');  
-
-      return DB::table($tabla1)->join('Antecedentes_familiares',$tabla1.'.id_paciente','=','Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f', '=' , 'Enfermedades_familiar.id_antecedente_f')->join($tabla3,$tabla1.'.id_paciente', '=' , $tabla3.'.id_paciente');  
-    }
-
-    private function joinAntecedenteTratamientos($tabla1, $tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3)
-        return DB::table($tabla1)->join('Tratamientos',$tabla1.'.id_paciente','=','Tratamientos.id_paciente');
-      if($tabla3 == 'Intenciones')  
-        return DB::table($tabla1)->join('Tratamientos', $tabla1.'.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-      if($tabla3 == 'Farmacos')
-        return DB::table($tabla1)->join('tratamientos', $tabla1.'.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-
-      return DB::table($tabla1)->join('Tratamientos',$tabla1.'.id_paciente','=','Tratamientos.id_paciente')->join($tabla3,$tabla1.'.id_paciente', '=' , $tabla3.'.id_paciente');  
-    }
-
-    private function joinAntecedenteIntenciones($tabla1, $tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3 or $tabla3 == 'Tratamientos')
-        return DB::table($tabla1)->join('Tratamientos', $tabla1.'.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-      if($tabla3 == 'Farmacos')
-        return DB::table($tabla1)->join('tratamientos', $tabla1.'.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-
-      return DB::table($tabla1)->join('Tratamientos',$tabla1.'.id_paciente','=','Tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join($tabla3,$tabla1.'.id_paciente', '=' , $tabla3.'.id_paciente');
-    }
-
-    private function joinAntecedenteFarmacos($tabla1, $tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3 or $tabla3 == 'Intenciones' or $tabla3 == 'Tratamientos')
-        return DB::table($tabla1)->join('tratamientos', $tabla1.'.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-
-      return DB::table($tabla1)->join('Tratamientos',$tabla1.'.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones','Tratamientos.id_tratamiento','=','Intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion')->join($tabla3, $tabla1.'.id_paciente', '=' , $tabla3.'.id_paciente');  
-    }
-
-    private function joinAntecedenteSeguimientoReevaluaciones($tabla1, $tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3)
-        return DB::table($tabla1)->join($tabla2,$tabla1.'.id_paciente','=',$tabla2.'.id_paciente');
-
-      return DB::table($tabla1)->join($tabla2, $tabla1.'.id_paciente','=',$tabla2.'.id_paciente')->join($tabla3, $tabla1.'.id_paciente','=',$tabla3.'.id_paciente'); 
-    }
-
-    private function joinTresTablasAntecedentes($tabla1,$tabla2,$tabla3)
-    {
-      if($tabla2 == $tabla1 and $tabla3 == $tabla1)
-        return DB::table($tabla1);
-      if($tabla2 == 'Antecedentes_familiares' || $tabla2 == 'Antecedentes_medicos' || $tabla2 == 'Antecedentes_oncologicos')
-        return $this->joinAntecedenteAntecedentes($tabla1, $tabla2, $tabla3);
-      if($tabla2 == 'Enfermedades_familiar')
-        return $this->joinAntecedenteEnfermedadesFamiliar($tabla1, $tabla2, $tabla3);
-      if($tabla2 == 'Tratamientos')
-        return $this->joinAntecedenteTratamientos($tabla1, $tabla2, $tabla3);
-      if($tabla2 == 'Intenciones')
-        return $this->joinAntecedenteIntenciones($tabla1, $tabla2, $tabla3);
-      if($tabla2 == 'Farmacos') 
-        return $this->joinAntecedenteFarmacos($tabla1, $tabla2, $tabla3);
-      if($tabla2 == 'Seguimientos' or $tabla2 == 'Reevaluaciones') 
-        return $this->joinAntecedenteSeguimientoReevaluaciones($tabla1, $tabla2, $tabla3);
-    } 
-
-    private function joinEnfermedadesFamiliarAntecedentes($tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3){
-        if($tabla2 == 'Antecedentes_familiares' or $tabla3 == 'Antecedentes_familiares')
-          return DB::table('Enfermedades_familiar')->join($tabla2, 'Antecedentes_familiares.id_paciente', '=' , $tabla2.'.id_paciente');
-
-        return DB::table('Enfermedades_familiar')->join('Antecedentes_familiares','Enfermedades_familiar.id_antecedente_f','=','Antecedentes_familiares.id_antecedente_f')->join($tabla2, 'Antecedentes_familiares.id_paciente', '=' , $tabla2.'.id_paciente');
-      }
-      if($tabla3 == 'Intenciones'){
-        if($tabla2 == 'Antecedentes_familiares')
-          return DB::table('Enfermedades_familiar')->join('Antecedentes_familiares','Enfermedades_familiar.id_antecedente_f','=','Antecedentes_familiares.id_antecedente_f')->join('tratamientos', 'Antecedentes_familiares.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-
-        return DB::table('Enfermedades_familiar')->join('Antecedentes_familiares','Enfermedades_familiar.id_antecedente_f','=','Antecedentes_familiares.id_antecedente_f')->join($tabla2, 'Antecedentes_familiares.id_paciente','=',$tabla2.'.id_paciente')->join('tratamientos', 'Antecedentes_familiares.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-      }
-      if($tabla3 == 'Farmacos'){
-        if($tabla2 == 'Antecedentes_familiares')
-          return DB::table('Enfermedades_familiar')->join('Antecedentes_familiares','Enfermedades_familiar.id_antecedente_f','=','Antecedentes_familiares.id_antecedente_f')->join('tratamientos', 'Antecedentes_familiares.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-
-        return DB::table('Enfermedades_familiar')->join('Antecedentes_familiares','Enfermedades_familiar.id_antecedente_f','=','Antecedentes_familiares.id_antecedente_f')->join($tabla2, 'Antecedentes_familiares.id_paciente','=',$tabla2.'.id_paciente')->join('tratamientos', 'Antecedentes_familiares.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-      }
-      if($tabla3 == 'Enfermedades_familiar'){
-        if($tabla2 == 'Antecedentes_familiares')
-          return DB::table('Enfermedades_familiar')->join('Antecedentes_familiares','Enfermedades_familiar.id_antecedente_f','=','Antecedentes_familiares.id_antecedente_f')->join('tratamientos', 'Antecedentes_familiares.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f','=','Enfermedades_familiar.id_antecedente_f');
-
-        return DB::table('Enfermedades_familiar')->join('Antecedentes_familiares','Enfermedades_familiar.id_antecedente_f','=','Antecedentes_familiares.id_antecedente_f')->join($tabla2, 'Antecedentes_familiares.id_paciente','=',$tabla2.'.id_paciente')->join('tratamientos', 'Antecedentes_familiares.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f','=','Enfermedades_familiar.id_antecedente_f');
-      }
-      if($tabla2 == 'Antecedentes_familiares')
-        return DB::table('Enfermedades_familiar')->join('Antecedentes_familiares','Enfermedades_familiar.id_antecedente_f','=','Antecedentes_familiares.id_antecedente_f')->join($tabla3,'Antecedentes_familiares.id_paciente', '=' , $tabla3.'.id_paciente');  
-
-      return DB::table('Enfermedades_familiar')->join('Antecedentes_familiares','Enfermedades_familiar.id_antecedente_f','=','Antecedentes_familiares.id_antecedente_f')->join($tabla2, 'Antecedentes_familiares.id_paciente','=',$tabla2.'.id_paciente')->join($tabla3,'Antecedentes_familiares.id_paciente', '=' , $tabla3.'.id_paciente');  
-    }    
-
-    private function joinEnfermedadesFamiliarEnfermedadesFamiliar($tabla3)
-    {
-      if($tabla3 == 'Antecedentes_medicos' || $tabla3 == 'Antecedentes_oncologicos')
-        return DB::table('Enfermedades_familiar')->join('Antecedentes_familiares','Enfermedades_familiar.id_antecedente_f','=','Antecedentes_familiares.id_antecedente_f')->join($tabla3, 'Antecedentes_familiares.id_paciente','=',$tabla3.'.id_paciente');
-
-      if($tabla3 == 'Antecedentes_familiares')
-        return DB::table('Enfermedades_familiar')->join('Antecedentes_familiares','Enfermedades_familiar.id_antecedente_f','=','Antecedentes_familiares.id_antecedente_f');
-
-      if($tabla3 == 'Intenciones')
-        return DB::table('Enfermedades_familiar')->join('Antecedentes_familiares','Enfermedades_familiar.id_antecedente_f','=','Antecedentes_familiares.id_antecedente_f')->join('tratamientos', $tabla1.'.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-
-      if($tabla3 == 'Farmacos')
-        return DB::table('Enfermedades_familiar')->join('Antecedentes_familiares','Enfermedades_familiar.id_antecedente_f','=','Antecedentes_familiares.id_antecedente_f')->join('tratamientos', $tabla1.'.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-
-      return DB::table($tabla1)->join('Antecedentes_familiares',$tabla1.'.id_paciente','=','Antecedentes_familiares.id_paciente')->join('Enfermedades_familiar','Antecedentes_familiares.id_antecedente_f', '=' , 'Enfermedades_familiar.id_antecedente_f')->join($tabla3,$tabla1.'.id_paciente', '=' , $tabla3.'.id_paciente');  
-    }
-
-    private function joinEnfermedadesFamiliarTratamientos($tabla2, $tabla3)
-    {
-      if($tabla3 == 'Tratamientos')
-        return DB::table('Enfermedades_familiar')->join('Antecedentes_familiares','Enfermedades_familiar.id_antecedente_f','=','Antecedentes_familiares.id_antecedente_f')->join('Tratamientos','Antecedentes_familiares.id_paciente','=','Tratamientos.id_paciente');
-      if($tabla3 == 'Intenciones')  
-        return DB::table('Enfermedades_familiar')->join('Antecedentes_familiares','Enfermedades_familiar.id_antecedente_f','=','Antecedentes_familiares.id_antecedente_f')->join('Tratamientos','Antecedentes_familiares.id_paciente','=','Tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-      if($tabla3 == 'Farmacos')
-        return DB::table('Enfermedades_familiar')->join('Antecedentes_familiares','Enfermedades_familiar.id_antecedente_f','=','Antecedentes_familiares.id_antecedente_f')->join('Tratamientos','Antecedentes_familiares.id_paciente','=','Tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-
-      return DB::table('Enfermedades_familiar')->join('Antecedentes_familiares','Enfermedades_familiar.id_antecedente_f','=','Antecedentes_familiares.id_antecedente_f')->join($tabla3,'Antecedentes_familiares.id_paciente', '=' , $tabla3.'.id_paciente');      
-    }
-
-    private function joinEnfermedadesFamiliarIntenciones($tabla3)
-    {
-      if($tabla3 == 'Intenciones' or $tabla3 == 'Tratamientos')
-        return DB::table('Enfermedades_familiar')->join('Antecedentes_familiares','Enfermedades_familiar.id_antecedente_f','=','Antecedentes_familiares.id_antecedente_f')->join('Tratamientos', 'Antecedentes_familiares.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-      if($tabla3 == 'Farmacos')
-        return DB::table('Enfermedades_familiar')->join('Antecedentes_familiares','Enfermedades_familiar.id_antecedente_f','=','Antecedentes_familiares.id_antecedente_f')->join('tratamientos', 'Antecedentes_familiares.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-
-      return DB::table('Enfermedades_familiar')->join('Antecedentes_familiares','Enfermedades_familiar.id_antecedente_f','=','Antecedentes_familiares.id_antecedente_f')->join('Tratamientos','Antecedentes_familiares.id_paciente','=','Tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join($tabla3,'Antecedentes_familiares.id_paciente', '=' , $tabla3.'.id_paciente');
-    }
-
-    private function joinEnfermedadesFamiliarFarmacos($tabla3)
-    {
-      if($tabla3 == 'Farmacos' or $tabla3 == 'Intenciones' or $tabla3 == 'Tratamientos')
-        return DB::table('Enfermedades_familiar')->join('Antecedentes_familiares','Enfermedades_familiar.id_antecedente_f','=','Antecedentes_familiares.id_antecedente_f')->join('tratamientos', 'Antecedentes_familiares.id_paciente', '=', 'tratamientos.id_paciente')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-
-      return DB::table('Enfermedades_familiar')->join('Antecedentes_familiares','Enfermedades_familiar.id_antecedente_f','=','Antecedentes_familiares.id_antecedente_f')->join('Tratamientos','Enfermedades_familiar.id_paciente','=','Tratamientos.id_paciente')->join('Intenciones','Tratamientos.id_tratamiento','=','Intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion')->join($tabla3, 'Enfermedades_familiar.id_paciente', '=' , $tabla3.'.id_paciente');     
-    }
-
-    private function joinEnfermedadesFamiliarSeguimientoReevaluaciones($tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3)
-        return DB::table('Enfermedades_familiar')->join('Antecedentes_familiares','Enfermedades_familiar.id_antecedente_f','=','Antecedentes_familiares.id_antecedente_f')->join($tabla2,'Antecedentes_familiares.id_paciente','=',$tabla2.'.id_paciente');
-
-      return DB::table('Enfermedades_familiar')->join('Antecedentes_familiares','Enfermedades_familiar.id_antecedente_f','=','Antecedentes_familiares.id_antecedente_f')->join($tabla2, 'Antecedentes_familiares.id_paciente','=',$tabla2.'.id_paciente')->join($tabla3, 'Antecedentes_familiares.id_paciente','=',$tabla3.'.id_paciente'); 
-    }
-
-    private function joinTresTablasEnfermedadesFamiliar($tabla2, $tabla3)
-    {
-      if($tabla2 == 'Antecedentes_familiares' || $tabla2 == 'Antecedentes_medicos' || $tabla2 == 'Antecedentes_oncologicos')
-        return $this->joinEnfermedadesFamiliarAntecedentes($tabla2, $tabla3);
-      if($tabla2 == 'Enfermedades_familiar')
-        return $this->joinEnfermedadesFamiliarEnfermedadesFamiliar($tabla3);
-      if($tabla2 == 'Tratamientos')
-        return $this->joinEnfermedadesFamiliarTratamientos($tabla3);
-      if($tabla2 == 'Intenciones')
-        return $this->joinEnfermedadesFamiliarIntenciones($tabla3);
-      if($tabla2 == 'Farmacos') 
-        return $this->joinEnfermedadesFamiliarFarmacos($tabla3);
-      if($tabla2 == 'Seguimientos' or $tabla2 == 'Reevaluaciones') 
-        return $this->joinEnfermedadesFamiliarSeguimientoReevaluaciones($tabla2, $tabla3);    
-    }
-
-    private function joinTratamientoTratamientos($tabla3)
-    {
-      if($tabla3 == 'Tratamientos')
-        return DB::table('Tratamientos');
-      if($tabla3 == 'Intenciones')  
-        return DB::table('Tratamientos')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-      if($tabla3 == 'Farmacos')
-        return DB::table('Tratamientos')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-
-      return DB::table('Tratamientos')->join($tabla3,'Tratamientos.id_paciente', '=' , $tabla3.'.id_paciente');      
-    }
-
-    private function joinTratamientoIntenciones($tabla3)
-    {
-      if($tabla3 == 'Intenciones' or $tabla3 == 'Tratamientos')
-        return DB::table('Tratamientos')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento');
-      if($tabla3 == 'Farmacos')
-        return DB::table('Tratamientos')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-
-      return DB::table('Tratamientos')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join($tabla3,'Tratamientos.id_paciente', '=' , $tabla3.'.id_paciente');
-    }
-
-    private function joinTratamientoFarmacos($tabla3)
-    {
-      if($tabla3 == 'Farmacos' or $tabla3 == 'Intenciones' or $tabla3 == 'Tratamientos')
-        return DB::table('Tratamientos')->join('intenciones', 'tratamientos.id_tratamiento', '=', 'intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-
-      return DB::table('Tratamientos')->join('Intenciones','Tratamientos.id_tratamiento','=','Intenciones.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion')->join($tabla3, 'Tratamientos.id_paciente', '=' , $tabla3.'.id_paciente');     
-    }
-
-    private function joinTratamientoSeguimientoReevaluaciones($tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3)
-        return DB::table('Tratamientos')->join($tabla2,'Tratamientos.id_paciente','=',$tabla2.'.id_paciente');
-
-      return DB::table('Tratamientos')->join($tabla2, 'Tratamientos.id_paciente','=',$tabla2.'.id_paciente')->join($tabla3, 'Tratamientos.id_paciente','=',$tabla3.'.id_paciente'); 
-    }
-
-    private function joinTresTablasTratamientos($tabla2, $tabla3)
-    {
-      if($tabla2 == 'Tratamientos')
-        return $this->joinTratamientoTratamientos($tabla3);
-      if($tabla2 == 'Intenciones')
-        return $this->joinTratamientoIntenciones($tabla3);
-      if($tabla2 == 'Farmacos') 
-        return $this->joinTratamientoFarmacos($tabla3);
-      if($tabla2 == 'Seguimientos' or $tabla2 == 'Reevaluaciones') 
-        return $this->joinTratamientoSeguimientoReevaluaciones($tabla2, $tabla3);    
-    }
-
-    private function joinIntencionTratamientos($tabla3)
-    {
-      if($tabla3 == 'Tratamientos')
-        return DB::table('Intenciones')->join('Tratamientos','Intenciones.id_tratamiento','=','Tratamientos.id_tratamiento');
-      if($tabla3 == 'Intenciones')  
-        return DB::table('Intenciones')->join('Tratamientos','Intenciones.id_tratamiento','=','Tratamientos.id_tratamiento');
-      if($tabla3 == 'Farmacos')
-        return DB::table('Intenciones')->join('Tratamientos','Intenciones.id_tratamiento','=','Tratamientos.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-
-      return DB::table('Intenciones')->join('Tratamientos','Intenciones.id_tratamiento','=','Tratamientos.id_tratamiento')->join($tabla3,'Tratamientos.id_paciente', '=' , $tabla3.'.id_paciente');      
-    }
-
-    private function joinIntencionIntenciones($tabla3)
-    {
-      if($tabla3 == 'Intenciones' or $tabla3 == 'Tratamientos')
-        return DB::table('Intenciones')->join('Tratamientos','Intenciones.id_tratamiento','=','Tratamientos.id_tratamiento');
-      if($tabla3 == 'Farmacos')
-        return DB::table('Intenciones')->join('Tratamientos','Intenciones.id_tratamiento','=','Tratamientos.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-
-      return DB::table('Intenciones')->join($tabla3,'Tratamientos.id_paciente', '=' , $tabla3.'.id_paciente');
-    }
-
-    private function joinIntencionFarmacos($tabla3)
-    {
-      if($tabla3 == 'Farmacos' or $tabla3 == 'Intenciones' or $tabla3 == 'Tratamientos')
-        return DB::table('Intenciones')->join('Tratamientos','Intenciones.id_tratamiento','=','Tratamientos.id_tratamiento')->join('farmacos','intenciones.id_intencion','=','farmacos.id_intencion');
-
-      return DB::table('Intenciones')->join('Tratamientos','Intenciones.id_tratamiento','=','Tratamientos.id_tratamiento')->join($tabla3, 'Tratamientos.id_paciente', '=' , $tabla3.'.id_paciente');     
-    }
-
-    private function joinIntencionSeguimientoReevaluaciones($tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3)
-        return DB::table('Intenciones')->join('Tratamientos','Intenciones.id_tratamiento','=','Tratamientos.id_tratamiento')->join($tabla2,'Tratamientos.id_paciente','=',$tabla2.'.id_paciente');
-
-      return DB::table('Intenciones')->join('Tratamientos','Intenciones.id_tratamiento','=','Tratamientos.id_tratamiento')->join($tabla2, 'Tratamientos.id_paciente','=',$tabla2.'.id_paciente')->join($tabla3, 'Tratamientos.id_paciente','=',$tabla3.'.id_paciente'); 
-    }
-
-    private function joinTresTablasIntenciones($tabla2, $tabla3)
-    {
-      if($tabla2 == 'Tratamientos')
-        return $this->joinIntencionTratamientos($tabla3);
-      if($tabla2 == 'Intenciones')
-        return $this->joinIntencionIntenciones($tabla3);
-      if($tabla2 == 'Farmacos') 
-        return $this->joinIntencionFarmacos($tabla3);
-      if($tabla2 == 'Seguimientos' or $tabla2 == 'Reevaluaciones') 
-        return $this->joinIntencionSeguimientoReevaluaciones($tabla2, $tabla3);    
-    }
-
-    private function joinFarmacosTablas($tabla3)
-    {
-      if($tabla3 == 'Tratamientos' or $tabla3 == 'Intenciones' or $tabla3 == 'Farmacos')
-        return DB::table('Farmacos')->join('Intenciones','Farmacos.id_intencion','=','Intenciones.id_intencion')->join('Tratamientos','Intenciones.id_tratamiento','=','Tratamientos.id_tratamiento');
-
-      return DB::table('Farmacos')->join('Intenciones','Farmacos.id_intencion','=','Intenciones.id_intencion')->join('Tratamientos','Intenciones.id_tratamiento','=','Tratamientos.id_tratamiento')->join($tabla3,'Tratamientos.id_paciente', '=' , $tabla3.'.id_paciente');      
-    }
-
-    private function joinFarmacoSeguimientoReevaluaciones($tabla2, $tabla3)
-    {
-      if($tabla2 == $tabla3)
-        return DB::table('Farmacos')->join('Intenciones','Farmacos.id_intencion','=','Intenciones.id_intencion')->join('Tratamientos','Intenciones.id_tratamiento','=','Tratamientos.id_tratamiento')->join($tabla2,'Tratamientos.id_paciente','=',$tabla2.'.id_paciente');
-
-      return DB::table('Farmacos')->join('Intenciones','Farmacos.id_intencion','=','Intenciones.id_intencion')->join('Tratamientos','Intenciones.id_tratamiento','=','Tratamientos.id_tratamiento')->join($tabla2, 'Tratamientos.id_paciente','=',$tabla2.'.id_paciente')->join($tabla3, 'Tratamientos.id_paciente','=',$tabla3.'.id_paciente'); 
-    }
-
-    private function joinTresTablasFarmacos($tabla2, $tabla3)
-    {
-      if($tabla2 == 'Tratamientos')
-        return $this->joinFarmacosTablas($tabla3);
-      if($tabla2 == 'Intenciones')
-        return $this->joinFarmacosTablas($tabla3);
-      if($tabla2 == 'Farmacos') 
-        return $this->joinFarmacosTablas($tabla3);
-      if($tabla2 == 'Seguimientos' or $tabla2 == 'Reevaluaciones') 
-        return $this->joinFarmacoSeguimientoReevaluaciones($tabla2, $tabla3);    
-    }
-
-    private function joinTresTablasSeguimientosReevaluaciones($tabla1, $tabla2, $tabla3)
-    {
-      if($tabla1 == $tabla2 and $tabla1 == $tabla3)
-        return DB::table($tabla1);
-      if($tabla1 == $tabla2 or $tabla2 == $tabla3)
-        return DB::table($tabla1)->join($tabla3,$tabla1.'.id_paciente','=',$tabla3.'.id_paciente');
-      if($tabla1 == $tabla3)
-        return DB::table($tabla1)->join($tabla2,$tabla1.'.id_paciente','=',$tabla2.'.id_paciente');
-    }
-
-   private function joinTresTablas($tabla1,$tabla2,$tabla3)
-   {
-    if($tabla1 == $tabla2 and $tabla1 == $tabla3)
-      return DB::table($tabla1);
-    if($tabla1 == 'Pacientes')
-      return $this->joinTresTablasPaciente($tabla1,$tabla2,$tabla3);
-    if($tabla1 == 'Enfermedades')
-      return $this->joinTresTablasEnfermedad($tabla1,$tabla2,$tabla3);
-    if($tabla1 == 'Otros_tumores' || $tabla1 == 'Tecnicas_realizadas' || $tabla1 == 'Pruebas_realizadas' || $tabla1 == 'Biomarcadores' || $tabla1 == 'Sintomas' || $tabla1 == 'Metastasis')
-      return $this->joinTresTablasDatosEnfermedad($tabla1,$tabla2,$tabla3);
-    if($tabla1 == 'Antecedentes_familiares' || $tabla1 == 'Antecedentes_medicos' || $tabla1 == 'Antecedentes_oncologicos')
-      return $this->joinTresTablasAntecedentes($tabla1, $tabla2, $tabla3);
-    if($tabla1 == 'Enfermedades_familiar')
-      return $this->joinTresTablasEnfermedadesFamiliar($tabla2, $tabla3);
-    if($tabla1 == 'Tratamientos')
-      return $this->joinTresTablasTratamientos($tabla2, $tabla3);
-    if($tabla1 == 'Intenciones')
-      return $this->joinTresTablasIntenciones($tabla2, $tabla3);
-    if($tabla1 == 'Farmacos') 
-      return $this->joinTresTablasFarmacos($tabla2, $tabla3);
-    if($tabla1 == 'Seguimientos' or $tabla1 == 'Reevaluaciones') 
-      return $this->joinTresTablasSeguimientosReevaluaciones($tabla1, $tabla2, $tabla3);
-   }
-
-    private function obtenerDatosTresNominales($tabla1,$tabla2,$tabla3,$tipoSelec1,$tipoSelec2,$tipoSelec3)
-    {
-      $division1 = $this->campoASeleccionar($tabla1,$tipoSelec1);
-      $division2 = $this->campoASeleccionar($tabla2,$tipoSelec2);
-      $division3 = $this->campoASeleccionar($tabla3,$tipoSelec3);
-      $tipos1 = $this->calcularTipos($tabla1, $division1);
-      $tipos2 = $this->calcularTipos($tabla2, $division2);
-      $tipos3 = $this->calcularTipos($tabla3, $division3);
-      $division1 = $this->calcularNuevaDivision($division1);
-      $division2 = $this->calcularNuevaDivision($division2);
-      $division3 = $this->calcularNuevaDivision($division3);
-      $joinTablas = $this->joinTresTablas($tabla1, $tabla2, $tabla3);
-      foreach ($tipos1 as $tipo1) {
-        foreach($tipos2 as $tipo2){
-          foreach($tipos3 as $tipo3){
-            $joinTablas = $this->joinTresTablas($tabla1, $tabla2, $tabla3);
-            $numTipo = $joinTablas->whereNotNull($tabla1.'.'.$division1)->whereNotNull($tabla2.'.'.$division2)->whereNotNull($tabla3.'.'.$division3)->where($tabla1.'.'.$division1,$tipo1->$division1)->where($tabla2.'.'.$division2,$tipo2->$division2)->where($tabla3.'.'.$division3,$tipo3->$division3)->count();
-            if($numTipo > 0 )
-              $datosGrafica[$tipo1->$division1.', '.$tipo2->$division2.' y '.$tipo3->$division3] = $numTipo;
-          }
-        }
-      }
-
-      return $datosGrafica;
-    }
-
-   private function tresOpciones($request)
-   {
-    $opciones = $request->opciones;
-    $tabla1 = $this->obtenerTabla($opciones);
-    $seleccion1 = $opciones[$this->obtenerValor($opciones)];
-    $opcion1 = $this->campoASeleccionar($tabla1, $seleccion1);
-    $opciones[$this->obtenerValor($opciones)] = "Ninguna";
-    $tabla2 = $this->obtenerTabla($opciones);
-    $seleccion2 = $opciones[$this->obtenerValor($opciones)];
-    $opcion2 = $this->campoASeleccionar($tabla2, $seleccion2);
-    $opciones[$this->obtenerValor($opciones)] = "Ninguna";
-    $tabla3 = $this->obtenerTabla($opciones);
-    $seleccion3 = $opciones[$this->obtenerValor($opciones)];
-    $opcion3 = $this->campoASeleccionar($tabla3, $seleccion3); 
-    return $this->obtenerDatosTresNominales($tabla1,$tabla2,$tabla3,$opcion1,$opcion2,$opcion3);
-  }
-  
     /******************************************************************
     *                                                                 *
     * Imprimir gráficas                                               *
@@ -1976,13 +1139,13 @@ class GraficosController extends Controller
             $datosGrafica = $this->dosOpciones($request);
             break;
           case 3:
-            $datosGrafica = $this->tresOpciones($request);
+            return redirect()->route('vergraficas')->with('errorMax','No puedes seleccionar más de 2 divisiones');
             break;
           case 4:
-            return redirect()->route('vergraficas')->with('errorMax','No puedes seleccionar más de 3 divisiones');
+            return redirect()->route('vergraficas')->with('errorMax','No puedes seleccionar más de 2 divisiones');
             break;
           default:
-            return redirect()->route('vergraficas')->with('errorMax','No puedes seleccionar más de 3 divisiones');
+            return redirect()->route('vergraficas')->with('errorMax','No puedes seleccionar más de 2 divisiones');
             break;
       }
       $tipos = $this->obtenerValores($request->opciones);

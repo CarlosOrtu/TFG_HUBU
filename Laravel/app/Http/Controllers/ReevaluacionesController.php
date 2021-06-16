@@ -19,9 +19,9 @@ class ReevaluacionesController extends Controller
         $this->encriptacion = new Encriptacion();
 
     }
-    public function verReevaluacionSinModificar($id)
+    public function verReevaluacionSinModificar($idPaciente)
     {
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         if(env('APP_ENV') == 'production'){      
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('verreevaluaciones',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
@@ -36,9 +36,9 @@ class ReevaluacionesController extends Controller
         $paciente->save();
     }
 
-    public function verReevaluacionNueva($id)
+    public function verReevaluacionNueva($idPaciente)
     {
-    	$paciente = Pacientes::find($id);
+    	$paciente = Pacientes::find($idPaciente);
         if(env('APP_ENV') == 'production'){      
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
         	return view('reevaluacionesnuevas',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
@@ -65,17 +65,17 @@ class ReevaluacionesController extends Controller
         return $validator;
     }
 
-    public function crearReevaluación(Request $request, $id)
+    public function crearReevaluación(Request $request, $idPaciente)
     {
     	try{
 		    $validator = $this->validarReevaluacion($request);
 	    	if($validator->fails())
 	        	return back()->withErrors($validator->errors())->withInput();
 
-	    	$paciente = Pacientes::find($id);
+	    	$paciente = Pacientes::find($idPaciente);
 
 	    	$nuevaReevaluacion = new Reevaluaciones();
-	    	$nuevaReevaluacion->id_paciente = $id;
+	    	$nuevaReevaluacion->id_paciente = $idPaciente;
 	      	$nuevaReevaluacion->fecha = $request->fecha;
 	    	$nuevaReevaluacion->estado	 = $request->estado;
 	    	if($request->estado == "Progresión"){
@@ -89,15 +89,15 @@ class ReevaluacionesController extends Controller
 
 	        $this->actualizarfechaModificacionPaciente($paciente);
 
-	    	return redirect()->route('reevaluacionesnuevas',$id)->with('success','Reevaluación creada correctamente');
+	    	return redirect()->route('reevaluacionesnuevas',$idPaciente)->with('success','Reevaluación creada correctamente');
 	    }catch(QueryException $e){
-            return redirect()->route('reevaluacionesnuevas',$id)->with('SQLerror','Introduce una fecha valida');
+            return redirect()->route('reevaluacionesnuevas',$idPaciente)->with('SQLerror','Introduce una fecha valida');
         }
     }
 
-    public function verReevaluacion($id, $num_reevaluacion)
+    public function verReevaluacion($idPaciente, $num_reevaluacion)
     {
-    	$paciente = Pacientes::find($id);
+    	$paciente = Pacientes::find($idPaciente);
     	$reevaluaciones = $paciente->Reevaluaciones;
     	$reevaluacion = $reevaluaciones[$num_reevaluacion];
         if(env('APP_ENV') == 'production'){      
@@ -108,17 +108,17 @@ class ReevaluacionesController extends Controller
         return view('reevaluaciones',['paciente' => $paciente, 'reevaluacion' => $reevaluacion, 'posicion' => $num_reevaluacion]);
     }
 
-    public function modificarReevaluación(Request $request, $id, $num_reevaluacion)
+    public function modificarReevaluación(Request $request, $idPaciente, $num_reevaluacion)
     {
     	try{
 	    	$validator = $this->validarReevaluacion($request);
 	    	if($validator->fails())
 	        	return back()->withErrors($validator->errors())->withInput();
 
-	    	$paciente = Pacientes::find($id);
+	    	$paciente = Pacientes::find($idPaciente);
 
 	    	$reevaluacion = $paciente->Reevaluaciones[$num_reevaluacion];
-	    	$reevaluacion->id_paciente = $id;
+	    	$reevaluacion->id_paciente = $idPaciente;
 	      	$reevaluacion->fecha = $request->fecha;
 	    	$reevaluacion->estado	 = $request->estado;
 	    	if($request->estado == "Progresión"){
@@ -135,21 +135,21 @@ class ReevaluacionesController extends Controller
 
 	        $this->actualizarfechaModificacionPaciente($paciente);
 
-	    	return redirect()->route('vermodificarreevaluacion',['id' => $id, 'num_reevaluacion' => $num_reevaluacion])->with('success','Reevaluación modificada correctamente');
+	    	return redirect()->route('vermodificarreevaluacion',['id' => $idPaciente, 'num_reevaluacion' => $num_reevaluacion])->with('success','Reevaluación modificada correctamente');
 	    }catch(QueryException $e){
-            return redirect()->route('vermodificarreevaluacion',['id' => $id, 'num_reevaluacion' => $num_reevaluacion])->with('SQLerror','Introduce una fecha valida');
+            return redirect()->route('vermodificarreevaluacion',['id' => $idPaciente, 'num_reevaluacion' => $num_reevaluacion])->with('SQLerror','Introduce una fecha valida');
         }
     }
 
-    public function eliminarReevaluación($id, $num_reevaluacion)
+    public function eliminarReevaluación($idPaciente, $num_reevaluacion)
     {
-    	$paciente = Pacientes::find($id);
+    	$paciente = Pacientes::find($idPaciente);
 
 	    $reevaluacion = $paciente->Reevaluaciones[$num_reevaluacion];
 	    $reevaluacion->delete();
 
 	    $this->actualizarfechaModificacionPaciente($paciente);
 
-	   	return redirect()->route('reevaluacionesnuevas',$id)->with('success','Reevaluación eliminada correctamente');
+	   	return redirect()->route('reevaluacionesnuevas',$idPaciente)->with('success','Reevaluación eliminada correctamente');
     }
 }

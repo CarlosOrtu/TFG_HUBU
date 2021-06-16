@@ -19,9 +19,9 @@ class SeguimientosController extends Controller
         $this->encriptacion = new Encriptacion();
     }
 
-    public function verSeguimientoSinModificar($id)
+    public function verSeguimientoSinModificar($idPaciente)
     {
-    	$paciente = Pacientes::find($id);
+    	$paciente = Pacientes::find($idPaciente);
         if(env('APP_ENV') == 'production'){      
 	    	$nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
 	    	return view('verseguimientos',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
@@ -36,9 +36,9 @@ class SeguimientosController extends Controller
         $paciente->save();
     }
 
-    public function verSeguimientoNuevo($id)
+    public function verSeguimientoNuevo($idPaciente)
     {
-    	$paciente = Pacientes::find($id);
+    	$paciente = Pacientes::find($idPaciente);
         if(env('APP_ENV') == 'production'){      
 	    	$nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
 	    	return view('seguimientosnuevos',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
@@ -80,17 +80,17 @@ class SeguimientosController extends Controller
         return $validator;
     }
 
-    public function crearSeguimiento(Request $request, $id)
+    public function crearSeguimiento(Request $request, $idPaciente)
     {
     	try{
 		    $validator = $this->validarSeguimiento($request);
 	    	if($validator->fails())
 	        	return back()->withErrors($validator->errors())->withInput();
 	        
-    		$paciente = Pacientes::find($id);
+    		$paciente = Pacientes::find($idPaciente);
 
 	    	$nuevoSeguimiento = new Seguimientos();
-	    	$nuevoSeguimiento->id_paciente = $id;
+	    	$nuevoSeguimiento->id_paciente = $idPaciente;
 	      	$nuevoSeguimiento->fecha = $request->fecha;
 	    	$nuevoSeguimiento->estado	 = $request->estado;
 	    	if($request->estado == "Fallecido"){
@@ -101,15 +101,15 @@ class SeguimientosController extends Controller
 
 	        $this->actualizarfechaModificacionPaciente($paciente);
 
-	    	return redirect()->route('seguimientosnuevos',$id)->with('success','Seguimiento creado correctamente');
+	    	return redirect()->route('seguimientosnuevos',$idPaciente)->with('success','Seguimiento creado correctamente');
 	    }catch(QueryException $e){
-            return redirect()->route('seguimientosnuevos',$id)->with('SQLerror','Introduce una fecha valida');
+            return redirect()->route('seguimientosnuevos',$idPaciente)->with('SQLerror','Introduce una fecha valida');
         }
     }
 
-    public function verSeguimiento($id, $num_seguimiento)
+    public function verSeguimiento($idPaciente, $num_seguimiento)
     {
-    	$paciente = Pacientes::find($id);
+    	$paciente = Pacientes::find($idPaciente);
     	$seguimientos = $paciente->Seguimientos;
     	$seguimiento = $seguimientos[$num_seguimiento];
         if(env('APP_ENV') == 'production'){      
@@ -120,17 +120,17 @@ class SeguimientosController extends Controller
 	    return view('seguimientos',['paciente' => $paciente, 'seguimiento' => $seguimiento, 'posicion' => $num_seguimiento]);
     }
 
-    public function modificarSeguimiento(Request $request, $id, $num_seguimiento)
+    public function modificarSeguimiento(Request $request, $idPaciente, $num_seguimiento)
     {
     	try{
 	    	$validator = $this->validarSeguimiento($request);
 	    	if($validator->fails())
 	        	return back()->withErrors($validator->errors())->withInput();
 
-	    	$paciente = Pacientes::find($id);
+	    	$paciente = Pacientes::find($idPaciente);
 
 	    	$seguimiento = $paciente->Seguimientos[$num_seguimiento];
-	    	$seguimiento->id_paciente = $id;
+	    	$seguimiento->id_paciente = $idPaciente;
 	      	$seguimiento->fecha = $request->fecha;
 	    	$seguimiento->estado	 = $request->estado;
 	    	if($request->estado == "Fallecido"){
@@ -148,22 +148,22 @@ class SeguimientosController extends Controller
 
 	        $this->actualizarfechaModificacionPaciente($paciente);
 
-	    	return redirect()->route('vermodificarseguimiento',['id' => $id, 'num_seguimiento' => $num_seguimiento])->with('success','Seguimiento modificado correctamente');
+	    	return redirect()->route('vermodificarseguimiento',['id' => $idPaciente, 'num_seguimiento' => $num_seguimiento])->with('success','Seguimiento modificado correctamente');
 	    }catch(QueryException $e){
-            return redirect()->route('vermodificarseguimiento',['id' => $id, 'num_seguimiento' => $num_seguimiento])->with('SQLerror','Introduce una fecha valida');
+            return redirect()->route('vermodificarseguimiento',['id' => $idPaciente, 'num_seguimiento' => $num_seguimiento])->with('SQLerror','Introduce una fecha valida');
         }
     }
 
-    public function eliminarSeguimiento($id, $num_seguimiento)
+    public function eliminarSeguimiento($idPaciente, $num_seguimiento)
     {
-    	$paciente = Pacientes::find($id);
+    	$paciente = Pacientes::find($idPaciente);
 
 	    $seguimiento = $paciente->Seguimientos[$num_seguimiento];
 	    $seguimiento->delete();
 
 	    $this->actualizarfechaModificacionPaciente($paciente);
 
-	   	return redirect()->route('seguimientosnuevos',$id)->with('success','Seguimiento eliminado correctamente');
+	   	return redirect()->route('seguimientosnuevos',$idPaciente)->with('success','Seguimiento eliminado correctamente');
     }
 
 }

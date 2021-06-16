@@ -18,9 +18,9 @@ class ComentariosController extends Controller
         $this->encriptacion = new Encriptacion();
     }
 
-    public function verComentarioSinModificar($id)
+    public function verComentarioSinModificar($idPaciente)
     {
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
         if(env('APP_ENV') == 'production'){      
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
             return view('vercomentarios',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
@@ -35,9 +35,9 @@ class ComentariosController extends Controller
         $paciente->save();
     }
 
-    public function verComentarioNuevo($id)
+    public function verComentarioNuevo($idPaciente)
     {
-    	$paciente = Pacientes::find($id);
+    	$paciente = Pacientes::find($idPaciente);
         if(env('APP_ENV') == 'production'){      
             $nhcDesencriptado = $this->encriptacion->desencriptar($paciente->NHC);
         	return view('comentariosnuevos',['paciente' => $paciente, 'nombre' => $nhcDesencriptado]);
@@ -58,28 +58,28 @@ class ComentariosController extends Controller
         return $validator;
     }
 
-    public function crearComentario(Request $request, $id)
+    public function crearComentario(Request $request, $idPaciente)
     {
 	    $validator = $this->validarComentario($request);
     	if($validator->fails())
         	return back()->withErrors($validator->errors())->withInput();
 
-        $paciente = Pacientes::find($id);
+        $paciente = Pacientes::find($idPaciente);
 
     	$nuevoComentario = new Comentarios();
-    	$nuevoComentario->id_paciente = $id;
+    	$nuevoComentario->id_paciente = $idPaciente;
     	$nuevoComentario->comentario = $request->comentario;
     	$nuevoComentario->save();
 
         $this->actualizarfechaModificacionPaciente($paciente);
 
 
-    	return redirect()->route('comentarionuevo',$id)->with('success','Comentario creado correctamente');
+    	return redirect()->route('comentarionuevo',$idPaciente)->with('success','Comentario creado correctamente');
     }
 
-    public function verComentario($id, $num_comentario)
+    public function verComentario($idPaciente, $num_comentario)
     {
-    	$paciente = Pacientes::find($id);
+    	$paciente = Pacientes::find($idPaciente);
     	$comentarios = $paciente->Comentarios;
     	$comentario = $comentarios[$num_comentario];
         if(env('APP_ENV') == 'production'){      
@@ -90,34 +90,34 @@ class ComentariosController extends Controller
         return view('comentarios',['paciente' => $paciente, 'comentario' => $comentario, 'posicion' => $num_comentario]);
     }
 
-    public function modificarComentario(Request $request, $id, $num_comentario)
+    public function modificarComentario(Request $request, $idPaciente, $num_comentario)
     {
     	$validator = $this->validarComentario($request);
     	if($validator->fails())
         	return back()->withErrors($validator->errors())->withInput();
 
-    	$paciente = Pacientes::find($id);
+    	$paciente = Pacientes::find($idPaciente);
 
     	$comentario = $paciente->Comentarios[$num_comentario];
 
-    	$comentario->id_paciente = $id;
+    	$comentario->id_paciente = $idPaciente;
     	$comentario->comentario = $request->comentario;
     	$comentario->save();
 
         $this->actualizarfechaModificacionPaciente($paciente);
 
-    	return redirect()->route('vermodificarcomentario',['id' => $id, 'num_comentario' => $num_comentario])->with('success','Comentario modificado correctamente');
+    	return redirect()->route('vermodificarcomentario',['id' => $idPaciente, 'num_comentario' => $num_comentario])->with('success','Comentario modificado correctamente');
     }
 
-    public function eliminarComentario($id, $num_comentario)
+    public function eliminarComentario($idPaciente, $num_comentario)
     {
-    	$paciente = Pacientes::find($id);
+    	$paciente = Pacientes::find($idPaciente);
 
 	    $comentario = $paciente->Comentarios[$num_comentario];
 	    $comentario->delete();
 
         $this->actualizarfechaModificacionPaciente($paciente);
 
-	   	return redirect()->route('comentarionuevo',$id)->with('success','Comentario eliminado correctamente');
+	   	return redirect()->route('comentarionuevo',$idPaciente)->with('success','Comentario eliminado correctamente');
     }
 }
