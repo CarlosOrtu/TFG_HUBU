@@ -49,12 +49,12 @@ class ModificarReevaluacionTest extends TestCase
         $enfermedad->tratamiento_dirigido = 1;
         $enfermedad->save();
         //Crearmos la reevaluacion a modificar
-        $reevaluacionAModificar = new Reevaluaciones();
-        $reevaluacionAModificar->id_paciente = 999;
-        $reevaluacionAModificar->id_reevaluacion = 999;
-        $reevaluacionAModificar->fecha = "1998-05-05";
-        $reevaluacionAModificar->estado = "Respuesta parcial";
-        $reevaluacionAModificar->save();
+        $reeAModificar = new Reevaluaciones();
+        $reeAModificar->id_paciente = 999;
+        $reeAModificar->id_reevaluacion = 999;
+        $reeAModificar->fecha = "1998-05-05";
+        $reeAModificar->estado = "Respuesta parcial";
+        $reeAModificar->save();
         //Realizamos el login con el administrador para poder acceder a todos las rutas de la web
         $response = $this->get('/login')->assertSee('Login');
         $credentials = [

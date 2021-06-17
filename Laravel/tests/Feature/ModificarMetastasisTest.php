@@ -49,19 +49,19 @@ class ModificarMetastasisTest extends TestCase
         $enfermedad->tratamiento_dirigido = 1;
         $enfermedad->save();
         //Crear metastasis a modificar
-        $metastasisAModificar = new Metastasis();
-        $metastasisAModificar->id_metastasis = 999;
-        $metastasisAModificar->id_enfermedad = 999;
-        $metastasisAModificar->tipo = "Hígado";
-        $metastasisAModificar->save();
+        $metastasisModificar = new Metastasis();
+        $metastasisModificar->id_metastasis = 999;
+        $metastasisModificar->id_enfermedad = 999;
+        $metastasisModificar->tipo = "Hígado";
+        $metastasisModificar->save();
 
         //Realizamos el login con el administrador para poder acceder a todos las rutas de la web
-        $response = $this->get('/login')->assertSee('Login');
+        $this->get('/login')->assertSee('Login');
         $credentials = [
             "email" => "administrador@gmail.com",
             "password" => "1234",
         ];
-        $response = $this->post('/login', $credentials);
+        $this->post('/login', $credentials);
     }
 
     protected function tearDown(): void

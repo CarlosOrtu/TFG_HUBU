@@ -49,19 +49,19 @@ class ModificarSeguimientoTest extends TestCase
         $enfermedad->tratamiento_dirigido = 1;
         $enfermedad->save();
         //Creamos el seguimiento a modificar
-        $seguimientoAModificar = new Seguimientos();
-        $seguimientoAModificar->id_paciente = 999;
-        $seguimientoAModificar->id_seguimiento = 999;
-        $seguimientoAModificar->fecha = "1998-05-05";
-        $seguimientoAModificar->estado = "1998-05-05";
-        $seguimientoAModificar->save();
+        $segAModificar = new Seguimientos();
+        $segAModificar->id_paciente = 999;
+        $segAModificar->id_seguimiento = 999;
+        $segAModificar->fecha = "1998-05-05";
+        $segAModificar->estado = "1998-05-05";
+        $segAModificar->save();
         //Realizamos el login con el administrador para poder acceder a todos las rutas de la web
-        $response = $this->get('/login')->assertSee('Login');
+        $this->get('/login')->assertSee('Login');
         $credentials = [
             "email" => "administrador@gmail.com",
             "password" => "1234",
         ];
-        $response = $this->post('/login', $credentials);
+        $this->post('/login', $credentials);
     }
 
     protected function tearDown(): void

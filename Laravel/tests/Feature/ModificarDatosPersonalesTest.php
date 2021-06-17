@@ -22,12 +22,12 @@ class ModificarDatosPersonalesTest extends TestCase
         $usuarioAModificar->id_rol = 2;      
         $usuarioAModificar->save();  
         //Realizamos el login para poder acceder a todos las rutas de la web
-        $response = $this->get('/login')->assertSee('Login');
+        $this->get('/login')->assertSee('Login');
         $credentials = [
             "email" => "usuario@gmail.com",
             "password" => "1234",
         ];
-        $response = $this->post('/login', $credentials);
+        $this->post('/login', $credentials);
     }
 
     protected function tearDown(): void

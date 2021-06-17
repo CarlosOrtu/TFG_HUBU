@@ -49,18 +49,18 @@ class CrearAntecedentesOncologicosTest extends TestCase
         $enfermedad->save();
 
         //Realizamos el login con el administrador para poder acceder a todos las rutas de la web
-        $response = $this->get('/login')->assertSee('Login');
+        $this->get('/login')->assertSee('Login');
         $credentials = [
             "email" => "administrador@gmail.com",
             "password" => "1234",
         ];
-        $response = $this->post('/login', $credentials);
+        $this->post('/login', $credentials);
     }
 
     protected function tearDown(): void
     {
         //Eliminamos el usuario
-        $usuario = Pacientes::find(999)->delete();
+        Pacientes::find(999)->delete();
         parent::tearDown();
     }
 
@@ -70,11 +70,11 @@ class CrearAntecedentesOncologicosTest extends TestCase
     {
         //Accedemos la vista antecedentes oncológicos
         $response = $this->get('/paciente/999/antecedentes/oncologicos')->assertSee('Antecedentes oncológicos');
-        $antecedenteOncologico = [
+        $antecedenteO = [
             "tipo"=> "Próstata",
         ];
         //Realizamos la solicitud post con los datos del antecedente oncológicos definidos anteriormente
-        $response = $this->post('/paciente/999/antecedentes/oncologicos', $antecedenteOncologico);
+        $response = $this->post('/paciente/999/antecedentes/oncologicos', $antecedenteO);
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/paciente/999/antecedentes/oncologicos');
         //Comprobamos que los datos del antecedente oncológico se han introducido correctamente

@@ -55,18 +55,18 @@ class ModificarPruebaRealizadaTest extends TestCase
         $pruebaAModificar->tipo = "TAC";
         $pruebaAModificar->save();
         //Realizamos el login con el administrador para poder acceder a todos las rutas de la web
-        $response = $this->get('/login')->assertSee('Login');
+        $this->get('/login')->assertSee('Login');
         $credentials = [
             "email" => "administrador@gmail.com",
             "password" => "1234",
         ];
-        $response = $this->post('/login', $credentials);
+        $this->post('/login', $credentials);
     }
 
     protected function tearDown(): void
     {
         //Eliminamos el usuario
-        $usuario = Pacientes::find(999)->delete();
+        Pacientes::find(999)->delete();
         parent::tearDown();
     }
 

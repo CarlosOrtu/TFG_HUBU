@@ -49,24 +49,24 @@ class ModificarAntecedentesMedicosTest extends TestCase
         $enfermedad->tratamiento_dirigido = 1;
         $enfermedad->save();
         //Creamos el antecedente médico a modificar
-        $antecedenteMedicoAModificar = new Antecedentes_medicos();
-        $antecedenteMedicoAModificar->id_paciente = 999;
-        $antecedenteMedicoAModificar->id_antecedente_m = 999;
-        $antecedenteMedicoAModificar->tipo_antecedente = "EPOC";
-        $antecedenteMedicoAModificar->save();
+        $antMModificar = new Antecedentes_medicos();
+        $antMModificar->id_paciente = 999;
+        $antMModificar->id_antecedente_m = 999;
+        $antMModificar->tipo_antecedente = "EPOC";
+        $antMModificar->save();
         //Realizamos el login con el administrador para poder acceder a todos las rutas de la web
-        $response = $this->get('/login')->assertSee('Login');
+        $this->get('/login')->assertSee('Login');
         $credentials = [
             "email" => "administrador@gmail.com",
             "password" => "1234",
         ];
-        $response = $this->post('/login', $credentials);
+        $this->post('/login', $credentials);
     }
 
     protected function tearDown(): void
     {
         //Eliminamos el usuario
-        $usuario = Pacientes::find(999)->delete();
+        Pacientes::find(999)->delete();
         parent::tearDown();
     }
 

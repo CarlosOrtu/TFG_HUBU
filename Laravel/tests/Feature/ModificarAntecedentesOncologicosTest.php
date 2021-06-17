@@ -49,24 +49,24 @@ class ModificarAntecedentesOncologicosTest extends TestCase
         $enfermedad->tratamiento_dirigido = 1;
         $enfermedad->save();
         //Creamos el antecedente oncológico a modificar
-        $antecedenteOncologicoAModificar = new Antecedentes_oncologicos();
-        $antecedenteOncologicoAModificar->id_paciente = 999;
-        $antecedenteOncologicoAModificar->id_antecedente_o = 999;
-        $antecedenteOncologicoAModificar->tipo = "Próstata";
-        $antecedenteOncologicoAModificar->save();
+        $antOModificar = new Antecedentes_oncologicos();
+        $antOModificar->id_paciente = 999;
+        $antOModificar->id_antecedente_o = 999;
+        $antOModificar->tipo = "Próstata";
+        $antOModificar->save();
         //Realizamos el login con el administrador para poder acceder a todos las rutas de la web
-        $response = $this->get('/login')->assertSee('Login');
+        $this->get('/login')->assertSee('Login');
         $credentials = [
             "email" => "administrador@gmail.com",
             "password" => "1234",
         ];
-        $response = $this->post('/login', $credentials);
+        $this->post('/login', $credentials);
     }
 
     protected function tearDown(): void
     {
         //Eliminamos el usuario
-        $usuario = Pacientes::find(999)->delete();
+        Pacientes::find(999)->delete();
         parent::tearDown();
     }
 
@@ -76,11 +76,11 @@ class ModificarAntecedentesOncologicosTest extends TestCase
     {
         //Accedemos la vista antecedentes oncológicos
         $response = $this->get('/paciente/999/antecedentes/oncologicos')->assertSee('Antecedentes oncológicos');
-        $antecedenteOncologico = [
+        $antecedenteO = [
             "tipo"=> "Hígado",
         ];
         //Realizamos la solicitud put con los datos del antecedente oncológicos definidos anteriormente
-        $response = $this->put('/paciente/999/antecedentes/oncologicos/0', $antecedenteOncologico);
+        $response = $this->put('/paciente/999/antecedentes/oncologicos/0', $antecedenteO);
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/paciente/999/antecedentes/oncologicos');
         //Comprobamos que los datos del antecedente oncológico se han modificado correctamente

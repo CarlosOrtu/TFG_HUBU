@@ -49,24 +49,24 @@ class EliminarAntecedentesMedicosTest extends TestCase
         $enfermedad->tratamiento_dirigido = 1;
         $enfermedad->save();
         //Creamos el antecedente médico a eliminar
-        $antecedenteMedicoAEliminar = new Antecedentes_medicos();
-        $antecedenteMedicoAEliminar->id_paciente = 999;
-        $antecedenteMedicoAEliminar->id_antecedente_m = 999;
-        $antecedenteMedicoAEliminar->tipo_antecedente = "EPOC";
-        $antecedenteMedicoAEliminar->save();
+        $antMEliminar = new Antecedentes_medicos();
+        $antMEliminar->id_paciente = 999;
+        $antMEliminar->id_antecedente_m = 999;
+        $antMEliminar->tipo_antecedente = "EPOC";
+        $antMEliminar->save();
         //Realizamos el login con el administrador para poder acceder a todos las rutas de la web
-        $response = $this->get('/login')->assertSee('Login');
+        $this->get('/login')->assertSee('Login');
         $credentials = [
             "email" => "administrador@gmail.com",
             "password" => "1234",
         ];
-        $response = $this->post('/login', $credentials);
+        $this->post('/login', $credentials);
     }
 
     protected function tearDown(): void
     {
         //Eliminamos el usuario
-        $usuario = Pacientes::find(999)->delete();
+        Pacientes::find(999)->delete();
         parent::tearDown();
     }
 
@@ -81,7 +81,7 @@ class EliminarAntecedentesMedicosTest extends TestCase
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/paciente/999/antecedentes/medicos');
         //Comprobamos que los datos del antecedente medico se han eliminado correctamente
-        $antecedenteMedico = Antecedentes_medicos::find(999);
-        $this->assertTrue(empty($antecedenteMedico));
+        $antecedenteM = Antecedentes_medicos::find(999);
+        $this->assertTrue(empty($antecedenteM));
     }
 }

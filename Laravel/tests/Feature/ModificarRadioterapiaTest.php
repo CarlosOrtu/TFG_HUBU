@@ -49,16 +49,16 @@ class ModificarRadioterapiaTest extends TestCase
         $enfermedad->tratamiento_dirigido = 1;
         $enfermedad->save();
         //Creamos la radioterapia que vamos a modificar
-        $radioterapiaAModificar = new Tratamientos();
-        $radioterapiaAModificar->id_tratamiento = 999;
-        $radioterapiaAModificar->id_paciente = 999;
-        $radioterapiaAModificar->tipo = "Radioterapia";
-        $radioterapiaAModificar->subtipo = "Paliativa";
-        $radioterapiaAModificar->dosis = 4;
-        $radioterapiaAModificar->localizacion = "Ósea";
-        $radioterapiaAModificar->fecha_inicio = "1998-05-05";
-        $radioterapiaAModificar->fecha_fin = "1998-06-06";
-        $radioterapiaAModificar->save();
+        $radioAModificar = new Tratamientos();
+        $radioAModificar->id_tratamiento = 999;
+        $radioAModificar->id_paciente = 999;
+        $radioAModificar->tipo = "Radioterapia";
+        $radioAModificar->subtipo = "Paliativa";
+        $radioAModificar->dosis = 4;
+        $radioAModificar->localizacion = "Ósea";
+        $radioAModificar->fecha_inicio = "1998-05-05";
+        $radioAModificar->fecha_fin = "1998-06-06";
+        $radioAModificar->save();
         //Realizamos el login con el administrador para poder acceder a todos las rutas de la web
         $response = $this->get('/login')->assertSee('Login');
         $credentials = [

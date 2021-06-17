@@ -55,18 +55,18 @@ class EliminarPruebaRealizadaTest extends TestCase
         $pruebaAEliminar->tipo = "TAC";
         $pruebaAEliminar->save();
         //Realizamos el login con el administrador para poder acceder a todos las rutas de la web
-        $response = $this->get('/login')->assertSee('Login');
+        $this->get('/login')->assertSee('Login');
         $credentials = [
             "email" => "administrador@gmail.com",
             "password" => "1234",
         ];
-        $response = $this->post('/login', $credentials);
+        $this->post('/login', $credentials);
     }
 
     protected function tearDown(): void
     {
         //Eliminamos el usuario
-        $usuario = Pacientes::find(999)->delete();
+        Pacientes::find(999)->delete();
         parent::tearDown();
     }
 
@@ -81,7 +81,6 @@ class EliminarPruebaRealizadaTest extends TestCase
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/paciente/999/enfermedad/pruebas');
         //Comprobamos que los datos de la prueba realizada se han eliminado correctamente
-        $paciente = Pacientes::find(999);
         $prueba = Pruebas_realizadas::find(999);
         $this->assertTrue(empty($prueba));
     }

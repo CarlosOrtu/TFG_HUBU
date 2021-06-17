@@ -51,14 +51,14 @@ class EliminarQuimioterapiaTest extends TestCase
         $enfermedad->tratamiento_dirigido = 1;
         $enfermedad->save();
         //Creamos el tratamiento de quimioterapia que vamos a eliminar
-        $quimiotreapiaAEliminar = new Tratamientos();
-        $quimiotreapiaAEliminar->id_tratamiento = 999;
-        $quimiotreapiaAEliminar->id_paciente = 999;
-        $quimiotreapiaAEliminar->tipo = "Quimioterapia";
-        $quimiotreapiaAEliminar->subtipo = "Adyuvancia";
-        $quimiotreapiaAEliminar->fecha_inicio = "2000-05-05";
-        $quimiotreapiaAEliminar->fecha_fin = "2000-06-06";
-        $quimiotreapiaAEliminar->save();
+        $quimioAEliminar = new Tratamientos();
+        $quimioAEliminar->id_tratamiento = 999;
+        $quimioAEliminar->id_paciente = 999;
+        $quimioAEliminar->tipo = "Quimioterapia";
+        $quimioAEliminar->subtipo = "Adyuvancia";
+        $quimioAEliminar->fecha_inicio = "2000-05-05";
+        $quimioAEliminar->fecha_fin = "2000-06-06";
+        $quimioAEliminar->save();
         //Creamos la intención del tratamiento que vamos a eliminar
         $intencionAEliminar = new Intenciones();
         $intencionAEliminar->id_intencion = 999;
@@ -77,12 +77,12 @@ class EliminarQuimioterapiaTest extends TestCase
         $farmacoAEliminar->tipo = "Cisplatino";
         $farmacoAEliminar->save();
         //Realizamos el login con el administrador para poder acceder a todos las rutas de la web
-        $response = $this->get('/login')->assertSee('Login');
+        $this->get('/login')->assertSee('Login');
         $credentials = [
             "email" => "administrador@gmail.com",
             "password" => "1234",
         ];
-        $response = $this->post('/login', $credentials);
+        $this->post('/login', $credentials);
     }
 
     protected function tearDown(): void

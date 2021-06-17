@@ -49,25 +49,25 @@ class EliminarReevaluacionTest extends TestCase
         $enfermedad->tratamiento_dirigido = 1;
         $enfermedad->save();
         //Crearmos la reevaluacion a eliminar
-        $reevaluacionAEliminar = new Reevaluaciones();
-        $reevaluacionAEliminar->id_paciente = 999;
-        $reevaluacionAEliminar->id_reevaluacion = 999;
-        $reevaluacionAEliminar->fecha = "1998-05-05";
-        $reevaluacionAEliminar->estado = "Respuesta parcial";
-        $reevaluacionAEliminar->save();
+        $reeEliminar = new Reevaluaciones();
+        $reeEliminar->id_paciente = 999;
+        $reeEliminar->id_reevaluacion = 999;
+        $reeEliminar->fecha = "1998-05-05";
+        $reeEliminar->estado = "Respuesta parcial";
+        $reeEliminar->save();
         //Realizamos el login con el administrador para poder acceder a todos las rutas de la web
-        $response = $this->get('/login')->assertSee('Login');
+        $this->get('/login')->assertSee('Login');
         $credentials = [
             "email" => "administrador@gmail.com",
             "password" => "1234",
         ];
-        $response = $this->post('/login', $credentials);
+        $this->post('/login', $credentials);
     }
 
     protected function tearDown(): void
     {
         //Eliminamos el usuario
-        $usuario = Pacientes::find(999)->delete();
+        Pacientes::find(999)->delete();
         parent::tearDown();
     }
 
@@ -82,7 +82,7 @@ class EliminarReevaluacionTest extends TestCase
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/paciente/999/reevaluaciones/nueva');
         //Comprobamos que los datos de la reevaluación se han eliminado correctamente
-        $reevaluacionEliminada = Reevaluaciones::find(999);
-        $this->assertTrue(empty($reevaluacionEliminada));
+        $reeEliminada = Reevaluaciones::find(999);
+        $this->assertTrue(empty($reeEliminada));
     }
 }

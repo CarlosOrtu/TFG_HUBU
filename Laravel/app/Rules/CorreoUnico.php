@@ -8,15 +8,15 @@ use App\Models\Usuarios;
 
 class CorreoUnico implements Rule
 {
-    public $id;
+    public $idUsuario;
     /**
      * Create a new rule instance.
      *
      * @return void
      */
-    public function __construct($id=null)
+    public function __construct($idUsuario=null)
     {
-        $this->id = $id;
+        $this->idUsuario = $idUsuario;
     }
 
     /**
@@ -28,11 +28,13 @@ class CorreoUnico implements Rule
      */
     public function passes($attribute, $value)
     {
+        if($attribute != "correo")
+            return false;
         $usuario = Usuarios::where('email',$value)->first() ;
-        if(empty($this->id)){
-            return empty($usuario);
+        if(empty($this->antecedenteO)){
+            return empty($idUsuario);
         }
-        return (!empty($usuario) and $usuario->id_usuario == $this->id) or (empty($usuario));
+        return (!empty($usuario) and $usuario->id_usuario == $this->idUsuario) or (empty($usuario));
     }
 
     /**

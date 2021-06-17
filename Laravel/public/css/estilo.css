@@ -89,6 +89,7 @@ main {
 .btn-toggle[aria-expanded="true"] {
   color: rgba(0, 0, 0, 0.85);
 }
+
 .btn-toggle[aria-expanded="true"]::before {
   transform: rotate(90deg);
 }
@@ -114,8 +115,8 @@ main {
 }
 
 .contenido-login {
-	border: none;
-	background-color: transparent;
+  border: none; 
+  background-color: transparent;
 }
 
 /* Botones e inputs */
@@ -247,7 +248,7 @@ table.dataTable thead tr th {
 }
 
 .right {
-  border-right-width: 0 !important  ;
+  border-right-width: 0 !important;
 }
 
 .oculto {
@@ -263,5 +264,5 @@ table.dataTable thead tr th {
 
 .ayuda {
   z-index: 999;
-  background-color: #0D1117;
+  background-color: #0d1117;
 }

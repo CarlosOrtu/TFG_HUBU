@@ -49,24 +49,24 @@ class EliminarAntecedentesOncologicosTest extends TestCase
         $enfermedad->tratamiento_dirigido = 1;
         $enfermedad->save();
         //Creamos el antecedente oncológico a eliminar
-        $antecedenteOncologicoAEliminar = new Antecedentes_oncologicos();
-        $antecedenteOncologicoAEliminar->id_paciente = 999;
-        $antecedenteOncologicoAEliminar->id_antecedente_o = 999;
-        $antecedenteOncologicoAEliminar->tipo = "Próstata";
-        $antecedenteOncologicoAEliminar->save();
+        $antecedenteEliminar = new Antecedentes_oncologicos();
+        $antecedenteEliminar->id_paciente = 999;
+        $antecedenteEliminar->id_antecedente_o = 999;
+        $antecedenteEliminar->tipo = "Próstata";
+        $antecedenteEliminar->save();
         //Realizamos el login con el administrador para poder acceder a todos las rutas de la web
-        $response = $this->get('/login')->assertSee('Login');
+        $this->get('/login')->assertSee('Login');
         $credentials = [
             "email" => "administrador@gmail.com",
             "password" => "1234",
         ];
-        $response = $this->post('/login', $credentials);
+        $this->post('/login', $credentials);
     }
 
     protected function tearDown(): void
     {
         //Eliminamos el usuario
-        $usuario = Pacientes::find(999)->delete();
+        Pacientes::find(999)->delete();
         parent::tearDown();
     }
 
@@ -81,7 +81,7 @@ class EliminarAntecedentesOncologicosTest extends TestCase
         //Comprobamos si se redirige correctamente
         $response->assertRedirect('/paciente/999/antecedentes/oncologicos');
         //Comprobamos que los datos del antecedente oncológico se han eliminado correctamente
-        $antecedenteOncologico = Antecedentes_oncologicos::find(999);
-        $this->assertTrue(empty($antecedenteOncologico));
+        $antecedenteO = Antecedentes_oncologicos::find(999);
+        $this->assertTrue(empty($antecedenteO));
     }
 }

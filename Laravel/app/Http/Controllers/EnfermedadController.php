@@ -370,7 +370,7 @@ class EnfermedadController extends Controller
     	return redirect()->route('metastasis',$idPaciente)->with('success','Metastasis modificada correctamente');
     }
 
-    public function eliminarMetastasis($id, $num_metastasis)
+    public function eliminarMetastasis($idPaciente, $num_metastasis)
     {
     	$idEnfermedad = Enfermedades::where('id_paciente',$idPaciente)->first()->id_enfermedad;
         //Obetenemos todas las metastasis
@@ -601,7 +601,7 @@ class EnfermedadController extends Controller
         $paciente = Pacientes::find($idPaciente);
         $this->actualizarfechaModificacionPaciente($paciente);
 
-        return redirect()->route('otrostumores',$idPaciented)->with('success','Tumor modificado correctamente');
+        return redirect()->route('otrostumores',$idPaciente)->with('success','Tumor modificado correctamente');
     }
 
     public function eliminarOtrosTumores($idPaciente, $num_otrostumores)

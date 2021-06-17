@@ -389,8 +389,7 @@ class TratamientosController extends Controller
         	$farmacoModelo->id_intencion = $idIntencion;
         	if($tipo == "Ninguno"){
     			$farmacoModelo->tipo = $farmaco;
-    		}
-            if($tipo == "Otro"){
+    		}elseif($tipo == "Otro"){
     			$farmacoModelo->tipo = "Otro: ".$farmaco;
     		}else{
     			$farmacoModelo->tipo = "Ensayo: ".$farmaco;

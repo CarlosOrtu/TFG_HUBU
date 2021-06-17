@@ -50,30 +50,30 @@ class EliminarAntecedentesFamiliaresTest extends TestCase
         $enfermedad->tratamiento_dirigido = 1;
         $enfermedad->save();
         //crear el antecedente familiar a eliminar
-        $antecedenteFamiliarAEliminar = new Antecedentes_familiares();
-        $antecedenteFamiliarAEliminar->id_paciente = 999;
-        $antecedenteFamiliarAEliminar->id_antecedente_f = 999;
-        $antecedenteFamiliarAEliminar->familiar = "Madre";
-        $antecedenteFamiliarAEliminar->save();
+        $antFamEliminar = new Antecedentes_familiares();
+        $antFamEliminar->id_paciente = 999;
+        $antFamEliminar->id_antecedente_f = 999;
+        $antFamEliminar->familiar = "Madre";
+        $antFamEliminar->save();
         //Crear la enfermedad del familiar a eliminar
-        $enfermedadFamiliarAEliminar = new Enfermedades_familiar();
-        $enfermedadFamiliarAEliminar->id_antecedente_f = 999;
-        $enfermedadFamiliarAEliminar->id_enfermedad_f = 999;
-        $enfermedadFamiliarAEliminar->tipo = "Pulmón";
-        $enfermedadFamiliarAEliminar->save();
+        $enfFamEliminar = new Enfermedades_familiar();
+        $enfFamEliminar->id_antecedente_f = 999;
+        $enfFamEliminar->id_enfermedad_f = 999;
+        $enfFamEliminar->tipo = "Pulmón";
+        $enfFamEliminar->save();
         //Realizamos el login con el administrador para poder acceder a todos las rutas de la web
-        $response = $this->get('/login')->assertSee('Login');
+        $this->get('/login')->assertSee('Login');
         $credentials = [
             "email" => "administrador@gmail.com",
             "password" => "1234",
         ];
-        $response = $this->post('/login', $credentials);
+        $this->post('/login', $credentials);
     }
 
     protected function tearDown(): void
     {
         //Eliminamos el usuario
-        $usuario = Pacientes::find(999)->delete();
+        Pacientes::find(999)->delete();
         parent::tearDown();
     }
 
