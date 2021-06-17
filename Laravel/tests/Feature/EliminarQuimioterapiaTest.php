@@ -88,7 +88,7 @@ class EliminarQuimioterapiaTest extends TestCase
     protected function tearDown(): void
     {
         //Eliminamos el usuario
-        $usuario = Pacientes::find(999)->delete();
+        Pacientes::find(999)->delete();
         parent::tearDown();
     }
 

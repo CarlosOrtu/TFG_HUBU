@@ -27,6 +27,8 @@ class ComprobarContrasenasIguales implements Rule
      */
     public function passes($attribute, $value)
     {
+        if($attribute != "contrasena_antigua")
+            return false;
         return password_verify($value, Auth::user()->contrasena);
     }
 

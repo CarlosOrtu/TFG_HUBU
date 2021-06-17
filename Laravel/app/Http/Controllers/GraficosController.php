@@ -659,7 +659,6 @@ class GraficosController extends Controller
     foreach ($divisiones as $division) {
       $valorAnterior = null;
       for($i = $intervaloEdad; $i < 100; $i += $intervaloEdad){
-        $joinTablas = $this->hacerJoinTablas($tabla1,$tabla2);
           if($valorAnterior == null){
             if(Pacientes::where('id_paciente',$division->id_paciente)->where("nacimiento",'>=',date("Y-m-d",strtotime($fechaActual."- ".$i." year")))->count() != 0){
               $difDias = $this->obtenerDatosDuracion($division);
@@ -673,7 +672,6 @@ class GraficosController extends Controller
           }
           $valorAnterior = $i;
       }
-      $joinTablas = $this->hacerJoinTablas($tabla1,$tabla2);
       if(Pacientes::where('id_paciente',$division->id_paciente)->where("nacimiento",'<=',date("Y-m-d",strtotime($fechaActual."- ".$valorAnterior." year")))->count() != 0){
         $difDias = $this->obtenerDatosDuracion($division);
         array_push($numDatos,"Mayores de ".$valorAnterior.' y '.$difDias);
@@ -748,48 +746,48 @@ class GraficosController extends Controller
     foreach($ids as $id){
       if($opcion != 'Cirugia' and $opcion != 'Radioterapia' and $opcion != 'Quimioterapia' ){
         if($tabla1 == 'Sintomas' || $tabla1 == 'Metastasis' || $tabla1 == 'Biomarcadores' || $tabla1 == 'Pruebas_realizadas' || $tabla1 == 'Tecnicas_realizadas' || $tabla1 == 'Otros_tumores'){
-          if(count(Enfermedades::where('id_paciente',$id->id_paciente)->get()) > 0 ){
-            $idEnfermedad = Enfermedades::where('id_paciente',$id->id_paciente)->first()->id_enfermedad;
+          if(count(Enfermedades::where('id_paciente',$idPrincipal->id_paciente)->get()) > 0 ){
+            $idEnfermedad = Enfermedades::where('id_paciente',$idPrincipal->id_paciente)->first()->id_enfermedad;
             $numTipo1 = ('App\\Models\\'.$tabla1)::where($tabla1.'.id_enfermedad',$idEnfermedad)->select($tabla1.'.'.$id1)->distinct()->get()->count();
           }else
             $numTipo1 = 0;
         }else
           if($tabla1 == 'Enfermedades_familiar'){
-            $idsAntecedentes = Antecedentes_familiares::where('id_paciente',$id->id_paciente)->get();
+            $idsAntecedentes = Antecedentes_familiares::where('id_paciente',$idPrincipal->id_paciente)->get();
             $numTipo1 = 0; 
             foreach($idsAntecedentes as $idAntecedente){
               $numActual = ('App\\Models\\'.$tabla1)::where($tabla1.'.id_antecedente_f',$idAntecedente->id_antecedente_f)->distinct()->get()->count();
               $numTipo1 = $numTipo1 + $numActual;
             }
           }else
-            $numTipo1 = ('App\\Models\\'.$tabla1)::where($tabla1.'.id_paciente',$id->id_paciente)->select($tabla1.'.'.$id1)->distinct()->get()->count();
+            $numTipo1 = ('App\\Models\\'.$tabla1)::where($tabla1.'.id_paciente',$idPrincipal->id_paciente)->select($tabla1.'.'.$id1)->distinct()->get()->count();
         if($tabla2 == 'Sintomas' || $tabla2 == 'Metastasis' || $tabla2 == 'Biomarcadores' || $tabla2 == 'Pruebas_realizadas' || $tabla2 == 'Tecnicas_realizadas' || $tabla2 == 'Otros_tumores'){
-          if(count(Enfermedades::where('id_paciente',$id->id_paciente)->get()) > 0 ){
-            $idEnfermedad = Enfermedades::where('id_paciente',$id->id_paciente)->first()->id_enfermedad;
+          if(count(Enfermedades::where('id_paciente',$idPrincipal->id_paciente)->get()) > 0 ){
+            $idEnfermedad = Enfermedades::where('id_paciente',$idPrincipal->id_paciente)->first()->id_enfermedad;
             $numTipo2 =('App\\Models\\'.$tabla2)::where($tabla2.'.id_enfermedad',$idEnfermedad)->select($tabla2.'.'.$id2)->distinct()->get()->count();
           }else
             $numTipo2 = 0;
         }else
           if($tabla2 == 'Enfermedades_familiar'){
-            $idsAntecedentes = Antecedentes_familiares::where('id_paciente',$id->id_paciente)->get();
+            $idsAntecedentes = Antecedentes_familiares::where('id_paciente',$idPrincipal->id_paciente)->get();
             $numTipo2 = 0; 
             foreach($idsAntecedentes as $idAntecedente){
               $numActual = ('App\\Models\\'.$tabla2)::where($tabla2.'.id_antecedente_f',$idAntecedente->id_antecedente_f)->distinct()->get()->count();
               $numTipo2 = $numTipo2 + $numActual;
             }
           }else
-            $numTipo2 = ('App\\Models\\'.$tabla2)::where($tabla2.'.id_paciente',$id->id_paciente)->select($tabla2.'.'.$id2)->distinct()->get()->count();
+            $numTipo2 = ('App\\Models\\'.$tabla2)::where($tabla2.'.id_paciente',$idPrincipal->id_paciente)->select($tabla2.'.'.$id2)->distinct()->get()->count();
       }else{
         if($tabla1 == 'Sintomas' || $tabla1 == 'Metastasis' || $tabla1 == 'Biomarcadores' || $tabla1 == 'Pruebas_realizadas' || $tabla1 == 'Tecnicas_realizadas' || $tabla1 == 'Otros_tumores'){
-          if(count(Enfermedades::where('id_paciente',$id->id_paciente)->get()) > 0 ){
-            $idEnfermedad = Enfermedades::where('id_paciente',$id->id_paciente)->first()->id_enfermedad;
+          if(count(Enfermedades::where('id_paciente',$idPrincipal->id_paciente)->get()) > 0 ){
+            $idEnfermedad = Enfermedades::where('id_paciente',$idPrincipal->id_paciente)->first()->id_enfermedad;
             $numTipo1 =('App\\Models\\'.$tabla1)::where($tabla1.'.id_enfermedad',$idEnfermedad)->select($tabla1.'.'.$id1)->distinct()->get()->count();
           }else
             $numTipo1 = 0;
         }
         else
           if($tabla1 == 'Enfermedades_familiar'){
-            $idsAntecedentes = Antecedentes_familiares::where('id_paciente',$id->id_paciente)->get();
+            $idsAntecedentes = Antecedentes_familiares::where('id_paciente',$idPrincipal->id_paciente)->get();
             $numTipo1 = 0; 
             foreach($idsAntecedentes as $idAntecedente){
               $numActual = ('App\\Models\\'.$tabla1)::where($tabla1.'.id_antecedente_f',$idAntecedente->id_antecedente_f)->distinct()->get()->count();
@@ -797,8 +795,8 @@ class GraficosController extends Controller
             }
           }
           else  
-            $numTipo1 =('App\\Models\\'.$tabla1)::where($tabla1.'.id_paciente',$id->id_paciente)->select($tabla1.'.'.$id1)->distinct()->get()->count();
-        $numTipo2 = ('App\\Models\\'.$tabla2)::where($tabla2.'.id_paciente',$id->id_paciente)->where('Tratamientos.tipo',$opcion)->select($tabla2.'.'.$id2)->distinct()->get()->count();
+            $numTipo1 =('App\\Models\\'.$tabla1)::where($tabla1.'.id_paciente',$idPrincipal->id_paciente)->select($tabla1.'.'.$id1)->distinct()->get()->count();
+        $numTipo2 = ('App\\Models\\'.$tabla2)::where($tabla2.'.id_paciente',$idPrincipal->id_paciente)->where('Tratamientos.tipo',$opcion)->select($tabla2.'.'.$id2)->distinct()->get()->count();
       }
       array_push($numDatos,$numTipo1.' y '.$numTipo2);
     }
@@ -811,7 +809,6 @@ class GraficosController extends Controller
    //Obtenemos los datos para dibujar la grafica cuando un campo es númerico de tratamiento y otro de duración
    private function obtenerNumeroDosTipoDurTratamiento($tabla1, $tabla2, $tipoTratamientoDur, $tipoTratamiento, $tipoSelec1, $idTabla)
    {
-    $division2 = $this->campoASeleccionar($tabla1,$tipoSelec1);
     $joinTablas = $this->hacerJoinTablas($tabla1,$tabla2);
     $tipos1 = Tratamientos::where('tipo',$tipoTratamientoDur)->get();
     $tipos2 = $joinTablas->select($tabla1.'.'.$idTabla)->where('tipo', $tipoTratamiento)->groupBy($tabla1.'.'.$idTabla)->get();
@@ -1009,8 +1006,7 @@ class GraficosController extends Controller
 
    private function arrayClaveInvertida($array)
    {
-    $datosFinales = array();
-
+    
     foreach(array_keys($array) as $clave){
       $dato1 = explode(" y ", $clave)[0];
       $dato2 = explode(" y ", $clave)[1];

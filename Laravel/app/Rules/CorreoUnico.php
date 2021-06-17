@@ -31,8 +31,8 @@ class CorreoUnico implements Rule
         if($attribute != "correo")
             return false;
         $usuario = Usuarios::where('email',$value)->first() ;
-        if(empty($this->antecedenteO)){
-            return empty($idUsuario);
+        if(empty($this->idUsuario)){
+            return empty($usuario);
         }
         return (!empty($usuario) and $usuario->id_usuario == $this->idUsuario) or (empty($usuario));
     }
