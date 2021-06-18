@@ -17,20 +17,16 @@
     <script type = "text/javascript" src="{{ asset('/js/bootstrap.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 
-    <!-- Descargar graficas -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
-    <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
-
     <!-- Graficas -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     <!-- Alertas -->
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10" integrity="sha512-d08iJ1rOUE8eKMeZY5fvxqugfqnPtYkwwydXsAHwe4S/esPQvafFS/N+YU+ZN9V0MjsyiFCXZJivGMWne4PVpA==" crossorigin="anonymous"></script>
 
 
     <!-- Tablas con funcionalidades-->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css" integrity="sha512-3mnpxHbJZMlJiQme/Q50Q7N35SV89OAWA3zePx5ezv+Ld83rYspVue2J52BOY2PndxAEFGZ5Ki8yp0hvlpRFEw==" crossorigin="anonymous">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js" integrity="sha512-OyF5UEV6ki1FRObRVbDTquUvgXuNz8/ifmIImyeCFfPBuK74OnREXPf7IoyCYBa7nBQNI6IfPFf5BMSNNVI/Bg==" crossorigin="anonymous"></script>
 
     <!-- Styles -->
     <link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet">

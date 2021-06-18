@@ -13,13 +13,14 @@
         <h6 class="align-self-end text-white">Ultima modificación: {{ $paciente->ultima_modificacion }}</h6>
     </div>
     <table class="text-white table table-bordered">
+        <caption>Paciente</caption>
         <tbody>
         <tr>
             @if(env('APP_ENV') == 'production')
-            <th>NHC</th>
+            <th scope="col">NHC</th>
             <td>{{ $nombre }}</td>
             @else
-            <th>Nombre</th>
+            <th scope="col">Nombre</th>
             <td>{{ $paciente->nombre }}</td>
             @endif
         </tr>
@@ -27,24 +28,24 @@
 
         @else
         <tr>
-            <th>Apellidos</th>
+            <th scope="col">Apellidos</th>
             <td>{{ $paciente->apellidos }}</td>
         </tr>
         @endif
         <tr>
-            <th>Sexo</th>
+            <th scope="col">Sexo</th>
             <td>{{ $paciente->sexo }}</td>
         </tr>
         <tr>
-            <th>Nacimiento</th>
+            <th scope="col">Nacimiento</th>
             <td>{{ $paciente->nacimiento }}</td>
         </tr>
         <tr>
-            <th>Raza</th>
+            <th scope="col">Raza</th>
             <td>{{ $paciente->raza }}</td>
         </tr>
         <tr>
-            <th>Profesión</th>
+            <th scope="col">Profesión</th>
             @if(preg_match("/^Otro: /", $paciente->profesion))
             <td>{{ substr($paciente->profesion, 6) }}</td>
             @else
@@ -52,19 +53,19 @@
             @endif
         </tr>
         <tr>
-            <th>Fumador</th>
+            <th scope="col">Fumador</th>
             <td>{{ $paciente->fumador }}</td>
         </tr>
         <tr>
-            <th>Número de cigarros al día</th>
+            <th scope="col">Número de cigarros al día</th>
             <td>{{ $paciente->num_tabaco_dia }}</td>
         </tr>
         <tr>
-            <th>Bebedor</th>
+            <th scope="col">Bebedor</th>
             <td>{{ $paciente->bebedor }}</td>
         </tr>
         <tr>
-            <th>Carcinogenos</th>
+            <th scope="col">Carcinogenos</th>
             @if(preg_match("/^Otro: /", $paciente->carcinogenos))
             <td>{{ substr($paciente->carcinogenos, 6) }}</td>
             @else

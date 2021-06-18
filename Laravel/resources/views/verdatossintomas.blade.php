@@ -13,16 +13,17 @@
       <h6 class="align-self-end text-white">Ultima modificación: {{ $paciente->ultima_modificacion }}</h6>
   </div>
   <table class="text-white table table-bordered">
+      <caption>Sintomas</caption>
       <tbody>
         <tr>
             @if($paciente->Enfermedades->Sintomas->first() != null)
-            <th>Fecha inicio sintomas</th>
+            <th scope="col">Fecha inicio sintomas</th>
             <td>{{ $paciente->Enfermedades->Sintomas->first()->fecha_inicio }}</td>
             @endif
         </tr>
         @foreach($paciente->Enfermedades->Sintomas as $sintoma)
         <tr>
-            <th>Síntoma {{ $loop->iteration }}</th>
+            <th scope="col">Síntoma {{ $loop->iteration }}</th>
             @if(preg_match("/^Otro: /", $sintoma->tipo))
             <td>{{ substr($sintoma->tipo, 6) }}</td>
             @else

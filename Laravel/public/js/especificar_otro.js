@@ -1,78 +1,98 @@
 $(document).ready(function(){
-  function cambiarTipoDoble() {
-    var tipo = $(this).val();
-    if( tipo ==== "Otro") {
-      $(this).parent().next().css("display", "flex");
-      $(this).parent().next().next().hide();
+  function cambiarTipoDoble(element) {
+    var tipo = $(element).val();
+    if( tipo === "Otro") {
+      $(element).parent().next().css("display", "flex");
+      $(element).parent().next().next().hide();
     }else if( tipo === "Dolor otra localización" || tipo === "Farmaco en ensayo clínico" ){
-      $(this).parent().next().next().css("display", "flex");
-      $(this).parent().next().hide();
+      $(element).parent().next().next().css("display", "flex");
+      $(element).parent().next().hide();
     }else{
-      $(this).parent().next().next().hide();
-      $(this).parent().next().hide();
+      $(element).parent().next().next().hide();
+      $(element).parent().next().hide();
     }
   }
 
-  function cambiarTipo() {
-    var tipo = $(this).val();
+  function cambiarTipo(element) {
+    var tipo = $(element).val();
     if( tipo === "Otro" || tipo === "Fumador" || tipo === "Exfumador" || tipo === "nacimiento") {
-      $(this).parent().next().css("display", "flex");
+      $(element).parent().next().css("display", "flex");
     }else{
-      $(this).parent().next().hide();
+      $(element).parent().next().hide();
     }
   }
 
-  function cambiarTipoGrafica() {
-    var tipo = $(this).val();
+  function cambiarTipoGrafica(element) {
+    var tipo = $(element).val();
     if(tipo === "nacimiento") {
-        $(this).parent().parent().next().css("display", "flex");
+        $(element).parent().parent().next().css("display", "flex");
     }else{
-        $(this).parent().parent().next().hide();
+        $(element).parent().parent().next().hide();
     }
   }
 
-  function cambiarTipoNuevo() {
-    var tipo = $(this).val();
+  function cambiarTipoNuevo(element) {
+    var tipo = $(element).val();
     if( tipo === "Progresión") {
-        $(this).parent().next().css("display", "flex");
-        $(this).parent().next().next().next().css("display", "flex");
-        if($(this).parent().next().find("select").val() === "Otro")
-          $(this).parent().next().next().css("display", "flex");
+        $(element).parent().next().css("display", "flex");
+        $(element).parent().next().next().next().css("display", "flex");
+        if($(element).parent().next().find("select").val() === "Otro")
+          $(element).parent().next().next().css("display", "flex");
     }else{
-        $(this).parent().next().hide();
-        $(this).parent().next().next().hide();
-        $(this).parent().next().next().next().hide();
+        $(element).parent().next().hide();
+        $(element).parent().next().next().hide();
+        $(element).parent().next().next().next().hide();
     }
   }
 
-  function cambiarTipoTres() {
-    var tipo = $(this).val();
+  function cambiarTipoTres(element) {
+    var tipo = $(element).val();
     if( tipo === "Si" || tipo === "Fallecido") {
-      $(this).parent().next().css("display", "flex");
-      $(this).parent().next().next().css("display", "flex");
+      $(element).parent().next().css("display", "flex");
+      $(element).parent().next().next().css("display", "flex");
     }else{
-      $(this).parent().next().next().hide();
-      $(this).parent().next().hide();
+      $(element).parent().next().next().hide();
+      $(element).parent().next().hide();
     }
   }
 
-  $(".tipoDoble").each(cambiarTipoDoble());
+  $(".tipoDoble").each(function() {
+    cambiarTipoDoble(this);
+  });
 
-  $(".tipoDoble").change(cambiarTipoDoble());
+  $(".tipoDoble").change(function() {
+    cambiarTipoDoble(this);
+  });
 
-  $(".tipo").each(cambiarTipo());
+  $(".tipo").each(function() {
+    cambiarTipo(this);
+  })
 
-  $(".tipo").change(cambiarTipo());
+  $(".tipo").change(function() {
+    cambiarTipo(this);
+  });
 
-  $(".tipoGrafica").change(cambiarTipoGrafica());
+  $(".tipoGrafica").change(function() {
+    cambiarTipoGrafica(this);
+  });
 
-  $(".tipoGrafica").each(cambiarTipoGrafica());
+  $(".tipoGrafica").each(function() {
+    cambiarTipoGrafica(this);
+  });
 
-  $(".tipoNuevo").each(cambiarTipoNuevo());
+  $(".tipoNuevo").each(function() {
+    cambiarTipoNuevo(this);
+  });
 
-  $(".tipoNuevo").change(cambiarTipoNuevo());
+  $(".tipoNuevo").change(function() {
+    cambiarTipoNuevo(this);
+  });
 
-  $(".tipoTres").each(cambiarTipoTres());
+  $(".tipoTres").each(function() {
+    cambiarTipoTres(this);;
+  });
   
-  $(".tipoTres").change(cambiarTipoTres());
+  $(".tipoTres").change(function() {
+    cambiarTipoTres(this);
+  });
 });

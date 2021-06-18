@@ -22,26 +22,27 @@
   ?>
   <div class="table-responsive">
   <table class="text-white table table-bordered">
+      <caption>Quimioterapias</caption>
       <thead>
-        <th></th>
-        <th>Tipo</th>
-        <th>Ensayo</th>
-        <th>Ensayo fase</th>
-        <th>Acceso expandido</th>
-        <th>Fuera de indicación</th>
-        <th>Medicación extranjera</th>
-        <th>Esquema</th>
-        <th>Administración</th>
-        <th>Tipo farmaco</th>
-        <th>Ciclos</th>
-        <th>Fecha inicio</th>
-        <th>Fecha fin</th>
-        <th colspan="{{ $numMaxFarmacos }}">Farmacos</th>
+        <th scope="col"></th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Ensayo</th>
+        <th scope="col">Ensayo fase</th>
+        <th scope="col">Acceso expandido</th>
+        <th scope="col">Fuera de indicación</th>
+        <th scope="col">Medicación extranjera</th>
+        <th scope="col">Esquema</th>
+        <th scope="col">Administración</th>
+        <th scope="col">Tipo farmaco</th>
+        <th scope="col">Ciclos</th>
+        <th scope="col">Fecha inicio</th>
+        <th scope="col">Fecha fin</th>
+        <th scope="col" colspan="{{ $numMaxFarmacos }}">Farmacos</th>
       </thead>
       <tbody>
         @foreach($paciente->Tratamientos->where('tipo','Quimioterapia') as $quimioterapia)
         <tr>
-            <th>Quimioterapia {{ $loop->iteration }}</th>
+            <th scope="col">Quimioterapia {{ $loop->iteration }}</th>
             <td>{{ $quimioterapia->subtipo }}</td>
             <td>{{ $quimioterapia->Intenciones->ensayo }}</td>
             <td>{{ $quimioterapia->Intenciones->ensayo_fase }}</td>

@@ -14,10 +14,11 @@
   </div>
   <div class="table-responsive">
   <table class="text-white table table-bordered">
+      <caption>Comentarios</caption>
       <tbody>
         @foreach($paciente->Comentarios as $comentarios)
         <tr>
-            <th>Comentario {{ $loop->iteration }}</th>
+            <th scope="col">Comentario {{ $loop->iteration }}</th>
             <td>{{ $comentarios->comentario }}</td>
         </tr>
         @endforeach

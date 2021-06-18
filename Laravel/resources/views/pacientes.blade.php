@@ -9,16 +9,17 @@
     <div class=panel-body>
     	<div class="table-responsive">
 	        <table id="tablaPacientes" class="table table-dark table-bordered">
+	        	<caption>Pacientes</caption>
 	            <thead>
 	            	<tr>
-	                	<th class="left">ID Paciente</th>
+	                	<th scope="col" class="left">ID Paciente</th>
 	                	@if(env('APP_ENV') == 'production')
-	                	<th>Número de historia clínica</th>
+	                	<th scope="col">Número de historia clínica</th>
 	                	@else
-	                    <th>Número de historia clinica</th>
-	                    <th>Apellidos</th>
+	                    <th scope="col">Número de historia clinica</th>
+	                    <th scope="col">Apellidos</th>
 						@endif
-						<th class="right">Seleccionar</th>
+						<th scope="col" class="right">Seleccionar</th>
 					</tr>
 				</thead>
 				<tfoot>

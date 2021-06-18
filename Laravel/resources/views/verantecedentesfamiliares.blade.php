@@ -21,17 +21,18 @@
   }
   ?>
   <table class="text-white table table-bordered">
+      <caption>Antecedentes familiares</caption>
       <thead>
         <tr>
-          <th></th>
-          <th>Familiar</th>
-          <th colspan="{{ $numMaxEnfermedades }}">Enfermedades</th>
+          <th scope="col"></th>
+          <th scope="col">Familiar</th>
+          <th scope="col" colspan="{{ $numMaxEnfermedades }}">Enfermedades</th>
         </tr>
       </thead>
       <tbody>
         @foreach($paciente->Antecedentes_familiares as $antecendete)
         <tr>
-            <th>Antecedente familiar {{ $loop->iteration }}</th>
+            <th scope="col">Antecedente familiar {{ $loop->iteration }}</th>
             @if(preg_match("/^Otro: /", $antecendete->familiar))
             <td>{{ substr($antecendete->familiar, 6) }}</td>
             @else

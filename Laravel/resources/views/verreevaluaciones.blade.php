@@ -14,17 +14,18 @@
   </div>
   <div class="table-responsive">
   <table class="text-white table table-bordered">
+      <caption>Reevaluaciones</caption>
       <thead>
-		<th></th>
-        <th>Fecha reevaluacion</th>
-        <th>Estado</th>
-        <th>Localización de la prograsión</th>
-        <th>Tipo de tratamiento</th>
+		    <th scope="col"></th>
+        <th scope="col">Fecha reevaluacion</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Localización de la prograsión</th>
+        <th scope="col">Tipo de tratamiento</th>
       </thead>
       <tbody>
         @foreach($paciente->Reevaluaciones as $reevaluacion)
         <tr>
-            <th>Seguimiento {{ $loop->iteration }}</th>
+            <th scope="col">Seguimiento {{ $loop->iteration }}</th>
             <td>{{ $reevaluacion->fecha }}</td>
             <td>{{ $reevaluacion->estado }}</td>
             @if(preg_match("/^Otro: /", $reevaluacion->progresion_localizacion))

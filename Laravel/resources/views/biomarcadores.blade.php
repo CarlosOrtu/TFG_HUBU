@@ -507,12 +507,13 @@
     <h1 class="text-white text-center panel-title">Listado de biomarcadores</h1>
     <div class=panel-body>
       <table class="table dataTable biomarcadores">
+        <caption>Biomarcadores</caption>
         <thead class="text-white">
           <tr>
-            <th class="left">Nombre</th>
-            <th>Tipo</th>
-            <th>Subtipo</th>
-            <th class="right">Eliminar</th>
+            <th scope="col" class="left">Nombre</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Subtipo</th>
+            <th scope="col" class="right">Eliminar</th>
           </tr>
         </thead>
         <tbody>

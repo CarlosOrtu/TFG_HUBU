@@ -14,15 +14,16 @@
   </div>
   <div class="table-responsive">
   <table class="text-white table table-bordered">
+      <caption>Cirugías</caption>
       <thead>
-        <th></th>
-        <th>Localización</th>
-        <th>Fecha inicio</th>
+        <th scope="col"></th>
+        <th scope="col">Localización</th>
+        <th scope="col">Fecha inicio</th>
       </thead>
       <tbody>
         @foreach($paciente->Tratamientos->where('tipo','Cirugia') as $cirugia)
         <tr>
-            <th>Cirugia {{ $loop->iteration }}</th>
+            <th scope="col">Cirugia {{ $loop->iteration }}</th>
             <td>{{ $cirugia->subtipo }}</td>
             <td>{{ $cirugia->fecha_inicio }}</td>
         </tr>

@@ -9,12 +9,13 @@
     <div class=panel-body>
     	<div class="table-responsive">
 	        <table id="tablaPacientes" class="table table-dark table-bordered">
+	        	<caption>Usuarios</caption>
 	        	<thead>
 	            	<tr>
-	                	<th class="left" >ID Usuario</th>
-	                    <th style="border-top-width: 0">Nombre</th>
-	                    <th style="border-top-width: 0">Apellidos</th>
-						<th class="right">Seleccionar</th>
+	                	<th scope="col" class="left" >ID Usuario</th>
+	                    <th scope="col" style="border-top-width: 0">Nombre</th>
+	                    <th scope="col" style="border-top-width: 0">Apellidos</th>
+						<th scope="col" class="right">Seleccionar</th>
 					</tr>
 				</thead>
 				<tfoot>

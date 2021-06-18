@@ -14,18 +14,19 @@
   </div>
   <div class="table-responsive">
   <table class="text-white table table-bordered">
+      <caption>Radioterapias</caption>
       <thead>
-        <th></th>
-        <th>Tipo</th>
-        <th>Localización</th>
-        <th>Dosis</th>
-        <th>Fecha inicio</th>
-        <th>Fecha fin</th>
+        <th scope="col"></th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Localización</th>
+        <th scope="col">Dosis</th>
+        <th scope="col">Fecha inicio</th>
+        <th scope="col">Fecha fin</th>
       </thead>        
       <tbody>
         @foreach($paciente->Tratamientos->where('tipo','Radioterapia') as $radioterapia)
         <tr>
-            <th>Quimioterapia {{ $loop->iteration }}</th>
+            <th scope="col">Quimioterapia {{ $loop->iteration }}</th>
             <td>{{ $radioterapia->subtipo }}</td>
             @if(preg_match("/^Otro: /", $radioterapia->localizacion))
             <td>{{ substr($radioterapia->localizacion, 6) }}</td>

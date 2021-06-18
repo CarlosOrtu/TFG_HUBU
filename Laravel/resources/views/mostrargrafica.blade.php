@@ -84,6 +84,7 @@
 <div class="d-flex justify-content-around">
   <div class="d-flex justify-content-center mr-4" id="chart_div"></div>
   <table id="tabla_grafica" class="text-white table table-bordered">
+    <caption>Tabla de frecuencias</caption>
     <thead>
       <tr>
         <th scope="col">@foreach($tipos as $tipo) @if($loop->first) {{ $tipo }} @else {{ ' y '.$tipo }} @endif @endforeach</th>

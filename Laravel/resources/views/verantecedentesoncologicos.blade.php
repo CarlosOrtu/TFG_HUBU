@@ -13,10 +13,11 @@
       <h6 class="align-self-end text-white">Ultima modificación: {{ $paciente->ultima_modificacion }}</h6>
   </div>
   <table class="text-white table table-bordered">
+      <caption>Antecedentes oncológicos</caption>
       <tbody>
         @foreach($paciente->Antecedentes_oncologicos as $antecendete)
         <tr>
-            <th>Antecedente oncológico {{ $loop->iteration }}</th>
+            <th scope="col">Antecedente oncológico {{ $loop->iteration }}</th>
             @if(preg_match("/^Otro: /", $antecendete->tipo))
             <td>{{ substr($antecendete->tipo, 6) }}</td>
             @else

@@ -28,6 +28,7 @@
 <div class="d-flex justify-content-around">
   <div class="d-flex justify-content-center mr-4" id="chart_div"></div>
   <table id="tabla_grafica" class="text-white table table-bordered">
+    <caption>Tabla de percentiles</caption>
     <thead>
       <tr>
         <th scope="col"></th>
