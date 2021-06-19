@@ -36,8 +36,9 @@ $(document).ready(function(){
     if( tipo === "Progresión") {
         $(element).parent().next().css("display", "flex");
         $(element).parent().next().next().next().css("display", "flex");
-        if($(element).parent().next().find("select").val() === "Otro")
+        if($(element).parent().next().find("select").val() === "Otro") {
           $(element).parent().next().next().css("display", "flex");
+        }
     }else{
         $(element).parent().next().hide();
         $(element).parent().next().next().hide();
@@ -66,7 +67,7 @@ $(document).ready(function(){
 
   $(".tipo").each(function() {
     cambiarTipo(this);
-  })
+  });
 
   $(".tipo").change(function() {
     cambiarTipo(this);
@@ -89,7 +90,7 @@ $(document).ready(function(){
   });
 
   $(".tipoTres").each(function() {
-    cambiarTipoTres(this);;
+    cambiarTipoTres(this);
   });
   
   $(".tipoTres").change(function() {
