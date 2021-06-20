@@ -35,6 +35,7 @@
 
 % Imagenes
 \usepackage{graphicx}
+
 \newcommand{\imagen}[2]{
 	\begin{figure}[!h]
 		\centering
@@ -52,6 +53,29 @@
 	\end{figure}
 }
 
+\newcommand{\imagenTam}[3]{
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[width=#3\textwidth]{#1}
+		\caption{#2}\label{fig:#1}
+	\end{figure}
+	\FloatBarrier
+}
+
+\newcommand{\imagenMultiple}[4]{
+    \begin{figure}%[!h]
+       \begin{minipage}{0.5\textwidth}
+         \centering
+         \includegraphics[width=.6\linewidth]{#1}
+         \caption{#2}\label{Fig:#1}
+       \end{minipage}\hfill
+       \begin{minipage}{0.5\textwidth}
+         \centering
+         \includegraphics[width=.6\linewidth]{#3}
+         \caption{#4}\label{Fig:#3}
+       \end{minipage}
+    \end{figure}
+}
 
 
 % El comando \figura nos permite insertar figuras comodamente, y utilizando
@@ -413,13 +437,13 @@ D. nombre co-tutor
 % Abstract en castellano
 \renewcommand*\abstractname{Resumen}
 \begin{abstract}
-En este proyecto se ha a desarrollado una aplicación web que permite la introducción, modificación, eliminación y visualización de los datos genómicos de canceres de pulmón de los pacientes del Hospital Universitario de Burgos. Esta aplicación web también cuenta con un sistema de autenticación y un sistema de gestión de usuarios.
+El presente proyecto trata sobre desarrollo de una aplicación web que permite la introducción, modificación, eliminación y visualización de los datos genómicos de pacientes con cáncer de pulmón del Hospital Universitario de Burgos. Esta aplicación web también cuenta con un sistema de autenticación y un sistema de gestión de usuarios.
 
-Todos los datos están almacenados en una base de datos relacional para permitir un rápido acceso a estos y ahorrar espacio a la hora de almacenarlos.
+Todos los datos están guardados en una base de datos relacional para permitir un rápido acceso a estos y ahorrar espacio a la hora de almacenarlos.
 
-Dentro de la visualización de los datos se han incluido varias opciones para permitir a los oncólogos una mejor explotación a la hora de realizar sus estudios. Estas opciones de visualización incluyen la exportación a un fichero \textit{.xlsx}, la representación en diagramas tanto de sectores como de columnas, la obtención de tablas de frecuencias y de percentiles y la visualización individual de los datos crudos de cada paciente.
+Dentro de la visualización de los datos se han incluido varias opciones para permitir a los oncólogos una mejor explotación a la hora de realizar sus estudios. Estas opciones de visualización incluyen: la exportación a un fichero \textit{.xlsx}, la representación en diagramas tanto de sectores como de columnas, la obtención de tablas de frecuencias y de percentiles y la visualización individual de los datos crudos de cada paciente.
 
-Para poder comprobar el correcto funcionamiento de toda la parte de visualización nombrada anteriormente, se ha realizado en \textit{Python} un script para poder generar una base de datos sintética permitiendo al usuario elegir diferentes parámetros de las distribuciones que se han considerado más óptimas para el tipo de datos con los que se está trabajando.
+Para poder comprobar el correcto funcionamiento de toda la parte de visualización nombrada anteriormente, se ha realizado en \textit{Python} un script para poder generar una base de datos sintética. P    ermitiendo al usuario elegir diferentes parámetros de las distribuciones que se han considerado más óptimas para el tipo de datos con los que se está trabajando.
 \end{abstract}
 
 \renewcommand*\abstractname{Descriptores}
