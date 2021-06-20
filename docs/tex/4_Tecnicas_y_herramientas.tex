@@ -6,11 +6,11 @@ En este apartado se va a explicar la técnica de desarrollo de software que ha s
 
 \subsection{Scrum}
 
-Las metodología ágiles son aquellas que se basan en dar una mayor libertad a la colaboración con el cliente y a la realización del proyecto en iteraciones. Según el manifiesto ágil esta nueva metodología se basa en cuatro principios : Priorizar al individuo y a las iteraciones sobre el proceso y las herramientas, el desarrollo del software sobre la documentación, colaboración con el cliente antes que un contrato fijo y la capacidad de responder a los cambios antes que un plan fijo\cite{metodologia_agil}.
+Las metodología ágiles son aquellas que se basan en dar una mayor libertad a la colaboración con el cliente y a la realización del proyecto en iteraciones. Según el manifiesto ágil esta nueva metodología se basa en cuatro principios: Priorizar al individuo y a las iteraciones sobre el proceso y las herramientas, el desarrollo del software sobre la documentación, colaboración con el cliente antes que un contrato fijo y la capacidad de responder a los cambios antes que un plan fijo\cite{metodologia_agil}.
 
 Debido a las características del proyecto se decidió que una metodología ágil era lo más adecuado para lleva a cabo su desarrollo ya que se comenzó con una idea general, por lo tanto a la hora de ir realizando el proyecto iba a ser necesario realizar cambios sobre las partes ya finalizadas y en vista de que a medida que avanzará el proyecto se iban a ir añadiendo funcionalidades, por lo tanto no se puede establecer un plan fijo desde el comienzo\cite{metodologia_agil}.
 
-De todas las metodologías ágiles para desarrollar el proyecto se eligió Scrum. Este método se basa en el desarrollo de sprints, en los cuales ser realizan partes del proyecto final ya funcionales y reuniones periódicas. Estos sprints suelen durar entre 1 o 2 semanas\cite{scrum}. Esta metodología esta pensada para trabajar con equipos enteros de desarrollo dentro de una empresa, pero para este proyecto se ha adaptado. Los roles quedan divididos de la manera que el product owner son los oncólogos, el scrumMaster son ambos tutores y el equipo de desarrollo soy yo, las reuniones y las duraciones de los sprint también han sido levemente modificadas haciéndolas menos estrictas debido a que no siempre era posible para los oncólogos realizar una reunión a la finalización de los sprint.
+De todas las metodologías ágiles para desarrollar el proyecto se eligió Scrum. Este método se basa en el desarrollo de sprints, en los cuales ser realizan partes del proyecto final ya funcionales y reuniones periódicas. Estos sprints suelen durar entre 1 ó 2 semanas\cite{scrum}. Esta metodología está pensada para trabajar con equipos enteros de desarrollo dentro de una empresa, pero para este proyecto se ha adaptado. Los roles quedan divididos de la manera que el product owner son los oncólogos, el scrumMaster son ambos tutores y el equipo de desarrollo soy yo, las reuniones y las duraciones de los sprint también han sido levemente modificadas haciéndolas menos estrictas debido a que no siempre era posible para los oncólogos realizar una reunión a la finalización de los sprint.
 
 \section{Herramientas} 
 
@@ -18,110 +18,110 @@ En este apartado se van a explicar todas las herramientas usadas para llevar a c
 
 \subsection{Infraestructura de desarrollo local}
 
-\subsubsection{WAMP}
+\subsubsection{WAMP} \label{WAMP}
 \begin{itemize}
-    \item Herramientas consideradas: \href{https://www.mamp.info/en/windows/}{MAMP}, \href{https://www.apachefriends.org/es/index.html}{XAMPP}, \href{https://git-scm.com/}{WAMP}.
-	\item Herramienta elegida: \href{http://www.wampserver.es/}{WAMP}.
+    \item Herramientas consideradas: \href{https://www.mamp.info/en/windows/}{MAMP}\footnote{\href{https://www.mamp.info/en/windows/}{https://www.mamp.info/en/windows/}}, \href{https://www.apachefriends.org/es/index.html}{XAMPP}\footnote{\href{https://www.apachefriends.org/es/index.html}{https://www.apachefriends.org/es/index.html}}, \href{http://www.wampserver.es/}{WAMP}\footnote{\label{wampfoot}\href{http://www.wampserver.es/}{http://www.wampserver.es/}}.
+	\item Herramienta elegida: \href{http://www.wampserver.es/}{WAMP}\footref{wampfoot}.
 \end{itemize}
 
-WAMP es un entorno de desarrollo web local pensando para usarse en Windows el cual contiene Apache, MySQL, PHP y el administrador de bases de datos PhpMyAdmin. Por lo tanto este entorno cumple con los objetivos técnicos que se tenían para el desarrollo de la aplicación web.
+\href{http://www.wampserver.es/}{WAMP}\footref{wampfoot} es un entorno de desarrollo web local pensando para usarse en Windows el cual contiene Apache, MySQL, PHP y el administrador de bases de datos PhpMyAdmin. Por lo tanto este entorno cumple con los objetivos técnicos que se tenían para el desarrollo de la aplicación web.
 
 \subsection{Host web}
 
-\subsubsection{Heroku}
+\subsubsection{Heroku} \label{Heroku}
 \begin{itemize}
-    \item Herramientas consideradas: \href{https://www.mamp.info/en/windows/}{Ionos}, \href{https://aws.amazon.com/es/ec2/dedicated-hosts/}{AWS amazon}, \href{https://git-scm.com/}{Heroku}.
-    \item Herramienta elegida: \href{http://www.wampserver.es/}{Heroku}.
+    \item Herramientas consideradas: \href{https://www.ionos.es/alojamiento/alojamiento-web}{Ionos}\footnote{\href{https://www.ionos.es/alojamiento/alojamiento-web}{https://www.ionos.es/alojamiento/alojamiento-web}}, \href{https://aws.amazon.com/es/ec2/dedicated-hosts/}{AWS amazon}\footnote{\href{https://aws.amazon.com/es/ec2/dedicated-hosts/}{https://aws.amazon.com/es/ec2/dedicated-hosts/}}, \href{https://www.heroku.com/}{Heroku}\footnote{\label{herokufoot}\href{https://www.heroku.com/}{https://www.heroku.com/}}.
+    \item Herramienta elegida: \href{https://www.heroku.com/}{Heroku}\footref{herokufoot}.
 \end{itemize}
 
-Heroku es una plataforma de computación en la nube que da soporte a varios lenguajes como Python, Java y PHP\cite{heroku}. También cuenta con una serie de extensiones que resultaban interesantes para nuestro proyecto, estas son, una base de datos MySQL que permite la gestión desde MySQL Workbench y un protocolo HTTPS para implementar a nuestra web. También para aplicaciones pequeñas como la que se esta desarrollando en este trabajo el host resulta gratuito y la política de privacidad de datos concordaba con los requisitos necesarios para poder alojar los datos de los pacientes.
+\href{https://www.heroku.com/}{Heroku}\footref{herokufoot} es una plataforma de computación en la nube que da soporte a varios lenguajes como Python, Java y PHP\cite{heroku}. También cuenta con una serie de extensiones que resultaban interesantes para nuestro proyecto, estas son, una base de datos MySQL que permite la gestión desde MySQL Workbench y un protocolo HTTPS para implementar a nuestra web. También para aplicaciones pequeñas como la que se esta desarrollando en este trabajo el host resulta gratuito y la política de privacidad de datos concordaba con los requisitos necesarios para poder alojar los datos de los pacientes.
 
 \subsection{Back-end}
 
 \subsubsection{Laravel}\label{Laravel}
 \begin{itemize}
-    \item Herramientas consideradas: \href{https://www.djangoproject.com/}{django}, \href{https://docs.microsoft.com/es-es/dotnet/}{.NET}, \href{https://laravel.com/}{Laravel}.
-	\item Herramienta elegida: \href{https://laravel.com/}{Laravel}.
+    \item Herramientas consideradas: \href{https://www.djangoproject.com/}{django}\footnote{\href{https://www.djangoproject.com/}{https://www.djangoproject.com/}}, \href{https://docs.microsoft.com/es-es/dotnet/}{.NET}\footnote{\href{https://docs.microsoft.com/es-es/dotnet/}{https://docs.microsoft.com/es-es/dotnet/}}, \href{https://laravel.com/}{Laravel}\footnote{\label{laravelfoot}\href{https://laravel.com/}{https://laravel.com/}}.
+	\item Herramienta elegida: \href{https://laravel.com/}{Laravel}\footref{laravelfoot}.
 \end{itemize}
 
-Laravel es un framewok de PHP que se basa en la arquitectura MVC (\ref{MVC}) y tiene como objetivo usar una sintaxis elegante, permitiendo crear código de manera sencilla e implementando muchas funcionalidades\cite{laravel}. Tiene varias utilidades que hemos utilizado dentro del proyecto, por ejemplo las plantillas Blade las cuales permiten usar código PHP e incluir lógica dentro de las vistas de manera muy sencilla y cómoda y también Eloquent ORM el cual nos permite una manera sencilla de manipular los elementos de una base de datos creando un modelo por cada una de las tablas de la base de datos y esto nos permite manipular estos modelos sin tener que ejecutar sentencias SQL. 
+\href{https://laravel.com/}{Laravel}\footref{laravelfoot} es un framewok de PHP que se basa en la arquitectura MVC (\ref{MVC}) y tiene como objetivo usar una sintaxis elegante, permitiendo crear código de manera sencilla e implementando muchas funcionalidades\cite{laravel}. Tiene varias utilidades que hemos utilizado dentro del proyecto, por ejemplo las plantillas Blade las cuales permiten usar código PHP e incluir lógica dentro de las vistas de manera muy sencilla y cómoda y también Eloquent ORM el cual nos permite una manera sencilla de manipular los elementos de una base de datos creando un modelo por cada una de las tablas de la base de datos y esto nos permite manipular estos modelos sin tener que ejecutar sentencias SQL. 
 
 \subsection{Gestor de paquetes}
 
 \subsubsection{Composer}
 
-Composer es un gestor de paquetes para PHP, se usa para poder integrar librerías de terceros en tu proyecto de una manera muy sencilla. Para este proyecto se ha utilizado para incorporar las librerías que se han usado de PHP y Laravel (\ref{librerias}) y también el propio Laravel (\ref{Laravel}).
+\href{https://getcomposer.org/}{Composer}\footnote{\href{https://getcomposer.org/}{https://getcomposer.org/}} es un gestor de paquetes para PHP, se usa para poder integrar librerías de terceros en tu proyecto de una manera muy sencilla. Para este proyecto se ha utilizado para incorporar las librerías que se han usado de PHP y Laravel (\ref{librerias}) y también el propio Laravel (\ref{Laravel}).
 
 \subsection{Front-end}
 
 \subsubsection{Bootstrap}
 \begin{itemize}
-    \item Herramientas consideradas: \href{https://getbootstrap.com/}{Bootstrap}, \href{https://tailwindcss.com/}{Tailwind}.
-	\item Herramienta elegida: \href{https://getbootstrap.com/}{Bootstrap}.
+    \item Herramientas consideradas: \href{https://getbootstrap.com/}{Bootstrap}\footnote{\label{bootstrapfoot}\href{https://getbootstrap.com/}{https://getbootstrap.com/}}, \href{https://tailwindcss.com/}{Tailwind}\footnote{\href{https://tailwindcss.com/}{https://tailwindcss.com/}}.
+	\item Herramienta elegida: \href{https://getbootstrap.com/}{Bootstrap}\footref{bootstrapfoot}.
 \end{itemize}
 
-Bootstrap es una librería de HTML, CSS y JavaScript que permite dar estilo a una página web de manera muy sencilla. Esta librería funciona de manera que asignando clases determinadas a los elementos HTML esos elementos va a tener un formato, una posición o un estilo determinado.
+\href{https://getbootstrap.com/}{Bootstrap}\footref{bootstrapfoot} es una librería de HTML, CSS y JavaScript que permite dar estilo a una página web de manera muy sencilla. Esta librería funciona de manera que asignando clases determinadas a los elementos HTML esos elementos va a tener un formato, una posición o un estilo determinado.
 
 \subsubsection{jQuery}
 
-jQuery es una librería de JavaScript la cual nos permite manipular los elementos HTML, añadir animaciones o ejecutar peticiones Ajax de una manera mucho más rápida y sencilla que si lo hiciermas directamente con Vanilla JavaScript. 
+\href{https://jquery.com/}{jQuery}\footnote{\href{https://jquery.com/}{https://jquery.com/}} es una librería de JavaScript la cual nos permite manipular los elementos HTML, añadir animaciones o ejecutar peticiones Ajax de una manera mucho más rápida y sencilla que si lo hiciéramos directamente con Vanilla JavaScript. 
 
 \subsection{Base de datos}
 
 \subsubsection{MySQL}
 \begin{itemize}
-    \item Herramientas consideradas: \href{https://www.mysql.com/}{MySQL},
-    \href{https://www.postgresql.org/}{PostgreSQL}.
-	\item Herramienta elegida: \href{https://www.mysql.com/}{MySQL}.
+    \item Herramientas consideradas: \href{https://www.mysql.com/}{MySQL}\footnote{\label{mysqlfoot}\href{https://www.mysql.com/}{https://www.mysql.com/}},
+    \href{https://www.postgresql.org/}{PostgreSQL}\footnote{\href{https://www.postgresql.org/}{https://www.postgresql.org/}}.
+	\item Herramienta elegida: \href{https://www.mysql.com/}{MySQL}\footref{mysqlfoot}.
 \end{itemize}
 
-MySQL es un sistema gestor de bases de datos relacionales. Se decidió usar MySQL en lugar de PostgreSQL debido al rendimiento de ambos gestores de bases de datos en una aplicación Laravel, como se puede comprobar en la siguiente web (\href{https://medium.com/web-developer/mysql-vs-postgresql-performance-test-with-laravel-api-for-simple-eloquent-queries-on-1-million-6e0e6f1005b8}{Comparación MySQL y PostgreSQL}) MySQL tiene bastante mejor rendimiento.
+\href{https://www.mysql.com/}{MySQL}\footref{mysqlfoot} es un sistema gestor de bases de datos relacionales. Se decidió usar MySQL en lugar de PostgreSQL debido al rendimiento de ambos gestores de bases de datos en una aplicación Laravel, como se puede comprobar en la siguiente web (\href{https://medium.com/web-developer/mysql-vs-postgresql-performance-test-with-laravel-api-for-simple-eloquent-queries-on-1-million-6e0e6f1005b8}{Comparación MySQL y PostgreSQL}\footnote{\href{https://medium.com/web-developer/mysql-vs-postgresql-performance-test-with-laravel-api-for-simple-eloquent-queries-on-1-million-6e0e6f1005b8}{https://medium.com/web-developer/mysql-vs-postgresql-performance-test-with-laravel-api-for-simple-eloquent-queries-on-1-million-6e0e6f1005b8}}) MySQL tiene bastante mejor rendimiento.
 
 \subsubsection{PhpMyAdmin}
 
-PhpMyAdmin es una herramienta de gestión de bases de datos MySQL escrita en PHP. Permite ejecutar sentencias SQL mediante una interfaz gráfica muy intuitiva y sencilla de utilizar.
+\href{https://www.phpmyadmin.net/}{PhpMyAdmin}\footnote{\href{https://www.phpmyadmin.net/}{https://www.phpmyadmin.net/}} es una herramienta de gestión de bases de datos MySQL escrita en PHP. Permite ejecutar sentencias SQL mediante una interfaz gráfica muy intuitiva y sencilla de utilizar.
 
 
 \subsubsection{MySQL Workbench}
 
-MySQL Workbench es la herramienta oficial de gestión bases MySQL, es similar a PhpMyAdmin a diferencia que esta herramienta tiene una aplicación de escritorio. En principio no se tenía pensado trabajar con esta herramienta, pero a la hora conectar una base de datos a la aplicación web subida en Heroku era necesario usar MySQL Workbench para administrar esta base de datos.
+\href{https://www.phpmyadmin.net/}{MySQL Workbench}\footnote{\href{https://www.mysql.com/products/workbench/}{https://www.mysql.com/products/workbench/}} es la herramienta oficial de gestión bases MySQL, es similar a PhpMyAdmin a diferencia que esta herramienta tiene una aplicación de escritorio. En principio no se tenía pensado trabajar con esta herramienta, pero a la hora conectar una base de datos a la aplicación web subida en Heroku era necesario usar MySQL Workbench para administrar esta base de datos.
 
 \subsection{Documentación}
 
 \subsubsection{\LaTeX}
 \begin{itemize}
-    \item Herramientas consideradas: \href{https://www.openoffice.org/es/}{Open Office}, \href{https://www.latex-project.org/}{\LaTeX}.
-	\item Herramienta elegida: \href{https://www.latex-project.org/}{\LaTeX}.
+    \item Herramientas consideradas: \href{https://www.openoffice.org/es/}{Open Office}\footnote{\href{https://www.openoffice.org/es/}{https://www.openoffice.org/es/}}, \href{https://www.latex-project.org/}{\LaTeX}\footnote{\label{latexfoot}\href{https://www.latex-project.org/}{https://www.latex-project.org/}}.
+	\item Herramienta elegida: \href{https://www.latex-project.org/}{\LaTeX}\footref{latexfoot}.
 \end{itemize}
 
-\LaTeX es un sistema de composición de textos de alta calidad y su principal uso es para artículos científicos.
+\href{https://www.latex-project.org/}{\LaTeX}\footref{latexfoot} es un sistema de composición de textos de alta calidad y su principal uso es para artículos científicos.
 
-Se decidió usar \LaTeX por encima de Open Office debido a que se vio como una oportunidad de aprender una herramienta nueva que podía llegar a ser útil para futuros trabajos.
+Se decidió usar \LaTeX{} por encima de Open Office debido a que se vio como una oportunidad de aprender una herramienta nueva que podía llegar a ser útil para futuros trabajos.
 
 \subsection{Editores de texto}
 
 \subsubsection{Overleaf}
 
-Overleaf es un editor online de \LaTeX que permite ir compilando el documento y ver lo cambios al instante, lo cual agiliza mucho el trabajo a la hora de redactar documentos.
+\href{https://es.overleaf.com/}{Overleaf}\footnote{\href{https://es.overleaf.com/}{https://es.overleaf.com/}} es un editor online de \LaTeX{} que permite ir compilando el documento y ver lo cambios al instante, lo cual agiliza mucho el trabajo a la hora de redactar documentos.
 
 \subsubsection{Sublime Text 3}
 
 \begin{itemize}
-    \item Herramientas consideradas: \href{https://code.visualstudio.com/}{Visual Studio Code}, \href{https://www.sublimetext.com/3}{Sublime Text 3}.
-	\item Herramienta elegida: \href{https://www.sublimetext.com/3}{Sublime Text 3}.
+    \item Herramientas consideradas: \href{https://code.visualstudio.com/}{Visual Studio Code}\footnote{\href{https://code.visualstudio.com/}{https://code.visualstudio.com/}}, \href{https://www.sublimetext.com/3}{Sublime Text 3}\footnote{\label{sublimefoot}\href{https://www.sublimetext.com/3}{https://www.sublimetext.com/3}}.
+	\item Herramienta elegida: \href{https://www.sublimetext.com/3}{Sublime Text 3}\footref{sublimefoot}.
 \end{itemize}
 
-Sublime Text 3 es un editor de texto cómodo, sencillo y fácil de usar, viene incluido con la herramienta Kite que sirve para autocompletar código en distintos lenguajes. Para este proyecto se ha utilizado este editor para redactar todo el código del proyecto, el cual incluye la aplicación web en Laravel, el script Python para hacer la base de datos sintética y los script SQL. Se ha elegido Sublime Text 3 sobré Visual Studio Code debido a que ya había estado usando este editor de texto antes y por lo tanto estaba más familiarizado con el. 
+\href{https://www.sublimetext.com/3}{Sublime Text 3}\footref{sublimefoot} es un editor de texto cómodo, sencillo y fácil de usar, viene incluido con la herramienta Kite que sirve para autocompletar código en distintos lenguajes. Para este proyecto se ha utilizado este editor para redactar todo el código del proyecto, el cual incluye la aplicación web en Laravel, el script Python para hacer la base de datos sintética y los script SQL. Se ha elegido Sublime Text 3 sobré Visual Studio Code debido a que ya había estado usando este editor de texto antes y por lo tanto estaba más familiarizado con el. 
 
 \subsection{Gestión del proyecto}
 
 \subsubsection{GitHub}
 
-GitHub es una herramienta que sirve para subir, almacenar código en la nube y también llevar un control de versiones. GitHub se ha utilizado para llevar a cabo la metodología Scrum gracias a las milestones las cuales he usado para simular los sprints y las issues las cuales son todas las tareas que se han ido realizando a lo largo del proyecto. 
+\href{https://github.com/}{GitHub}\footnote{\href{https://github.com/}{https://github.com/}} es una herramienta que sirve para subir, almacenar código en la nube y también llevar un control de versiones. GitHub se ha utilizado para llevar a cabo la metodología Scrum gracias a las milestones las cuales he usado para simular los sprints y las issues las cuales son todas las tareas que se han ido realizando a lo largo del proyecto. 
 
 \subsubsection{ZenHub}
 
-ZenHub es una herramienta de gestión de proyecto la cual se integra en GitHub. ZenHub nos permite organizar las issues en pipelines y establecer cuanto tiempo se va a tardar en realizar cada una de las tareas,
+\href{https://www.zenhub.com/}{ZenHub}\footnote{\href{https://www.zenhub.com/}{https://www.zenhub.com/}} es una herramienta de gestión de proyecto la cual se integra en GitHub. ZenHub nos permite organizar las issues en pipelines y establecer cuanto tiempo se va a tardar en realizar cada una de las tareas.
 
 \subsection{Librerías}\label{librerias}
 
@@ -131,7 +131,7 @@ Librería de Python que permite crear vectores y matrices y muchas funciones par
 
 \subsubsection{mysql.connector}
 
-Librería de Python que permite conectar una base de datos MySQL y realizar operaciones SQL sobre está. Se ha utilizado en el proyecto para insertar los datos en la base de datos sintética.
+Librería de Python que permite conectar una base de datos MySQL y realizar operaciones SQL sobre esta Se ha utilizado en el proyecto para insertar los datos en la base de datos sintética.
 
 \subsubsection{phpunit}
 
@@ -139,7 +139,7 @@ Framework de PHP que permite crear pruebas unitarias. Se ha utilizado para reali
 
 \subsubsection{faker}
 
-Librería de Python que permite crear nombre, apellidos y fechas aleatorias. Se ha utilizado para la base de datos sintética. 
+Librería de Python que permite crear nombre, apellidos y fechas aleatorias. Se ha utilizado para la creación de la base de datos sintética. 
 
 \subsubsection{laravel/ui}
 
@@ -149,7 +149,7 @@ Paquete de autenticación de Laravel. Se ha utilizado para el login de la aplica
 
 Librería de Laravel que permite exportar e importar datos de un fichero Excel. se ha utilizado para poder exportar la base de datos a un fichero en Excel.
 
-\subsubsection{openssl}
+\subsubsection{openssl} \label{openssl}
 
 Librería de PHP que permite la encriptación de datos. Se ha utilizado para encriptar los datos sensibles de los pacientes.
 
