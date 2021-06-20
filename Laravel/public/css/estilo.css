@@ -7,6 +7,10 @@ body {
   overflow-y: hidden;
 }
 
+caption {
+  color: #0d1117;
+}
+
 @media (max-width: 480px) {
   body {
     overflow-y: auto;

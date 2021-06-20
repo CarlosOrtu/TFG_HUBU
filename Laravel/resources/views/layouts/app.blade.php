@@ -30,7 +30,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ asset('/css/estilo.css?v=0.1') }}" rel="stylesheet">
+    <link href="{{ asset('/css/estilo.css?v=0.2') }}" rel="stylesheet">
 </head>
 <body>
   <div id="app">
