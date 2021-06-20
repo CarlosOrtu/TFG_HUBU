@@ -322,7 +322,7 @@ class Enfermedad:
         self.fecha_diagnostico = str(fake.date_time_between_dates(datetime_start=fecha_inicio).date())
         self.ECOG = str(random.randint(0,4))
         self.T = str(random.randint(1,4))
-        self.T_tamano = str(np.around(abs(np.random.normal(mediaTumor, desviacionTumor, 1), 2)[0]))
+        self.T_tamano = str(np.around(abs(np.random.normal(mediaTumor, desviacionTumor, 1)), 2)[0])
         self.N = str(random.randint(1,3))
         self.N_afectacion = afectacion[random.randint(0,1)]
         self.M = M[random.randint(0,3)]
@@ -461,7 +461,7 @@ class Tratamiento:
         elif(self.tipoTratamiento == "Radioterapia"):
             self.subtipoRadioterapia = subtipoRadioterapia[random.randint(0,1)]
             self.localizacionRadioterapia = localizacionRadioterapia[random.randint(0,6)]
-            self.dosis = str(np.around(abs(np.random.normal(mediaDosis, desviacionDosis, 1), 2)[0]))
+            self.dosis = str(np.around(abs(np.random.normal(mediaDosis, desviacionDosis, 1)), 2)[0])
             self.fechaInicio = fake.date()
             self.fechaFin = fake.date()
         else:

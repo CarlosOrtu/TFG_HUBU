@@ -7,47 +7,17 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Pacientes;
 use App\Models\Enfermedades;
-
+use Tests\Ini\CrearDatosTest;
 
 class ModificarDatosEnfermedadTest extends TestCase
 {
     protected function setUp(): void
     {
         parent::setUp();
-        //Creamos el usuario a modificar
-        $paciente = new Pacientes();
-        $paciente->id_paciente = 999;
-        $paciente->nombre = "PacienteTest";
-        $paciente->apellidos = "ApellidosTest";
-        $paciente->sexo = "Masculino";
-        $paciente->nacimiento = "1999-10-05";
-        $paciente->raza = "Asiático";      
-        $paciente->profesion = "Peluquero";      
-        $paciente->fumador = "Desconocido";      
-        $paciente->bebedor = "Desconocido";      
-        $paciente->carcinogenos = "Desconocido"; 
-        $paciente->ultima_modificacion = date("Y-m-d");
-        $paciente->save(); 
-
-        $enfermedadAModificar = new Enfermedades();
-        $enfermedadAModificar->id_enfermedad = 999;
-        $enfermedadAModificar->id_paciente = 999;
-        $enfermedadAModificar->fecha_primera_consulta = "1999-02-02";
-        $enfermedadAModificar->fecha_diagnostico = "1999-03-03";
-        $enfermedadAModificar->ECOG = 2;
-        $enfermedadAModificar->T = 3;
-        $enfermedadAModificar->T_tamano = 1.0;
-        $enfermedadAModificar->N = 3;
-        $enfermedadAModificar->N_afectacion = "Uni ganglionar";
-        $enfermedadAModificar->M = "1b";
-        $enfermedadAModificar->num_afec_metas = "1";
-        $enfermedadAModificar->TNM = "IA2";
-        $enfermedadAModificar->tipo_muestra = "Biopsia";
-        $enfermedadAModificar->histologia_tipo = "Sarcomatoide";
-        $enfermedadAModificar->histologia_subtipo = "Mucinoso";
-        $enfermedadAModificar->histologia_grado = "Bien diferenciado";
-        $enfermedadAModificar->tratamiento_dirigido = 1;
-        $enfermedadAModificar->save();
+        //Creamos el usuario y la enfermedad
+        $iniDatos = new CrearDatosTest;
+        $iniDatos->crearPaciente();
+        $iniDatos->crearEnfermedad();
 
         //Realizamos el login con el administrador para poder acceder a todos las rutas de la web
         $this->get('/login')->assertSee('Login');
