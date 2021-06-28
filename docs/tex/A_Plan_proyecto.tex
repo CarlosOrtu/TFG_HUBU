@@ -2,16 +2,340 @@
 
 \section{Introducción}
 
-En este apartado se va a tratar la planificación temporal que se ha llevado a cabo para el proyecto, así como un estudio de viabilidad tanto económica como legal.
+En este apartado del anexo se va a tratar la planificación temporal que se ha llevado a cabo para el proyecto, así como un estudio de viabilidad tanto económica como legal.
 
 \section{Planificación temporal}
 
+Para el desarrollo de este proyecto se ha decidido usar la metodología ágil SCRUM. Debido a las circunstancias de el proyecto se ha tenido que adaptar de la siguiente manera: 
 
+\begin{itemize}
+    \item La duración de cada sprint se establece inicialmente en dos semanas, aunque puede ser ampliada por circunstancias excepcionales.
+    \item Las tareas generales de cada sprint se establecerán al principio de este.
+    \item Cada tarea tendrá una estimación temporal del tiempo que se va a tardar en realizar.
+    \item Al acabar cada sprint quedará una versión completamente funcional.
+    \item Al finalizar cada sprint se realizara una reunión con los tutores y con los oncólogos siempre que sea posible.
+\end{itemize}
+
+Como medida de tiempo se han usado los \textit{story points} y la correspondencia con el tiempo real sería a una hora y media por cada \textit{story point}.
+
+\subsection{Tareas iniciales}
+
+Fecha: 12/03/2021 - 22/03/2021
+
+Las tareas iniciales lo podríamos llamar el sprint 0 y es en el que se preparó el proyecto y las herramientas necesarias para llevarlo a cabo.
+
+En este primer sprint no hay un tiempo estimado ni tiempo final ya que esto se empezó a medir con ZenHub el cual se empezó a usar en el Sprint 1.
+
+\begin{table}[H]
+	 \begin{tabularx}{\linewidth}{X r r}
+	 	\toprule \textbf{\textit{Issue}} \\
+	 	\toprule
+	 	Elección de frameworks y herramientas para el desarrollo de la web  \\
+	 	Elección de metodología de desarrollo \\
+	 	Redactar las historias de usuario \\
+	 	Instalación de Laravel  \\
+	 	Subir el proyecto Laravel al repositorio  \\
+	 	Investigar sobre las posibles licencias para el proyecto  \\
+	 	Configurar las pipelines de ZenHub  \\
+	 	\bottomrule
+	 \end{tabularx}
+	 \caption{Tareas del sprint 0}
+\end{table}
+
+\subsection{Sprint 1}
+
+Fecha: 22/03/2021 - 05/04/2021
+
+El objetivo de este sprint fue implementar las primeras funcionalidades, realizar las primeras vistas y diseñar la base de datos.
+
+\imagen{sprint1_burndown}{Gráfico \textit{Burndown} del Sprint 1.}
+
+\begin{table}[H]
+	 \begin{tabularx}{\linewidth}{X r r}
+	 	\toprule \textbf{\textit{Issue}} & \textbf{Estimado} & \textbf{Final}\\
+	 	\toprule
+	 	Investigar sobre las migraciones de Laravel  & 1 & 1 \\
+	 	Crear migración para las tablas roles y usuarios & 1 & 1\\
+	 	Error al realizar las migraciones SQLSTATE[42000] & 1 & 1 \\
+	 	No se crea correctamente la foreign key & 1 & 1 \\
+	 	Crear script SQL para la creación de las tablas usuarios y roles & 1 & 1 \\
+	 	Investigar sobre los seeders de Laravel & 1 & 1 \\
+	 	Añadir el administrador y los 2 roles mediante los seeders de Laravel & 1 & 1 \\
+	 	Añadir el administrador y los 2 roles script SQL & 1 & 1 \\
+	 	Añadir bootstrap & 1 & 1\\
+	 	Añadir paquete ui de Laravel & 1 & 1 \\
+	 	Diseño de la tabla usuarios & 1 & 2 \\
+	 	Modificar las rutas que vamos a usar para el login del proyecto & 1 & 1 \\
+	 	Crear el modelo de la tabla roles y users & 1 & 1 \\
+	 	Configurar el middleware de auth y el de admin & 1 & 1 \\
+	    Configurar la autentificación con nuestra tabla users & 1 & 1 \\
+	 	Diseñar la vista del login & 2 & 3 \\
+	 	Redactar los casos de prueba & 2 & 3 \\
+	 	Investigar sobre la realización de pruebas en la web & 2 & 2 \\
+	 	Realizar las partes pendientes del login y realizar pruebas sobre el login & 1 & 2 \\
+	 	Realizar el layout & 3 & 2\\
+	 	Diseñar la base de datos de pacientes & 2 & 4 \\
+	 	Crear migraciones para la tabla pacientes y el resto de tablas & 1 & 2  \\
+	 	Crear script SQL para la creación de las tabla paciente y el resto de tablas & 1 & 1 \\
+	 	\midrule
+	    \textbf{Total del sprint} & 29 & 35 \\
+	 	\bottomrule
+	 \end{tabularx}
+	 \caption{Tareas del sprint 1}
+\end{table}
+\subsection{Sprint 2}
+
+Fecha: 05/04/2021 - 19/04/2021
+
+Durante este sprint se realizo casi toda la parte de gestión de pacientes y algunas pruebas de integración.
+
+\imagen{sprint2_burndown}{Gráfico \textit{Burndown} del Sprint 2.}
+
+\begin{table}[H]
+	 \begin{tabularx}{\linewidth}{X r r}
+	 	\toprule \textbf{\textit{Issue}} & \textbf{Estimado} & \textbf{Final}\\
+	 	\toprule
+	 	Realizar vistas sobre los antecedentes del paciente & 3 & 3 \\
+        Realizar controlador sobre antecedentes del paciente & 3 & 3 \\
+        Crear rutas para los antecedentes del paciente & 3 & 3 \\
+        Vistas sobre datos relacionados con la enfermedad & 5 & 5 \\
+        Realizar rutas para la modificación de los datos del paciente & 8 & 4  \\
+        Controlador sobre datos relacionados con la enfermedad del paciente & 5 & 6 \\
+        Vista de los datos demográficos del paciente & 1 & 1 \\
+        Controlador sobre datos demográficos del paciente & 2 & 3 \\
+        Modificar la sidebar del layoyut con los campos para los pacientes & 1  & 1 \\
+        Realizar pruebas crear, modificar y eliminar usuario & 1 & 3 \\
+        Realizar pruebas datos personales & 1 & 1 \\
+        Realizar pruebas crear paciente & 1 & 1 \\
+        Redactar casos de prueba de gestión de usuarios y de crear nuevo & 1 & 2 \\ paciente 
+        Crear vista y ruta para datos personales &  &  \\
+        Crear validación nuevos usuarios y para pacientes & 1 & 1 \\
+        Refactorizar el layout & 1 & 1 \\
+        Aprender a usar Validator de Laravel & 1 & 1 \\
+        Realizar vistas de gestión de usuarios & 2 & 2 \\
+        Crear rutas gestión de usuarios & 1 & 1 \\
+        Realizar controlador para la gestión de usuarios & 1 & 3 \\
+        Crear la vista de nuevos pacientes & 1 & 1 \\
+        Crear la vista de pacientes & 2 & 3 \\
+        Crear los modelos de las nuevas tablas & 1 & 3 \\
+        Investigar sobre las relaciones entre modelos en Laravel & 1 & 1 \\
+        Crear diccionario de datos de la base de datos & 3 & 4 \\
+        \midrule
+	    \textbf{Total del sprint} & 50 & 57 \\
+	 	\bottomrule
+	 \end{tabularx}
+	 \caption{Tareas del sprint 2}
+\end{table}
+
+\subsection{Sprint 3}
+
+Fecha: 19/04/2021 - 8/05/2021
+
+El objetivo de este sprint fue finalizar las ultimas funcionalidades pendientes de la gestión de pacientes, realizar las ultimas pruebas de integración, corregir los errores encontrados y empezar a investigar sobre el apartado estadístico de la web. 
+
+Este sprint duro mas de dos semanas por que para presentarles el proyecto a los oncologos al finalizar el sprint se quería tener todas las pruebas realizadas para asegurar un correcto funcionamiento y estas pruebas me llevaron más tiempo del esperado en un principio.
+
+\imagen{sprint3_burndown}{Gráfico \textit{Burndown} del Sprint 3.}
+
+\begin{table}[H]
+	 \begin{tabularx}{\linewidth}{X r r}
+	 	\toprule \textbf{\textit{Issue}} & \textbf{Estimado} & \textbf{Final}\\
+	 	\toprule
+	 	Realizar pruebas seguimientos y redactar casos de prueba  & 2 & 3 \\
+        Realizar pruebas reevaluaciones y redactar casos de prueba  & 2 & 3 \\
+        Realizar pruebas comentarios y redactar casos de prueba & 2 & 2 \\
+        Realizar pruebas tratamientos y redactar casos de prueba  & 2 & 7 \\
+        Realizar vistas de la opción de visualizar los datos del paciente & 2  & 2 \\
+        Realizar rutas de observación de datos del paciente & 2 & 2 \\
+        Añadir en los controladores la visualización de datos del paciente  & 2 &  3\\
+        Realizar pruebas antecedentes y redactar casos de prueba  & 3 & 4 \\
+        Encriptar el nombre y apellidos con una encriptación simétrica & 2 & 3  \\
+        Realizar pruebas datos enfermedad y redactar casos de prueba  & 5 & 5 \\
+        Realizar pruebas datos paciente y redactar casos de prueba  & 2 & 3 \\
+        Realizar prueba eliminar paciente y redactar casos de prueba  & 2 & 2  \\
+        Investigar sobre el apartado estadístico & 3 & 3 \\
+        Conseguir un certificado SSL para la web & 1 & 3 \\
+        Subir web a un host online & 2 & 3 \\
+        Actualizar diccionario de datos & 2 & 2 \\
+        Realizar vistas sobre los tratamientos del paciente & 2 & 2 \\
+        Realizar controlador sobre tratamientos del paciente & 5 & 5 \\
+        Crear rutas para los tratamientos del paciente & 5 & 3 \\
+        Arreglar errores comentados por los oncólogos & 5 & 5 \\
+        Crear rutas para los comentarios & 2 & 1 \\
+        Agregar a la base de datos la tabla comentarios tanto mediante SQL como mediante migraciones & 2 & 2 \\
+        Realizar vistas sobre los comentarios & 2 & 2 \\
+        Realizar controlador de los comentarios & 2 & 2 \\
+        Crear rutas para los seguimientos del paciente & 2 & 2 \\
+        Realizar controlador sobre seguimientos del paciente & 2 & 3 \\
+        Realizar vistas sobre los seguimientos del paciente & 2 & 2 \\
+        Crear rutas para las reevaluaciones del paciente & 3 & 2 \\
+        Realizar controlador sobre las reevaluaciones del paciente & 3 & 4 \\
+        Realizar vistas sobre reevaluaciones del paciente & 3 & 3 \\
+        \midrule
+	    \textbf{Total del sprint} & 73 & 85 \\
+	 	\bottomrule
+	 \end{tabularx}
+	 \caption{Tareas del sprint 3}
+\end{table}
+
+\subsection{Sprint 4}
+
+Fecha: 8/05/2021 - 7/06/2021
+
+El objetivo de este sprint fue realizar el apartado de visualización estadístico de la aplicación web y plantear la creación de la base de datos sintética.
+
+Este sprint acabo durando un mes debido a que hubo dos semanas que casi no se pudo sacar trabajo adelante y se consideró una mejor solución ampliar el sprint que cerrarlo sin haber implementado ninguna funcionalidad nueva.
+
+\imagen{sprint4_burndown}{Gráfico \textit{Burndown} del Sprint 4.}
+
+\begin{table}[H]
+	 \begin{tabularx}{\linewidth}{X r r}
+	 	\toprule \textbf{\textit{Issue}} & \textbf{Estimado} & \textbf{Final}\\
+	 	\toprule
+	 	Investigar sobre si aplicar la Corrección de Bessel a la desviación & 3 & 3 \\
+        Implementar percentiles & 3 & 3 \\
+        Investigar como calcular oblicuidad (skewness) y curtosis (Kurtosis) e implementarlo  & 3 & 4 \\
+        Investigar sobre los percentiles & 3 & 3 \\
+        Mejorar estéticamente las gráficas & 3 & 3 \\
+        Permitir descargar la gráfica y la tabla estadística & 3 & 3 \\
+        Realizar tabla de frecuencias & 2 & 3 \\
+        Permitir hacer gráficas con varias divisiones & 2 & 7 \\
+        Permitir la elección de diferentes estilos de graficas & 2 & 2 \\
+        Empezar a usar google charts para implementar las primeras graficas estadísticas & 5 & 7 \\
+        Realizar rutas para la grafica secuencia de tratamientos & 2 & 2 \\
+        Realizar vista para la grafica de secuencia de tratamientos & 2 & 3 \\
+        \midrule
+	    \textbf{Total del sprint} & 33 & 43 \\
+	 	\bottomrule
+	 \end{tabularx}
+	 \caption{Tareas del sprint 4}
+\end{table}
+
+\subsection{Sprint 5}
+
+Fecha: 8/06/2021 - 21/06/2021
+
+Este sprint se baso en la creación de la base de datos sintética y la realización de la memoria del proyecto.
+
+\imagen{sprint5_burndown}{Gráfico \textit{Burndown} del Sprint 5.}
+
+\begin{table}[H]
+	 \begin{tabularx}{\linewidth}{X r r}
+	 	\toprule \textbf{\textit{Issue}} & \textbf{Estimado} & \textbf{Final}\\
+	 	\toprule
+        Realizar conclusión y líneas de trabajo futuras & 3 & 2 \\
+        Realizar correcciones comentadas por los tutores en la memoria & 3 & 2  \\
+        Realizar aspectos relevantes del proyecto & 3 & 6 \\
+        Realizar Técnicas y Herramientas memoria & 3 & 2 \\
+        Realizar conceptos teóricos memoria & 3 & 4 \\
+        Realizar objetivos del proyecto memoria & 3 & 2 \\
+        Agregar control de errores en la creación de la base de datos sintética & 3 & 3 \\
+        Realizar la introducción en la memoria & 3 & 4 \\
+        Aprender a usar Latex & 3 & 2 \\
+        Crear controlador base de datos sintética & 2 & 2 \\
+        Arreglar gráfica de los percentiles & 2 & 2 \\
+        Crear la vista para la base de datos sintética & 3 & 3 \\
+        Crear el script python que cree la base de datos sintética & 5 & 7 \\
+        Investigar sobre el tipo de distribuciones que podemos aplicar a los valores numéricos & 2 & 4 \\
+        Investigar sobre como ejecutar un script Python con parámetros desde PHP & 3 & 2 \\
+        Empezar a investigar sobre la base de datos sintética & 3 & 3 \\
+        \midrule
+	    \textbf{Total del sprint} & 47 & 50 \\
+	 	\bottomrule
+	 \end{tabularx}
+	 \caption{Tareas del sprint 5}
+\end{table}
+
+\subsection{Sprint 6}
+
+Realizando actualmente
 
 \section{Estudio de viabilidad}
 
 \subsection{Viabilidad económica}
 
+En este apartado se va a analizar los costes y los beneficios del proyecto para determinar si este es viable económicamente.
+
+\subsubsection{Costes de personal}
+
+Para la realización de este proyecto se ha necesitado solo un desarrollador de aplicaciones, el salario medio sin experiencia laboral estaría entre los 17.000€ y los 22.000€ anuales. Por lo tanto vamos a estableces el sueldo en un termino medio, lo cual sería 19.500€ anuales.
+
+Puesto que el trabajo se comenzó en marzo y se finalizo en julio, más o menos suponen 4 meses trabajados.
+
+\begin{table}[H]
+	 \begin{tabularx}{\linewidth}{X r r}
+	 	\toprule \textbf{Concepto} & \textbf{Coste} \\
+	 	\toprule
+        Salario mensual (Bruto) &  1.615€\\
+        Contingencias comunes (4,7\%) & 75,9€ \\
+        Desempleo (1,55\%) & 25,03€\\
+        Formación profesional (0,10\%) & 1,61€\\
+        IRPF (24\%) & 387,6€   \\
+        \midrule
+	    \textbf{Total 4 meses} & 8.420,56€  \\
+	 	\bottomrule
+	 \end{tabularx}
+	 \caption{Salario desarrollador web}
+\end{table}
+
+Toda la información para la realización de esta tabla se ha obtenido en \href{https://www.ennaranja.com/renta/retenciones-nomina/}{https://www.ennaranja.com/renta/retenciones-nomina/}
+\newpage
+
+\subsubsection{Costes de material}
+
+El único coste del hardware utilizado en este proyecto ha sido el portátil usado para el desarrollo del proyecto. Este portátil es el HP Pavilion 15 cuyo preció fue aproximadamente de 730€.
+
+Para el software el único gasto que ha supuesto este proyecto ha sido la versión \textit{Hobby} de Heroku, la cual tiene un precio de \$7 lo cual suponen unos 5,87€. Este servició se adquirió en mayo, por lo tanto serían dos meses lo que supone un total de 11,74€.
+
+\begin{table}[H]
+	 \begin{tabularx}{\linewidth}{X r r}
+	 	\toprule \textbf{Concepto} & \textbf{Coste} \\
+	 	\toprule
+        Portátil &  730€\\
+        Heroky Hobby (mensual) & 5,87€ * 2   \\
+        \midrule
+	    \textbf{Total} & 741,74€  \\
+	 	\bottomrule
+	 \end{tabularx}
+	 \caption{Salario desarrollador web}
+\end{table}
+
+\subsubsection{Beneficios}
+
+Si se quisiera obtener beneficios económicos de la aplicación, se podría ofertar a otros hospitales del país y cobrar por cada una de las licencias vendidas y también establecer un precio mensual por el mantenimiento.
+
 \subsection{Viabilidad legal}
 
+Para estudiar la viabilidad legal del proyecto se va ha realizar una lista de todos los programas y librerías usados con sus correspondientes licencias.
+
+\begin{table}[H]
+	 \begin{tabularx}{\linewidth}{X r r}
+	 	\toprule \textbf{Dependencia} & \textbf{Licencia} \\
+	 	\toprule
+        WAMP &  GNU GPL\\
+        Laravel & MIT   \\
+        Composer & MIT   \\
+        Bootstrap & MIT   \\
+        jQuery & MIT   \\
+        MySQL & GNU GPL \\
+        PhpMyAdmin & GNU GPL  \\
+        MySQL Workbench & GNU GPL  \\
+        Latex & MIT   \\
+        Numpy & BSD   \\
+        mysql.connector & GNU GPL \\
+        phpunit & BSD  \\
+        faker & MIT   \\
+        laravel/ui & MIT   \\
+        maatwebsite/excel & MIT   \\
+        openssl & Apache License   \\
+        Google Charts & Creative Commons Attribution 4.0 License   \\
+        Datatables & MIT   \\
+        \midrule
+	    \textbf{Total 4 meses} & 10.000€  \\
+	 	\bottomrule
+	 \end{tabularx}
+	 \caption{Salario desarrollador web}
+\end{table} 
+
+Como se puede comprobar gracias a la tabla anterior todas las licencias usadas dentro de este proyecto son de libre distribución y de dominio público.
 
