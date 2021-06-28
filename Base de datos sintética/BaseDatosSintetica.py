@@ -170,7 +170,7 @@ def obtenerIdMaximo(cur, tabla):
     return myresult[0]
 
 def establecerConexionBase():
-    miConexion = mysql.connector.connect( host='localhost', user= 'root', passwd='', db='pruebasintetica' )
+    miConexion = mysql.connector.connect( host='localhost', user= 'root', passwd='', db='pruebaReunion' )
     return miConexion, miConexion.cursor()	
 
 def insertarPaciente(id_paciente, cur, miConexion):

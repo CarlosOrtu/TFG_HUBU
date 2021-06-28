@@ -87,7 +87,7 @@
         @yield('content')
       </main>
     </div>   
-    @elseif(Request::routeIs('vergraficas') or Request::routeIs('imprimirgrafica') or Request::routeIs('verpercentiles') or Request::routeIs('verexportardatos') or Request::routeIs('imprimirpercentiles') or Request::routeIs('verbasesintetica'))
+    @elseif(Request::routeIs('vergraficas') or Request::routeIs('imprimirgrafica') or Request::routeIs('verpercentiles') or Request::routeIs('verexportardatos') or Request::routeIs('imprimirpercentiles') or Request::routeIs('verbasesintetica') or Request::routeIs('crearbasesintetica') or Request::routeIs('prueba'))
     <div class="row mx-4 mt-4">
       <main class="col-md-12">
           @yield('content')

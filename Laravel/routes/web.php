@@ -173,3 +173,5 @@ Route::post('/ver/exportardatos', [ExportarDatosController::class, 'exportarDato
 //Rutas para crear la base de datos sintética
 Route::get('/ver/basesintetica', [BaseDeDatosSinteticaController::class, 'verBaseSintetica'])->name('verbasesintetica');
 Route::post('/ver/basesintetica', [BaseDeDatosSinteticaController::class, 'crearBaseSintetica'])->name('crearbasesintetica');
+
+Route::get('/prueba/rutas', [BaseDeDatosSinteticaController::class, 'prueba'])->name('prueba');

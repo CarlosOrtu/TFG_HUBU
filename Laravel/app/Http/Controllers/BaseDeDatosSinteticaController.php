@@ -59,4 +59,7 @@ class BaseDeDatosSinteticaController extends Controller
         return view('basesintetica')->with('success','Base de datos sintética creada');;
     }
 
+    public function prueba(){
+        dump(\Route::getRoutes()->get());
+    }
 }
