@@ -1,5 +1,5 @@
 #!c:/Python3.9/python.exe
-# prueba.py
+# BaseDatosSintetica.py
 
 import sys
 import random
@@ -114,7 +114,8 @@ lambdaCiclos = float(sys.argv[7].replace(',', '.'))
 def main():
     miConexion, cur = establecerConexionBase()
     numPacientes = int(sys.argv[1])
-    for x in range(1, numPacientes+1):
+    idMaxPaciente = obtenerIdMaximo(cur, "Pacientes")
+    for x in range(idMaxPaciente + 1, idMaxPaciente+numPacientes+1):
         insertarPaciente(x, cur, miConexion)
         insertarEnfermedad(x, x, cur, miConexion)
         numTablas = obtenerNumeroTablas()
@@ -164,13 +165,15 @@ def obtenerIdMaximo(cur, tabla):
         cur.execute("SELECT max(id_antecedente_f) from antecedentes_familiares")
     elif(tabla == "Tratamientos"):   
         cur.execute("SELECT max(id_tratamiento) from tratamientos")
+    elif(tabla == "Pacientes"):
+        cur.execute("SELECT max(id_paciente) from pacientes")
     myresult = cur.fetchone()
     if(myresult[0] == None):
         return 0
     return myresult[0]
 
 def establecerConexionBase():
-    miConexion = mysql.connector.connect( host='localhost', user= 'root', passwd='', db='pruebasintetica' )
+    miConexion = mysql.connector.connect( host='localhost', user= 'root', passwd='', db='hubu' )
     return miConexion, miConexion.cursor()	
 
 def insertarPaciente(id_paciente, cur, miConexion):
