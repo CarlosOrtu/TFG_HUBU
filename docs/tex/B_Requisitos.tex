@@ -2,10 +2,620 @@
 
 \section{Introducción}
 
+En este anexo se van a especificar los requisitos funcionales, los requisitos no funcionales y los casos de uso. Estos requisitos no han sido establecidos de forma trivial sino que se han obtenido de las reuniones iniciales con los oncólogos.
+
 \section{Objetivos generales}
+
+Los objetivos generales acordados con los oncólogos en las primeras reuniones son los siguientes:
+
+\begin{itemize}
+    \item Poder gestionar los usuarios que tiene acceso a la web.
+    \item Poder gestionar los datos de los pacientes.
+	\item Tener una forma de visualizar estos datos de manera sencilla.
+	\item La web ha de ser sencilla e intuitiva de usar.
+\end{itemize}
 
 \section{Catalogo de requisitos}
 
+En esta sección se van a enumerar tanto los requisitos funcionales como los no funcionales, haciendo una breve explicación de ellos.
+
+\subsection{Requisitos funcionales}
+
+\begin{itemize}
+    \item \textbf{RF-1 Sistema de autenticación de los usuario:} Solo los usuarios autorizados podrán acceder al sistema
+    \begin{itemize}
+        \item \textbf{RF-1.1 Identificación de usuario:} Los usuarios se identificaran con un correo y una contraseña únicos.
+        \item \textbf{RF-1.2 Uso de dos roles para los usuarios:} Existirá el rol administrador y el rol oncólogo.
+    	\item \textbf{RF-1.3 Gestión de usuarios solo para administradores:} Solo los usuarios con el rol administrador tendrán acceso a la gestión de usuarios.
+    \end{itemize}
+    \item \textbf{RF-2 Sistema de gestión de usuarios:} El administrador podrá gestionar los usuarios pudiendo añadir, modificar y eliminar usuarios.
+    \begin{itemize}
+        \item \textbf{RF-2.1 Añadir usuario:} El administrador podrá añadir nuevos usuarios al sistema.
+        \item \textbf{RF-2.2 Modificar datos usuario:} El administrador podrá modificar los datos de los usuarios.
+        \begin{itemize}
+            \item \textbf{RF-2.2.1 Modificar datos personales usuario:} El administrador podrá modificar los datos personales de los usuarios.
+            \item \textbf{RF-2.2.2 Modificar rol usuario:} El administrador podra modificar el rol de los usuarios.
+        \end{itemize}
+        \item \textbf{RF-2.3 Eliminar usuario:} El administrador podrá eliminar usuarios que no tengan el rol de administrador.
+    \end{itemize}
+    \item \textbf{RF-3 Sistema de gestión de datos personales:} Los usuarios podrán
+    modificar sus datos personales.
+    \begin{itemize}
+        \item \textbf{RF-3.1 Modificar datos personales:} El usuario podrá modificar sus datos personales con la única restricción que el correo no debe de estar ya registrado en la web.
+        \item \textbf{RF-3.2 Modificar contraseña:} El usuario podrá modificar su contraseña siempre y cuando conozca su contraseña actual.
+    \end{itemize}
+    \item \textbf{RF-4 Sistema de gestión de pacientes:} Los usuarios podrán
+    gestionar los pacientes pudiendo añadir, modificar y eliminar pacientes.
+    \begin{itemize}
+        \item \textbf{RF-4.1 Añadir pacientes:} Los usuarios podrán añadir nuevos pacientes a la web.
+        \item \textbf{RF-4.2 Añadir datos paciente:} Los usuarios podrán añadir datos de los pacientes.
+        \begin{itemize}
+            \item \textbf{RF-4.2.1 Añadir enfermedad:} El usuario podrá añadir una enfermedad por cada paciente
+            \item \textbf{RF-4.2.2 Añadir antecedentes:} El usuario podrá añadir antecedentes a un paciente.
+            \item \textbf{RF-4.2.3 Añadir tratamientos:} El usuario podrá añadir tratamientos a un paciente.
+            \item \textbf{RF-4.2.4 Añadir reevaluaciones:} El usuario podrá añadir reevaluaciones a un paciente.
+            \item \textbf{RF-4.2.5 Añadir seguimientos:} El usuario podrá añadir seguimientos a un paciente.
+            \item \textbf{RF-4.2.6 Añadir comentarios:} El usuario podrá añadir comentarios a un paciente.
+        \end{itemize}
+        \item \textbf{RF-4.3 Modificar paciente:} Los usuarios podrán modificar los datos de los pacientes.
+        \begin{itemize}
+            \item \textbf{RF-4.3.1 Modificar datos demográficos:} El usuario podrá modificar los datos demográficos de un paciente.
+            \item \textbf{RF-4.3.2 Modificar datos enfermedad:} El usuario podrá modificar los datos de la enfermedad de un paciente.
+            \item \textbf{RF-4.3.3 Modificar datos antecedentes:} El usuario podrá modificar los datos demográficos de un paciente.
+            \item \textbf{RF-4.3.4 Modificar datos tratamientos:} El usuario podrá modificar los datos demográficos de un paciente.
+            \item \textbf{RF-4.3.5 Modificar datos reevaluaciones:} El usuario podrá modificar los datos demográficos de un paciente.
+            \item \textbf{RF-4.3.6 Modificar datos seguimientos:} El usuario podrá modificar los datos demográficos de un paciente.
+            \item \textbf{RF-4.3.7 Modificar comentarios:} El usuario podrá modificar los datos demográficos de un paciente.
+        \end{itemize}
+        \item \textbf{RF-4.4 Eliminar paciente:} Los usuarios podrán eliminar pacientes y todos sus datos correspondientes.
+    \end{itemize}
+	\item \textbf{RF-5 Sistema de visualización de datos:} Los usuarios podrán ver los datos de los pacientes de diferentes maneras.
+	\begin{itemize}
+	    \item \textbf{RF-5.1 Visualización de datos generales:} Los usuarios podrán visualizar los datos generales permitiendo la división mediante 2 atributos.
+	    \item \textbf{RF-5.2 Visualización de datos numéricos:} Los usuarios podrán visualizar los datos numéricos y distinta información estadística.
+	    \item \textbf{RF-5.3 Visualización de datos individualmente:}  Los usuarios podrán visualizar los datos individuales de los pacientes mediante tablas.
+	    \item \textbf{RF-5.4 Exportación de los datos:} Los usuarios podrán exportar los datos de todos los pacientes a un fichero Excel.
+	\end{itemize}
+	\item \textbf{RF-6 Creación de base de datos sintética:} Los usuarios podrán crear una base de datos sintética seleccionando distintos parámetros para los atributos numéricos.
+\end{itemize}
+
+\subsection{Requisitos no funcionales}
+
+\begin{itemize}
+    \item \textbf{RNF-1 Usabilidad:} La aplicación ha de ser intuitiva y fácil de usar para el usuario.
+    \item \textbf{RNF-1 Seguridad:} Los datos de los pacientes solo podrán ser observador por personas con acceso a la aplicación.
+    \item \textbf{RNF-1 Confidencialidad:} Los datos sensibles de los pacientes han de estar encriptados en la base de datos.
+    \item \textbf{RNF-1 Rendimiento:} Los tiempos de ejecución y los tiempos de carga han de ser aceptables.
+    \item \textbf{RNF-1 Mantenibilidad:} La aplicación ha de ser de fácil mantenimiento y actualización.
+    \item \textbf{RNF-1 Compatibilidad:} La aplicación ha de poder ser usada por los principales navegadores: Edge, Chrome, Firefox, etc.
+    \item \textbf{RNF-1 Facilidad de despliegue:} La aplicación ha de ser fácil de desplegar en un servidor o en local.
+\end{itemize}
+
 \section{Especificación de requisitos}
 
+En esta sección se van a desarrollar los casos de uso relacionados con los requisitos funcionales comentados anteriormente, con sus correspondientes diagramas.
+
+\subsection{Actores}
+
+En los casos de uso se pueden distinguir entre dos actores:
+
+\begin{itemize}
+    \item \textbf{Administrador:} Usuario con acceso a la gestión de usuarios, gestión de pacientes y visualización.
+    \item \textbf{Oncólogo:} Usuario con acceso a la gestión de pacientes y visualización.
+\end{itemize}
+
+\subsection{Diagramas de casos de uso}
+
+\subsubsection{Nivel 0}
+
+\imagen{Nivel0}{Diagrama de casos de uso nivel 0}
+
+\subsubsection{Nivel 1}
+
+\imagen{gestion_usuarios}{Diagrama de casos de uso nivel 1, gestión de usuarios}
+
+\imagen{gestionar_pacientes}{Diagrama de casos de uso nivel 1, gestión de usuarios}
+
+\imagen{gestionar_datos}{Diagrama de casos de uso nivel 1, gestión de datos personales}
+
+\imagen{visualizar_datos}{Diagrama de casos de uso nivel 1, visualizar datos}
+
+\subsection{Especificación de casos de uso}
+
+\tablaSmallSinColores{CU-1: Iniciar sesión}{p{3cm} p{.75cm} p{9cm}}{tablaCU1}{
+	\multicolumn{3}{p{10.25cm}}{CU-1: Iniciar sesión}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{El usuario se identifica en el sistema mediante el correo y la contraseña} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{No existe una sesión activa en ese ordenador}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-1, RF-1.1}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Anónimo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario accede a la url del login\\
+	 	 & 2. & El envía sus datos al servidor mediante el formulario\\
+	 	 & 3. & El servidor valida los datos y da acceso a la web \\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Que el usuario o la contraseña sean incorrectos\\
+	 	 & 2. & Campo en blanco\\\cline{2-3}
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
+}
+
+\tablaSmallSinColores{CU-2: Gestionar usuarios}{p{3cm} p{.75cm} p{9cm}}{tablaCU2}{
+	\multicolumn{3}{p{10.25cm}}{CU-2: Gestionar usuarios}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{El administrador podrá modificar, eliminar y crear usuarios} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Administrador con sesión iniciada}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-1.3, RF-2}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El administrador accede en el menú a la parte de gestión de usuarios administrador selecciona añadir nuevo usuario\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Ninguna\\\cline{2-3}
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
+}
+
+\tablaSmallSinColores{CU-2.1: Añadir usuarios}{p{3cm} p{.75cm} p{9cm}}{tablaCU2.1}{
+	\multicolumn{3}{p{10.25cm}}{CU-2.1: Añadir usuarios}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{El administrador podrá añadir un nuevo usuario} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Administrador con sesión iniciada}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-2.1}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El administrador selecciona añadir nuevo usuario\\
+	 	 & 2. & Se rellenan los campos con los datos del usuario \\
+	 	 & 3. & Se asigna un rol al usuario\\
+	 	 & 4. & Se confirma el formulario\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Que el correo ya exista en la base de datos\\
+	 	 & 2. & Que las contraseñas no coincidan\\
+	 	 & 3. & Campo en blanco\\\cline{2-3}
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
+}
+
+\tablaSmallSinColores{CU-2.2: Modificar usuarios}{p{3cm} p{.75cm} p{9cm}}{tablaCU2.2}{
+	\multicolumn{3}{p{10.25cm}}{CU-2.2: Modificar usuarios}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{El administrador podrá modificar los datos de un usuario existente} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Administrador con sesión iniciada}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-2.2, RF-2.2.1, RF-2.2.2}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El administrador selecciona modificar en el usuario cuyos datos se quieran\\
+	 	 & 2. & Se cambian los campos que se quieran modificar \\
+	 	 & 3. & Se confirma el formulario\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Que el correo ya exista en la base de datos\\
+	 	 & 2. & Campo en blanco\\\cline{2-3}
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Media}\\
+}
+
+\tablaSmallSinColores{CU-2.3: Eliminar usuarios}{p{3cm} p{.75cm} p{9cm}}{tablaCU2.3}{
+	\multicolumn{3}{p{10.25cm}}{CU-2.3: Eliminar usuarios}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{El administrador podrá eliminar un usuario existente} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Administrador con sesión iniciada}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-2.3}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El administrador selecciona eliminar en el usuario que se quiere borrar\\
+	 	 & 2. & Se confirma la eliminación \\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Ninguna\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
+}
+
+\tablaSmallSinColores{CU-3: Gestionar datos personales}{p{3cm} p{.75cm} p{9cm}}{tablaCU3}{
+	\multicolumn{3}{p{10.25cm}}{CU-3: Gestionar datos personales}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán añadir pacientes} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciada}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-3, RF-3.1}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario selecciona en el menú modificar datos personales\\
+	 	 & 2. & Se cambian los campos que se quieren modificar \\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Que el correo ya exista en la base de datos\\
+	 	 & 2. & Campo en blanco\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Media}\\
+}
+
+\tablaSmallSinColores{CU-3.1: Modificar contraseña}{p{3cm} p{.75cm} p{9cm}}{tablaCU3.1}{
+	\multicolumn{3}{p{10.25cm}}{CU-3.1: Modificar contraseña}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán añadir pacientes} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciada}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-3.2}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario selecciona en el menú modificar contraseña\\
+	 	 & 2. & Se introduce la contraseña antigua y la nueva contraseña \\
+	 	 & 3. & Se confirma el formulario\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Ninguna\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
+}
+
+\tablaSmallSinColores{CU-4: Gestionar pacientes}{p{3cm} p{.75cm} p{9cm}}{tablaCU4}{
+	\multicolumn{3}{p{10.25cm}}{CU-4: Gestionar pacientes}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán añadir pacientes} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciada}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-4}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario accede a la vista pacientes seleccionando la opción pacientes en el menú\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Ninguna\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
+}
+
+\tablaSmallSinColores{CU-4.1: Añadir pacientes}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.1}{
+	\multicolumn{3}{p{10.25cm}}{CU-4.1: Añadir pacientes}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán añadir pacientes} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciada}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-4.1}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario selecciona añadir nuevo paciente en el menú\\
+	 	 & 2. & Rellena los campos con los datos del paciente\\
+	 	 &3.  & Confirma el formulario\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Campo en blanco\\ 
+	 	 & 2. & Formato de fecha incorrecto\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
+}
+
+\tablaSmallSinColores{CU-4.2: Añadir datos pacientes}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.2}{
+	\multicolumn{3}{p{10.25cm}}{CU-4.2: Añadir datos pacientes}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán añadir datos a un paciente} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciada y paciente creado}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-4.2}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario selecciona el paciente\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Ninguna\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
+}
+
+\tablaSmallSinColores{CU-4.2.1: Añadir antecedentes}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.2.1}{
+	\multicolumn{3}{p{10.25cm}}{CU-4.2.1: Añadir antecedentes}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán añadir datos de una enfermedad a un paciente} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciada y paciente creado}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-4.2.1}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\ 
+	 	 & 1. & El usuario selecciona el paciente\\ 
+	 	 & 2. & Se selecciona enfermedad en el menú\\ 
+	 	 & 3. & Se rellena los campos con los datos de la enfermedad\\ 
+	 	 & 4. & Confirma el formulario\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\ 
+	 	 & 1. & Campo en blanco\\ 
+	 	 & 2. & Formato de fecha incorrecto\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
+}
+
+\tablaSmallSinColores{CU-4.2.2: Añadir antecedentes}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.2.2}{
+	\multicolumn{3}{p{10.25cm}}{CU-4.2.2: Añadir antecedentes}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán añadir antecedentes a un paciente} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciada y paciente creado}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-4.2.2}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\ 
+	 	 & 1. & El usuario selecciona el paciente\\
+	 	 & 2. & Se selecciona antecedentes en el menú\\
+	 	 & 3. & Se rellena los campos con los datos del antecedente\\
+	 	 & 4. & Confirma el formulario\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Campo en blanco\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
+}
+
+\tablaSmallSinColores{CU-4.2.3: Añadir tratamientos}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.2.3}{
+	\multicolumn{3}{p{10.25cm}}{CU-4.2.3: Añadir tratamientos}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán añadir tratamientos a un paciente} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciada y paciente creado}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-4.2.3}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario selecciona el paciente\\ 
+	 	 & 2. & Se selecciona tratamientos en el menú\\
+	 	 & 3. & Se rellena los campos con los datos del tratamiento\\
+	 	 & 4. & Confirma el formulario\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Campo en blanco\\
+	 	 & 2. & Formato de fecha incorrecto\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
+}
+
+\tablaSmallSinColores{CU-4.2.4: Añadir reevaluaciones}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.2.4}{
+	\multicolumn{3}{p{10.25cm}}{CU-4.2.4: Añadir reevaluaciones}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán añadir reevaluaciones a un paciente} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciada y paciente creado}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-4.2.4}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario selecciona el paciente\\
+	 	 & 2. & Se selecciona reevaluaciones en el menú\\
+	 	 & 3. & Se rellena los campos con los datos de la reevaluacion\\
+	 	 & 4. & Confirma el formulario\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Campo en blanco\\
+	 	 & 2. & Formato de fecha incorrecto\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
+}
+
+\tablaSmallSinColores{CU-4.2.5: Añadir seguimientos}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.2.5}{
+	\multicolumn{3}{p{10.25cm}}{CU-4.2.5: Añadir seguimientos}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán añadir seguimientos a un paciente} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciada y paciente creado}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-4.2.5}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario selecciona el paciente\\
+	 	 & 2. & Se selecciona seguimientos en el menú\\
+	 	 & 3. & Se rellena los campos con los datos del seguimiento\\
+	 	 & 4. & Confirma el formulario\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Campo en blanco\\
+	 	 & 2. & Formato de fecha incorrecto\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
+}
+
+\tablaSmallSinColores{CU-4.2.6: Añadir comentarios}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.2.6}{
+	\multicolumn{3}{p{10.25cm}}{CU-4.2.6: Añadir comentarios}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán añadir comentarios a un paciente} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciada y paciente creado}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-4.2.6}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario selecciona el paciente\\
+	 	 & 2. & Se selecciona comentarios en el menú\\
+	 	 & 3. & Se rellena el campo con el comentario\\
+	 	 & 4. & Confirma el formulario\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Campo en blanco\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Media}\\
+}
+
+\tablaSmallSinColores{CU-4.3: Modificar pacientes}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.3}{
+	\multicolumn{3}{p{10.25cm}}{CU-4.3: Modificar pacientes}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán modificar los datos de los pacientes} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciada y paciente creado}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-4.3}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario selecciona el paciente\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1 & Ninguna\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
+}
+
+\tablaSmallSinColores{CU-4.3.1: Modificar datos demográficos}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.3.1}{
+	\multicolumn{3}{p{10.25cm}}{CU-4.3.1: Modificar datos demográficos}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán modificar los datos de demográficos de un paciente} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciada y paciente creado}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-4.3.1}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario selecciona el paciente\\
+	 	 & 2. & Se modifican los campos que se van a cambiar\\
+	 	 & 3. & Confirma el formulario\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Campo en blanco\\
+	 	 & 2. & Formato de fecha incorrecto\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
+}
+
+\tablaSmallSinColores{CU-4.3.2: Modificar datos enfermedad}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.3.2}{
+	\multicolumn{3}{p{10.25cm}}{CU-4.3.2: Modificar datos enfermedad}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán modificar los datos de la enfermedad de un paciente} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciada y paciente creado}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-4.3.2}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario selecciona el paciente\\
+	 	 & 2. & El usuario selecciona enfermedad en el menú\\
+	 	 & 3. & Se modifican los campos que se van a cambiar\\
+	 	 & 4. & Confirma el formulario\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Campo en blanco\\
+	 	 & 2. & Formato de fecha incorrecto\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
+}
+
+\tablaSmallSinColores{CU-4.3.3: Modificar datos antecedentes}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.3.3}{
+	\multicolumn{3}{p{10.25cm}}{CU-4.3.3: Modificar datos antecedentes}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán modificar los datos de los antecedentes de un paciente} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciada y paciente creado}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-4.3.3}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario selecciona el paciente\\
+	 	 & 2. & El usuario selecciona antecedentes en el menú\\
+	 	 & 3. & Se modifican los campos que se van a cambiar\\
+	 	 & 4. & Confirma el formulario\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Campo en blanco\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
+}
+
+\tablaSmallSinColores{CU-4.3.4: Modificar datos tratamientos}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.3.4}{
+	\multicolumn{3}{p{10.25cm}}{CU-4.3.4: Modificar datos tratamientos}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán modificar los datos de los tratamientos de un paciente} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciada y paciente creado}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-4.3.4}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario selecciona el usuario\\
+	 	 & 2. & El usuario selecciona tratamientos en el menú\\
+	 	 & 3. & Se modifican los campos que se van a cambiar\\
+	 	 & 4. & Confirma el formulario\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Campo en blanco\\
+	 	 & 2. & Formato de fecha incorrecto\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
+}
+
+\tablaSmallSinColores{CU-4.3.5: Modificar datos reevaluaciones}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.3.5}{
+	\multicolumn{3}{p{10.25cm}}{CU-4.3.5: Modificar datos reevaluaciones}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán modificar los datos de las reevaluaciones de un paciente} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciada y paciente creado}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-4.3.5}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario selecciona el usuario\\
+	 	 & 2. & El usuario selecciona reevaluaciones en el menú\\
+	 	 & 3. & Se modifican los campos que se van a cambiar\\
+	 	 & 4. & Confirma el formulario\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Campo en blanco\\
+	 	 & 2. & Formato de fecha incorrecto\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
+}
+
+\tablaSmallSinColores{CU-4.3.6: Modificar datos seguimientos}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.3.6}{
+	\multicolumn{3}{p{10.25cm}}{CU-4.3.6: Modificar datos seguimientos}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán modificar los datos de los seguimientos de un paciente} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciada y paciente creado}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-4.3.6}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario selecciona el usuario\\
+	 	 & 2. & El usuario selecciona seguimientos en el menú\\
+	 	 & 3. & Se modifican los campos que se van a cambiar\\
+	 	 & 4. & Confirma el formulario\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Campo en blanco\\
+	 	 & 2. & Formato de fecha incorrecto\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
+}
+
+\tablaSmallSinColores{CU-4.3.7: Modificar comentarios}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.3.7}{
+	\multicolumn{3}{p{10.25cm}}{CU-4.3.7: Modificar comentarios}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán modificar los comentarios a un paciente} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciada y paciente creado}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-4.3.7}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario selecciona el usuario\\
+	 	 & 2. & El usuario selecciona comentarios en el menú\\
+	 	 & 3. & Se modifican el comentario\\
+	 	 & 4. & Confirma el formulario\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Campo en blanco\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
+}
+
+\tablaSmallSinColores{CU-4.4: Eliminar paciente}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.4}{
+	\multicolumn{3}{p{10.25cm}}{CU-4.4: Eliminar paciente}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán eliminar pacientes} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciada y paciente creado}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-4.4}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario selecciona eliminar usuario\\
+	 	 & 2. & El usuario selecciona el usuario a eliminart\\
+	 	 & 3. & Confirma el formulario\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Ninguna\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
+}
+
+\tablaSmallSinColores{CU-5: Visualización de los datos generales}{p{3cm} p{.75cm} p{9cm}}{tablaCU5}{
+	\multicolumn{3}{p{10.25cm}}{CU-5: Visualización de los datos generales}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán visualizar características de los pacientes mediante gráficas} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciada y pacientes en la base de datos}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-5, RF-5.1}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario selecciona gráficas en el menú\\
+	 	 & 2. & El usuario selecciona los campos en los que desea separar las gráficas\\
+	 	 & 3. & Confirma el formulario\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Que no existan pacientes con esos atributos en específico\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Media}\\
+}
+
+\tablaSmallSinColores{CU-6: Visualización de los datos numéricos}{p{3cm} p{.75cm} p{9cm}}{tablaCU6}{
+	\multicolumn{3}{p{10.25cm}}{CU-6: Visualización de los datos numéricos}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán visualizar diferentes atributos estadísticos de los datos numéricos} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciada y pacientes en la base de datos}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-5.2}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario selecciona percentiles en el menú\\
+	 	 & 2. & El usuario selecciona el campo que desea obtener información\\
+	 	 & 3. & Confirma el formulario\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Que no existan pacientes con ese atributos en específico\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Media}\\
+}
+
+\tablaSmallSinColores{CU-7: Visualización de los datos individualmente}{p{3cm} p{.75cm} p{9cm}}{tablaCU7}{
+	\multicolumn{3}{p{10.25cm}}{CU-7: Visualización de los datos individualmente}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán visualizar los datos de los pacientes individualmente} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciada y pacientes en la base de datos}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-5.3}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario selecciona pacientes en el menú\\
+	 	 & 2. & El usuario selecciona el paciente del cual desea ver los datos\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Ninguna\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Baja}\\
+}
+
+\tablaSmallSinColores{CU-8: Exportación de los datos}{p{3cm} p{.75cm} p{9cm}}{tablaCU8}{
+	\multicolumn{3}{p{10.25cm}}{CU-8: Exportación de los datos}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán exportar los datos de los paciente a un fichero Excel} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciada y pacientes en la base de datos}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-5.4}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario selecciona exportar datos en el menú\\
+	 	 & 2. & El usuario rellena el campo con el nombre del fichero\\
+	 	 & 2. & El usuario confirma el formulario\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Ninguna\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
+}
+
+\tablaSmallSinColores{CU-9: Creación de base de datos sintética}{p{3cm} p{.75cm} p{9cm}}{tablaCU9}{
+	\multicolumn{3}{p{10.25cm}}{CU-9: Creación de base de datos sintética}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán crear una base de datos con datos sintéticos} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciadas}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-5.4}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario selecciona base sintética en el menú\\
+	 	 & 2. & El usuario rellena los campos\\
+	 	 & 2. & El usuario confirma el formulario\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Datos introducidos fuera de los rangos permitidos\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Media}\\
+}
 
