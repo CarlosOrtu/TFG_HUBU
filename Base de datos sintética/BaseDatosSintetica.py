@@ -1,5 +1,5 @@
 #!c:/Python3.9/python.exe
-# prueba.py
+# BaseDatosSintetica.py
 
 import sys
 import random
@@ -22,7 +22,7 @@ bebedor = ["Bebedor", "Exbebedor", "Nunca bebedor", "Desconocido"]
 carcinogenos = ["Asbesto", "Desconocido"]
 
 #Datos enfermedad
-afectacion = ["Uni ganglionar", "Multiestación"]	
+afectacion = ["Uni ganglionar", "Multiestación"]    
 M = ["0", "1a", "1b", "1c"]
 numAfectacion = ["0", "1", "2-4", "Mayor que 4"]
 TNM = ["IA1", "IA2", "IA3", "IB", "IIA", "IIB", "IIIA", "IIIB", "IIIC", "IVa", "IVb"]
@@ -88,7 +88,7 @@ modoAdministracion = ["Oral", "Intravenoso"]
 tipoFarmaco = ["Quimioterapia", "Inmunoterapia", "Tratamiento dirigido", "Antiangiogénico", "Quimoterapia + Inmunoterapia", "Tratamiento dirigido", "Quimioterapia + Tratamiento dirigido", "Quimioterapia + Antiangiogénico"]
 farmacos = ["Cisplatino", "Carboplatino", "Vinorelbina", "Paclitaxel", "Nab-paclitaxel" ,"Docetaxel", "Pemetrexed", "Gemcitabina", "Bevacizumab", "Ramucirumab", "Nintedanib", "Nivolumab", "Pembrolizumab", "Atezolizumab", "Avelumab", "Erlotinib", "Gefinitib", "Afatinib", "Dacomitinib", "Osimertinib", "Mobocertinib", "Amivantamab", "Crizotinib", "Alectinib", "Brigatinib", "Ceritinib", "Lorlatinib", "Dabratinib", "Trametinib", "Tepotinib", "Capmatinib", "Trastuzumab-deruxtecán"]
 subtipoRadioterapia = ["Radical", "Paliativa"]
-localizacionRadioterapia = ["Pulmonar", "Pulmonar + mediastino", "Ósea", "Suprarrenal", "SNC", "Hígado", "Ganglionar"]	
+localizacionRadioterapia = ["Pulmonar", "Pulmonar + mediastino", "Ósea", "Suprarrenal", "SNC", "Hígado", "Ganglionar"]  
 subtipoCirugia = ["Neumonectomía", "Lobectomía", "Bilobectomía", "Segmentectomía", "Resección", "Resección atípica"]
 
 #Datos reevaluaciones
@@ -114,7 +114,8 @@ lambdaCiclos = float(sys.argv[7].replace(',', '.'))
 def main():
     miConexion, cur = establecerConexionBase()
     numPacientes = int(sys.argv[1])
-    for x in range(1, numPacientes+1):
+    idMaxPaciente = obtenerIdMaximo(cur, "Pacientes")
+    for x in range(idMaxPaciente + 1, idMaxPaciente+numPacientes+1):
         insertarPaciente(x, cur, miConexion)
         insertarEnfermedad(x, x, cur, miConexion)
         numTablas = obtenerNumeroTablas()
@@ -164,14 +165,16 @@ def obtenerIdMaximo(cur, tabla):
         cur.execute("SELECT max(id_antecedente_f) from antecedentes_familiares")
     elif(tabla == "Tratamientos"):   
         cur.execute("SELECT max(id_tratamiento) from tratamientos")
+    elif(tabla == "Pacientes"):
+        cur.execute("SELECT max(id_paciente) from pacientes")
     myresult = cur.fetchone()
     if(myresult[0] == None):
         return 0
     return myresult[0]
 
 def establecerConexionBase():
-    miConexion = mysql.connector.connect( host='localhost', user= 'root', passwd='', db='pruebaReunion' )
-    return miConexion, miConexion.cursor()	
+    miConexion = mysql.connector.connect( host='localhost', user= 'root', passwd='', db='hubu' )
+    return miConexion, miConexion.cursor()  
 
 def insertarPaciente(id_paciente, cur, miConexion):
     id_paciente = str(id_paciente)
@@ -300,7 +303,7 @@ def insertarSeguimiento(idPaciente, cur, miConexion):
 
 class Paciente:
 
-    def __init__(self):
+    def _init_(self):
         self.nombre = fake.first_name()
         self.apellidos = fake.last_name()
         self.sexo = sexo[random.randint(0,1)]
@@ -316,7 +319,7 @@ class Paciente:
 
 class Enfermedad:
 
-    def __init__(self):
+    def _init_(self):
         self.fecha_primera_consulta = fake.date()
         fecha_inicio = datetime.strptime(self.fecha_primera_consulta+' 00:00:00', '%Y-%m-%d %H:%M:%S')
         self.fecha_diagnostico = str(fake.date_time_between_dates(datetime_start=fecha_inicio).date())
@@ -336,18 +339,18 @@ class Enfermedad:
 
 class Sintoma:
 
-    def __init__(self):
+    def _init_(self):
         self.tipoSintoma = tipoSintoma[random.randint(0,10)]
         self.fecha_inicio = fake.date()
 
 class Metastasis:
 
-    def __init__(self):
+    def _init_(self):
         self.tipoMetastasis = tipoMetastasis[random.randint(0,17)]
 
 class Biomarcador:
 
-    def __init__(self):
+    def _init_(self):
         self.nombreBiomarcador = nombreBiomarcador[random.randint(0,13)]
         if(self.nombreBiomarcador == "NGS"):
             self.tipo = tipoNGS[random.randint(0,1)]
@@ -403,42 +406,42 @@ class Biomarcador:
 
 class PruebaRealizada:
 
-    def __init__(self):
+    def _init_(self):
         self.tipoPrueba = tipoPrueba[random.randint(0,8)] 
 
 class TecnicaRealizada:
 
-    def __init__(self):
+    def _init_(self):
         self.tipoTecnica = tipoTecnica[random.randint(0,5)] 
 
 class OtroTumor:
 
-    def __init__(self):
+    def _init_(self):
         self.tipoOtroTumor = tipoOtroTumor[random.randint(0,12)] 
 
 class AntecedenteMedico:
 
-    def __init__(self):
+    def _init_(self):
         self.tipoAntecedenteMedico = tipoAntecedenteMedico[random.randint(0,9)] 
 
 class AntecedenteOncologico:
 
-    def __init__(self):
+    def _init_(self):
         self.tipoAntecedenteOncologico = tipoAntecedenteOncologico[random.randint(0,10)] 
 
 class AntecedenteFamiliar:
 
-    def __init__(self):
+    def _init_(self):
         self.tipoAntecedenteFamiliar = tipoAntecedenteFamiliar[random.randint(0,3)] 
 
 class EnfermedadFamiliar:
 
-    def __init__(self):
+    def _init_(self):
         self.tipoEnfermedadFamiliar = tipoEnfermedadFamiliar[random.randint(0,10)]
 
 class Tratamiento:
 
-    def __init__(self):
+    def _init_(self):
         self.tipoTratamiento = tipoTratamiento[random.randint(0,2)]
         if(self.tipoTratamiento == "Quimioterapia"):
             self.subtipoQuimioterapia = subtipoQuimioterapia[random.randint(0,2)]
@@ -470,12 +473,12 @@ class Tratamiento:
 
 class Farmaco:
 
-    def __init__(self):
+    def _init_(self):
         self.nombreFarmaco = farmacos[random.randint(0,31)]
 
 class Reevaluacion:
 
-    def __init__(self):
+    def _init_(self):
         self.fechaReevaluacion = fake.date()
         self.estadoReevaluacion = estadoReevaluacion[random.randint(0,4)]
         if(self.estadoReevaluacion == "Progresión"):
@@ -487,7 +490,7 @@ class Reevaluacion:
 
 class Seguimiento:
 
-    def __init__(self):
+    def _init_(self):
         self.fechaSeguimiento = fake.date()
         self.estadoSeguimiento = estadoSeguimiento[random.randint(0,2)]
         if(self.estadoSeguimiento == "Fallecido"):
@@ -497,5 +500,5 @@ class Seguimiento:
             self.motivoFallecimiento = "Null"
             self.fechaFallecimiento = "Null"
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     main()

@@ -77,14 +77,15 @@
 		if(entorno == "local"){
 			var idPaciente = $(element).parent().prev().prev().prev().text();
 			var url = urlPrincipal+'/TFG_HUBU/Laravel/public/eliminar/paciente/'+idPaciente;
+			var nombre = $(element).parent().prev().prev().text();
 		}
 		else{
 			var idPaciente = $(element).parent().prev().prev().text();
 			var url = urlPrincipal+'/eliminar/paciente/'+idPaciente;
+			var nombre = $(element).parent().prev().text();
 		}
-		var NHC = $(element).parent().prev().text();
 		Swal.fire({
-		  title: 'Estas seguro que deseas eliminar el paciente con el nombre '+NHC,
+		  title: 'Estas seguro que deseas eliminar el paciente con el nombre '+nombre,
 		  icon: "warning",
 		  showDenyButton: true,
 		  confirmButtonText: 'Eliminar',

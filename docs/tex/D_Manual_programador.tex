@@ -2,10 +2,247 @@
 
 \section{Introducción}
 
+En este anexo se va explicar la estructura del proyecto, los requisitos necesarios para poder ejecutarlo desde cualquier ordenador  
+
 \section{Estructura de directorios}
 
-\section{Manual del programador}
+El contenido del repositorio se estructura principalmente en 4 directorios:
+
+\begin{itemize}
+    \item \textbf{/Base de datos sintética:} Contiene el script para generar la base de datos sintética.
+    \item \textbf{/Lavarel:} Contiene el proyecto de la aplicación web junto con los test, las migraciones, los seeders y el enrutado.
+    \item \textbf{/SQL:} Contiene los scripts SQL que crean la estructura de la base de datos e introducen los datos necesarios para que funcione la aplicación.
+    \item \textbf{/docs:} Contiene la documentación del proyecto. 
+\end{itemize}
+
+Dentro del proyecto Laravel los directorios más importantes son:
+
+\begin{itemize}
+    \item \textbf{/app:} Contiene el script para generar la base de datos sintética.
+    \begin{itemize}
+        \item \textbf{/Exports:} Contiene los ficheros necesarios para realizar la exportación de la base de datos a el fichero Excel.
+        \item \textbf{/Http:} 
+        \begin{itemize}
+            \item \textbf{/Controllers:}
+            \item \textbf{/Middleware:}
+        \end{itemize}
+        \item \textbf{/JoinsTablas:} Contiene el fichero que permite devuelve un outter join entre todas las tablas.
+        \item \textbf{/Models:} Contiene los modelos de las tablas de la base de datos, cada uno con todos sus atributos y con sus relaciones.
+        \item \textbf{/Rules:} Contiene las reglas que hemos añadido para la validación de datos como por ejemplo para comprobar correo único en la base de datos.
+        \item \textbf{/Utilidades:} Contiene el fichero que permite tanto la encriptación de datos como la desencriptación .
+    \end{itemize}
+    \item \textbf{/config:} Contiene los ficheros de configuración del proyecto Laravel.
+    \begin{itemize}
+        \item \textbf{/app.php:} Fichero de configuración generales del proyecto, como por ejemplo nombre de la aplicación, zona horaria, etc.
+        \item \textbf{/auth.php} Fichero de configuración de la autentificación del login.
+    \end{itemize}
+    \item \textbf{/database:} Contiene los ficheros para poner la base de datos a punto para poder usar la aplicación.
+    \begin{itemize}
+        \item \textbf{/migrations:} Contiene ficheros para poder crear la estructura de cada una de las tablas, con sus atributos y sus relaciones.
+        \item \textbf{/seeders:} Contiene ficheros para introducir los datos necesarios para que funcione la aplicación.
+    \end{itemize}
+    \item \textbf{/public:} 
+    \begin{itemize}
+        \item \textbf{/css:} Contiene los ficheros \textit{.css} que van a servir para dar formato a nuestra web.
+        \item \textbf{/js:} Contiene los ficheros \textit{.js} los cuales va a añadir animaciones y efectos a nuestra web.
+    \end{itemize}
+    \item \textbf{/resources/views:} Contiene los ficheros HTML de todas las vistas de la web.
+    \item \textbf{/routes/web.php:} Contiene todas las rutas de la web con sus correspondientes peticiones HTTP-
+    \item \textbf{/tests:} Contiene todos los test realizados con phpunit.
+    \begin{itemize}
+        \item \textbf{/Featute:} Contiene los test realizados de la gestión de pacientes y usuarios.
+        \item \textbf{/Ini:} Contiene ficheros para crear pacientes y usuarios para los tests.
+    \end{itemize}
+    \item \textbf{/.env:} Contiene las variables de entorno.
+    \item \textbf{/phpunit.xml:} Contiene la configuración para poder ejecutar los tests.
+\end{itemize}
+
+\section{Manual del programador} \label{manual}
+
+En este apartado se van a comentar todos los programas y versiones que van a ser necesarias para correr la aplicación en local.
+
+\subsection{WAMP}
+
+Es un conjunto de programas para permitir el desarrollo de aplicaciones web en local en sistemas Windows, esta consta de 4 herramientas principales:
+\begin{itemize}
+    \item \textbf{Apache:} Servidor web HTTP de código abierto.
+    \item \textbf{MySQL:} Base de datos relacional 
+    \item \textbf{PHP:} Lenguaje de programación centrado en el desarrollo web.
+    \item \textbf{PhpMyAdmin:} Programa para gestionar bases de datos.
+\end{itemize}
+
+WAMP se descarga en la web \href{https://www.wampserver.com/}{https://www.wampserver.com/}, en el instalador usar todos los valores por defecto y la versión que se esta usando es la 3.2.3.3.
+
+\subsection{composer}
+
+Es un gestor de paquetes para PHP y es el que en nuestro proyecto nos ha permitido tanto descargar Laravel como las librerías de PHP que hemos necesitado. La versión que se esta usando es la 2.0.13.
+
+Composer se descarga en la web \href{https://getcomposer.org/}{https://getcomposer.org/}, en el instalador usar todos los valores por defecto, excepto cuando pregunta por la version de PHP que queremos usar, en este caso seleccionaremos "\textit{C:\textbackslash{}wamp64\textbackslash{}bin\textbackslash{}php\\\textbackslash{}php7.4.9\textbackslash{}php.exe}" como podemos ver en la imagen \ref{fig:composer}.
+
+\imagenTam{composer}{Versión de PHP a elegir en el instalador de composer}{0.7}
+
+\subsection{Python 3}
+
+Es un lenguaje de programación, el cual se ha usado para la creación de la base de datos sintética, y es necesario tener Python instalado en el ordenador para permitir correr este script. La versión que se esta usando es la 3.9.5.
+
+Python se descarga en la web \href{https://www.python.org/downloads/release/python-395/}{https://www.python.org/downloads/release\\/python-395/}, en el instalador seleccionar las opciones por defecto, excepto en la localización que vamos a poner "\textit{C:\textbackslash{}Python3.9\textbackslash{}}" como podemos ver en la imagen \ref{fig:python}.
+
+\newpage
+
+\subsubsection{Librerías Python}
+
+Para este proyecto va a ser necesario tener instaladas la siguiente librerías de Python:
+\begin{itemize}
+    \item numpy
+    \item mysql.connector
+    \item faker
+    \item datetime
+\end{itemize}
+
+Para instalar las siguiente librerías podemos usar el comando "\textit{pip install nombre de la librería}"
+
+\imagenTam{python}{Localización a elegir en el instalador de python}{0.7}
 
 \section{Compilación, instalación y ejecución del proyecto}
 
+En este apartado se va a explicar como instalar y ejecutar el proyecto en un entorno local.
+
+\subsection{Importar el proyecto}
+
+Una vez tengamos instalado todos los programas y librerías como se ha explicado en el punto \ref{manual}, lo primero vamos a hacer va a ser importar el proyecto, para esto seguiremos los siguientes pasos:
+
+\begin{enumerate}
+    \item Acceder al repositorio: \href{https://github.com/CarlosOrtu/TFG_HUBU}{https://github.com/CarlosOrtu/TFG\_HUBU}.
+    \item Descargar el contenido del repositorio desde \textbf{Code > Download ZIP} como se puede ver en la imagen \ref{fig:git_descargar}
+    \imagenTam{git_descargar}{Descargar el proyecto GitHub}{0.5}
+    \item Descomprimir el proyecto.
+\end{enumerate}
+    
+\subsection{Añadir el proyecto a WAMP}
+
+Una vez tenemos todos los archivos del proyecto, lo siguiente que tendremos que hacer será añadir este proyecto a WAMP. Para esto seguiremos los siguientes pasos.
+
+\begin{enumerate}
+    \item Accedemos a la ruta "\textit{C:\textbackslash{}wamp64\textbackslash{}www}"{} o a la ruta donde se haya descargado WAMP y posteriormente a la carpeta www.
+    \item Creamos una carpeta con el nombre TFG\_HUBU.
+    \item Pegamos todos los ficheros que hemos descomprimido del proyecto dentro de esta carpeta.
+\end{enumerate}
+
+\subsection{Instalar dependencias}
+
+Una vez que tenemos el proyecto ya añadido a WAMP nos faltaría añadir todas las dependencias, es decir todas las librerías de PHP que se van a instalar con un solo comando gracias al fichero \textit{composer.json}. Para esto seguiremos los siguientes pasos:
+
+\begin{enumerate}
+    \item Abrimos el terminal de windows.
+    \item Accedemos al directorio "\textit{cd C:\textbackslash{}wamp64\textbackslash{}www\textbackslash{}TFG\_HUBU\textbackslash{}Laravel}"
+    \item Ejecutamos el comando \textit{composer install}.
+\end{enumerate}
+
+\subsection{Poner a punto las variables de entorno}
+
+Para el correcto funcionamiento de la aplicación vamos a definir las variables de entorno, las cuales se encargan, entre otras cosas, de establecer la conexión con la base de datos. Para esto seguiremos los siguientes pasos:
+
+\begin{enumerate}
+    \item Accedemos al directorio "\textit{cd C:\textbackslash{}wamp64\textbackslash{}www\textbackslash{}TFG\_HUBU\textbackslash{}Laravel}"
+    \item Creamos el fichero donde se definen las variables de entorno con el comando "\textit{copy .env.example .env}.
+    \item Abrimos el fichero .env con cualquier editor de texto.
+    \item Cambiamos las variables de entorno:
+    \begin{itemize}
+        \item APP\_NAME=TFG\_HUBU
+        \item DB\_DATABASE=hubu
+    \end{itemize}
+    \item Generamos la clave automaticamente con el comando "\textit{php artisan key:generate}"
+\end{enumerate}
+
+\subsection{Crear la base de datos}
+
+Lo primero que tendremos que hacer será ejecutar wampserver para tener disponibles todas las herramientas. Una vez ejecutado, vamos a crear una base de datos con el nombre \textbf{hubu} como hemos definido anteriormente en las variables de entorno. Esto lo podemos realizar de dos maneras:
+
+\begin{enumerate}
+    \item Mediante la consola MySQL:
+    \begin{enumerate}
+        \item Para acceder a la consola MySQL seleccionamos el icono de wamp con el clic izquierdo, en el menú seleccionamos MySQL y por último seleccionamos MySQL console como podemos ver en la imagen \ref{fig:mysql_consola}.
+        \imagenTam{mysql_consola}{Acceder a la consola MySQL}{0.8}
+        \item Una vez en la consola ingresamos el usuario \textbf{root} y la contraseña la dejamos vacía.
+        \item Con la sesión ya iniciada ejecutamos el comando "\textit{CREATE DATABASE memoria;}".
+    \end{enumerate}
+    \item Mediante PhpMyAdmin:
+    \begin{enumerate}
+        \item Accedemos en el navegador a la url "\textit{http://localhost/phpmyadmin/}".
+        \item Iniciamos sesión con el usuario \textbf{root} y la contraseña vacía.
+        \item Con la sesión ya iniciada seleccionamos \textbf{Nueva} en el menú (\ref{fig:phpmyadmin_crear}) y le ponemos como nombre a la base de datos \textbf{hubu}.
+        \imagenTam{phpmyadmin_crear}{Acceder a la consola MySQL}{0.3}
+    \end{enumerate}
+\end{enumerate}
+
+\subsection{Poner a punto la base de datos}
+
+Una vez creada la base de datos necesitamos crear la estructura y añadir los datos necesarios para que funcione como los roles y el primer usuario para poder realizar el login. Esto lo podemos realizar de dos maneras:
+
+\begin{enumerate}
+    \item Mediante \textit{migrations} y \textit{seeders} de Laravel:
+    \begin{enumerate}
+        \item Abrimos la terminal de windows, accedemos a la ruta "\textit{C:\textbackslash{}wamp\\64\textbackslash{}www\textbackslash{}TFG\_HUBU\textbackslash{}Laravel}"
+        \item Ejecutamos el comando "\textit{php artisan migrate}" para ejecutar las migraciones y crear la estructura de tablas.
+        \item Ejecutamos el comando "\textit{php artisan db:seed}" para ejecutar los \textit{seeders} y añadir los primeros datos.
+    \end{enumerate}
+    \item Mediante scripts SQL:
+    \begin{enumerate}
+        \item Abrimos la consola de MySQL como hemos explicado en el punto anterior.
+        \item Una vez en la consola ingresamos el usuario \textbf{root} y la contraseña la dejamos vacía.
+        \item Ejecutamos el comando "\textit{use hubu}" para que los scripts se ejecuten sobre esta base de datos.
+        \item Ejecutamos los 3 scripts con los siguientes comandos:
+        \begin{itemize}
+            \item "\textit{source C:/wamp64/www/TFG\_HUBU/SQL/create\_users\_roles.sql;}"
+            \item "\textit{source C:/wamp64/www/TFG\_HUBU/SQL/create\_pacientes.sql;}"
+            \item "\textit{source C:/wamp64/www/TFG\_HUBU/SQL/add\_roles\_admin.sql;}"
+        \end{itemize}
+    \end{enumerate}
+\end{enumerate}
+
+\subsection{Acceso a la web}
+
+Una vez se han realizado todos estos pasos ya podemos acceder a la web. Para esto seguiremos los siguientes pasos:
+
+\begin{enumerate}
+    \item Accedemos a la url "\textit{http://localhost/TFG\_HUBU/Laravel/public}"
+    \item Iniciamos sesión con el usuario creado cuyo correo es \textbf{administrador@gmail.com} y contraseña \textbf{1234}.
+\end{enumerate}
+
 \section{Pruebas del sistema}
+
+Como ya se ha comentado en la memoria para este proyecto se han realizado tres tipos de pruebas: pruebas de integración, pruebas de validación y pruebas de seguridad. Como las pruebas de validación son pruebas manuales realizadas tanto por el cliente como por el usuario final no va a existir ninguna manera de ejecutarlas automáticamente como las otras dos.
+
+\subsection{Pruebas de integración}
+
+Las pruebas de integración se han realizado para asegurar que la introducción, la modificación y la eliminación tanto de pacientes como de usuarios funciona sin ningún problema.
+
+Para ejecutar estas pruebas primer se han tenido que realizar todos los pasos indicados en el apartado \ref{manual}, luego se tendrán que seguir los siguientes pasos:
+
+\begin{enumerate}
+    \item Abrir el terminal de windows.
+    \item Acceder a la ruta "\textit{C:\textbackslash{}wamp64\textbackslash{}www\textbackslash{}TFG\_HUBU\textbackslash{}Laravel}
+    \item Ejecutar el comando "\textit{php artisan test --testsuite=Feature}"
+\end{enumerate}
+
+\newpage
+
+Si todo se ha realizado correctamente el resultado de los test será el de la imagen \ref{fig:test_integracion}.
+
+\imagenTam{test_integracion}{Resultado de los test de integración}{0.7}
+
+\subsection{Pruebas de seguridad}
+
+Estas pruebas se han realizado para asegurar el correcto funcionamiento de los \textit{middleware} y asegurar que usuarios sin permiso no puedan acceder a rutas restringidas.
+
+Para la ejecución de las pruebas se han de seguir los siguientes pasos:
+
+\begin{enumerate}
+    \item Abrir el terminal de windows.
+    \item Acceder a la ruta "\textit{C:\textbackslash{}wamp64\textbackslash{}www\textbackslash{}TFG\_HUBU\textbackslash{}Laravel}
+    \item Ejecutar el comando "\textit{php artisan test --testsuite=Seguridad}"
+\end{enumerate}
+
+Si todo se ha realizado correctamente el resultado de los test será el de la imagen.
+
+\textcolor{red}{Faltan por implementar}

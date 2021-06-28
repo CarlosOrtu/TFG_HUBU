@@ -2,39 +2,39 @@
 
 \section{Reuniones con los oncólogos y preparación del proyecto}
 
-Al principio del proyecto no se conocía muy bien cual iba a ser el alcance de este ya que solo se sabía el propósito general, una aplicación web que permitiera la gestión de los datos de los pacientes con cáncer de pulmón y que facilitará una mejor visualización de estos. Pero como el desarrollo web era un campo que me llamaba mucho la atención y el echo que mi proyecto fuera a tener una utilidad real y encima en un campo como la medicina que cualquier mejora o avance puede suponer mejorar la calidad de vida de muchas personas, fue motivo suficiente para elegir este trabajo.
+Al principio del proyecto no se conocía muy bien cuál iba a ser el alcance de este ya que solo se sabía el propósito general, una aplicación web que permitiera la gestión de los datos de los pacientes con cáncer de pulmón y que facilitará una mejor visualización de estos. Pero como el desarrollo web era un campo que me llamaba mucho la atención y el hecho que mi proyecto fuera a tener una utilidad real y encima en un campo como la medicina que cualquier mejora o avance puede suponer mejorar la calidad de vida de muchas personas, fue motivo suficiente para elegir este trabajo.
 
 Las dos primeras semanas de proyecto se basaron única y exclusivamente en realizar reuniones con los oncólogos Raquel Gómez Bravo y Enrique Lastra Aras para recoger las historias de usuario del proyecto, entender los datos que se iban a recoger y valorar las distintas posibilidades que había para crear la estructura de la base de datos relacional, adaptar el diseño a lo que ellos buscaban y elegir las herramientas que me fueran a permitir llevar a cabo este proyecto.
 
-Las primeras reuniones fueron complicadas de afrontar debido a que era la primera vez que se trataba con clientes reales y la primera vez que aplicaba los conocimientos adquiridos de software en un escenario real, pero gracias a la colaboración de los oncólogos y a la ayuda de los tutores pudimos acabar entendiéndonos perfectamente y redactando lo que sería el comienzo del proyecto. 
+Las primeras reuniones fueron complicadas de afrontar debido a que era la primera vez que se trataba con clientes reales y la primera vez que aplicaba los conocimientos adquiridos de ingeniería de software en un escenario real, pero gracias a la colaboración de los oncólogos y a la ayuda de los tutores pudimos acabar entendiéndonos perfectamente y redactando lo que sería el comienzo del proyecto. 
 
 \section{Migraciones, seeders y Scripts SQL}
 
 Al comienzo del desarrollo de la aplicación web se empezó a trabajar en local con el entorno de desarrollo WAMP (\ref{WAMP}), pero con la perspectiva de que en el futuro este proyecto iba a tener que ser integrado tanto en un host online como probablemente en el servidor del HUBU. Por lo tanto no solo iba a tener que realizar la aplicación si no también una manera de poder migrar tanto esta como la base de datos. Esta fue una de las razones por las cuales se selecciono Laravel (\ref{Laravel}) ya que se conocía que tenía dos herramientas para realizar esto de manera sencilla.
 
-La primera herramienta son las migraciones, Laravel nos permite crear clases que hereden de Migration con dos funciones, la función up la cual sirve para crear la tabla con sus correspondientes campos y referencias (\ref{fig:migracion_up}) y la función down que elimina la tabla. Para ejecutar todas las migraciones y crear la estructuras de tablas completa solo hace falta ejecutar el comando \textit{php artisan migrate} en la dirección en la que este instalado nuestro proyecto Laravel \cite{migraciones}.
+La primera herramienta son las migraciones, Laravel nos permite crear clases que hereden de \textit{Migration} con dos funciones, la función \textit{up} la cual sirve para crear la tabla con sus correspondientes campos y referencias (\ref{fig:migracion_up}) y la función \textit{down} que elimina la tabla. Para ejecutar todas las migraciones y crear la estructuras de tablas completa solo hace falta ejecutar el comando \textit{php artisan migrate} en la dirección en la que este instalado nuestro proyecto Laravel \cite{migraciones}.
 
 \imagen{migracion_up}{Método up de la migración de la tabla metástasis}
 
-La segunda herramienta son los seeders, Laravel nos permite insertar datos en las tablas ya creadas creando clases que hereden de Seeder, estas clases tendrán un solo método llamado run el cual insertará los datos dentro de la tabla especificada (\ref{fig:seeders}). Para ejecutar todos los seeders y introducir los datos solo hace falta ejecutar el comando \textit{php artisan db:seed}  en la misma dirección que las migraciones \cite{seeders}. 
+La segunda herramienta son los \textit{seeders}, Laravel nos permite insertar datos en las tablas ya creadas creando clases que hereden de \textit{Seeder}, estas clases tendrán un solo método llamado \textit{run} el cual insertará los datos dentro de la tabla especificada (\ref{fig:seeders}). Para ejecutar todos los \textit{seeders} y introducir los datos solo hace falta ejecutar el comando \textit{php artisan db:seed}  en la misma dirección que las migraciones \cite{seeders}. 
 
-\imagen{seeders}{Método run del seeder de los roles}
+\imagen{seeders}{Método \textit{run} del \textit{seeder} de los roles}
 
-Como último también se han realizado scripts en SQL para realizar lo mismo que he comentado anteriormente en las migraciones y en los seeders, el motivo de esto es para que en el caso que estas herramientas fallen se pueda seguir poniendo a punto la base de datos ejecutando los scripts SQL.
+Por último también se han realizado scripts en SQL para realizar lo mismo que he comentado anteriormente en las migraciones y en los \textit{seeders}, el motivo de esto es para que en el caso que estas herramientas fallen se pueda seguir poniendo a punto la base de datos ejecutando los scripts SQL.
 
 \section{Gestión de errores}
 
-Para este trabajo se ha tenido muy en cuenta dos factores, el primero que los médicos que vayan a usar la aplicación es muy probable que no estén familiarizados con la informática y el segundo que a la hora de realizar las representaciones estadísticas tener dos datos iguales pero escritos de manera diferente podía suponer un problema ya que se iban a tomar como datos diferentes.
+Para este trabajo se han tenido muy en cuenta dos factores, el primero que los médicos que vayan a usar la aplicación es muy probable que no estén familiarizados con la informática y el segundo que a la hora de realizar las representaciones estadísticas tener dos datos iguales pero escritos de manera diferente podía suponer un problema ya que se iban a tomar como datos diferentes.
 
-Para solventar este problema se ha intentado que la mayoría de datos sean desplegables, así eliminando el error humano por completo, y en los campos que esto no era posible, añadir validadores que implementa Laravel para poder comprobar que estos datos están bien introducidos, por ejemplo que la fecha del diagnostico no pueda ser anterior a la fecha de la primera consulta. 
+Para solventar este problema se ha intentado que la mayoría de los formularios de entrada de datos sean desplegables, así eliminando el error humano por completo, y en los campos que esto no era posible, añadir validadores que implementa Laravel para poder comprobar que estos datos están bien introducidos, por ejemplo que la fecha del diagnostico no pueda ser anterior a la fecha de la primera consulta. 
 
 \section{Problemas con la seguridad de los datos sensibles de los pacientes y solución} \label{seguridad}
 
 Una vez completada la primera parte del proyecto, la cual supuso todo el desarrollo de la gestión de usuarios y de pacientes, se pensó que la mejor manera de que los oncólogos fueran usando la aplicación web y buscando tanto errores como posibles mejoras, era subir esta a un host online. Esto en principio no resulto ningún problema, hasta que nos dimos cuenta que podíamos estar vulnerando la ley de privacidad de datos al publicar datos de pacientes sin su consentimiento en servidores externos al hospital. Para solventar este problema se tomaron tres medidas de seguridad.
 
-La primera fue buscar un host online cuyos servidores estuvieran en Europa para que siguiera la misma ley de protección de datos que en España y que este tuviera una política de protección de datos de acuerdo a lo que nosotros necesitábamos. Encontramos Heroku (\ref{Heroku}), el cual es un host de páginas web en la nube con servidores localizados en Irlanda \cite{herokulocalizacion} y la política de privacidad de los datos de esta web dice que su personal no puede acceder ni interactuar con los datos alojados en sus servidores a no ser que se pida permiso previo al usuario o por mandato del gobierno \cite{herokuprivacidad}. Por lo tanto se selecciono este host ya que se vio que cumplía a la perfección con los requisitos de privacidad que teníamos. 
+La primera fue buscar un host online cuyos servidores estuvieran en Europa para que siguiera la misma ley de protección de datos que en España y que este tuviera una política de protección de datos de acuerdo a lo que nosotros necesitábamos. Encontramos Heroku (\ref{Heroku}), el cual es un host de páginas web en la nube con servidores localizados en Irlanda \cite{herokulocalizacion} y la política de privacidad de los datos de esta web dice que su personal no puede acceder ni interactuar con los datos alojados en sus servidores a no ser que se pida permiso previo al usuario o por mandato del gobierno \cite{herokuprivacidad}. Por lo tanto se selecciono este host ya que se vió que cumplía a la perfección con los requisitos de privacidad que teníamos. 
 
-La segunda medida fue cifrar los datos sensibles mediante una encriptación simétrica \ref{simetrica}. Para llevar a cabo esta tarea se uso la librería openssl \ref{openssl} y se creó una clase con 2 métodos, el primero se encarga de encriptar los datos cuando estos son introducidos o modificados en la base de datos y el segundo se encargar de desencriptar los datos cuando estos van a ser visualizados por el usuario en la web. 
+La segunda medida fue cifrar los datos sensibles mediante una encriptación simétrica \ref{simetrica}. Para llevar a cabo esta tarea se usó la librería openssl \ref{openssl} y se creó una clase con 2 métodos, el primero se encarga de encriptar los datos cuando estos son introducidos o modificados en la base de datos y el segundo se encargar de desencriptar los datos cuando estos van a ser visualizados por el usuario en la web. 
 
 La tercera medida fue el protocolo HTTPS ya que la única brecha de seguridad que quedaba en la aplicación era que al usar el protocolo HTTP se podía acceder e interceptar las peticiones que se realizaban desde el cliente al servidor y por lo tanto tener acceso tanto a las contraseñas de los usuarios como a los datos sensibles de los pacientes. Para esto se consiguió un certificado gratuito SSL \cite{ssl}. Pero después de conseguir este certificado apareció otro problema, la versión gratuita de Heroku no permitía integrar un certificado SSL externo y por lo tanto tuve que pasar la cuenta a la versión hobby por un precio de 7\$ para poder integrar el protocolo HTTPS dentro de la web.
 
@@ -44,9 +44,9 @@ Una de las incertidumbres que surgió a la hora de empezar con el apartado de la
 
 \imagenTam{graficas_1}{Interfaz para la selección de divisiones para la realización de gráficas}{1}
 
-Para la visualización de las gráficas se investigo sobre diferentes programas estadísticos y al final se decidió por realizar las tablas y gráficas similares al programa \href{https://www.stata.com/}{STATA}\footnote{\href{https://www.stata.com/}{https://www.stata.com/}}.
+Para la visualización de las gráficas se investigó sobre diferentes programas estadísticos y al final se decidió por realizar las tablas y gráficas similares al programa \href{https://www.stata.com/}{STATA}\footnote{\href{https://www.stata.com/}{https://www.stata.com/}}.
 
-Como se puede observar en las siguientes imágenes, tenemos por un lado tanto el diagrama de sectores \ref{fig:graficas_2} como la tabla de frecuencia de STATA \ref{fig:graficas_3} y el diagrama de sectores \ref{fig:grafica_normal} y la tabla de frecuencia de nuestra aplicación web \ref{fig:tabla_normal}.
+Como se puede observar en las siguientes imágenes, tenemos por un lado tanto el diagrama de sectores \ref{fig:graficas_2} como la tabla de frecuencias de STATA \ref{fig:graficas_3} y el diagrama de sectores \ref{fig:grafica_normal} y la tabla de frecuencias de nuestra aplicación web \ref{fig:tabla_normal}.
 
 \imagenTam{graficas_2}{Diagrama de sectores STATA}{0.6}
 \imagenTam{graficas_3}{Tabla de frecuencias STATA}{0.7}
@@ -62,7 +62,7 @@ Para los atributos numéricos se pidió otro tipo de gráficas y tablas para mej
 
 \section{Pruebas}
 
-La realización de pruebas es una parte fundamental en el desarrollo de software para conseguir un producto de calidad y sin errores. Debido a que el objetivo de este proyecto era desarrollar una aplicación web que iba a ser usada por los médicos para la introducción de datos se vio como algo necesario la realización de pruebas que nos aseguren que la web funciona al 100\%, que los datos se almacenan correctamente en la base de datos y que no existe ningún error.
+La realización de pruebas es una parte fundamental en el desarrollo de software para conseguir un producto de calidad y sin errores. Debido a que el objetivo de este proyecto era desarrollar una aplicación web que iba a ser usada por los médicos para la introducción de datos se vió como algo necesario la realización de pruebas que nos aseguren que la web funciona al 100\%, que los datos se almacenan correctamente en la base de datos y que no existe ningún error.
 
 Para esto se llevaron a cabo tres tipos de pruebas: pruebas de integración, pruebas de validación y pruebas de seguridad.
 
@@ -74,11 +74,11 @@ Las pruebas de integración son aquellas que se encargan de probar que los eleme
 
 \subsection{Pruebas de validación}
 
-Las pruebas de validación son aquellas que se encargan de comprobar que los requisitos y las expectativas del cliente, este proceso suele realizarse en presencia del cliente o de los usuarios finales \cite{validacion}. Para la validación de este proyecto se han llevado a cabo dos tipos de pruebas: alfa y beta.
+Las pruebas de validación son aquellas que se encargan de comprobar que los requisitos y las expectativas del cliente se han cumplido. Este proceso suele realizarse en presencia del cliente o de los usuarios finales \cite{validacion}. Para la validación de este proyecto se han llevado a cabo dos tipos de pruebas: alfa y beta.
 
 \subsubsection{Pruebas alfa}
 
-Las pruebas alfa son aquellas que se realizan en presencia del cliente. En mi caso este tipo de pruebas se realizaron desde mi portátil ejecutando la aplicación en local y en presencia de los oncólogos, a los cuales se les permitió la utilización del la aplicación web con todas sus funcionalidades para comprobar que era exactamente lo que querían. Esta prueba fue mucho mejor de los esperado ya que los únicos errores que se encontraron fueron problemas de nomenclatura en los datos y algún elemento fuero de lugar, es decir problemas que no me iban a llevar mucho tiempo solucionar.
+Las pruebas alfa son aquellas que se realizan en presencia del cliente. En mi caso este tipo de pruebas se realizaron desde mi portátil ejecutando la aplicación en local y en presencia de los oncólogos, a los cuales se les permitió la utilización de la aplicación web con todas sus funcionalidades para comprobar que era exactamente lo que querían. Esta prueba fue mucho mejor de los esperado ya que los únicos errores que se encontraron fueron problemas de nomenclatura en los datos y algún elemento fuera de lugar, es decir problemas que no me iban a llevar mucho tiempo solucionar.
 
 \subsubsection{Pruebas beta}
 
@@ -86,7 +86,7 @@ Las pruebas beta son aquellas realizadas por los usuarios finales y en los equip
 
 \subsection{Pruebas de seguridad}
 
-Las pruebas de seguridad son aquellas que tratan de encontrar vulnerabilidades dentro del software. Como ya se comentó en el punto \ref{seguridad}, se habían realizado todo lo posible para conseguir una buena seguridad dentro de la aplicación, pero luego me di cuenta que podía existir otro problema y esté era que los middleware no estuvieran funcionando correctamente en alguna de las rutas y cualquier usuario pudiera acceder a ellas sin estar autenticado o sin tener el rol necesario y por lo tanto tener acceso a datos sensibles. Para esto se redactaron pruebas de seguridad en las cuales se realizaron diversas comprobaciones:
+Las pruebas de seguridad son aquellas que tratan de encontrar vulnerabilidades dentro del software. Como ya se comentó en el punto \ref{seguridad}, se había realizado todo lo posible para conseguir una buena seguridad dentro de la aplicación, pero luego me di cuenta que podía existir otro problema y esté era que los middleware no estuvieran funcionando correctamente en alguna de las rutas y cualquier usuario pudiera acceder a ellas sin estar autenticado o sin tener el rol necesario y por lo tanto tener acceso a datos sensibles. Para esto se redactaron pruebas de seguridad en las cuales se realizaron diversas comprobaciones:
 \begin{itemize}
     \item Que un usuario sin autenticarse no pueda acceder a ninguna de las rutas de la web.
     \item Que un usuario con rol oncólogo pueda acceder a todas las rutas excepto a las reservadas para administradores.
