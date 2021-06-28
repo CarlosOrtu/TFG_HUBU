@@ -4,6 +4,9 @@ namespace Tests\Ini;
 
 use App\Models\Pacientes;
 use App\Models\Enfermedades;
+use App\Models\Reevaluaciones;
+use App\Models\Seguimientos;
+use App\Models\Comentarios;
 
 class CrearDatosTest
 {
@@ -44,4 +47,30 @@ class CrearDatosTest
                 $enfermedad->tratamiento_dirigido = 1;
                 $enfermedad->save();
 	}
+
+        public function crearReevaluacion() {
+                $reeEliminar = new Reevaluaciones();
+                $reeEliminar->id_paciente = 999;
+                $reeEliminar->id_reevaluacion = 999;
+                $reeEliminar->fecha = "1998-05-05";
+                $reeEliminar->estado = "Respuesta parcial";
+                $reeEliminar->save();
+        }
+
+        public function crearSeguimiento() {
+                $seguimientoAEliminar = new Seguimientos();
+                $seguimientoAEliminar->id_paciente = 999;
+                $seguimientoAEliminar->id_seguimiento = 999;
+                $seguimientoAEliminar->fecha = "1998-05-05";
+                $seguimientoAEliminar->estado = "1998-05-05";
+                $seguimientoAEliminar->save();
+        }
+
+        public function crearComentario() {
+                $comentarioAEliminar = new Comentarios();
+                $comentarioAEliminar->id_paciente = 999;
+                $comentarioAEliminar->id_comentario = 999;
+                $comentarioAEliminar->comentario = "Este es el comentario a eliminar";
+                $comentarioAEliminar->save();
+        }
 }
