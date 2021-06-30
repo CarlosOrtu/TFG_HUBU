@@ -7,6 +7,12 @@
     <div class="panel-heading">
 		<h1 class="text-white text-center panel-title">Listado de usuarios</h1>
     <div class=panel-body>
+    	@if ($message = Session::get('errorAdmin'))
+		<div class="alert alert-danger alert-block">
+		    <button type="button" class="text-dark close" data-dismiss="alert">x</button>
+		    <strong class="text-center text-dark">{{ $message }}</strong>
+		</div>
+		@endif
     	<div class="table-responsive">
 	        <table id="tablaPacientes" class="table table-dark table-bordered">
 	        	<caption>Usuarios</caption>

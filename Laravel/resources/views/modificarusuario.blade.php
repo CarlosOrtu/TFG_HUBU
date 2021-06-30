@@ -6,6 +6,12 @@
     @method('put')
     <div class="col-md-7 pl-0">
         <h1 class="text-white text-center panel-title">Modificar usuario</h1>
+        @if ($message = Session::get('errorAdmin'))
+        <div class="alert alert-danger alert-block">
+            <button type="button" class="text-dark close" data-dismiss="alert">x</button>
+            <strong class="text-center text-dark">{{ $message }}</strong>
+        </div>
+        @endif
         <div class="my-4 input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">Nombre</span>

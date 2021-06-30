@@ -1,13 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="row rounded text-center">
-  <p class="d-inline text-center border navbar rounded navbar-expand-md navbar-light shadow-sm text-white w-100">Se pueden seleccionar hasta 3 divisiones para realizar las gráficas</p>
-</div>
 <form action="{{ route('imprimirpercentiles') }}" method="post">
 @CSRF
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-5">
       <label class="text-white">Datos personales</label>
     </div>
   </div>

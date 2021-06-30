@@ -174,7 +174,7 @@ def obtenerIdMaximo(cur, tabla):
 
 def establecerConexionBase():
     miConexion = mysql.connector.connect( host='localhost', user= 'root', passwd='', db='hubu' )
-    return miConexion, miConexion.cursor()  
+    return miConexion, miConexion.cursor()
 
 def insertarPaciente(id_paciente, cur, miConexion):
     id_paciente = str(id_paciente)
@@ -185,16 +185,20 @@ def insertarPaciente(id_paciente, cur, miConexion):
         cur.execute( "INSERT INTO pacientes (id_paciente, nombre, apellidos, sexo, raza, nacimiento, profesion, fumador, bebedor, ultima_modificacion, carcinogenos) VALUES ('"+id_paciente+"','"+paciente.nombre+"','"+paciente.apellidos+"','"+paciente.sexo+"','"+paciente.raza+"','"+paciente.nacimiento+"','"+paciente.profesion+"','"+paciente.fumador+"','"+paciente.bebedor+"','"+paciente.ultimaModificacion+"','"+paciente.carcinogenos+"');")
     miConexion.commit()
 
-def insertarEnfermedad(idEnfermedad, idPaciente, cur, miConexion):
+    return paciente.nacimiento
+
+def insertarEnfermedad(idEnfermedad, idPaciente, cur, miConexion, nacimiento):
     idEnfermedad = str(idEnfermedad)
     idPaciente = str(idPaciente)
-    enfermedad = Enfermedad()
+    enfermedad = Enfermedad(nacimiento)
     cur.execute("INSERT INTO enfermedades (id_enfermedad ,id_paciente, fecha_primera_consulta, fecha_diagnostico, ECOG, T, T_tamano, N, N_afectacion, M, num_afec_metas, TNM, tipo_muestra, histologia_tipo, histologia_subtipo, histologia_grado, tratamiento_dirigido) VALUES ('"+idEnfermedad+"','"+idPaciente+"','"+enfermedad.fecha_primera_consulta+"','"+enfermedad.fecha_diagnostico+"','"+enfermedad.ECOG+"','"+enfermedad.T+"','"+enfermedad.T_tamano+"','"+enfermedad.N+"','"+enfermedad.N_afectacion+"','"+enfermedad.M+"','"+enfermedad.numAfectacion+"','"+enfermedad.TNM+"','"+enfermedad.tipoMuestra+"','"+enfermedad.tipoHistologia+"','"+enfermedad.subtipoHistologia+"','"+enfermedad.gradoHistologia+"','"+enfermedad.tratamientoDirigido+"');")
     miConexion.commit()
 
-def insertarSintoma(idEnfermedad, cur, miConexion):
+    return enfermedad.fecha_diagnostico
+
+def insertarSintoma(idEnfermedad, cur, miConexion, diagnostico):
     idEnfermedad = str(idEnfermedad)
-    sintoma = Sintoma()
+    sintoma = Sintoma(diagnostico)
     cur.execute("INSERT INTO sintomas (id_enfermedad, tipo, fecha_inicio) VALUES ('"+idEnfermedad+"','"+sintoma.tipoSintoma+"','"+sintoma.fecha_inicio+"');")
     miConexion.commit()
 
@@ -256,10 +260,10 @@ def insertarEnfermedadFamiliar(idAntecedenteFamiliar, cur, miConexion):
     cur.execute("INSERT INTO enfermedades_familiar (id_antecedente_f, tipo) VALUES ('"+idAntecedenteFamiliar+"','"+enfermedadFamiliar.tipoEnfermedadFamiliar+"');")
     miConexion.commit()
 
-def insertarTratamiento(idTratamiento, idPaciente, cur, numFarmacos, miConexion):
+def insertarTratamiento(idTratamiento, idPaciente, cur, numFarmacos, miConexion, diagnostico):
     idTratamiento = str(idTratamiento)
     idPaciente = str(idPaciente)
-    tratamiento = Tratamiento()
+    tratamiento = Tratamiento(diagnostico)
     if(tratamiento.tipoTratamiento == "Quimioterapia"):
         cur.execute("INSERT INTO tratamientos (id_tratamiento, id_paciente, tipo, subtipo, dosis, localizacion, fecha_inicio, fecha_fin) VALUES ('"+idTratamiento+"','"+idPaciente+"','Quimioterapia','"+tratamiento.subtipoQuimioterapia+"', Null, Null,'"+tratamiento.fechaInicio+"','"+tratamiento.fechaFin+"');")
         miConexion.commit()
@@ -283,27 +287,34 @@ def insertarFarmaco(idIntencion, cur, miConexion):
     cur.execute("INSERT INTO farmacos (id_intencion, tipo) VALUES ('"+idIntencion+"','"+farmaco.nombreFarmaco+"');")
     miConexion.commit()
 
-def insertarReevaluacion(idPaciente, cur, miConexion):
+def insertarReevaluacion(idPaciente, cur, miConexion, diagnostico):
     idPaciente = str(idPaciente)
-    reevaluacion = Reevaluacion()
+    reevaluacion = Reevaluacion(diagnostico)
     if(reevaluacion.localizacionProgresion == "Null"):
         cur.execute("INSERT INTO reevaluaciones (id_paciente, fecha, estado) VALUES ('"+idPaciente+"','"+reevaluacion.fechaReevaluacion+"','"+reevaluacion.estadoReevaluacion+"');")
     else:
         cur.execute("INSERT INTO reevaluaciones (id_paciente, fecha, estado, progresion_localizacion, tipo_tratamiento) VALUES ('"+idPaciente+"','"+reevaluacion.fechaReevaluacion+"','"+reevaluacion.estadoReevaluacion+"','"+reevaluacion.localizacionProgresion+"','"+reevaluacion.tipoTratamientoProgresion+"');")
     miConexion.commit()
 
-def insertarSeguimiento(idPaciente, cur, miConexion):
+def insertarSeguimiento(idPaciente, cur, miConexion, diagnostico):
+    fallecido = False;
     idPaciente = str(idPaciente)
-    seguimiento = Seguimiento()
-    if(seguimiento.fechaFallecimiento == "Null"):
-        cur.execute("INSERT INTO seguimientos (id_paciente, fecha, estado) VALUES ('"+idPaciente+"','"+seguimiento.fechaSeguimiento+"','"+seguimiento.estadoSeguimiento+"');")
-    else:
-        cur.execute("INSERT INTO seguimientos (id_paciente, fecha, estado, fallecido_motivo, fecha_fallecimiento) VALUES ('"+idPaciente+"','"+seguimiento.fechaSeguimiento+"','"+seguimiento.estadoSeguimiento+"','"+seguimiento.motivoFallecimiento+"','"+seguimiento.fechaFallecimiento+"');")
+    seguimiento = Seguimiento(diagnostico)
+    cur.execute("SELECT estado from seguimientos where id_paciente="+idPaciente);
+    lineas = cur.fetchall()
+    for linea in lineas:
+        if(linea[0] == "Fallecido"):
+            fallecido = True;
+    if(fallecido == False):        
+        if(seguimiento.fechaFallecimiento == "Null"):
+            cur.execute("INSERT INTO seguimientos (id_paciente, fecha, estado) VALUES ('"+idPaciente+"','"+seguimiento.fechaSeguimiento+"','"+seguimiento.estadoSeguimiento+"');")
+        else:
+            cur.execute("INSERT INTO seguimientos (id_paciente, fecha, estado, fallecido_motivo, fecha_fallecimiento) VALUES ('"+idPaciente+"','"+seguimiento.fechaSeguimiento+"','"+seguimiento.estadoSeguimiento+"','"+seguimiento.motivoFallecimiento+"','"+seguimiento.fechaFallecimiento+"');")
     miConexion.commit()
 
 class Paciente:
 
-    def _init_(self):
+    def __init__(self):
         self.nombre = fake.first_name()
         self.apellidos = fake.last_name()
         self.sexo = sexo[random.randint(0,1)]
@@ -319,8 +330,9 @@ class Paciente:
 
 class Enfermedad:
 
-    def _init_(self):
-        self.fecha_primera_consulta = fake.date()
+    def __init__(self, nacimiento):
+        fecha_nacimiento = datetime.strptime(nacimiento+' 00:00:00', '%Y-%m-%d %H:%M:%S')
+        self.fecha_primera_consulta = str(fake.date_time_between_dates(datetime_start=fecha_nacimiento).date())
         fecha_inicio = datetime.strptime(self.fecha_primera_consulta+' 00:00:00', '%Y-%m-%d %H:%M:%S')
         self.fecha_diagnostico = str(fake.date_time_between_dates(datetime_start=fecha_inicio).date())
         self.ECOG = str(random.randint(0,4))
@@ -339,18 +351,19 @@ class Enfermedad:
 
 class Sintoma:
 
-    def _init_(self):
+    def __init__(self, diagnostico):
         self.tipoSintoma = tipoSintoma[random.randint(0,10)]
-        self.fecha_inicio = fake.date()
+        fecha_diagnostico = datetime.strptime(diagnostico+' 00:00:00', '%Y-%m-%d %H:%M:%S')
+        self.fecha_inicio = str(fake.date_time_between_dates(datetime_start=fecha_diagnostico).date())
 
 class Metastasis:
 
-    def _init_(self):
+    def __init__(self):
         self.tipoMetastasis = tipoMetastasis[random.randint(0,17)]
 
 class Biomarcador:
 
-    def _init_(self):
+    def __init__(self):
         self.nombreBiomarcador = nombreBiomarcador[random.randint(0,13)]
         if(self.nombreBiomarcador == "NGS"):
             self.tipo = tipoNGS[random.randint(0,1)]
@@ -406,42 +419,43 @@ class Biomarcador:
 
 class PruebaRealizada:
 
-    def _init_(self):
+    def __init__(self):
         self.tipoPrueba = tipoPrueba[random.randint(0,8)] 
 
 class TecnicaRealizada:
 
-    def _init_(self):
+    def __init__(self):
         self.tipoTecnica = tipoTecnica[random.randint(0,5)] 
 
 class OtroTumor:
 
-    def _init_(self):
+    def __init__(self):
         self.tipoOtroTumor = tipoOtroTumor[random.randint(0,12)] 
 
 class AntecedenteMedico:
 
-    def _init_(self):
+    def __init__(self):
         self.tipoAntecedenteMedico = tipoAntecedenteMedico[random.randint(0,9)] 
 
 class AntecedenteOncologico:
 
-    def _init_(self):
+    def __init__(self):
         self.tipoAntecedenteOncologico = tipoAntecedenteOncologico[random.randint(0,10)] 
 
 class AntecedenteFamiliar:
 
-    def _init_(self):
+    def __init__(self):
         self.tipoAntecedenteFamiliar = tipoAntecedenteFamiliar[random.randint(0,3)] 
 
 class EnfermedadFamiliar:
 
-    def _init_(self):
+    def __init__(self):
         self.tipoEnfermedadFamiliar = tipoEnfermedadFamiliar[random.randint(0,10)]
 
 class Tratamiento:
 
-    def _init_(self):
+    def __init__(self, diagnostico):
+        fecha_diagnostico = datetime.strptime(diagnostico+' 00:00:00', '%Y-%m-%d %H:%M:%S')
         self.tipoTratamiento = tipoTratamiento[random.randint(0,2)]
         if(self.tipoTratamiento == "Quimioterapia"):
             self.subtipoQuimioterapia = subtipoQuimioterapia[random.randint(0,2)]
@@ -459,27 +473,30 @@ class Tratamiento:
             self.modoAdministracion = modoAdministracion[random.randint(0,1)]
             self.tipoFarmaco = tipoFarmaco[random.randint(0,7)]
             self.numeroCiclos = str(np.random.poisson(lambdaCiclos, 1)[0])
-            self.fechaInicio = fake.date()
-            self.fechaFin = fake.date()
+            self.fechaInicio = str(fake.date_time_between_dates(datetime_start=fecha_diagnostico).date())
+            fecha_inicio = datetime.strptime(self.fechaInicio+' 00:00:00', '%Y-%m-%d %H:%M:%S')
+            self.fechaFin = str(fake.date_time_between_dates(datetime_start=fecha_inicio).date())
         elif(self.tipoTratamiento == "Radioterapia"):
             self.subtipoRadioterapia = subtipoRadioterapia[random.randint(0,1)]
             self.localizacionRadioterapia = localizacionRadioterapia[random.randint(0,6)]
             self.dosis = str(np.around(abs(np.random.normal(mediaDosis, desviacionDosis, 1)), 2)[0])
-            self.fechaInicio = fake.date()
-            self.fechaFin = fake.date()
+            self.fechaInicio = str(fake.date_time_between_dates(datetime_start=fecha_diagnostico).date())
+            fecha_inicio = datetime.strptime(self.fechaInicio+' 00:00:00', '%Y-%m-%d %H:%M:%S')
+            self.fechaFin = str(fake.date_time_between_dates(datetime_start=fecha_inicio).date())
         else:
             self.subtipoCirugia = subtipoCirugia[random.randint(0,5)]
-            self.fechaInicio = fake.date()
+            self.fechaInicio = str(fake.date_time_between_dates(datetime_start=fecha_diagnostico).date())
 
 class Farmaco:
 
-    def _init_(self):
+    def __init__(self):
         self.nombreFarmaco = farmacos[random.randint(0,31)]
 
 class Reevaluacion:
 
-    def _init_(self):
-        self.fechaReevaluacion = fake.date()
+    def __init__(self, diagnostico):
+        fecha_diagnostico = datetime.strptime(diagnostico+' 00:00:00', '%Y-%m-%d %H:%M:%S')
+        self.fechaReevaluacion = str(fake.date_time_between_dates(datetime_start=fecha_diagnostico).date())
         self.estadoReevaluacion = estadoReevaluacion[random.randint(0,4)]
         if(self.estadoReevaluacion == "Progresión"):
             self.localizacionProgresion = localizacionProgresion[random.randint(0,17)]
@@ -490,8 +507,9 @@ class Reevaluacion:
 
 class Seguimiento:
 
-    def _init_(self):
-        self.fechaSeguimiento = fake.date()
+    def __init__(self, diagnostico):
+        fecha_diagnostico = datetime.strptime(diagnostico+' 00:00:00', '%Y-%m-%d %H:%M:%S')
+        self.fechaSeguimiento = str(fake.date_time_between_dates(datetime_start=fecha_diagnostico).date())
         self.estadoSeguimiento = estadoSeguimiento[random.randint(0,2)]
         if(self.estadoSeguimiento == "Fallecido"):
             self.motivoFallecimiento = motivoFallecimiento[random.randint(0,1)]
@@ -500,5 +518,5 @@ class Seguimiento:
             self.motivoFallecimiento = "Null"
             self.fechaFallecimiento = "Null"
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     main()

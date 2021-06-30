@@ -86,7 +86,8 @@ class AdministradorController extends Controller
     public function eliminarUsuario($idPaciente)
     {
         $usuarioEliminar = Usuarios::find($idPaciente);
-
+        if($idPaciente == 1)
+            return back()->with('errorAdmin','No se puede eliminar el administrador');
         $usuarioEliminar->delete();
         return redirect()->route('usuarios');
     }
@@ -98,6 +99,8 @@ class AdministradorController extends Controller
 
     public function modificarUsuario(Request $request,$idPaciente){
         $validator = $this->validarDatosModificarUsuario($request,$idPaciente);
+        if($idPaciente == 1 && $request->rol == 2)
+            return back()->with('errorAdmin','No se puede quitar el rol de Administrador a este usuario');
         //Comprobamos que las contraseñas coicidan
         if($validator->fails())
             return back()->withErrors($validator->errors())->withInput();    
