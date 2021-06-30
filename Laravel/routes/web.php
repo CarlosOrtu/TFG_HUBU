@@ -16,6 +16,7 @@ use App\Http\Controllers\GraficosController;
 use App\Http\Controllers\PercentilesController;
 use App\Http\Controllers\ExportarDatosController;
 use App\Http\Controllers\BaseDeDatosSinteticaController;
+use App\Http\Controllers\KaplanMeierController;
 
 
 //Rutas de login y logout
@@ -173,3 +174,7 @@ Route::post('/ver/exportardatos', [ExportarDatosController::class, 'exportarDato
 //Rutas para crear la base de datos sintética
 Route::get('/ver/basesintetica', [BaseDeDatosSinteticaController::class, 'verBaseSintetica'])->name('verbasesintetica');
 Route::post('/ver/basesintetica', [BaseDeDatosSinteticaController::class, 'crearBaseSintetica'])->name('crearbasesintetica');
+
+//Rutas para la visualización de la gráfica kaplan meier
+Route::get('/ver/kaplanmeier', [KaplanMeierController::class, 'verKaplanMeier'])->name('verkaplan');
+Route::post('/ver/kaplanmeier', [KaplanMeierController::class, 'crearGraficaKaplanMeier'])->name('crearkaplan');
