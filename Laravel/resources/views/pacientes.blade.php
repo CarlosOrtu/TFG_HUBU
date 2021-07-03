@@ -2,11 +2,14 @@
 
 @section('content')
 
-@if (count($pacientes) > 0)
+@if (count($pacientes) > 0)  
 <div class="panel panel-default">
     <div class="panel-heading">
 		<h1 class="text-white text-center panel-title">Listado de pacientes</h1>
     <div class=panel-body>
+    @if(isset($opciones))
+	<h3 class="mb-4 text-white text-center panel-title">Filtrado por: {{ $opciones }}</h3>
+	@endif
     	<div class="table-responsive">
 	        <table id="tablaPacientes" class="table table-dark table-bordered">
 	        	<caption>Pacientes</caption>
