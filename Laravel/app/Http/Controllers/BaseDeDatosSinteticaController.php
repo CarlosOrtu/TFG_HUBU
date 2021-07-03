@@ -56,6 +56,6 @@ class BaseDeDatosSinteticaController extends Controller
 		    throw new ProcessFailedException($process);
 		}
 
-        return view('basesintetica')->with('success','Base de datos sintética creada');;
+        return view('basesintetica')->with('success','Base de datos sintética creada');
     }
 }

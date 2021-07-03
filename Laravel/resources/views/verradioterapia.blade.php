@@ -26,7 +26,7 @@
       <tbody>
         @foreach($paciente->Tratamientos->where('tipo','Radioterapia') as $radioterapia)
         <tr>
-            <th scope="col">Quimioterapia {{ $loop->iteration }}</th>
+            <th scope="col">Radioterapia {{ $loop->iteration }}</th>
             <td>{{ $radioterapia->subtipo }}</td>
             @if(preg_match("/^Otro: /", $radioterapia->localizacion))
             <td>{{ substr($radioterapia->localizacion, 6) }}</td>

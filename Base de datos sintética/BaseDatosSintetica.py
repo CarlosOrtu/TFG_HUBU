@@ -116,11 +116,11 @@ def main():
     numPacientes = int(sys.argv[1])
     idMaxPaciente = obtenerIdMaximo(cur, "Pacientes")
     for x in range(idMaxPaciente + 1, idMaxPaciente+numPacientes+1):
-        insertarPaciente(x, cur, miConexion)
-        insertarEnfermedad(x, x, cur, miConexion)
+        nacimiento = insertarPaciente(x, cur, miConexion)
+        diagnostico = insertarEnfermedad(x, x, cur, miConexion, nacimiento)
         numTablas = obtenerNumeroTablas()
         for i in range(numTablas[0]):
-            insertarSintoma(x, cur, miConexion)
+            insertarSintoma(x, cur, miConexion, diagnostico)
         for i in range(numTablas[1]):
             insertarMetastasis(x, cur, miConexion)
         for i in range(numTablas[2]):
@@ -142,11 +142,11 @@ def main():
                 insertarEnfermedadFamiliar(idAntecedente, cur, miConexion)
         for i in range(1, numTablas[10]):
             idTratamiento = obtenerIdMaximo(cur, "Tratamientos") + 1
-            insertarTratamiento(idTratamiento, x, cur, numTablas[11], miConexion)
+            insertarTratamiento(idTratamiento, x, cur, numTablas[11], miConexion, diagnostico)
         for i in range(numTablas[12]):
-            insertarReevaluacion(x, cur, miConexion)
+            insertarReevaluacion(x, cur, miConexion, diagnostico)
         for i in range(numTablas[13]):
-            insertarSeguimiento(x, cur, miConexion)
+            insertarSeguimiento(x, cur, miConexion, diagnostico)
         miConexion.commit()
 
     miConexion.close()
@@ -173,7 +173,7 @@ def obtenerIdMaximo(cur, tabla):
     return myresult[0]
 
 def establecerConexionBase():
-    miConexion = mysql.connector.connect( host='localhost', user= 'root', passwd='', db='hubu' )
+    miConexion = mysql.connector.connect( host='localhost', user= 'root', passwd='', db='prueba' )
     return miConexion, miConexion.cursor()
 
 def insertarPaciente(id_paciente, cur, miConexion):
