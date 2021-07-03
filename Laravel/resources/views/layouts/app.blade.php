@@ -54,13 +54,9 @@
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{ route('vergraficas') }}">Gráficas</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="{{ route('verpercentiles') }}">Percentiles</a>
-              <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{ route('verexportardatos') }}">Exportar datos</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{ route('verbasesintetica') }}">Base sintética</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="{{ route('verkaplan') }}">Kaplan Meier</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{ route('logout') }}">Desconectar</a>
             </div>
@@ -68,7 +64,7 @@
         </ul>
       </div>
     </nav>
-    @if (Request::routeIs('pacientes') or Request::routeIs('nuevopaciente') or Request::routeIs('vereliminarpaciente'))
+    @if (Request::routeIs('pacientes') or Request::routeIs('nuevopaciente') or Request::routeIs('vereliminarpaciente') or Request::routeIs('realizarfiltrado'))
     <div class="row mx-4 mt-4">
       @include('layouts.sidebarpacientes')
       <main class="col-md-9">
@@ -89,9 +85,16 @@
         @yield('content')
       </main>
     </div>   
-    @elseif(Request::routeIs('vergraficas') or Request::routeIs('imprimirgrafica') or Request::routeIs('verpercentiles') or Request::routeIs('verexportardatos') or Request::routeIs('imprimirpercentiles') or Request::routeIs('verbasesintetica') or Request::routeIs('crearbasesintetica') or Request::routeIs('verkaplan') or Request::routeIs('crearkaplan'))
+    @elseif(Request::routeIs('imprimirgrafica') or Request::routeIs('verexportardatos') or Request::routeIs('imprimirpercentiles') or Request::routeIs('verbasesintetica') or Request::routeIs('crearbasesintetica') or Request::routeIs('crearkaplan') or Request::routeIs('verfiltrar') or Request::routeIs('verfiltrarpercentiles') or Request::routeIs('verfiltrargraficas') or Request::routeIs('verfiltrarkaplan') or Request::routeIs('realizarfiltradopercentiles') or Request::routeIs('realizarfiltradograficas') or Request::routeIs('realizarfiltradokaplan'))
     <div class="row mx-4 mt-4">
       <main class="col-md-12">
+          @yield('content')
+      </main>
+    </div>
+    @elseif(Request::routeIs('vergraficas') or Request::routeIs('verpercentiles') or Request::routeIs('verkaplan') or Request::routeIs('filtrargraficas') or Request::routeIs('filtrarpercentiles') or Request::routeIs('filtrarkaplan'))
+    <div class="row mx-4 mt-4">
+      @include('layouts.sidebargraficas')  
+      <main class="col-md-9">
           @yield('content')
       </main>
     </div>

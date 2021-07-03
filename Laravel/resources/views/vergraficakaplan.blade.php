@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+@if($opciones != null)
+<h3 class="mb-4 text-white text-center panel-title">Filtrado por: {{ $opciones }}</h3>
+@endif
 <div class="d-flex justify-content-around">
   <div>
     <h4 class="text-white align-self-center text-center">Gráfica kaplan meier general</h4>

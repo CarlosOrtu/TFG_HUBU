@@ -81,6 +81,9 @@
 <?php 
   $acumulado = 0;
 ?>
+@if($opciones != null)
+<h3 class="mb-4 text-white text-center panel-title">Filtrado por: {{ $opciones }}</h3>
+@endif
 <div class="d-flex justify-content-around">
   <div class="d-flex justify-content-center mr-4" id="chart_div"></div>
   <table id="tabla_grafica" class="text-white table table-bordered">
@@ -110,7 +113,18 @@
         <?php 
           $acumulado = $acumulado + $percentil;
         ?>
+        @if ($loop->last)
+          <?php 
+            if($acumulado != 100){
+              $resta = $acumulado - 100;
+            }else{
+              $resta = 0;
+            }
+            $acumulado = 100;
+          ?>
+        @endif
         <td>{{ $acumulado }}</td>
+
       </tr>
       @endforeach
       <tr>
@@ -122,6 +136,7 @@
             $totalFrecuencia = $totalFrecuencia + $datosGrafica[$claveTotal];
             $totalPercentil = $totalPercentil + round(($datosGrafica[$claveTotal]/$total)*100,2);
           }
+          $totalPercentil = $totalPercentil - $resta;
 
         ?>    
         <td>{{ $totalFrecuencia }}</td>

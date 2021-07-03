@@ -22,7 +22,12 @@
     <strong class="text-center text-dark">{{ $message }}</strong>
 </div>
 @endif
+@if(isset($opciones))
+<h3 class="mb-4 text-white text-center panel-title">Filtrado por: {{ $opciones }}</h3>
+<form action="{{ route('realizarfiltradograficas', ['opciones' => $opciones] ) }}" method="post">
+@else
 <form action="{{ route('imprimirgrafica') }}" method="post">
+@endif
 @CSRF
   <div class="row">
     <div class="col-md-3">
@@ -247,9 +252,11 @@
           <option value="num_sintoma">Número de sintomas</option>
           <option value="tipo_metastasis">Tipos de metástasis</option>
           <option value="num_metastasis">Número de metástasis</option>
+          @if(!isset($opciones))
           <option value="tipo_biomarcador">Tipos de biomarcador</option>
           <option value="num_biomarcador">Número de biomarcadores</option>
           <option value="subtipo_biomarcador">Subtipos de biomarcador</option>
+          @endif
           <option value="tipo_prueba">Tipos de pruebas realizadas</option>
           <option value="num_prueba">Número de pruebas realizadas</option>
           <option value="tipo_tecnica">Tipos de técnicas realizadas</option>
@@ -392,12 +399,12 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row" @if(isset($opciones)) style="display: none" @endif>
     <div class="col-md-3">
       <label class="text-white">Tratamientos</label>
     </div>
   </div>
-  <div class="row">
+  <div class="row" @if(isset($opciones)) style="display: none" @endif>
     <div class="d-flex align-items-center col-md-3 my-4">
       <button type="button" class="btn btn-info btn2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2 mt-1 bi bi-plus" viewBox="0 0 16 16">
   <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>

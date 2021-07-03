@@ -25,6 +25,9 @@
     chart.draw(data, options);
   }
 </script>
+@if($opciones != null)
+<h3 class="mb-4 text-white text-center panel-title">Filtrado por: {{ $opciones }}</h3>
+@endif
 <div class="d-flex justify-content-around">
   <div class="d-flex justify-content-center mr-4" id="chart_div"></div>
   <table id="tabla_grafica" class="text-white table table-bordered">

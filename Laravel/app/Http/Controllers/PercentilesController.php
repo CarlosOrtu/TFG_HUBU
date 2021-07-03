@@ -8,6 +8,7 @@ use App\Models\Pacientes;
 use App\Models\Enfermedades;
 use Illuminate\Support\Facades\DB;
 use DateTime;
+use App\Http\Controllers\PacientesFiltradosController;
 
 class PercentilesController extends Controller
 {
@@ -22,9 +23,13 @@ class PercentilesController extends Controller
     	return view('percentiles');
     }
 
-    private function obetenerEdadesOrdenadas()
+    private function obetenerEdadesOrdenadas($pacientesFiltrados)
     {
-    	$pacientes = Pacientes::all();
+    	if($pacientesFiltrados != null){
+            $pacientes = $pacientesFiltrados;
+        }else{
+           $pacientes = Pacientes::all();
+        }
 
     	$edades = array();
     	foreach($pacientes as $paciente){
@@ -87,27 +92,43 @@ class PercentilesController extends Controller
     	return $listaOrdenada[$indiceRedondeado - 1];
     }
 
-    private function obtenerCampoNumericoOrdenado($dato)
+    private function obtenerCampoNumericoOrdenado($dato, $pacientesFiltrados)
     {
-    	$pacientesConEnfermedades = DB::table('Pacientes')->join('Enfermedades', 'Pacientes.id_paciente', '=', 'Enfermedades.id_paciente');
+        if($pacientesFiltrados != null){
+            $pacientesConEnfermedades = $pacientesFiltrados;
+        }else{
+            $pacientesConEnfermedades = DB::table('Pacientes')->join('Enfermedades', 'Pacientes.id_paciente', '=', 'Enfermedades.id_paciente')->get();
+        }
     	$datos = array();
-    	foreach($pacientesConEnfermedades->get() as $paciente){
-    		if($paciente->$dato == null){
-    			array_push($datos, 0);
-    		}else{
-    			array_push($datos, $paciente->$dato);
-    		}
+    	foreach($pacientesConEnfermedades as $paciente){
+            if($pacientesFiltrados != null){
+                if($paciente->Enfermedades->$dato == null){
+                    array_push($datos, 0);
+                }else{
+                    array_push($datos, $paciente->Enfermedades->$dato);
+                }
+            }else{
+        		if($paciente->$dato == null){
+        			array_push($datos, 0);
+        		}else{
+        			array_push($datos, $paciente->$dato);
+        		}
+            }
     	}
 
     	sort($datos ,SORT_NUMERIC);
-
+        
     	return $datos;
     }
 
-    private function obtenerNumerosEnfermedadesOrdenados($dato)
+    private function obtenerNumerosEnfermedadesOrdenados($dato, $pacientesFiltrados)
     {
-    	$pacientes = Pacientes::all();
-    	$datos = array();
+        if($pacientesFiltrados != null){
+            $pacientes = $pacientesFiltrados;
+        }else{
+           $pacientes = Pacientes::all();
+        }
+        $datos = array();
     	foreach($pacientes as $paciente){
     		array_push($datos, count($paciente->Enfermedades->$dato));
     	}
@@ -117,10 +138,14 @@ class PercentilesController extends Controller
     	return $datos;
     }
 
-    private function obtenerNumerosPacientesOrdenados($dato)
+    private function obtenerNumerosPacientesOrdenados($dato, $pacientesFiltrados)
     {
-    	$pacientes = Pacientes::all();
-    	$datos = array();
+        if($pacientesFiltrados != null){
+            $pacientes = $pacientesFiltrados;
+        }else{
+           $pacientes = Pacientes::all();
+        }
+        $datos = array();
     	foreach($pacientes as $paciente){
     		array_push($datos, count($paciente->$dato));
     	}
@@ -130,10 +155,14 @@ class PercentilesController extends Controller
     	return $datos;
     }
 
-    private function obtenerNumerosEnfermedadesFamiliar()
+    private function obtenerNumerosEnfermedadesFamiliar($pacientesFiltrados)
     {
-    	$pacientes = Pacientes::all();
-    	$datos = array();
+        if($pacientesFiltrados != null){
+            $pacientes = $pacientesFiltrados;
+        }else{
+           $pacientes = Pacientes::all();
+        }
+        $datos = array();
     	foreach($pacientes as $paciente){
     		$totalEnfermedades = 0;
     		foreach($paciente->Antecedentes_familiares as $antecendeteFamiliar){
@@ -146,10 +175,14 @@ class PercentilesController extends Controller
     	return $datos;
     }
 
-    private function obetenerNumerosTiposDeTratamiento($dato)
+    private function obetenerNumerosTiposDeTratamiento($dato, $pacientesFiltrados)
     {
-    	$pacientes = Pacientes::all();
-    	$datos = array();
+        if($pacientesFiltrados != null){
+            $pacientes = $pacientesFiltrados;
+        }else{
+           $pacientes = Pacientes::all();
+        }
+        $datos = array();
     	foreach($pacientes as $paciente){
     		array_push($datos, count($paciente->Tratamientos->where('tipo',$dato)));
     	}
@@ -158,9 +191,13 @@ class PercentilesController extends Controller
     	return $datos;
     }
 
-    private function obetenerNumerosCiclos()
+    private function obetenerNumerosCiclos($pacientesFiltrados)
     {
-    	$pacientes = Pacientes::all();
+        if($pacientesFiltrados != null){
+            $pacientes = $pacientesFiltrados;
+        }else{
+    	   $pacientes = Pacientes::all();
+        }
     	$datos = array();
     	foreach($pacientes as $paciente){
     		foreach($paciente->Tratamientos as $tratamiento){
@@ -175,10 +212,14 @@ class PercentilesController extends Controller
     	return $datos;
     }
 
-    private function obetenerNumerosDosis()
+    private function obetenerNumerosDosis($pacientesFiltrados)
     {
-    	$pacientes = Pacientes::all();
-    	$datos = array();
+        if($pacientesFiltrados != null){
+            $pacientes = $pacientesFiltrados;
+        }else{
+           $pacientes = Pacientes::all();
+        }
+        $datos = array();
     	foreach($pacientes as $paciente){
     		foreach($paciente->Tratamientos as $tratamiento){
     			if($tratamiento->dosis != null){
@@ -191,43 +232,52 @@ class PercentilesController extends Controller
     	return $datos;
     }
 
-   	private function obtenerListaOrdenada($dato)
+   	private function obtenerListaOrdenada($dato, $pacientesFil)
    	{
     	if($dato == 'edad'){
-    		return $this->obetenerEdadesOrdenadas();
+    		return $this->obetenerEdadesOrdenadas($pacientesFil);
     	}
     	if($dato == 'num_tabaco_dia' || $dato == 'T_tamano'){
-    		return $this->obtenerCampoNumericoOrdenado($dato);
+    		return $this->obtenerCampoNumericoOrdenado($dato, $pacientesFil);
     	}
     	if($dato == 'Sintomas' || $dato == 'Metastasis' || $dato == 'Biomarcadores' || $dato == 'Pruebas_realizadas' || $dato == 'Tecnicas_realizadas' || $dato == 'Otros_tumores'){
-			return $this->obtenerNumerosEnfermedadesOrdenados($dato);
+			return $this->obtenerNumerosEnfermedadesOrdenados($dato, $pacientesFil);
     	}
     	if($dato == 'Antecedentes_medicos' || $dato == 'Antecedentes_oncologicos' || $dato == 'Antecedentes_familiares' || $dato == 'Tratamientos' || $dato == 'Reevaluaciones' || $dato == 'Seguimientos'){
-    		return $this->obtenerNumerosPacientesOrdenados($dato);
+    		return $this->obtenerNumerosPacientesOrdenados($dato, $pacientesFil);
     	}
     	if($dato == 'Enfermedades_familiar'){
-    		return $this->obtenerNumerosEnfermedadesFamiliar();
+    		return $this->obtenerNumerosEnfermedadesFamiliar($pacientesFil);
     	}
     	if($dato == 'Quimioterapia' || $dato == 'Radioterapia' || $dato == 'Cirugia'){
-    		return $this->obetenerNumerosTiposDeTratamiento($dato);
+    		return $this->obetenerNumerosTiposDeTratamiento($dato, $pacientesFil);
     	}
     	if($dato == 'numero_ciclos')
-    		return $this->obetenerNumerosCiclos();
+    		return $this->obetenerNumerosCiclos($pacientesFil);
 
-    	return $this->obetenerNumerosDosis();
+    	return $this->obetenerNumerosDosis($pacientesFil);
 
    	}
 
-    public function imprimirPercentiles(Request $request)
+    public function imprimirPercentiles(Request $request, $opciones = null)
     {
-    	$dato = $request->datosPercentil;
-    	$listaOrdenada = $this->obtenerListaOrdenada($dato);
-    	$media = $this->calcularMedia($listaOrdenada);
-    	$desviacion = $this->calcularDesviacionTipica($listaOrdenada, $media);
-    	$skewness = $this->calcularSkewness($listaOrdenada, $media, $desviacion);
-    	$kurtosis = $this->calcularKurtosis($listaOrdenada, $media, $desviacion);
-    	$arrayPercentiles = [$this->calcularPercentil($listaOrdenada, 1), $this->calcularPercentil($listaOrdenada, 5), $this->calcularPercentil($listaOrdenada, 10), $this->calcularPercentil($listaOrdenada, 25), $this->calcularPercentil($listaOrdenada, 50), $this->calcularPercentil($listaOrdenada, 75), $this->calcularPercentil($listaOrdenada, 90), $this->calcularPercentil($listaOrdenada, 95), $this->calcularPercentil($listaOrdenada, 99)];
-    	return view('mostrarpercentiles', ['datosGraficaPercentil' => $listaOrdenada, 'tipoDato' => $dato, 'media' => $media, 'desviacion' => $desviacion, 'skewness' => $skewness, 'kurtosis' => $kurtosis, 'percentiles' => $arrayPercentiles]);
+        try{
+            if($opciones != null){
+                $opcionesArray = explode("-", $opciones);
+                $pacientesFil = app(PacientesFiltradosController::class)->obtenerPacientesFiltrados($opcionesArray);
+            }else{
+                $pacientesFil = null;
+            }
+        	$dato = $request->datosPercentil;
+        	$listaOrdenada = $this->obtenerListaOrdenada($dato, $pacientesFil);
+        	$media = $this->calcularMedia($listaOrdenada);
+        	$desviacion = $this->calcularDesviacionTipica($listaOrdenada, $media);
+        	$skewness = $this->calcularSkewness($listaOrdenada, $media, $desviacion);
+        	$kurtosis = $this->calcularKurtosis($listaOrdenada, $media, $desviacion);
+        	$arrayPercentiles = [$this->calcularPercentil($listaOrdenada, 1), $this->calcularPercentil($listaOrdenada, 5), $this->calcularPercentil($listaOrdenada, 10), $this->calcularPercentil($listaOrdenada, 25), $this->calcularPercentil($listaOrdenada, 50), $this->calcularPercentil($listaOrdenada, 75), $this->calcularPercentil($listaOrdenada, 90), $this->calcularPercentil($listaOrdenada, 95), $this->calcularPercentil($listaOrdenada, 99)];
+        	return view('mostrarpercentiles', ['opciones' => $opciones,'datosGraficaPercentil' => $listaOrdenada, 'tipoDato' => $dato, 'media' => $media, 'desviacion' => $desviacion, 'skewness' => $skewness, 'kurtosis' => $kurtosis, 'percentiles' => $arrayPercentiles]);
+        }catch (\Exception $e){
+            return redirect()->route('verpercentiles')->with('errorNoExisteCampo','No hay ningun dato guardado con ese atributo');
+        }
     }
-
 }

@@ -1,8 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
+@if(isset($opciones))
+<h3 class="mb-4 text-white text-center panel-title">Filtrado por: {{ $opciones }}</h3>
+<form action="{{ route('realizarfiltradopercentiles', ['opciones' => $opciones] ) }}" method="post">
+@else
 <form action="{{ route('imprimirpercentiles') }}" method="post">
+@endif
 @CSRF
+  @if ($message = Session::get('errorNoExisteCampo'))
+  <div class="alert alert-danger alert-block">
+      <button type="button" class="text-dark close" data-dismiss="alert">x</button>
+      <strong class="text-center text-dark">{{ $message }}</strong>
+  </div>
+  @endif
   <div class="row">
     <div class="col-md-5">
       <label class="text-white">Datos personales</label>

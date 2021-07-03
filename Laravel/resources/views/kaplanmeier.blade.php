@@ -1,7 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+@if(isset($opciones))
+<h3 class="mb-4 text-white text-center panel-title">Filtrado por: {{ $opciones }}</h3>
+<form action="{{ route('realizarfiltradokaplan', ['opciones' => $opciones] ) }}" method="post">
+@else
 <form action="{{ route('crearkaplan') }}" method="post">
+@endif
 @CSRF
   <div class="row">
     <div class="col-md-3">
