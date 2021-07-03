@@ -17,6 +17,8 @@ use App\Http\Controllers\PercentilesController;
 use App\Http\Controllers\ExportarDatosController;
 use App\Http\Controllers\BaseDeDatosSinteticaController;
 use App\Http\Controllers\KaplanMeierController;
+use App\Http\Controllers\PacientesFiltradosController;
+
 
 
 //Rutas de login y logout
@@ -178,3 +180,22 @@ Route::post('/ver/basesintetica', [BaseDeDatosSinteticaController::class, 'crear
 //Rutas para la visualización de la gráfica kaplan meier
 Route::get('/ver/kaplanmeier', [KaplanMeierController::class, 'verKaplanMeier'])->name('verkaplan');
 Route::post('/ver/kaplanmeier', [KaplanMeierController::class, 'crearGraficaKaplanMeier'])->name('crearkaplan');
+
+//Rutas para filtrar pacientes
+Route::get('/pacientes/filtrar', [PacientesFiltradosController::class, 'verFiltrado'])->name('verfiltrar');
+Route::post('/pacientes/filtrar', [PacientesFiltradosController::class, 'verPacientesFiltrados'])->name('realizarfiltrado');
+
+//Rutas para filtrar en los percentiles
+Route::get('/ver/percentiles/filtrar', [PacientesFiltradosController::class, 'verFiltrado'])->name('verfiltrarpercentiles');
+Route::post('/ver/percentiles/filtrar', [PacientesFiltradosController::class, 'verPacientesFiltradosPercentiles'])->name('filtrarpercentiles');
+Route::post('/ver/pacientes/filtrar/{opciones}', [PercentilesController::class, 'imprimirPercentiles'])->name('realizarfiltradopercentiles');
+
+//Rutas para filtrar en las gráficas
+Route::get('/ver/graficas/filtrar', [PacientesFiltradosController::class, 'verFiltrado'])->name('verfiltrargraficas');
+Route::post('/ver/graficas/filtrar', [PacientesFiltradosController::class, 'verPacientesFiltradosGraficas'])->name('filtrargraficas');
+Route::post('/ver/graficas/filtrar/{opciones}', [GraficosController::class, 'imprimirGraficas'])->name('realizarfiltradograficas');
+
+//Rutas para filtrar en la grafica kaplan meier
+Route::get('/ver/kaplanmeier/filtrar', [PacientesFiltradosController::class, 'verFiltrado'])->name('verfiltrarkaplan');
+Route::post('/ver/kaplanmeier/filtrar', [PacientesFiltradosController::class, 'verPacientesFiltradosKaplan'])->name('filtrarkaplan');
+Route::post('/ver/kaplanmeier/filtrar/{opciones}', [KaplanMeierController::class, 'crearGraficaKaplanMeier'])->name('realizarfiltradokaplan');
