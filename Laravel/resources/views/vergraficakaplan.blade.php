@@ -7,11 +7,11 @@
 <div class="d-flex justify-content-around">
   <div>
     <h4 class="text-white align-self-center text-center">Gráfica kaplan meier general</h4>
-    <img src="{{ URL::to('/kaplanmeierGeneral.png') }}">
+    <img src="{{ URL::to('/kaplanmeierGeneral.png') }}" alt="Kaplan meier general">
   </div>
   <div>
     <h4 class="text-white align-self-center text-center">Gráfica kaplan meier dividida por {{ $division }}</h4>
-    <img src="{{ URL::to('/kaplanmeierDivisiones.png') }}">
+    <img src="{{ URL::to('/kaplanmeierDivisiones.png') }}" alt="Kaplan meier con division">
   </div>
 </div>
 <div class="row mt-5 d-flex justify-content-around align-items-center">

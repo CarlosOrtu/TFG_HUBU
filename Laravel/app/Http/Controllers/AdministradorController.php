@@ -17,7 +17,7 @@ class AdministradorController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('admin');
+        $this->middleware('admin');;
     }
 
     //Metodo que retorna la vista usuarios
