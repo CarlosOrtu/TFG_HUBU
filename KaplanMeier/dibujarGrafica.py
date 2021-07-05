@@ -7,7 +7,6 @@ import pandas as pd
 import numpy as np
 from datetime import date
 import sys
-import os
 
 def main():
     separacion = sys.argv[1]
@@ -23,11 +22,12 @@ def main():
         dibujarGrafica(pacientes, separacion, opcionesSeparacion)
     else:
         dibujarGrafica(pacientes, separacion, None)
+    miConexion.close()
     
 def establecerConexionBase():
     miConexion = mysql.connector.connect( host='localhost', user= 'root', passwd='', db='hubu' )
     
-    return miConexion, miConexion.cursor()    
+    return miConexion, miConexion.cursor()
 
 def crearDataFrame(cur, separacion, opcionesArr):
     if(separacion == "general"):

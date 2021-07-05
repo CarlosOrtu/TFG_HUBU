@@ -22,7 +22,7 @@ bebedor = ["Bebedor", "Exbebedor", "Nunca bebedor", "Desconocido"]
 carcinogenos = ["Asbesto", "Desconocido"]
 
 #Datos enfermedad
-afectacion = ["Uni ganglionar", "Multiestación"]    
+afectacion = ["Uni ganglionar", "Multiestación"]
 M = ["0", "1a", "1b", "1c"]
 numAfectacion = ["0", "1", "2-4", "Mayor que 4"]
 TNM = ["IA1", "IA2", "IA3", "IB", "IIA", "IIB", "IIIA", "IIIB", "IIIC", "IVa", "IVb"]
@@ -88,7 +88,7 @@ modoAdministracion = ["Oral", "Intravenoso"]
 tipoFarmaco = ["Quimioterapia", "Inmunoterapia", "Tratamiento dirigido", "Antiangiogénico", "Quimoterapia + Inmunoterapia", "Tratamiento dirigido", "Quimioterapia + Tratamiento dirigido", "Quimioterapia + Antiangiogénico"]
 farmacos = ["Cisplatino", "Carboplatino", "Vinorelbina", "Paclitaxel", "Nab-paclitaxel" ,"Docetaxel", "Pemetrexed", "Gemcitabina", "Bevacizumab", "Ramucirumab", "Nintedanib", "Nivolumab", "Pembrolizumab", "Atezolizumab", "Avelumab", "Erlotinib", "Gefinitib", "Afatinib", "Dacomitinib", "Osimertinib", "Mobocertinib", "Amivantamab", "Crizotinib", "Alectinib", "Brigatinib", "Ceritinib", "Lorlatinib", "Dabratinib", "Trametinib", "Tepotinib", "Capmatinib", "Trastuzumab-deruxtecán"]
 subtipoRadioterapia = ["Radical", "Paliativa"]
-localizacionRadioterapia = ["Pulmonar", "Pulmonar + mediastino", "Ósea", "Suprarrenal", "SNC", "Hígado", "Ganglionar"]  
+localizacionRadioterapia = ["Pulmonar", "Pulmonar + mediastino", "Ósea", "Suprarrenal", "SNC", "Hígado", "Ganglionar"]
 subtipoCirugia = ["Neumonectomía", "Lobectomía", "Bilobectomía", "Segmentectomía", "Resección", "Resección atípica"]
 
 #Datos reevaluaciones
@@ -163,7 +163,7 @@ def obtenerNumeroTablas():
 def obtenerIdMaximo(cur, tabla):
     if(tabla == "Antecedentes_familiares"):
         cur.execute("SELECT max(id_antecedente_f) from antecedentes_familiares")
-    elif(tabla == "Tratamientos"):   
+    elif(tabla == "Tratamientos"):
         cur.execute("SELECT max(id_tratamiento) from tratamientos")
     elif(tabla == "Pacientes"):
         cur.execute("SELECT max(id_paciente) from pacientes")
@@ -305,7 +305,7 @@ def insertarSeguimiento(idPaciente, cur, miConexion, diagnostico):
     for linea in lineas:
         if(linea[0] == "Fallecido"):
             fallecido = True;
-    if(fallecido == False):        
+    if(fallecido == False):
         if(seguimiento.fechaFallecimiento == "Null"):
             cur.execute("INSERT INTO seguimientos (id_paciente, fecha, estado) VALUES ('"+idPaciente+"','"+seguimiento.fechaSeguimiento+"','"+seguimiento.estadoSeguimiento+"');")
         else:
@@ -378,7 +378,7 @@ class Biomarcador:
             self.tipo = tipoALK[random.randint(0,2)]
             if(self.tipo == "Traslocado"):
                 self.subtipo = subtipoALK[0]
-            else: 
+            else:
                 self.subtipo = "Null"
         elif(self.nombreBiomarcador == "ROS1"):
             self.tipo = tipoROS1[random.randint(0,1)]
@@ -420,32 +420,32 @@ class Biomarcador:
 class PruebaRealizada:
 
     def __init__(self):
-        self.tipoPrueba = tipoPrueba[random.randint(0,8)] 
+        self.tipoPrueba = tipoPrueba[random.randint(0,8)]
 
 class TecnicaRealizada:
 
     def __init__(self):
-        self.tipoTecnica = tipoTecnica[random.randint(0,5)] 
+        self.tipoTecnica = tipoTecnica[random.randint(0,5)]
 
 class OtroTumor:
 
     def __init__(self):
-        self.tipoOtroTumor = tipoOtroTumor[random.randint(0,12)] 
+        self.tipoOtroTumor = tipoOtroTumor[random.randint(0,12)]
 
 class AntecedenteMedico:
 
     def __init__(self):
-        self.tipoAntecedenteMedico = tipoAntecedenteMedico[random.randint(0,9)] 
+        self.tipoAntecedenteMedico = tipoAntecedenteMedico[random.randint(0,9)]
 
 class AntecedenteOncologico:
 
     def __init__(self):
-        self.tipoAntecedenteOncologico = tipoAntecedenteOncologico[random.randint(0,10)] 
+        self.tipoAntecedenteOncologico = tipoAntecedenteOncologico[random.randint(0,10)]
 
 class AntecedenteFamiliar:
 
     def __init__(self):
-        self.tipoAntecedenteFamiliar = tipoAntecedenteFamiliar[random.randint(0,3)] 
+        self.tipoAntecedenteFamiliar = tipoAntecedenteFamiliar[random.randint(0,3)]
 
 class EnfermedadFamiliar:
 
