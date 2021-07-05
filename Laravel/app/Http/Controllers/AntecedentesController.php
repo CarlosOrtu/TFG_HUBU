@@ -230,14 +230,14 @@ class AntecedentesController extends Controller
         $antecedente->id_paciente = $idPaciente;
         $antecedente->familiar = $request->familiar;
         $antecedente->save();
-        $i = 0;
+        $contador = 0;
         if(isset($request->enfermedades)){
 	        foreach($request->enfermedades as $enfermedad){
 	        	$enfermedadFamiliar = new Enfermedades_familiar();
 	        	$enfermedadFamiliar->id_antecedente_f =  $antecedente->id_antecedente_f;
 	        	if($enfermedad == "Otro"){
 	        		$enfermedadFamiliar->tipo = "Otro: ".$request->tipos_especificar[$i];
-	        		$i = $i + 1;
+	        		$contador = $contador + 1;
 	        	}else
 	        		$enfermedadFamiliar->tipo = $enfermedad;
 	        	$enfermedadFamiliar->save();
@@ -264,11 +264,11 @@ class AntecedentesController extends Controller
         $antecedente->save();
         $i = 0;
         $j = 0;
-        $enfermedadesFamiliares = $antecedente->Enfermedades_familiar;
+        $enfFamiliares = $antecedente->Enfermedades_familiar;
         if(isset($request->enfermedades)){
 	        foreach($request->enfermedades as $enfermedad){
-	        	if($i < count($enfermedadesFamiliares)){
-		        	$enfermedadFamiliar = $enfermedadesFamiliares[$i];
+	        	if($i < count($enfFamiliares)){
+		        	$enfermedadFamiliar = $enfFamiliares[$i];
 		        	$enfermedadFamiliar->id_antecedente_f =  $antecedente->id_antecedente_f;
 			        if($enfermedad == "Otro")
 			            $enfermedadFamiliar->tipo = "Otro: ".$request->tipos_especificar[$j];

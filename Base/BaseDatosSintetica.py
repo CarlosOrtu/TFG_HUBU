@@ -119,33 +119,33 @@ def main():
         nacimiento = insertarPaciente(x, cur, miConexion)
         diagnostico = insertarEnfermedad(x, x, cur, miConexion, nacimiento)
         numTablas = obtenerNumeroTablas()
-        for i in range(numTablas[0]):
+        for _ in range(numTablas[0]):
             insertarSintoma(x, cur, miConexion, diagnostico)
-        for i in range(numTablas[1]):
+        for _ in range(numTablas[1]):
             insertarMetastasis(x, cur, miConexion)
-        for i in range(numTablas[2]):
+        for _ in range(numTablas[2]):
             insertarBiomarcador(x, cur, miConexion)
-        for i in range(numTablas[3]):
+        for _ in range(numTablas[3]):
             insertarPruebaRealizada(x, cur, miConexion)
-        for i in range(numTablas[4]):
+        for _ in range(numTablas[4]):
             insertarTecnicaRealizada(x, cur, miConexion)
-        for i in range(numTablas[5]):
+        for _ in range(numTablas[5]):
             insertarOtroTumor(x, cur, miConexion)
-        for i in range(numTablas[6]):
+        for _ in range(numTablas[6]):
             insertarAntecedenteMedico(x, cur, miConexion)
-        for i in range(numTablas[7]):
+        for _ in range(numTablas[7]):
             insertarAntecedenteOncologico(x, cur, miConexion)
-        for i in range(1, numTablas[8]):
+        for _ in range(1, numTablas[8]):
             idAntecedente = obtenerIdMaximo(cur, "Antecedentes_familiares") + 1
             insertarAntecedenteFamiliar(idAntecedente, x, cur, miConexion)
-            for j in range(numTablas[9]):
+            for _ in range(numTablas[9]):
                 insertarEnfermedadFamiliar(idAntecedente, cur, miConexion)
-        for i in range(1, numTablas[10]):
+        for _ in range(1, numTablas[10]):
             idTratamiento = obtenerIdMaximo(cur, "Tratamientos") + 1
             insertarTratamiento(idTratamiento, x, cur, numTablas[11], miConexion, diagnostico)
-        for i in range(numTablas[12]):
+        for _ in range(numTablas[12]):
             insertarReevaluacion(x, cur, miConexion, diagnostico)
-        for i in range(numTablas[13]):
+        for _ in range(numTablas[13]):
             insertarSeguimiento(x, cur, miConexion, diagnostico)
         miConexion.commit()
 
@@ -154,7 +154,7 @@ def main():
 def obtenerNumeroTablas():
     numeroInserts = []
     p = float(sys.argv[8].replace(',', '.'))
-    for x in range(14):
+    for _ in range(14):
         numeroInserts.append(np.random.geometric(p, 1)[0])
 
 
@@ -272,7 +272,7 @@ def insertarTratamiento(idTratamiento, idPaciente, cur, numFarmacos, miConexion,
         else:
             cur.execute("INSERT INTO intenciones (id_intencion, id_tratamiento, ensayo, ensayo_fase, tratamiento_acceso_expandido, tratamiento_fuera_indicacion, medicacion_extranjera, esquema, modo_administracion, tipo_farmaco, numero_ciclos) VALUES ('"+idTratamiento+"','"+idTratamiento+"','"+tratamiento.tipoEnsayoClinico+"','"+tratamiento.ensayoClinicoFase+"','"+tratamiento.tratamientoAcceso+"','"+tratamiento.tratamientoFuera+"','"+tratamiento.medicacionExtranjera+"','"+tratamiento.esquema+"','"+tratamiento.modoAdministracion+"','"+tratamiento.tipoFarmaco+"','"+tratamiento.numeroCiclos+"')")
         miConexion.commit()
-        for i in range(numFarmacos):
+        for _ in range(numFarmacos):
             insertarFarmaco(idTratamiento, cur, miConexion)
     elif(tratamiento.tipoTratamiento == "Radioterapia"):
         cur.execute("INSERT INTO tratamientos (id_paciente, tipo, subtipo, dosis, localizacion, fecha_inicio, fecha_fin) VALUES ('"+idPaciente+"','Radioterapia','"+tratamiento.subtipoRadioterapia+"','"+tratamiento.dosis+"','"+tratamiento.localizacionRadioterapia+"','"+tratamiento.fechaInicio+"','"+tratamiento.fechaFin+"');")

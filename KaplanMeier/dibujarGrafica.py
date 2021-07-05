@@ -23,7 +23,7 @@ def main():
     else:
         dibujarGrafica(pacientes, separacion, None)
     miConexion.close()
-    
+
 def establecerConexionBase():
     miConexion = mysql.connector.connect( host='localhost', user= 'root', passwd='', db='hubu' )
     
@@ -75,7 +75,7 @@ def dibujarGrafica(pacientes, separacion, opcionesSeparacion):
         listaBooleanos = []
         for opcion in opcionesSeparacion:
             listaBooleanos.append(pacientes[separacion] == opcion[0])
-        for i in range(len(listaBooleanos)):
+        for i,_ in enumerate(listaBooleanos):
             kmf.fit(T[listaBooleanos[i]], E[listaBooleanos[i]], label=opcionesSeparacion[i][0])
             ax = kmf.plot_survival_function()
     
