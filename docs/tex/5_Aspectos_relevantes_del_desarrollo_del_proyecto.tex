@@ -14,11 +14,11 @@ Al comienzo del desarrollo de la aplicación web se empezó a trabajar en local 
 
 La primera herramienta son las migraciones, Laravel nos permite crear clases que hereden de \textit{Migration} con dos funciones, la función \textit{up} la cual sirve para crear la tabla con sus correspondientes campos y referencias (\ref{fig:migracion_up}) y la función \textit{down} que elimina la tabla. Para ejecutar todas las migraciones y crear la estructuras de tablas completa solo hace falta ejecutar el comando \textit{php artisan migrate} en la dirección en la que este instalado nuestro proyecto Laravel \cite{migraciones}.
 
-\imagen{migracion_up}{Método up de la migración de la tabla metástasis}
+\imagen{migracion_up}{Método up de la migración de la tabla metástasis.}
 
 La segunda herramienta son los \textit{seeders}, Laravel nos permite insertar datos en las tablas ya creadas creando clases que hereden de \textit{Seeder}, estas clases tendrán un solo método llamado \textit{run} el cual insertará los datos dentro de la tabla especificada (\ref{fig:seeders}). Para ejecutar todos los \textit{seeders} y introducir los datos solo hace falta ejecutar el comando \textit{php artisan db:seed}  en la misma dirección que las migraciones \cite{seeders}. 
 
-\imagen{seeders}{Método \textit{run} del \textit{seeder} de los roles}
+\imagen{seeders}{Método \textit{run} del \textit{seeder} de los roles.}
 
 Por último también se han realizado scripts en SQL para realizar lo mismo que he comentado anteriormente en las migraciones y en los \textit{seeders}, el motivo de esto es para que en el caso que estas herramientas fallen se pueda seguir poniendo a punto la base de datos ejecutando los scripts SQL.
 
@@ -42,23 +42,28 @@ La tercera medida fue el protocolo HTTPS ya que la única brecha de seguridad qu
 
 Una de las incertidumbres que surgió a la hora de empezar con el apartado de la visualización de los datos era que no sabía muy bien ni como realizar la interfaz ni como representar los datos obtenidos. Para lo primero, después de darle vueltas se decidió realizar un diseño sencillo el cual permitiera las divisiones según el tipo de dato como se puede ver en la imagen \ref{fig:graficas_1}.  
 
-\imagenTam{graficas_1}{Interfaz para la selección de divisiones para la realización de gráficas}{1}
+\imagenTam{graficas_1}{Interfaz para la selección de divisiones para la realización de gráficas.}{1}
 
 Para la visualización de las gráficas se investigó sobre diferentes programas estadísticos y al final se decidió por realizar las tablas y gráficas similares al programa \href{https://www.stata.com/}{STATA}\footnote{\href{https://www.stata.com/}{https://www.stata.com/}}.
 
 Como se puede observar en las siguientes imágenes, tenemos por un lado tanto el diagrama de sectores \ref{fig:graficas_2} como la tabla de frecuencias de STATA \ref{fig:graficas_3} y el diagrama de sectores \ref{fig:grafica_normal} y la tabla de frecuencias de nuestra aplicación web \ref{fig:tabla_normal}.
 
-\imagenTam{graficas_2}{Diagrama de sectores STATA}{0.6}
-\imagenTam{graficas_3}{Tabla de frecuencias STATA}{0.7}
-\imagenTam{grafica_normal}{Diagrama de sectores del proyecto}{0.8}
-\imagenTam{tabla_normal}{Tabla de frecuencias del proyecto}{0.8}
+\imagenTam{graficas_2}{Diagrama de sectores STATA.}{0.6}
+\imagenTam{graficas_3}{Tabla de frecuencias STATA.}{0.7}
+\imagenTam{grafica_normal}{Diagrama de sectores del proyecto.}{0.8}
+\imagenTam{tabla_normal}{Tabla de frecuencias del proyecto.}{0.8}
 
-Para los atributos numéricos se pidió otro tipo de gráficas y tablas para mejorar el análisis, ambas se basan en los percentiles (\ref{percentil}) y los conceptos teoricos explicado en el apartado \ref{estadistica}. En las siguiente imagenes podemos observar tanto la gráfica de vela \ref{fig:graficas_4} como la tabla de percentiles de STATA \ref{fig:graficas_5} y la gráfica de vela \ref{fig:graficas_percentil} y la tabla de percentiles de nuestra aplicación web \ref{fig:tabla_percentiles}.
+Para los atributos numéricos se pidió otro tipo de gráficas y tablas para mejorar el análisis, ambas se basan en los percentiles (\ref{percentil}) y los conceptos teóricos explicado en el apartado \ref{estadistica}. En las siguiente imágenes podemos observar tanto la gráfica de vela \ref{fig:graficas_4} como la tabla de percentiles de STATA \ref{fig:graficas_5} y la gráfica de vela \ref{fig:graficas_percentil} y la tabla de percentiles de nuestra aplicación web \ref{fig:tabla_percentiles}.
 
-\imagenTam{graficas_4}{Gráfica de vela STATA}{0.6}
-\imagenTam{graficas_5}{Tabla de percentiles STATA}{0.9}
-\imagenTam{graficas_percentil}{Gráfica de vela del proyecto}{0.9}
-\imagenTam{tabla_percentiles}{Tabla de percentiles del proyecto}{0.9}
+\imagenTam{graficas_4}{Gráfica de vela STATA.}{0.6}
+\imagenTam{graficas_5}{Tabla de percentiles STATA.}{0.9}
+\imagenTam{graficas_percentil}{Gráfica de vela del proyecto.}{0.9}
+\imagenTam{tabla_percentiles}{Tabla de percentiles del proyecto.}{0.9}
+
+Como último tipo se pidió la gráfica kaplan meier, la cual sirve para realizar un análisis de la supervivencia de los pacientes \cite{kaplan}. En las siguientes imágenes podemos observar la gráfica kaplan meier de STATA \ref{fig:kaplan_meier_original} y la gráfica kaplan meier de nuestra aplicación web \ref{fig:kaplan_meier_web}.
+
+\imagenTam{kaplan_meier_original}{Gráfica kaplan meier STATA.}{0.9}
+\imagenTam{kaplan_meier_web}{Gráfica kaplan meier del proyecto.}{0.9}
 
 \section{Pruebas}
 
@@ -93,11 +98,21 @@ Las pruebas de seguridad son aquellas que tratan de encontrar vulnerabilidades d
     \item Que un usuario con el rol administrador tenga acceso a todas las rutas de la web.
 \end{itemize}
 
-\textcolor{red}{Estas pruebas se están implementando actualmente.}
+\imagen{seguridad_test}{Resultado de la ejecución de los test de seguridad.}
 
 \section{Fase de refactorización del código}
 
-\textcolor{red}{Este apartado se completará cuando se acabe la refactorización la cual esta actualmente en proceso.}
+Una vez finalizada la parte de programación del proyecto, se llevó a cabo un proceso de refactorización para asegurar un mínimo de calidad dentro de nuestro código. Para realizar esto se uso la herramienta Codacy \ref{Codacy}.
+
+La primer vez que se ejecutó el análisis de código de Codacy se obtuvo una nota de B y 626 \textit{issues} lo cual supone un 14\%. Las \textit{issues} se dividen en 6 tipos: \textit{Code Style},  \textit{Security}, \textit{Error Prone}, \textit{Performance}, \textit{Compatibility} y \textit{Unused Code}, y en este proceso de refactorización se basó en la eliminación de todas las \textit{issues} menos las de \textit{Code Style} ya que se consideraron las menos importantes. Se consiguió reducir hasta un 6\% como se puede ver en la imagen \ref{fig:codacy_issues} donde la mayoría son de \textit{Code Style} y el resto son de ficheros internos Laravel \ref{fig:issues_codacy} y se consiguió una calificación de A en la calidad del código \ref{fig:nota_codacy}.
+
+\imagenTam{codacy_issues}{Gráfico de issues Codacy.}{1}
+
+\imagen{issues_codacy}{Tipos de issues Codacy.}
+
+\imagenTam{nota_codacy}{Nota de Codacy.}{1}
+
+Se puede acceder acceder al informe de calidad desde \url{https://app.codacy.com/gh/CarlosOrtu/TFG_HUBU/dashboard?utm_source=github.com&utm_medium=referral&utm_content=CarlosOrtu/TFG_HUBU&utm_campaign=Badge_Grade} o desde el readme del proyecto en GitHub.
 
 \section{Opinión de los oncólogos respecto a la aplicación final y al trabajo realizado}
 

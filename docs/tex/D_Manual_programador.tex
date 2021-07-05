@@ -2,7 +2,7 @@
 
 \section{Introducción}
 
-En este anexo se va explicar la estructura del proyecto, los requisitos necesarios para poder ejecutarlo desde cualquier ordenador  
+En este anexo se va explicar la estructura del proyecto, los requisitos necesarios para poder ejecutarlo desde cualquier ordenador.  
 
 \section{Estructura de directorios}
 
@@ -10,7 +10,7 @@ El contenido del repositorio se estructura principalmente en 4 directorios:
 
 \begin{itemize}
     \item \textbf{/Base de datos sintética:} Contiene el script para generar la base de datos sintética.
-    \item \textbf{/Lavarel:} Contiene el proyecto de la aplicación web junto con los test, las migraciones, los seeders y el enrutado.
+    \item \textbf{/Laravel:} Contiene el proyecto de la aplicación web junto con los test, las migraciones, los seeders y el enrutado.
     \item \textbf{/SQL:} Contiene los scripts SQL que crean la estructura de la base de datos e introducen los datos necesarios para que funcione la aplicación.
     \item \textbf{/docs:} Contiene la documentación del proyecto. 
 \end{itemize}
@@ -20,20 +20,20 @@ Dentro del proyecto Laravel los directorios más importantes son:
 \begin{itemize}
     \item \textbf{/app:} Contiene el script para generar la base de datos sintética.
     \begin{itemize}
-        \item \textbf{/Exports:} Contiene los ficheros necesarios para realizar la exportación de la base de datos a el fichero Excel.
+        \item \textbf{/Exports:} Contiene los ficheros necesarios para realizar la exportación de la base de datos al fichero Excel.
         \item \textbf{/Http:} 
         \begin{itemize}
-            \item \textbf{/Controllers:}
-            \item \textbf{/Middleware:}
+            \item \textbf{/Controllers:} Contiene los controladores con la lógica de negocio.
+            \item \textbf{/Middleware:} Contiene los middleware con los controles de seguridad.
         \end{itemize}
-        \item \textbf{/JoinsTablas:} Contiene el fichero que permite devuelve un outter join entre todas las tablas.
+        \item \textbf{/JoinsTablas:} Contiene el fichero que devuelve un outter join entre todas las tablas.
         \item \textbf{/Models:} Contiene los modelos de las tablas de la base de datos, cada uno con todos sus atributos y con sus relaciones.
         \item \textbf{/Rules:} Contiene las reglas que hemos añadido para la validación de datos como por ejemplo para comprobar correo único en la base de datos.
         \item \textbf{/Utilidades:} Contiene el fichero que permite tanto la encriptación de datos como la desencriptación .
     \end{itemize}
     \item \textbf{/config:} Contiene los ficheros de configuración del proyecto Laravel.
     \begin{itemize}
-        \item \textbf{/app.php:} Fichero de configuración generales del proyecto, como por ejemplo nombre de la aplicación, zona horaria, etc.
+        \item \textbf{/app.php:} Fichero de configuraciones generales del proyecto, como por ejemplo nombre de la aplicación, zona horaria, etc.
         \item \textbf{/auth.php} Fichero de configuración de la autentificación del login.
     \end{itemize}
     \item \textbf{/database:} Contiene los ficheros para poner la base de datos a punto para poder usar la aplicación.
@@ -47,11 +47,12 @@ Dentro del proyecto Laravel los directorios más importantes son:
         \item \textbf{/js:} Contiene los ficheros \textit{.js} los cuales va a añadir animaciones y efectos a nuestra web.
     \end{itemize}
     \item \textbf{/resources/views:} Contiene los ficheros HTML de todas las vistas de la web.
-    \item \textbf{/routes/web.php:} Contiene todas las rutas de la web con sus correspondientes peticiones HTTP-
+    \item \textbf{/routes/web.php:} Contiene todas las rutas de la web con sus correspondientes peticiones HTTP.
     \item \textbf{/tests:} Contiene todos los test realizados con phpunit.
     \begin{itemize}
         \item \textbf{/Featute:} Contiene los test realizados de la gestión de pacientes y usuarios.
         \item \textbf{/Ini:} Contiene ficheros para crear pacientes y usuarios para los tests.
+        \item \textbf{/Seguridad:} Contiene los test de seguridad realizados.
     \end{itemize}
     \item \textbf{/.env:} Contiene las variables de entorno.
     \item \textbf{/phpunit.xml:} Contiene la configuración para poder ejecutar los tests.
@@ -66,26 +67,26 @@ En este apartado se van a comentar todos los programas y versiones que van a ser
 Es un conjunto de programas para permitir el desarrollo de aplicaciones web en local en sistemas Windows, esta consta de 4 herramientas principales:
 \begin{itemize}
     \item \textbf{Apache:} Servidor web HTTP de código abierto.
-    \item \textbf{MySQL:} Base de datos relacional 
+    \item \textbf{MySQL:} Base de datos relacional. 
     \item \textbf{PHP:} Lenguaje de programación centrado en el desarrollo web.
     \item \textbf{PhpMyAdmin:} Programa para gestionar bases de datos.
 \end{itemize}
 
-WAMP se descarga en la web \href{https://www.wampserver.com/}{https://www.wampserver.com/}, en el instalador usar todos los valores por defecto y la versión que se esta usando es la 3.2.3.3.
+WAMP se descarga en la web \href{https://www.wampserver.com/}{https://www.wampserver.com/}, en el instalador usar todos los valores por defecto. La versión que se esta usando es la 3.2.3.3.
 
-\subsection{composer}
+\subsection{Composer}
 
 Es un gestor de paquetes para PHP y es el que en nuestro proyecto nos ha permitido tanto descargar Laravel como las librerías de PHP que hemos necesitado. La versión que se esta usando es la 2.0.13.
 
-Composer se descarga en la web \href{https://getcomposer.org/}{https://getcomposer.org/}, en el instalador usar todos los valores por defecto, excepto cuando pregunta por la version de PHP que queremos usar, en este caso seleccionaremos "\textit{C:\textbackslash{}wamp64\textbackslash{}bin\textbackslash{}php\\\textbackslash{}php7.4.9\textbackslash{}php.exe}" como podemos ver en la imagen \ref{fig:composer}.
+Composer se descarga en la web \href{https://getcomposer.org/}{https://getcomposer.org/}. En el instalador usar todos los valores por defecto, excepto cuando pregunta por la versión de PHP que queremos usar, en este caso seleccionaremos "\textit{C:\textbackslash{}wamp64\textbackslash{}bin\textbackslash{}php\\\textbackslash{}php7.4.9\textbackslash{}php.exe}"{} como podemos ver en la imagen \ref{fig:composer}.
 
-\imagenTam{composer}{Versión de PHP a elegir en el instalador de composer}{0.7}
+\imagenTam{composer}{Versión de PHP a elegir en el instalador de composer.}{0.7}
 
 \subsection{Python 3}
 
-Es un lenguaje de programación, el cual se ha usado para la creación de la base de datos sintética, y es necesario tener Python instalado en el ordenador para permitir correr este script. La versión que se esta usando es la 3.9.5.
+Es un lenguaje de programación, el cual se ha usado para la creación de la base de datos sintética, y es necesario para nuestra aplicación web tener Python instalado en el ordenador para permitir correr los scripts de creación de base de datos sintética y de generación de graficas kaplan meier. La versión que se esta usando es la 3.9.5.
 
-Python se descarga en la web \href{https://www.python.org/downloads/release/python-395/}{https://www.python.org/downloads/release\\/python-395/}, en el instalador seleccionar las opciones por defecto, excepto en la localización que vamos a poner "\textit{C:\textbackslash{}Python3.9\textbackslash{}}" como podemos ver en la imagen \ref{fig:python}.
+Python se descarga en la web \href{https://www.python.org/downloads/release/python-395/}{https://www.python.org/downloads/release\\/python-395/}, en el instalador seleccionar las opciones por defecto, excepto en la localización que vamos a poner "\textit{C:\textbackslash{}Python3.9\textbackslash{}}"{} como podemos ver en la imagen \ref{fig:python}.
 
 \newpage
 
@@ -97,24 +98,26 @@ Para este proyecto va a ser necesario tener instaladas la siguiente librerías d
     \item mysql.connector
     \item faker
     \item datetime
+    \item pandas
+    \item lifetimes
 \end{itemize}
 
 Para instalar las siguiente librerías podemos usar el comando "\textit{pip install nombre de la librería}"
 
-\imagenTam{python}{Localización a elegir en el instalador de python}{0.7}
+\imagenTam{python}{Localización a elegir en el instalador de python.}{0.7}
 
-\section{Compilación, instalación y ejecución del proyecto}
+\section{Compilación, instalación y ejecución del proyecto} \label{manualProg}
 
 En este apartado se va a explicar como instalar y ejecutar el proyecto en un entorno local.
 
 \subsection{Importar el proyecto}
 
-Una vez tengamos instalado todos los programas y librerías como se ha explicado en el punto \ref{manual}, lo primero vamos a hacer va a ser importar el proyecto, para esto seguiremos los siguientes pasos:
+Una vez tengamos instalado todos los programas y librerías como se ha explicado en el punto \ref{manual}, lo primero que vamos a hacer va a ser importar el proyecto, para esto seguiremos los siguientes pasos:
 
 \begin{enumerate}
     \item Acceder al repositorio: \href{https://github.com/CarlosOrtu/TFG_HUBU}{https://github.com/CarlosOrtu/TFG\_HUBU}.
     \item Descargar el contenido del repositorio desde \textbf{Code > Download ZIP} como se puede ver en la imagen \ref{fig:git_descargar}
-    \imagenTam{git_descargar}{Descargar el proyecto GitHub}{0.5}
+    \imagenTam{git_descargar}{Descargar el proyecto GitHub.}{0.5}
     \item Descomprimir el proyecto.
 \end{enumerate}
     
@@ -123,7 +126,7 @@ Una vez tengamos instalado todos los programas y librerías como se ha explicado
 Una vez tenemos todos los archivos del proyecto, lo siguiente que tendremos que hacer será añadir este proyecto a WAMP. Para esto seguiremos los siguientes pasos.
 
 \begin{enumerate}
-    \item Accedemos a la ruta "\textit{C:\textbackslash{}wamp64\textbackslash{}www}"{} o a la ruta donde se haya descargado WAMP y posteriormente a la carpeta www.
+    \item Accedemos a la ruta "\textit{C:\textbackslash{}wamp64\textbackslash{}www}"{}.
     \item Creamos una carpeta con el nombre TFG\_HUBU.
     \item Pegamos todos los ficheros que hemos descomprimido del proyecto dentro de esta carpeta.
 \end{enumerate}
@@ -162,8 +165,8 @@ Lo primero que tendremos que hacer será ejecutar wampserver para tener disponib
     \item Mediante la consola MySQL:
     \begin{enumerate}
         \item Para acceder a la consola MySQL seleccionamos el icono de wamp con el clic izquierdo, en el menú seleccionamos MySQL y por último seleccionamos MySQL console como podemos ver en la imagen \ref{fig:mysql_consola}.
-        \imagenTam{mysql_consola}{Acceder a la consola MySQL}{0.8}
-        \item Una vez en la consola ingresamos el usuario \textbf{root} y la contraseña la dejamos vacía.
+        \imagenTam{mysql_consola}{Acceder a la consola MySQL.}{0.8}
+        \item Una vez en la consola, ingresamos el usuario \textbf{root} y la contraseña la dejamos vacía.
         \item Con la sesión ya iniciada ejecutamos el comando "\textit{CREATE DATABASE memoria;}".
     \end{enumerate}
     \item Mediante PhpMyAdmin:
@@ -171,13 +174,13 @@ Lo primero que tendremos que hacer será ejecutar wampserver para tener disponib
         \item Accedemos en el navegador a la url "\textit{http://localhost/phpmyadmin/}".
         \item Iniciamos sesión con el usuario \textbf{root} y la contraseña vacía.
         \item Con la sesión ya iniciada seleccionamos \textbf{Nueva} en el menú (\ref{fig:phpmyadmin_crear}) y le ponemos como nombre a la base de datos \textbf{hubu}.
-        \imagenTam{phpmyadmin_crear}{Acceder a la consola MySQL}{0.3}
+        \imagenTam{phpmyadmin_crear}{Acceder a la consola MySQL.}{0.3}
     \end{enumerate}
 \end{enumerate}
 
 \subsection{Poner a punto la base de datos}
 
-Una vez creada la base de datos necesitamos crear la estructura y añadir los datos necesarios para que funcione como los roles y el primer usuario para poder realizar el login. Esto lo podemos realizar de dos maneras:
+Una vez creada la base de datos necesitamos crear la estructura y añadir los datos necesarios para que funcione correctamente, como por ejemplo el primer usuario con el que se va a realizar login y los dos roles que van a poder tener los usuarios. Esto lo podemos realizar de dos maneras:
 
 \begin{enumerate}
     \item Mediante \textit{migrations} y \textit{seeders} de Laravel:
@@ -190,7 +193,7 @@ Una vez creada la base de datos necesitamos crear la estructura y añadir los da
     \begin{enumerate}
         \item Abrimos la consola de MySQL como hemos explicado en el punto anterior.
         \item Una vez en la consola ingresamos el usuario \textbf{root} y la contraseña la dejamos vacía.
-        \item Ejecutamos el comando "\textit{use hubu}" para que los scripts se ejecuten sobre esta base de datos.
+        \item Ejecutamos el comando "\textit{use hubu}"{} para que los scripts se ejecuten sobre esta base de datos.
         \item Ejecutamos los 3 scripts con los siguientes comandos:
         \begin{itemize}
             \item "\textit{source C:/wamp64/www/TFG\_HUBU/SQL/create\_users\_roles.sql;}"
@@ -215,34 +218,409 @@ Como ya se ha comentado en la memoria para este proyecto se han realizado tres t
 
 \subsection{Pruebas de integración}
 
-Las pruebas de integración se han realizado para asegurar que la introducción, la modificación y la eliminación tanto de pacientes como de usuarios funciona sin ningún problema.
+Las pruebas de integración se han realizado para asegurar que la introducción, la modificación y la eliminación tanto de pacientes como de usuarios funciona sin ningún problema. Las he denominado pruebas de integración en lugar de pruebas unitarias ya que estas pruebas van a comprobar las interacciones entre las diferentes capas de nuestra arquitectura.
+
+\subsubsection{Casos de prueba login}
+
+\begin{enumerate}
+    \item Probar el correcto funcionamiento del login con datos correctos.
+    \item Probar el correcto funcionamiento del login con datos incorrectos.
+    \item Probar el correcto funcionamiento del login con un correo no valido.
+    \item Probar el correcto funcionamiento del login sin rellenar el campo del correo.
+    \item Probar el correcto funcionamiento del login sin rellenar el campo de la contraseña.
+\end{enumerate}
+
+\subsubsection{Casos de prueba creación de un nuevo usuario}
+
+\begin{enumerate}
+    \item Probar el correcto funcionamiento de la creación de nuevo usuario.
+    \item Probar el correcto funcionamiento de la creación de nuevo usuario con el campo nombre vacío.
+    \item Probar el correcto funcionamiento de la creación de nuevo usuario con el campo apellidos vacío.
+    \item Probar el correcto funcionamiento de la creación de nuevo usuario con el campo correo vacío.
+    \item Probar el correcto funcionamiento de la creación de nuevo usuario con el campo contraseña vacío.
+    \item Probar el correcto funcionamiento de la creación de nuevo usuario con el campo repetir contraseña vacío.
+    \item Probar el correcto funcionamiento de la creación de nuevo usuario con un correo no valido.
+    \item Probar el correcto funcionamiento de la creación de nuevo usuario sin que ambas contraseñas coincidan.
+    \item Probar el correcto funcionamiento de la creación de nuevo usuario con un correo ya existente.
+\end{enumerate}
+
+\subsubsection{Casos de prueba de modificación de un usuario}
+
+\begin{enumerate}
+    \item Probar el correcto funcionamiento de la modificación de un usuario.
+    \item Probar el correcto funcionamiento de la modificación de un usuario con el campo nombre vacío.
+    \item Probar el correcto funcionamiento de la modificación de un usuario con el campo apellidos vacío.
+    \item Probar el correcto funcionamiento de la modificación de un usuario con el campo correo vacío.
+    \item Probar el correcto funcionamiento de la modificación de un usuario con un correo no valido.
+    \item Probar el correcto funcionamiento de la modificación de un usuario con un correo ya existente en la base de datos.
+\end{enumerate}
+
+\subsubsection{Caso de prueba eliminación de un usuario}
+
+\begin{enumerate}
+    \item Probar el correcto funcionamiento de la eliminación de un usuario.
+\end{enumerate}
+
+\subsubsection{Caso de prueba de la modificación de datos personales}
+
+\begin{enumerate}
+    \item Probar el correcto funcionamiento de la modificación de los datos personales.
+    \item Probar el correcto funcionamiento de la modificación de los datos personales con el campo nombre vacío.
+    \item Probar el correcto funcionamiento de la modificación de los datos personales con el campo apellidos vacío.
+    \item Probar el correcto funcionamiento de la modificación de los datos personales con el campo correo vacío.
+    \item Probar el correcto funcionamiento de la modificación de los datos personales con un correo no valido.
+    \item Probar el correcto funcionamiento de la modificación de los datos personales con un correo ya existente en la base de datos.
+\end{enumerate}
+
+\subsubsection{Caso de prueba de la modificación de contraseña}
+
+\begin{enumerate}
+    \item Probar el correcto funcionamiento de la modificación de contraseña.
+    \item Probar el correcto funcionamiento de la modificación de contraseña con el campo contraseña antigua vacío.
+    \item Probar el correcto funcionamiento de la modificación de contraseña con el campo contraseña nueva vacío.
+    \item Probar el correcto funcionamiento de la modificación de contraseña con el campo repetir contraseña vacío.
+    \item Probar el correcto funcionamiento de la modificación de contraseña con la contraseña antigua que no coincida con la actual.
+    \item Probar el correcto funcionamiento de la modificación de contraseña con la contraseña nueva que no coincida con repetir contraseña.
+\end{enumerate}
+
+\subsubsection{Casos de prueba creación de un nuevo paciente}
+
+\begin{enumerate}
+    \item Probar el correcto funcionamiento de la creación de nuevo paciente.
+    \item Probar el correcto funcionamiento de la creación de nuevo paciente con el campo nombre vacío.
+    \item Probar el correcto funcionamiento de la creación de nuevo paciente con el campo apellidos vacío.
+    \item Probar el correcto funcionamiento de la creación de nuevo paciente con el campo nacimiento vacío.
+    \item Probar el correcto funcionamiento de la creación de nuevo paciente con una fecha de nacimiento posterior a la actual.
+\end{enumerate}
+
+\subsubsection{Casos de prueba modificación de un paciente}
+
+\begin{enumerate}
+    \item Probar el correcto funcionamiento de la modificación de un paciente.
+    \item Probar el correcto funcionamiento de la modificación de un paciente con el campo nombre vacío.
+    \item Probar el correcto funcionamiento de la modificación de un paciente con el campo apellidos vacío.
+    \item Probar el correcto funcionamiento de la modificación de un paciente con una fecha posterior a la actual.
+\end{enumerate}
+
+\subsubsection{Casos de prueba modificación de la enfermedad de un paciente}
+
+\begin{enumerate}
+    \item Probar el correcto funcionamiento de la modificación de la enfermedad.
+    \item Probar el correcto funcionamiento de la modificación de la enfermedad con el campo fecha primera consulta vacío.
+    \item Probar el correcto funcionamiento de la modificación de la enfermedad con la fecha primera consulta posterior a la actual.
+    \item Probar el correcto funcionamiento de la modificación de la enfermedad con la fecha diagnostico vacío.
+    \item Probar el correcto funcionamiento de la modificación de la enfermedad con la fecha diagnostico posterior a la actual.
+    \item Probar el correcto funcionamiento de la modificación de la enfermedad con la fecha diagnostico anterior a la fecha primer consulta.
+    \item Probar el correcto funcionamiento de la modificación de la enfermedad con el campo T tamaño vació.
+    \item Probar el correcto funcionamiento de la modificación de la enfermedad con el campo T tamaño menor que 0.
+\end{enumerate}
+
+\subsubsection{Casos de prueba creación de un síntoma nuevo}
+
+\begin{enumerate}
+    \item Probar el correcto funcionamiento de la creación del síntoma.
+    \item Probar el correcto funcionamiento de la creación del síntoma con el campo fecha inicio vacío.
+    \item Probar el correcto funcionamiento de la creación del síntoma con el campo fecha inicio posterior a la fecha actual.
+    \item Probar el correcto funcionamiento de la modificación de la fecha de los síntomas con el campo fecha inicio posterior a la fecha actual.
+\end{enumerate}
+
+\subsubsection{Casos de prueba modificación de un síntoma}
+
+\begin{enumerate}
+    \item Probar el correcto funcionamiento de la modificación de la fecha de los síntomas.
+    \item Probar el correcto funcionamiento de la modificación del tipo de síntoma.
+    \item Probar el correcto funcionamiento de la modificación de la fecha de los síntomas con el campo fecha vacío.
+    \item Probar el correcto funcionamiento de la modificación de la fecha de los síntomas con el campo fecha inicio posterior a la fecha actual.
+\end{enumerate}
+
+\subsubsection{Caso de prueba eliminación de un síntoma}
+
+\begin{enumerate}
+    \item Probar el correcto funcionamiento de la eliminación del síntoma.
+\end{enumerate}
+
+\subsubsection{Caso de prueba creación de una metástasis}
+
+\begin{enumerate}
+    \item Probar el correcto funcionamiento de la creación de una metástasis.
+\end{enumerate}
+
+\subsubsection{Caso de prueba modificación de una metástasis}
+
+\begin{enumerate}
+    \item Probar el correcto funcionamiento de la modificación de una metástasis.
+\end{enumerate}
+
+\subsubsection{Caso de prueba eliminación de una metástasis}
+
+\begin{enumerate}
+    \item Probar el correcto funcionamiento de la eliminación de una metástasis.
+\end{enumerate}
+
+\subsubsection{Caso de prueba creación de una prueba realizada}
+
+\begin{enumerate}
+    \item Probar el correcto funcionamiento de la creación de una prueba realizada.
+\end{enumerate}
+
+\subsubsection{Caso de prueba modificación de una prueba realizada}
+
+\begin{enumerate}
+    \item Probar el correcto funcionamiento de la modificación de una prueba realizada.
+\end{enumerate}
+
+\subsubsection{Caso de prueba eliminación de una prueba realizada}
+
+\begin{enumerate}
+    \item Probar el correcto funcionamiento de la eliminación de una prueba realizada.
+\end{enumerate}
+
+\subsubsection{Caso de prueba creación de una técnica realizada}
+
+\begin{enumerate}
+    \item Probar el correcto funcionamiento de la creación de una técnica realizada.
+\end{enumerate}
+
+\subsubsection{Caso de prueba modificación de una técnica realizada}
+
+\begin{enumerate}
+    \item Probar el correcto funcionamiento de la modificación de una técnica realizada.
+\end{enumerate}
+
+\subsubsection{Caso de prueba eliminación de una técnica realizada}
+
+\begin{enumerate}
+    \item Probar el correcto funcionamiento de la eliminación de una técnica realizada.
+\end{enumerate}
+
+\subsubsection{Caso de prueba creación de otro tumor}
+
+\begin{enumerate}
+    \item Probar el correcto funcionamiento de la creación de otro tumor.
+\end{enumerate}
+
+\subsubsection{Caso de prueba modificación de otro tumor}
+
+\begin{enumerate}
+    \item Probar el correcto funcionamiento de la modificación de otro tumor.
+\end{enumerate}
+
+\subsubsection{Caso de prueba eliminación de otro tumor}
+
+\begin{enumerate}
+    \item Probar el correcto funcionamiento de la eliminación de otro tumor.
+\end{enumerate}
+
+\subsubsection{Caso de prueba creación de un biomarcadores}
+
+\begin{enumerate}
+    \item Probar el correcto funcionamiento de la creación de un biomarcadores .
+\end{enumerate}
+
+\subsubsection{Caso de prueba eliminación de un biomarcadores}
+
+\begin{enumerate}
+    \item Probar el correcto funcionamiento de la eliminación de un biomarcadores .
+\end{enumerate}
+
+\subsubsection{Casos de prueba creación de un tratamiento de quimioterapia}
+
+\begin{itemize}
+    \item Probar el correcto funcionamiento de la creación de un tratamiento de quimioterapia.
+    \item Probar el correcto funcionamiento de la creación de un tratamiento de quimioterapia con el campo numero de ciclos vacío.
+    \item Probar el correcto funcionamiento de la creación de un tratamiento de quimioterapia con el campo numero de ciclos menor que 1.
+    \item Probar el correcto funcionamiento de la creación de un tratamiento de quimioterapia con el campo fecha primer ciclo vacío.
+    \item Probar el correcto funcionamiento de la creación de un tratamiento de quimioterapia con el campo fecha ultimo ciclo.
+    \item Probar el correcto funcionamiento de la creación de un tratamiento de quimioterapia con el campo fecha primer ciclo posterior a la fecha ultimo ciclo.
+    \item Probar el correcto funcionamiento de la creación de un tratamiento de quimioterapia con el campo fecha primer ciclo posterior a la fecha actual.
+\end{itemize}
+
+\subsubsection{Casos de prueba modificación de un tratamiento de quimioterapia}
+
+\begin{itemize}
+    \item Probar el correcto funcionamiento de la modificación de un tratamiento de quimioterapia.
+    \item Probar el correcto funcionamiento de la modificación de un tratamiento de quimioterapia con el campo numero de ciclos vacío.
+    \item Probar el correcto funcionamiento de la modificación de un tratamiento de quimioterapia con el campo numero de ciclos menor que 1.
+    \item Probar el correcto funcionamiento de la modificación de un tratamiento de quimioterapia con el campo fecha primer ciclo vacío.
+    \item Probar el correcto funcionamiento de la modificación de un tratamiento de quimioterapia con el campo fecha ultimo ciclo.
+    \item Probar el correcto funcionamiento de la modificación de un tratamiento de quimioterapia con el campo fecha primer ciclo posterior a la fecha ultimo ciclo.
+    \item Probar el correcto funcionamiento de la modificación de un tratamiento de quimioterapia con el campo fecha primer ciclo posterior a la fecha actual.
+\end{itemize}
+
+\subsubsection{Caso de prueba eliminación de un tratamiento de quimioterapia}
+
+\begin{itemize}
+    \item Probar el correcto funcionamiento de la eliminación de un tratamiento de quimioterapia.
+\end{itemize}
+
+\subsubsection{Casos de prueba creación de un tratamiento de radioterapia}
+
+\begin{itemize}
+    \item Probar el correcto funcionamiento de la creación de un tratamiento de radioterapia.
+    \item Probar el correcto funcionamiento de la creación de un tratamiento de radioterapia con el campo dosis vacío.
+    \item Probar el correcto funcionamiento de la creación de un tratamiento de radioterapia con el campo numero de dosis igual a 0.
+    \item Probar el correcto funcionamiento de la creación de un tratamiento de radioterapia con el campo fecha inicio vacío.
+    \item Probar el correcto funcionamiento de la creación de un tratamiento de radioterapia con el campo fecha fin vacío.
+    \item Probar el correcto funcionamiento de la creación de un tratamiento de radioterapia con el campo fecha inicio posterior a la fecha fin.
+    \item Probar el correcto funcionamiento de la creación de un tratamiento de radioterapia con el campo fecha primer ciclo posterior a la fecha actual.
+\end{itemize}
+
+\subsubsection{Casos de prueba modificación de un tratamiento de radioterapia}
+
+\begin{itemize}
+    \item Probar el correcto funcionamiento de la modificación de un tratamiento de radioterapia.
+    \item Probar el correcto funcionamiento de la modificación de un tratamiento de radioterapia con el campo dosis vacío.
+    \item Probar el correcto funcionamiento de la modificación de un tratamiento de radioterapia con el campo numero de dosis igual a 0.
+    \item Probar el correcto funcionamiento de la modificación de un tratamiento de radioterapia con el campo fecha inicio vacío.
+    \item Probar el correcto funcionamiento de la modificación de un tratamiento de radioterapia con el campo fecha fin vacío.
+    \item Probar el correcto funcionamiento de la modificación de un tratamiento de radioterapia con el campo fecha inicio posterior a la fecha fin.
+    \item Probar el correcto funcionamiento de la modificación de un tratamiento de radioterapia con el campo fecha primer ciclo posterior a la fecha actual.
+\end{itemize}
+
+\subsubsection{Casos de prueba eliminación de un tratamiento de radioterapia}
+
+\begin{itemize}
+    \item Probar el correcto funcionamiento de la eliminación de un tratamiento de radioterapia.
+\end{itemize}
+
+\subsubsection{Casos de prueba creación de un tratamiento de cirugía}
+
+\begin{itemize}
+    \item Probar el correcto funcionamiento de la creación de un tratamiento de cirugía.
+    \item Probar el correcto funcionamiento de la creación de un tratamiento de cirugía con el campo fecha vacío.
+    \item Probar el correcto funcionamiento de la creación de un tratamiento de cirugía con el campo fecha posterior a la fecha actual.
+\end{itemize}
+
+\subsubsection{Casos de prueba modificación de un tratamiento de cirugía}
+
+\begin{itemize}
+    \item Probar el correcto funcionamiento de la modificación de un tratamiento de cirugía.
+    \item Probar el correcto funcionamiento de la modificación de un tratamiento de cirugía con el campo fecha vacío.
+    \item Probar el correcto funcionamiento de la modificación de un tratamiento de cirugía con el campo fecha posterior a la fecha actual.
+\end{itemize}
+
+\subsubsection{Casos de prueba eliminación de un tratamiento de cirugía}
+
+\begin{itemize}
+    \item Probar el correcto funcionamiento de la eliminación de un tratamiento de cirugía.
+\end{itemize}
+
+\subsubsection{Casos de prueba creación de una reevaluación}
+
+\begin{itemize}
+    \item Probar el correcto funcionamiento de la creación de una reevaluación.
+    \item Probar el correcto funcionamiento de la creación de una reevaluación con el campo fecha vacío.
+    \item Probar el correcto funcionamiento de la creación de una reevaluación con el campo fecha posterior a la fecha actual.
+\end{itemize}
+
+\subsubsection{Casos de prueba modificación de una reevaluación}
+
+\begin{itemize}
+    \item Probar el correcto funcionamiento de la modificación de una reevaluación.
+    \item Probar el correcto funcionamiento de la modificación de una reevaluación con el campo fecha vacío.
+    \item Probar el correcto funcionamiento de la modificación de una reevaluación con el campo fecha posterior a la fecha actual.
+\end{itemize}
+
+\subsubsection{Casos de prueba eliminación de una reevaluación}
+
+\begin{itemize}
+    \item Probar el correcto funcionamiento de la eliminación de una reevaluación.
+\end{itemize}
+
+\subsubsection{Casos de prueba creación de un seguimiento}
+
+\begin{itemize}
+    \item Probar el correcto funcionamiento de la creación de un seguimiento.
+    \item Probar el correcto funcionamiento de la creación de un seguimiento con el campo fecha vacío.
+    \item Probar el correcto funcionamiento de la creación de un seguimiento con el campo fecha posterior a la fecha actual.
+\end{itemize}
+
+\subsubsection{Casos de prueba modificación de un seguimiento}
+
+\begin{itemize}
+    \item Probar el correcto funcionamiento de la modificación de un seguimiento.
+    \item Probar el correcto funcionamiento de la modificación de un seguimiento con el campo fecha vacío.
+    \item Probar el correcto funcionamiento de la modificación de un seguimiento con el campo fecha posterior a la fecha actual.
+\end{itemize}
+
+\subsubsection{Casos de prueba eliminación de un seguimiento}
+
+\begin{itemize}
+    \item Probar el correcto funcionamiento de la eliminación de un seguimiento.
+\end{itemize}
+
+\subsubsection{Casos de prueba creación de un comentario}
+
+\begin{itemize}
+    \item Probar el correcto funcionamiento de la creación de un comentario.
+\end{itemize}
+
+\subsubsection{Casos de prueba modificación de un comentario}
+
+\begin{itemize}
+    \item Probar el correcto funcionamiento de la modificación de un comentario.
+\end{itemize}
+
+\subsubsection{Casos de prueba eliminación de un comentario}
+
+\begin{itemize}
+    \item Probar el correcto funcionamiento de la eliminación de un comentario.
+\end{itemize}
+
+Se pueden encontrar todos los casos de prueba más detallados en la issues de mi GitHub: \href{https://github.com/CarlosOrtu/TFG_HUBU/issues/25}{\#25}\footnote{\href{https://github.com/CarlosOrtu/TFG_HUBU/issues/25}{https://github.com/CarlosOrtu/TFG\_HUBU/issues/25}}, 
+\href{https://github.com/CarlosOrtu/TFG_HUBU/issues/45}{\#45}\footnote{\href{https://github.com/CarlosOrtu/TFG_HUBU/issues/45}{https://github.com/CarlosOrtu/TFG\_HUBU/issues/45}}, 
+\href{https://github.com/CarlosOrtu/TFG_HUBU/issues/72}{\#72}\footnote{\href{https://github.com/CarlosOrtu/TFG_HUBU/issues/72}{https://github.com/CarlosOrtu/TFG\_HUBU/issues/72}}, \href{https://github.com/CarlosOrtu/TFG_HUBU/issues/73}{\#73}\footnote{\href{https://github.com/CarlosOrtu/TFG_HUBU/issues/73}{https://github.com/CarlosOrtu/TFG\_HUBU/issues/73}}, 
+\href{https://github.com/CarlosOrtu/TFG_HUBU/issues/74}{\#74}\footnote{\href{https://github.com/CarlosOrtu/TFG_HUBU/issues/74}{https://github.com/CarlosOrtu/TFG\_HUBU/issues/74}}, \href{https://github.com/CarlosOrtu/TFG_HUBU/issues/75}{\#75}\footnote{\href{https://github.com/CarlosOrtu/TFG_HUBU/issues/75}{https://github.com/CarlosOrtu/TFG\_HUBU/issues/75}}, 
+\href{https://github.com/CarlosOrtu/TFG_HUBU/issues/76}{\#76}\footnote{\href{https://github.com/CarlosOrtu/TFG_HUBU/issues/76}{https://github.com/CarlosOrtu/TFG\_HUBU/issues/76}}, \href{https://github.com/CarlosOrtu/TFG_HUBU/issues/77}{\#77}\footnote{\href{https://github.com/CarlosOrtu/TFG_HUBU/issues/77}{https://github.com/CarlosOrtu/TFG\_HUBU/issues/77}} y 
+\href{https://github.com/CarlosOrtu/TFG_HUBU/issues/78}{\#78}\footnote{\href{https://github.com/CarlosOrtu/TFG_HUBU/issues/78}{https://github.com/CarlosOrtu/TFG\_HUBU/issues/78}}.
 
 Para ejecutar estas pruebas primer se han tenido que realizar todos los pasos indicados en el apartado \ref{manual}, luego se tendrán que seguir los siguientes pasos:
 
 \begin{enumerate}
     \item Abrir el terminal de windows.
     \item Acceder a la ruta "\textit{C:\textbackslash{}wamp64\textbackslash{}www\textbackslash{}TFG\_HUBU\textbackslash{}Laravel}
-    \item Ejecutar el comando "\textit{php artisan test --testsuite=Feature}"
+    \item Ejecutar el comando "\textit{php artisan test -{}-testsuite=Feature}"
 \end{enumerate}
 
 \newpage
 
 Si todo se ha realizado correctamente el resultado de los test será el de la imagen \ref{fig:test_integracion}.
 
-\imagenTam{test_integracion}{Resultado de los test de integración}{0.7}
+\imagenTam{test_integracion}{Resultado de los test de integración.}{0.7}
+
+\subsection{Pruebas de validación}
+
+Cuando se realizo las pruebas de validación con los oncólogos se comprobó lo siguiente dentro de la aplicación web:
+
+\begin{itemize}
+    \item Correcta organización de los datos.
+    \item Correcta nomenclatura de los datos.
+    \item Correcto funcionamiento de las gráficas con distintos tipos de separaciones.
+    \item Correcta obtención de los valores estadísticos de las tablas.
+    \item Correcta exportación de los datos.
+\end{itemize}
+
 
 \subsection{Pruebas de seguridad}
 
 Estas pruebas se han realizado para asegurar el correcto funcionamiento de los \textit{middleware} y asegurar que usuarios sin permiso no puedan acceder a rutas restringidas.
+
+\subsubsection{Casos de prueba seguridad}
+
+\begin{itemize}
+    \item Probar que un usuario con rol de administrador tiene acceso a todas las rutas.
+    \item Probar que un usuario con rol de oncólogo tiene acceso a todas las rutas excepto a las rutas de administración de usuarios.
+    \item Probar que un usuario sin iniciar sesión no tiene acceso a ninguna ruta excepto a la ruta login.
+\end{itemize}
 
 Para la ejecución de las pruebas se han de seguir los siguientes pasos:
 
 \begin{enumerate}
     \item Abrir el terminal de windows.
     \item Acceder a la ruta "\textit{C:\textbackslash{}wamp64\textbackslash{}www\textbackslash{}TFG\_HUBU\textbackslash{}Laravel}
-    \item Ejecutar el comando "\textit{php artisan test --testsuite=Seguridad}"
+    \item Ejecutar el comando "\textit{php artisan test -{}-testsuite=Seguridad}"
 \end{enumerate}
 
 Si todo se ha realizado correctamente el resultado de los test será el de la imagen.
 
-\textcolor{red}{Faltan por implementar}
+\imagen{seguridad_test}{Resultado de la ejecución de los test de seguridad.}

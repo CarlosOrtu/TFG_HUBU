@@ -10,7 +10,7 @@ Las metodología ágiles son aquellas que se basan en dar una mayor libertad a l
 
 Debido a las características del proyecto se decidió que una metodología ágil era lo más adecuado para lleva a cabo su desarrollo ya que se comenzó con una idea general, por lo tanto a la hora de ir realizando el proyecto iba a ser necesario realizar cambios sobre las partes ya finalizadas y en vista de que a medida que avanzará el proyecto se iban a ir añadiendo funcionalidades, por lo tanto no se puede establecer un plan fijo desde el comienzo\cite{metodologia_agil}.
 
-De todas las metodologías ágiles para desarrollar el proyecto se eligió Scrum. Este método se basa en el desarrollo de sprints, en los cuales ser realizan partes del proyecto final ya funcionales y reuniones periódicas. Estos sprints suelen durar entre 1 ó 2 semanas\cite{scrum}. Esta metodología está pensada para trabajar con equipos enteros de desarrollo dentro de una empresa, pero para este proyecto se ha adaptado. Los roles quedan divididos de la manera que el product owner son los oncólogos, el scrumMaster son ambos tutores y el equipo de desarrollo soy yo, las reuniones y las duraciones de los sprint también han sido levemente modificadas haciéndolas menos estrictas debido a que no siempre era posible para los oncólogos realizar una reunión a la finalización de los sprint.
+De todas las metodologías ágiles para desarrollar el proyecto se eligió Scrum. Este método se basa en el desarrollo de sprints, en los cuales ser realizan partes del proyecto final ya funcionales y reuniones periódicas. Estos sprints suelen durar entre 1 ó 2 semanas\cite{scrum}. Esta metodología está pensada para trabajar con equipos enteros de desarrollo dentro de una empresa, pero para este proyecto se ha adaptado. Los roles quedan divididos de la manera que el \textit{product owner} son los oncólogos, el \textit{scrumMaster} son ambos tutores y el equipo de desarrollo soy yo, las reuniones y las duraciones de los sprint también han sido levemente modificadas haciéndolas menos estrictas debido a que no siempre era posible para los oncólogos realizar una reunión a la finalización de los sprint.
 
 \section{Herramientas} 
 
@@ -123,6 +123,12 @@ Se decidió usar \LaTeX{} por encima de Open Office debido a que se vio como una
 
 \href{https://www.zenhub.com/}{ZenHub}\footnote{\href{https://www.zenhub.com/}{https://www.zenhub.com/}} es una herramienta de gestión de proyecto la cual se integra en GitHub. ZenHub nos permite organizar las issues en pipelines y establecer cuanto tiempo se va a tardar en realizar cada una de las tareas.
 
+\subsection{Análisis de la calidad del código}
+
+\subsubsection{Codacy} \label{Codacy}
+
+\href{https://www.codacy.com}{Codacy}\footnote{\href{https://www.codacy.com}{https://www.codacy.com}} es una herramienta de análisis de código que permite detectar problemas en el código como problemas de seguridad, código repetido o código sin usar.
+
 \subsection{Librerías}\label{librerias}
 
 \subsubsection{Numpy}
@@ -165,7 +171,13 @@ Librería de JavaScript que permite la visualización de datos en gráficas inte
 
 Librería de JavaScript que permite la creación de tablas interactivas. Se ha utilizado para todas las tablas que hay implementadas en la web.
 
+\subsubsection{pandas}
 
+Librería de python que permite una sencilla manipulación de conjuntos de datos. Se ha utilizado para el procesamiento de los datos necesarios para dibujar las gráficas kaplan meier.
+
+\subsubsection{lifelines}
+
+Librería de python que permite realizar distintos analisis de supervivencia. Se ha utilizar para dibujar las graficas kaplan meier.
 
 
 

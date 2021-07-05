@@ -61,11 +61,11 @@ En esta sección se van a enumerar tanto los requisitos funcionales como los no 
         \begin{itemize}
             \item \textbf{RF-4.3.1 Modificar datos demográficos:} El usuario podrá modificar los datos demográficos de un paciente.
             \item \textbf{RF-4.3.2 Modificar datos enfermedad:} El usuario podrá modificar los datos de la enfermedad de un paciente.
-            \item \textbf{RF-4.3.3 Modificar datos antecedentes:} El usuario podrá modificar los datos demográficos de un paciente.
-            \item \textbf{RF-4.3.4 Modificar datos tratamientos:} El usuario podrá modificar los datos demográficos de un paciente.
-            \item \textbf{RF-4.3.5 Modificar datos reevaluaciones:} El usuario podrá modificar los datos demográficos de un paciente.
-            \item \textbf{RF-4.3.6 Modificar datos seguimientos:} El usuario podrá modificar los datos demográficos de un paciente.
-            \item \textbf{RF-4.3.7 Modificar comentarios:} El usuario podrá modificar los datos demográficos de un paciente.
+            \item \textbf{RF-4.3.3 Modificar datos antecedentes:} El usuario podrá modificar los datos de los antecedentes del paciente..
+            \item \textbf{RF-4.3.4 Modificar datos tratamientos:} El usuario podrá modificar los datos de los tratamientos del paciente..
+            \item \textbf{RF-4.3.5 Modificar datos reevaluaciones:} El usuario podrá modificar los datos de las reevaluaciones del paciente.
+            \item \textbf{RF-4.3.6 Modificar datos seguimientos:} El usuario podrá modificar los datos de los seguimientos del paciente.
+            \item \textbf{RF-4.3.7 Modificar comentarios:} El usuario podrá modificar los datos demográficos de los comentarios realizados al paciente.
         \end{itemize}
         \item \textbf{RF-4.4 Eliminar paciente:} Los usuarios podrán eliminar pacientes y todos sus datos correspondientes.
     \end{itemize}
@@ -75,20 +75,28 @@ En esta sección se van a enumerar tanto los requisitos funcionales como los no 
 	    \item \textbf{RF-5.2 Visualización de datos numéricos:} Los usuarios podrán visualizar los datos numéricos y distinta información estadística.
 	    \item \textbf{RF-5.3 Visualización de datos individualmente:}  Los usuarios podrán visualizar los datos individuales de los pacientes mediante tablas.
 	    \item \textbf{RF-5.4 Exportación de los datos:} Los usuarios podrán exportar los datos de todos los pacientes a un fichero Excel.
+	    \item \textbf{RF-5.5 Visualización de datos en la gráfica kaplan meier:} Los usuarios podrán visualizar los datos de supervivencia de los pacientes en una gráfica kaplan meier.
 	\end{itemize}
 	\item \textbf{RF-6 Creación de base de datos sintética:} Los usuarios podrán crear una base de datos sintética seleccionando distintos parámetros para los atributos numéricos.
+    \item \textbf{RF-7 Filtrado de pacientes:} Los usuarios podrán filtrar pacientes según sus atributos.
+	\begin{itemize}
+	    \item \textbf{RF-7.1 Filtrado de pacientes tabla:} Los usuarios podrán filtrar los pacientes por atributos y visualizarlos en la tabla general de pacientes.
+	    \item \textbf{RF-7.2 Filtrado de pacientes y visualización de datos generales:} Los usuarios podrán filtrar los pacientes por atributos y visualizarlos sus estadísticas en la gráfica y en la tabla.
+	    \item \textbf{RF-7.3 Filtrado de pacientes y visualización de datos numéricos:} Los usuarios podrán filtrar los pacientes por atributos y visualizarlos su información estadística.
+	    \item \textbf{RF-7.4 Filtrado de pacientes y visualización de gráfica kaplan meier:} Los usuarios podrán filtrar los pacientes por atributos y visualizarlos su gráfica de supervivencia.
+	\end{itemize}
 \end{itemize}
 
 \subsection{Requisitos no funcionales}
 
 \begin{itemize}
     \item \textbf{RNF-1 Usabilidad:} La aplicación ha de ser intuitiva y fácil de usar para el usuario.
-    \item \textbf{RNF-1 Seguridad:} Los datos de los pacientes solo podrán ser observador por personas con acceso a la aplicación.
-    \item \textbf{RNF-1 Confidencialidad:} Los datos sensibles de los pacientes han de estar encriptados en la base de datos.
-    \item \textbf{RNF-1 Rendimiento:} Los tiempos de ejecución y los tiempos de carga han de ser aceptables.
-    \item \textbf{RNF-1 Mantenibilidad:} La aplicación ha de ser de fácil mantenimiento y actualización.
-    \item \textbf{RNF-1 Compatibilidad:} La aplicación ha de poder ser usada por los principales navegadores: Edge, Chrome, Firefox, etc.
-    \item \textbf{RNF-1 Facilidad de despliegue:} La aplicación ha de ser fácil de desplegar en un servidor o en local.
+    \item \textbf{RNF-2 Seguridad:} Los datos de los pacientes solo podrán ser observador por personas con acceso a la aplicación.
+    \item \textbf{RNF-3 Confidencialidad:} Los datos sensibles de los pacientes han de estar encriptados en la base de datos.
+    \item \textbf{RNF-4 Rendimiento:} Los tiempos de ejecución y los tiempos de carga han de ser aceptables.
+    \item \textbf{RNF-5 Mantenibilidad:} La aplicación ha de ser de fácil mantenimiento y actualización.
+    \item \textbf{RNF-6 Compatibilidad:} La aplicación ha de poder ser usada por los principales navegadores: Edge, Chrome, Firefox, etc.
+    \item \textbf{RNF-7 Facilidad de despliegue:} La aplicación ha de ser fácil de desplegar en un servidor o en local.
 \end{itemize}
 
 \section{Especificación de requisitos}
@@ -108,21 +116,25 @@ En los casos de uso se pueden distinguir entre dos actores:
 
 \subsubsection{Nivel 0}
 
-\imagen{Nivel0}{Diagrama de casos de uso nivel 0}
+\imagen{Nivel0}{Diagrama de casos de uso nivel 0.}
+
+\newpage
 
 \subsubsection{Nivel 1}
 
-\imagen{gestion_usuarios}{Diagrama de casos de uso nivel 1, gestión de usuarios}
+\imagen{gestion_usuarios}{Diagrama de casos de uso nivel 1, gestión de usuarios.}
 
-\imagen{gestionar_pacientes}{Diagrama de casos de uso nivel 1, gestión de usuarios}
+\imagen{gestionar_pacientes}{Diagrama de casos de uso nivel 1, gestión de usuarios.}
 
-\imagen{gestionar_datos}{Diagrama de casos de uso nivel 1, gestión de datos personales}
+\imagen{gestionar_datos}{Diagrama de casos de uso nivel 1, gestión de datos personales.}
 
-\imagen{visualizar_datos}{Diagrama de casos de uso nivel 1, visualizar datos}
+\imagen{visualizar_datos}{Diagrama de casos de uso nivel 1, visualizar datos.}
+
+\imagen{visualizar_datos}{Diagrama de casos de uso nivel 1, filtrar datos.}
 
 \subsection{Especificación de casos de uso}
 
-\tablaSmallSinColores{CU-1: Iniciar sesión}{p{3cm} p{.75cm} p{9cm}}{tablaCU1}{
+\tablaSmallSinColores{CU-1: Iniciar sesión.}{p{3cm} p{.75cm} p{9cm}}{tablaCU1}{
 	\multicolumn{3}{p{10.25cm}}{CU-1: Iniciar sesión}\\}
 {
 	 	 Descripción &\multicolumn{2}{p{10.25cm}}{El usuario se identifica en el sistema mediante el correo y la contraseña} \\\cline{2-3} 
@@ -139,7 +151,7 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
 }
 
-\tablaSmallSinColores{CU-2: Gestionar usuarios}{p{3cm} p{.75cm} p{9cm}}{tablaCU2}{
+\tablaSmallSinColores{CU-2: Gestionar usuarios.}{p{3cm} p{.75cm} p{9cm}}{tablaCU2}{
 	\multicolumn{3}{p{10.25cm}}{CU-2: Gestionar usuarios}\\}
 {
 	 	 Descripción &\multicolumn{2}{p{10.25cm}}{El administrador podrá modificar, eliminar y crear usuarios} \\\cline{2-3} 
@@ -147,13 +159,13 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-1.3, RF-2}\\\cline{2-3} 
 	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador}\\\cline{2-3} 
 	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
-	 	 & 1. & El administrador accede en el menú a la parte de gestión de usuarios administrador selecciona añadir nuevo usuario\\\cline{2-3} 
+	 	 & 1. & El administrador accede en el menú a la parte de gestión de usuarios\\\cline{2-3} 
 	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
 	 	 & 1. & Ninguna\\\cline{2-3}
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
 }
 
-\tablaSmallSinColores{CU-2.1: Añadir usuarios}{p{3cm} p{.75cm} p{9cm}}{tablaCU2.1}{
+\tablaSmallSinColores{CU-2.1: Añadir usuarios.}{p{3cm} p{.75cm} p{9cm}}{tablaCU2.1}{
 	\multicolumn{3}{p{10.25cm}}{CU-2.1: Añadir usuarios}\\}
 {
 	 	 Descripción &\multicolumn{2}{p{10.25cm}}{El administrador podrá añadir un nuevo usuario} \\\cline{2-3} 
@@ -172,7 +184,7 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
 }
 
-\tablaSmallSinColores{CU-2.2: Modificar usuarios}{p{3cm} p{.75cm} p{9cm}}{tablaCU2.2}{
+\tablaSmallSinColores{CU-2.2: Modificar usuarios.}{p{3cm} p{.75cm} p{9cm}}{tablaCU2.2}{
 	\multicolumn{3}{p{10.25cm}}{CU-2.2: Modificar usuarios}\\}
 {
 	 	 Descripción &\multicolumn{2}{p{10.25cm}}{El administrador podrá modificar los datos de un usuario existente} \\\cline{2-3} 
@@ -189,7 +201,7 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Media}\\
 }
 
-\tablaSmallSinColores{CU-2.3: Eliminar usuarios}{p{3cm} p{.75cm} p{9cm}}{tablaCU2.3}{
+\tablaSmallSinColores{CU-2.3: Eliminar usuarios.}{p{3cm} p{.75cm} p{9cm}}{tablaCU2.3}{
 	\multicolumn{3}{p{10.25cm}}{CU-2.3: Eliminar usuarios}\\}
 {
 	 	 Descripción &\multicolumn{2}{p{10.25cm}}{El administrador podrá eliminar un usuario existente} \\\cline{2-3} 
@@ -204,10 +216,10 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
 }
 
-\tablaSmallSinColores{CU-3: Gestionar datos personales}{p{3cm} p{.75cm} p{9cm}}{tablaCU3}{
+\tablaSmallSinColores{CU-3: Gestionar datos personales.}{p{3cm} p{.75cm} p{9cm}}{tablaCU3}{
 	\multicolumn{3}{p{10.25cm}}{CU-3: Gestionar datos personales}\\}
 {
-	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán añadir pacientes} \\\cline{2-3} 
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán modificar sus datos personales} \\\cline{2-3} 
 	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciada}\\\cline{2-3} 
 	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-3, RF-3.1}\\\cline{2-3} 
 	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
@@ -220,10 +232,10 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Media}\\
 }
 
-\tablaSmallSinColores{CU-3.1: Modificar contraseña}{p{3cm} p{.75cm} p{9cm}}{tablaCU3.1}{
+\tablaSmallSinColores{CU-3.1: Modificar contraseña.}{p{3cm} p{.75cm} p{9cm}}{tablaCU3.1}{
 	\multicolumn{3}{p{10.25cm}}{CU-3.1: Modificar contraseña}\\}
 {
-	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán añadir pacientes} \\\cline{2-3} 
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán modificar su contraseña} \\\cline{2-3} 
 	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciada}\\\cline{2-3} 
 	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-3.2}\\\cline{2-3} 
 	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
@@ -232,14 +244,16 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 & 2. & Se introduce la contraseña antigua y la nueva contraseña \\
 	 	 & 3. & Se confirma el formulario\\\cline{2-3} 
 	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
-	 	 & 1. & Ninguna\\\cline{2-3} 
+	 	 & 1. & Que las contraseñas nuevas no coincidan\\
+	 	 & 2. & Que la contraseña antigua no coincida\\
+	 	 & 3. & Campo en blanco.\\\cline{2-3} 
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
 }
 
-\tablaSmallSinColores{CU-4: Gestionar pacientes}{p{3cm} p{.75cm} p{9cm}}{tablaCU4}{
+\tablaSmallSinColores{CU-4: Gestionar pacientes.}{p{3cm} p{.75cm} p{9cm}}{tablaCU4}{
 	\multicolumn{3}{p{10.25cm}}{CU-4: Gestionar pacientes}\\}
 {
-	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán añadir pacientes} \\\cline{2-3} 
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán añadir, modificar y eliminar pacientes} \\\cline{2-3} 
 	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciada}\\\cline{2-3} 
 	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-4}\\\cline{2-3} 
 	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
@@ -250,7 +264,7 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
 }
 
-\tablaSmallSinColores{CU-4.1: Añadir pacientes}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.1}{
+\tablaSmallSinColores{CU-4.1: Añadir pacientes.}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.1}{
 	\multicolumn{3}{p{10.25cm}}{CU-4.1: Añadir pacientes}\\}
 {
 	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán añadir pacientes} \\\cline{2-3} 
@@ -267,7 +281,7 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
 }
 
-\tablaSmallSinColores{CU-4.2: Añadir datos pacientes}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.2}{
+\tablaSmallSinColores{CU-4.2: Añadir datos pacientes.}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.2}{
 	\multicolumn{3}{p{10.25cm}}{CU-4.2: Añadir datos pacientes}\\}
 {
 	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán añadir datos a un paciente} \\\cline{2-3} 
@@ -281,7 +295,7 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
 }
 
-\tablaSmallSinColores{CU-4.2.1: Añadir antecedentes}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.2.1}{
+\tablaSmallSinColores{CU-4.2.1: Añadir antecedentes.}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.2.1}{
 	\multicolumn{3}{p{10.25cm}}{CU-4.2.1: Añadir antecedentes}\\}
 {
 	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán añadir datos de una enfermedad a un paciente} \\\cline{2-3} 
@@ -299,7 +313,7 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
 }
 
-\tablaSmallSinColores{CU-4.2.2: Añadir antecedentes}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.2.2}{
+\tablaSmallSinColores{CU-4.2.2: Añadir antecedentes.}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.2.2}{
 	\multicolumn{3}{p{10.25cm}}{CU-4.2.2: Añadir antecedentes}\\}
 {
 	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán añadir antecedentes a un paciente} \\\cline{2-3} 
@@ -316,7 +330,7 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
 }
 
-\tablaSmallSinColores{CU-4.2.3: Añadir tratamientos}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.2.3}{
+\tablaSmallSinColores{CU-4.2.3: Añadir tratamientos.}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.2.3}{
 	\multicolumn{3}{p{10.25cm}}{CU-4.2.3: Añadir tratamientos}\\}
 {
 	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán añadir tratamientos a un paciente} \\\cline{2-3} 
@@ -334,7 +348,7 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
 }
 
-\tablaSmallSinColores{CU-4.2.4: Añadir reevaluaciones}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.2.4}{
+\tablaSmallSinColores{CU-4.2.4: Añadir reevaluaciones.}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.2.4}{
 	\multicolumn{3}{p{10.25cm}}{CU-4.2.4: Añadir reevaluaciones}\\}
 {
 	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán añadir reevaluaciones a un paciente} \\\cline{2-3} 
@@ -352,7 +366,7 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
 }
 
-\tablaSmallSinColores{CU-4.2.5: Añadir seguimientos}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.2.5}{
+\tablaSmallSinColores{CU-4.2.5: Añadir seguimientos.}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.2.5}{
 	\multicolumn{3}{p{10.25cm}}{CU-4.2.5: Añadir seguimientos}\\}
 {
 	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán añadir seguimientos a un paciente} \\\cline{2-3} 
@@ -370,7 +384,7 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
 }
 
-\tablaSmallSinColores{CU-4.2.6: Añadir comentarios}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.2.6}{
+\tablaSmallSinColores{CU-4.2.6: Añadir comentarios.}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.2.6}{
 	\multicolumn{3}{p{10.25cm}}{CU-4.2.6: Añadir comentarios}\\}
 {
 	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán añadir comentarios a un paciente} \\\cline{2-3} 
@@ -387,7 +401,7 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Media}\\
 }
 
-\tablaSmallSinColores{CU-4.3: Modificar pacientes}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.3}{
+\tablaSmallSinColores{CU-4.3: Modificar pacientes.}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.3}{
 	\multicolumn{3}{p{10.25cm}}{CU-4.3: Modificar pacientes}\\}
 {
 	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán modificar los datos de los pacientes} \\\cline{2-3} 
@@ -401,7 +415,7 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
 }
 
-\tablaSmallSinColores{CU-4.3.1: Modificar datos demográficos}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.3.1}{
+\tablaSmallSinColores{CU-4.3.1: Modificar datos demográficos.}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.3.1}{
 	\multicolumn{3}{p{10.25cm}}{CU-4.3.1: Modificar datos demográficos}\\}
 {
 	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán modificar los datos de demográficos de un paciente} \\\cline{2-3} 
@@ -418,7 +432,7 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
 }
 
-\tablaSmallSinColores{CU-4.3.2: Modificar datos enfermedad}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.3.2}{
+\tablaSmallSinColores{CU-4.3.2: Modificar datos enfermedad.}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.3.2}{
 	\multicolumn{3}{p{10.25cm}}{CU-4.3.2: Modificar datos enfermedad}\\}
 {
 	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán modificar los datos de la enfermedad de un paciente} \\\cline{2-3} 
@@ -436,7 +450,7 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
 }
 
-\tablaSmallSinColores{CU-4.3.3: Modificar datos antecedentes}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.3.3}{
+\tablaSmallSinColores{CU-4.3.3: Modificar datos antecedentes.}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.3.3}{
 	\multicolumn{3}{p{10.25cm}}{CU-4.3.3: Modificar datos antecedentes}\\}
 {
 	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán modificar los datos de los antecedentes de un paciente} \\\cline{2-3} 
@@ -453,7 +467,7 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
 }
 
-\tablaSmallSinColores{CU-4.3.4: Modificar datos tratamientos}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.3.4}{
+\tablaSmallSinColores{CU-4.3.4: Modificar datos tratamientos.}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.3.4}{
 	\multicolumn{3}{p{10.25cm}}{CU-4.3.4: Modificar datos tratamientos}\\}
 {
 	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán modificar los datos de los tratamientos de un paciente} \\\cline{2-3} 
@@ -471,7 +485,7 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
 }
 
-\tablaSmallSinColores{CU-4.3.5: Modificar datos reevaluaciones}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.3.5}{
+\tablaSmallSinColores{CU-4.3.5: Modificar datos reevaluaciones.}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.3.5}{
 	\multicolumn{3}{p{10.25cm}}{CU-4.3.5: Modificar datos reevaluaciones}\\}
 {
 	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán modificar los datos de las reevaluaciones de un paciente} \\\cline{2-3} 
@@ -489,7 +503,7 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
 }
 
-\tablaSmallSinColores{CU-4.3.6: Modificar datos seguimientos}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.3.6}{
+\tablaSmallSinColores{CU-4.3.6: Modificar datos seguimientos.}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.3.6}{
 	\multicolumn{3}{p{10.25cm}}{CU-4.3.6: Modificar datos seguimientos}\\}
 {
 	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán modificar los datos de los seguimientos de un paciente} \\\cline{2-3} 
@@ -507,7 +521,7 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
 }
 
-\tablaSmallSinColores{CU-4.3.7: Modificar comentarios}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.3.7}{
+\tablaSmallSinColores{CU-4.3.7: Modificar comentarios.}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.3.7}{
 	\multicolumn{3}{p{10.25cm}}{CU-4.3.7: Modificar comentarios}\\}
 {
 	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán modificar los comentarios a un paciente} \\\cline{2-3} 
@@ -524,7 +538,7 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
 }
 
-\tablaSmallSinColores{CU-4.4: Eliminar paciente}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.4}{
+\tablaSmallSinColores{CU-4.4: Eliminar paciente.}{p{3cm} p{.75cm} p{9cm}}{tablaCU4.4}{
 	\multicolumn{3}{p{10.25cm}}{CU-4.4: Eliminar paciente}\\}
 {
 	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán eliminar pacientes} \\\cline{2-3} 
@@ -533,14 +547,14 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
 	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
 	 	 & 1. & El usuario selecciona eliminar usuario\\
-	 	 & 2. & El usuario selecciona el usuario a eliminart\\
+	 	 & 2. & El usuario selecciona el usuario a eliminar\\
 	 	 & 3. & Confirma el formulario\\\cline{2-3} 
 	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
 	 	 & 1. & Ninguna\\\cline{2-3} 
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
 }
 
-\tablaSmallSinColores{CU-5: Visualización de los datos generales}{p{3cm} p{.75cm} p{9cm}}{tablaCU5}{
+\tablaSmallSinColores{CU-5: Visualización de los datos generales.}{p{3cm} p{.75cm} p{9cm}}{tablaCU5}{
 	\multicolumn{3}{p{10.25cm}}{CU-5: Visualización de los datos generales}\\}
 {
 	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán visualizar características de los pacientes mediante gráficas} \\\cline{2-3} 
@@ -548,15 +562,16 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-5, RF-5.1}\\\cline{2-3} 
 	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
 	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
-	 	 & 1. & El usuario selecciona gráficas en el menú\\
-	 	 & 2. & El usuario selecciona los campos en los que desea separar las gráficas\\
-	 	 & 3. & Confirma el formulario\\\cline{2-3} 
+	 	 & 1. & El usuario selecciona gráficas en el menú desplegable\\
+	 	 & 2. & El usuario selecciona gráficas generales en el menú lateral\\
+	 	 & 3. & El usuario selecciona los campos en los que desea separar las gráficas\\
+	 	 & 4. & Confirma el formulario\\\cline{2-3} 
 	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
 	 	 & 1. & Que no existan pacientes con esos atributos en específico\\\cline{2-3} 
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Media}\\
 }
 
-\tablaSmallSinColores{CU-6: Visualización de los datos numéricos}{p{3cm} p{.75cm} p{9cm}}{tablaCU6}{
+\tablaSmallSinColores{CU-6: Visualización de los datos numéricos.}{p{3cm} p{.75cm} p{9cm}}{tablaCU6}{
 	\multicolumn{3}{p{10.25cm}}{CU-6: Visualización de los datos numéricos}\\}
 {
 	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán visualizar diferentes atributos estadísticos de los datos numéricos} \\\cline{2-3} 
@@ -564,15 +579,16 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-5.2}\\\cline{2-3} 
 	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
 	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
-	 	 & 1. & El usuario selecciona percentiles en el menú\\
-	 	 & 2. & El usuario selecciona el campo que desea obtener información\\
-	 	 & 3. & Confirma el formulario\\\cline{2-3} 
+	 	 & 1. & El usuario selecciona gráficas en el menú desplegable\\
+	 	 & 2. & El usuario selecciona percentiles en el menú lateral\\
+	 	 & 3. & El usuario selecciona el campo que desea obtener información\\
+	 	 & 4. & Confirma el formulario\\\cline{2-3} 
 	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
 	 	 & 1. & Que no existan pacientes con ese atributos en específico\\\cline{2-3} 
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Media}\\
 }
 
-\tablaSmallSinColores{CU-7: Visualización de los datos individualmente}{p{3cm} p{.75cm} p{9cm}}{tablaCU7}{
+\tablaSmallSinColores{CU-7: Visualización de los datos individualmente.}{p{3cm} p{.75cm} p{9cm}}{tablaCU7}{
 	\multicolumn{3}{p{10.25cm}}{CU-7: Visualización de los datos individualmente}\\}
 {
 	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán visualizar los datos de los pacientes individualmente} \\\cline{2-3} 
@@ -587,7 +603,7 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Baja}\\
 }
 
-\tablaSmallSinColores{CU-8: Exportación de los datos}{p{3cm} p{.75cm} p{9cm}}{tablaCU8}{
+\tablaSmallSinColores{CU-8: Exportación de los datos.}{p{3cm} p{.75cm} p{9cm}}{tablaCU8}{
 	\multicolumn{3}{p{10.25cm}}{CU-8: Exportación de los datos}\\}
 {
 	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán exportar los datos de los paciente a un fichero Excel} \\\cline{2-3} 
@@ -597,25 +613,121 @@ En los casos de uso se pueden distinguir entre dos actores:
 	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
 	 	 & 1. & El usuario selecciona exportar datos en el menú\\
 	 	 & 2. & El usuario rellena el campo con el nombre del fichero\\
-	 	 & 2. & El usuario confirma el formulario\\\cline{2-3} 
+	 	 & 3. & El usuario confirma el formulario\\\cline{2-3} 
 	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
-	 	 & 1. & Ninguna\\\cline{2-3} 
+	 	 & 1. & Campo en blanco\\\cline{2-3} 
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
 }
 
-\tablaSmallSinColores{CU-9: Creación de base de datos sintética}{p{3cm} p{.75cm} p{9cm}}{tablaCU9}{
-	\multicolumn{3}{p{10.25cm}}{CU-9: Creación de base de datos sintética}\\}
+\tablaSmallSinColores{CU-9: Visualización de los datos en la gráfica kaplan meier.}{p{3cm} p{.75cm} p{9cm}}{tablaCU9}{
+	\multicolumn{3}{p{10.25cm}}{CU-8: Visualización de los datos en la gráfica kaplan meier}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán visualizar los datos de supervivencia en una grafica kaplan meier} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciada y pacientes en la base de datos}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-5.5}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario selecciona gráficas en el menú desplegable\\
+	 	 & 2. & El usuario selecciona Kaplan meier en el menú lateral\\
+	 	 & 3. & El usuario rellena selecciona el campo por el que dividir la gráfica\\
+	 	 & 4. & El usuario confirma el formulario\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Insuficientes datos para realizar la gráfica\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Alta}\\
+}
+
+\tablaSmallSinColores{CU-10: Creación de base de datos sintética.}{p{3cm} p{.75cm} p{9cm}}{tablaCU10}{
+	\multicolumn{3}{p{10.25cm}}{CU-10: Creación de base de datos sintética}\\}
 {
 	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán crear una base de datos con datos sintéticos} \\\cline{2-3} 
 	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciadas}\\\cline{2-3} 
-	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-5.4}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-6}\\\cline{2-3} 
 	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
 	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
 	 	 & 1. & El usuario selecciona base sintética en el menú\\
 	 	 & 2. & El usuario rellena los campos\\
-	 	 & 2. & El usuario confirma el formulario\\\cline{2-3} 
+	 	 & 3. & El usuario confirma el formulario\\\cline{2-3} 
 	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
 	 	 & 1. & Datos introducidos fuera de los rangos permitidos\\\cline{2-3} 
 	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Media}\\
 }
 
+\tablaSmallSinColores{CU-11: Filtrado de pacientes tabla.}{p{3cm} p{.75cm} p{9cm}}{tablaCU11}{
+	\multicolumn{3}{p{10.25cm}}{CU-11: Filtrado de pacientes tabla}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán filtrar los pacientes por atributos y ver la tabla de gestión de pacientes con los pacientes que cumplan este filtro} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciadas}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-7.1}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario selecciona paciente en el menú\\
+	 	 & 2. & El usuario da clic en el botón Aplicar filtro\\
+	 	 & 3. & El usuario selecciona los atributos por los que realizar el filtro\\
+	 	 & 4. & El usuario da clic en el botón realizar filtrado\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & Datos introducidos fuera de los rangos permitidos\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Media}\\
+}
+
+\tablaSmallSinColores{CU-12: Filtrado de pacientes y visualización de datos.}{p{3cm} p{.75cm} p{9cm}}{tablaCU12}{
+	\multicolumn{3}{p{10.25cm}}{CU-12: Filtrado de pacientes y visualización de datos}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán filtrar los pacientes por atributos y visualizar características de los pacientes mediante gráficas} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciadas}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-7.2}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario selecciona gráficas en el menú\\
+	 	 & 2. & El usuario selecciona gráficas generales en el menú lateral\\
+	 	 & 3. & El usuario da clic en el botón Aplicar filtro\\
+	 	 & 4. & El usuario selecciona los atributos por los que realizar el filtro\\
+	 	 & 5. & El usuario da clic en el botón realizar filtrado\\
+	 	 & 6. & El usuario selecciona los campos en los que desea separar las gráficas\\
+	 	 & 7. & El usuario confirma el formulario\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & No existe ningún paciente con ese filtro\\
+	 	 & 2. & No se selecciona ningún filtro\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Media}\\
+}
+
+\tablaSmallSinColores{CU-13: Filtrado de pacientes y visualización de datos numéricos.}{p{3cm} p{.75cm} p{9cm}}{tablaCU13}{
+	\multicolumn{3}{p{10.25cm}}{CU-13: Filtrado de pacientes y visualización de datos numéricos}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán filtrar los pacientes por atributos y visualizar datos estadísticos de los datos numéricos} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciadas}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-7.3}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario selecciona gráficas en el menú\\
+	 	 & 2. & El usuario selecciona percentiles en el menú lateral\\
+	 	 & 3. & El usuario da clic en el botón Aplicar filtro\\
+	 	 & 4. & El usuario selecciona los atributos por los que realizar el filtro\\
+	 	 & 5. & El usuario da clic en el botón realizar filtrado\\
+	 	 & 6. & El usuario selecciona el campo que desea obtener información\\
+	 	 & 7. & El usuario confirma el formulario\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & No existe ningún paciente con ese filtro\\
+	 	 & 2. & No se selecciona ningún filtro\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Media}\\
+}
+
+\tablaSmallSinColores{CU-14: Filtrado de pacientes y visualización de la gráfica kaplan meier.}{p{3cm} p{.75cm} p{9cm}}{tablaCU14}{
+	\multicolumn{3}{p{10.25cm}}{CU-14: Filtrado de pacientes y visualización de la gráfica kaplan meier}\\}
+{
+	 	 Descripción &\multicolumn{2}{p{10.25cm}}{Los usuarios podrán filtrar los pacientes por atributos y visualizar la tabla de supervivencia kaplan meier} \\\cline{2-3} 
+	 	 Precondiciones & \multicolumn{2}{p{10.25cm}}{Usuario con sesión iniciadas}\\\cline{2-3} 
+	 	 Requisitos asociados & \multicolumn{2}{p{10.25cm}}{RF-7.3}\\\cline{2-3} 
+	 	 Usuario & \multicolumn{2}{p{10.25cm}}{Administrador y oncólogo}\\\cline{2-3} 
+	 	 \multirow{3}{3.5cm}{Acciones}  & Paso & Acción \\
+	 	 & 1. & El usuario selecciona gráficas en el menú\\
+	 	 & 2. & El usuario selecciona kaplan meier en el menú lateral\\
+	 	 & 3. & El usuario da clic en el botón Aplicar filtro\\
+	 	 & 4. & El usuario selecciona los atributos por los que realizar el filtro\\
+	 	 & 5. & El usuario da clic en el botón realizar filtrado\\
+	 	 & 6. & El usuario selecciona el campo por el que desea dividir la gráfica\\
+	 	 & 7. & El usuario confirma el formulario\\\cline{2-3} 
+	 	 \multirow{2}{3.5cm}{Excepciones} & Id & Excepción \\
+	 	 & 1. & No existe ningún paciente con ese filtro\\
+	 	 & 2. & No se selecciona ningún filtro\\\cline{2-3} 
+	 	 Importancia & \multicolumn{2}{p{10.25cm}}{Media}\\
+}

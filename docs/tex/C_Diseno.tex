@@ -2,7 +2,7 @@
 
 \section{Introducción}
 
-En este anexo se van a explicar los diferentes aspectos de diseño que se ha llevado a cabo para la realización del proyecto. Dentro de este apartado vamos a incluir el diseño de datos, el diseño procedimental y el diseño arquitectónico.
+En este anexo se van a explicar los diferentes aspectos de diseño que se han llevado a cabo para la realización del proyecto. Dentro de este apartado vamos a incluir el diseño de datos, el diseño procedimental y el diseño arquitectónico.
 
 \section{Diseño de datos}
 
@@ -10,7 +10,7 @@ Se puede dividir la parte de diseño de datos del proyecto en tres partes princi
 \begin{itemize}
     \item \textbf{Diagramas de tablas relacionadas con usuarios:} Van a representar la estructura de datos que se ha llevado a cabo para establecer el login de los usuarios dentro de la aplicación.
     \item \textbf{Diagramas de tablas relacionadas con pacientes:} Van a representar la estructura de datos que se ha llevado a cabo para almacenar todos los datos de los pacientes.
-    \item \textbf{Diccionario de datos relacionados con pacientes:} Va a contener: una pequeña descripción de cada uno de los datos, el tipo de dato como los posibles opciones y posibles combinaciones entre datos.
+    \item \textbf{Diccionario de datos relacionados con pacientes:} Va a contener: una pequeña descripción de cada uno de los datos, el tipo de dato, las posibles opciones para cada dato y las posibles combinaciones entre datos.
 \end{itemize}
 
 \newpage
@@ -25,6 +25,14 @@ Se puede dividir la parte de diseño de datos del proyecto en tres partes princi
 
 \subsection{Diagramas de tablas relacionadas con pacientes}
 
+Para la organización de los datos de los pacientes se optó por realizar un conjunto de tablas relacionadas por claves foráneas para hacer el almacenamiento de datos lo más óptimo.
+
+Se va a realizar una breve explicación de las relaciones que se cree que pueden ser más confusas para un mejor entendimiento de los diagramas:
+\begin{itemize}
+    \item \textbf{Paciente-Enfermedad relación 1-1}: Esta relación se debe a que en la tabla enfermedad solo se van a almacenar los datos del cáncer de pulmón del paciente, por lo tanto cada paciente al tener un solo cáncer de pulmón solo tendrá una fila relacionada en la columna enfermedad.
+    \item \textbf{Paciente-Antecedentes familiares relación 1-n}: Esta relación se debe a que en la tabla antecedentes familiar solo se guardará los familiares que haya sufrido algún tipo de antecedente.
+    \item \textbf{Antecedentes familiares-Enfermedades familiar relación 1-n}: Esta relación se debe a queen la tabla enfermedades familiar se guardará todas las enfermedades que haya sufrido algún familiar en especifico.
+\end{itemize}
 \imagenTam{diagrama_ER_pacientes}{Diagrama E/R de los pacientes}{1}
 
 \imagenTam{diagrama_relacional_pacientes}{Diagrama relacional de los pacientes}{1}
@@ -35,47 +43,75 @@ Se puede dividir la parte de diseño de datos del proyecto en tres partes princi
 
 \textbf{Descripción:} Esta tabla va a constar de todos los pacientes que sean registrados dentro de la web.
 
-\begin{longtable}{|c |c |p{4cm} |p{3cm} |}
+
+\begin{longtable}{|c |c |p{3cm} |p{4cm} |}
+\caption{Diccionario de datos tabla pacientes.}\\
 \hline
-Campo & Tipo de dato & Descripción & Posibles opciones\\ \hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\
+\hline
+\endfirsthead
+\multicolumn{4}{c}%
+{\tablename\ \thetable\ -- \textit{Continua en la página anterior.}} \\
+\hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\
+\hline
+\endhead
+\hline \multicolumn{4}{r}{\textit{Continua en la siguiente página.}} \\
+\endfoot
+\hline
+\endlastfoot
 id\_paciente & int & Número identificador único de cada paciente &\\ \hline
 nombre & varchar & Nombre del paciente &\\ \hline
 apellidos & varchar & Dos primeros apellidos del paciente &\\ \hline
 sexo & varchar & Sexo del paciente & Varón o mujer\\  \hline
 nacimiento & date & Fecha de nacimiento del paciente &\\ \hline
 raza & varchar & Raza a la que pertenece el paciente & Caucásico, asiático, africano o latino\\ \hline
-profesión & varchar & Profesión en la que ha trabajado el paciente & Construcción, minería, pintor, peluquero, industria textil, mecánico, limpieza, cerámicas, otras o desconocido. \\ \hline
+profesion & varchar & Profesión en la que ha trabajado el paciente & Construcción, minería, pintor, peluquero, industria textil, mecánico, limpieza, cerámicas, otras o desconocido. \\ \hline
 fumador & varchar & Si el paciente es fumador o no & Fumador, exfumador o nunca fumador\\ \hline
 num\_tabaco\_dia & int & Número de cigarrillos al día & \\ \hline
 bebedor & varchar & Si el paciente consume alcohol o no & Bebedor activo, exbebedor, nunca bebedor\\ \hline
-carcinógenos & varchar & Si el paciente ha estado expuesto a carcinógenos & Asbesto u otro  \\\hline
+carcinogenos & varchar & Si el paciente ha estado expuesto a carcinógenos & Asbesto u otro  \\\hline
 ultima\_modificacion & date & Fecha en la que se ha realizado la última modificación al paciente &  \\\hline
 \end{longtable}
 
+\newpage
+
 \subsubsection{Enfermedades}
 
-\textbf{Descripción:} Esta tabla va a constar de los datos relacionados con el cancer de pulmón de cada uno de los pacientes.
+\textbf{Descripción:} Esta tabla va a constar de los datos relacionados con el cáncer de pulmón de cada uno de los pacientes.
 
-\begin{longtable}{|c |c |p{3.3cm} |p{3cm} |}
+\begin{longtable}{|c |c |p{3cm} |p{3.3cm} |}
+\caption{Diccionario de datos tabla enfermedades.}\\
 \hline
-Campo & Tipo de dato & Descripción & Posibles opciones\\ \hline
-id\_enfermedad & int & Número identificador unico del cancer de pulmón del paciente & \\\hline
-id\_paciente & int & Número identificador del paciente que sufre el cancer de pulmón &\\\hline
-fecha\_primera\_consulta & date & Fecha de la primera consulta en la que se detecto el cancer &\\\hline
-fecha\_diagnostico & date & Fecha en la que se diagnostico el cancer de pulmón &\\\hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\
+\hline
+\endfirsthead
+\multicolumn{4}{c}%
+{\tablename\ \thetable\ -- \textit{Continua en la página anterior}} \\
+\hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\
+\hline
+\endhead
+\hline \multicolumn{4}{r}{\textit{Continua en la siguiente página}} \\
+\endfoot
+\hline
+\endlastfoot
+id\_enfermedad & int & Número identificador único del cáncer de pulmón del paciente & \\\hline
+id\_paciente & int & Número identificador del paciente que sufre el cáncer de pulmón &\\\hline
+fecha\_primera\_consulta & date & Fecha de la primera consulta en la que se detectó el cáncer &\\\hline
+fecha\_diagnostico & date & Fecha en la que se diagnosticó el cáncer de pulmón &\\\hline
 ECOG & int & Escala en la cual medir la calidad de vida del paciente & Del 0 al 4\\\hline
 T & int & Tamaño y extensión del tumor principal & Del 1 al 4\\\hline
-T\_tamano & int & Tamaño en mm del tumor principal & \\\hline
+T\_tamano & double(11,2) & Tamaño en mm del tumor principal & \\\hline
 N & int & Extensión de cáncer que se ha diseminado a los ganglios & Del 1 al 3 \\\hline
-N\_afectación & varchar & Tipo de afectación que ha tenido sobre los ganglios &Uni ganglionar o afectación multiestación\\\hline
+N\_afectacion & varchar & Tipo de afectación que ha tenido sobre los ganglios &Uni ganglionar o afectación multiestación\\\hline
 M & varchar & Valor para determinar si el cáncer se ha metastatizado & 0, 1a, 1b ó 1c\\\hline
 num\_afec\_metas & varchar & Número de localizaciones metástasicas & 0, 1, 2-4 ó mayor que 4\\\hline
 TNM  & varchar  & Manera de clasificar los tipos de cáncer según los valores de las anteriores tablas T, N y M & IA1, IA2, IA3, IB, IIA, IIB, IIIA, IIIB, IIIC, IVa ó IVb \\\hline
 tipo\_muestra & varchar & Tipo de muestra que se ha extraido & citología, biopsia ó bloque celular desde citología\\\hline
-histología\_tipo & varchar & Tipo de histología que se ha realizado & Adenocarcinoma, epidermoide, adenoescamoso, carcinoma de células grandes, sarcomatoide ó indiferenciado\\\hline
-histología\_subtipo & varchar & Subtipo de la histología que se ha realizado & Desconocido, acinar, lepídico, papilar, micropapilar, sólido, mucinoso, células claras u otro.\\\hline
-histología\_subtipo & varchar & Subtipo de la histología que se ha realizado & esconocido, acinar, lepídico, papilar, micropapilar, sólido, mucinoso, células claras u otro.\\\hline
-histología\_grado & varchar & Grado de la histología que se ha realizado & Bien diferenciado, moderadamente diferenciado, mal diferenciado o no especificado.\\ \hline
+histologia\_tipo & varchar & Tipo de histología que se ha realizado & Adenocarcinoma, epidermoide, adenoescamoso, carcinoma de células grandes, sarcomatoide ó indiferenciado\\\hline
+histologia\_subtipo & varchar & Subtipo de la histología que se ha realizado & Desconocido, acinar, lepídico, papilar, micropapilar, sólido, mucinoso, células claras u otro.\\\hline
+histologia\_grado & varchar & Grado de la histología que se ha realizado & Bien diferenciado, moderadamente diferenciado, mal diferenciado o no especificado.\\ \hline
 tratamiento\_dirigido & boolean & Si el paciente ha recibido algun tratamiento dirigido & Si o no\\ \hline
 \end{longtable}
 
@@ -84,11 +120,24 @@ tratamiento\_dirigido & boolean & Si el paciente ha recibido algun tratamiento d
 \textbf{Descripción:} Esta tabla va a constar de las diferentes metástasis que genere un cáncer de pulmón.
 
 \begin{longtable}{|c |c |p{4.8cm} |p{3.2cm} |}
+\caption{Diccionario de datos tabla metástasis.}\\
 \hline
-Campo & Tipo de dato & Descripción & Posibles opciones\\ \hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\
+\hline
+\endfirsthead
+\multicolumn{4}{c}%
+{\tablename\ \thetable\ -- \textit{Continua en la página anterior}} \\
+\hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\
+\hline
+\endhead
+\hline \multicolumn{4}{r}{\textit{Continua en la siguiente página}} \\
+\endfoot
+\hline
+\endlastfoot
 id\_metastasis & int & Número identificador único de la metástasis & \\\hline
 id\_enfermedad & int & Número identificador del cáncer de pulmón que ha provocado la metástasis&\\\hline
-localización & varchar & Localización de la metastasis & Pulmón contralateral, implantes pleurales, derrame pleural, hígado, hueso, suprarrenal, renal, SNC, derrame pericárdico, carcinomatosis meníngea, linfangitis pulmonar carcinomatosa, adenopatías supradiafragmáticas extratorácicas, adenopatías infradiafragmáticas, páncreas, peritoneo, cutánea, muscular, tejidos blandos u otra \\ \hline
+tipo & varchar & Localización de la metastasis & Pulmón contralateral, implantes pleurales, derrame pleural, hígado, hueso, suprarrenal, renal, SNC, derrame pericárdico, carcinomatosis meníngea, linfangitis pulmonar carcinomatosa, adenopatías supradiafragmáticas extratorácicas, adenopatías infradiafragmáticas, páncreas, peritoneo, cutánea, muscular, tejidos blandos u otra \\ \hline
 \end{longtable}
 
 \subsubsection{Síntomas}
@@ -96,9 +145,22 @@ localización & varchar & Localización de la metastasis & Pulmón contralateral
 \textbf{Descripción:} Esta tabla va a constar de los diferentes síntomas que ha presentado el paciente relacionado con el cáncer de pulmón.
 
 \begin{longtable}{|c |c |p{4.8cm} |p{3.2cm} |}
+\caption{Diccionario de datos tabla síntomas.}\\
 \hline
-Campo & Tipo de dato & Descripción & Posibles opciones\\ \hline
-id\_síntomas &  int &  Número identificador único del síntoma &\\\hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\
+\hline
+\endfirsthead
+\multicolumn{4}{c}%
+{\tablename\ \thetable\ -- \textit{Continua en la página anterior}} \\
+\hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\
+\hline
+\endhead
+\hline \multicolumn{4}{r}{\textit{Continua en la siguiente página}} \\
+\endfoot
+\hline
+\endlastfoot
+id\_sintomas &  int &  Número identificador único del síntoma &\\\hline
 id\_enfermedad & int & Número identificador del cáncer de pulmón que ha provocado este síntoma & \\\hline
 tipo & varchar & Tipo de síntoma & Asintomático, tos, disnea, pérdida de peso, anorexia, aumento de expectoración, hemoptisis, dolor torácico, dolor otra localización, clínica neurológica, fractura patológica, otros u desconocido \\\hline
 fecha\_inicio & date & Fecha de inicio del síntoma &\\ \hline
@@ -110,29 +172,55 @@ fecha\_inicio & date & Fecha de inicio del síntoma &\\ \hline
 \textbf{Descripción:} Esta tabla va a constar de los diferentes biomarcadores que se han realizado sobre el cáncer de pulmón de un paciente. 
 
 \begin{longtable}{|c |c |p{4.7cm} |p{3.1cm} |}
+\caption{Diccionario de datos tabla biomarcadores.}\\
 \hline
-Campo & Tipo de dato & Descripción & Posibles opciones\\ \hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\
+\hline
+\endfirsthead
+\multicolumn{4}{c}%
+{\tablename\ \thetable\ -- \textit{Continua en la página anterior}} \\
+\hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\
+\hline
+\endhead
+\hline \multicolumn{4}{r}{\textit{Continua en la siguiente página}} \\
+\endfoot
+\hline
+\endlastfoot
 id\_biomarcador & int &Número identificador único del biomarcador &\\ \hline
 id\_enfermedad & int & Número identificador del cáncer de pulmón sobre el que se ha realizado este biomarcador &\\ \hline
 nombre & varchar & Tipo de biomarcador & NGS, PDL1, EGFR, ALK, ROS1, KRAS, BRAF, HER2, NTRK, FGFR1, RET, MET, PL3K, TMB u otros\\ \hline
-tipo & varchar &Subtipo de biomarcador & Biopsia sólida, biopsia líquidam, en célula tumorales con IHQ, score combinado/ CPS, exón 19, exón 21, exón 20, exón 18, T790M positivo, T790M negativo, traslocado, no traslocado, mutación, Clase I, Clase II, Clase III, amplificado, no alterado, reordenado, BRCA1, BRCA2, KIT, JAK, STK11, ARID1A, smoothedend u otros    \\\hline
-sub\_tipo & varchar &  Diferentes valores que puede tomar el biomarcador & Oncomine Focus, Oncodeep; Guardant 360, Focus DX, FoliguidLDX, $\leq 1\%, 1\%-49\%, \geq 49\%$, fusión EML4, KRASG12C, KRASG12V, BRAFV600E, NTRK 1, NTRK 2, NTRK 3, FGFR 1, FGFR 2, FGFR 3 u otros\\ \hline
+tipo & varchar &Subtipo de biomarcador & Biopsia sólida, biopsia líquida, en células tumorales con IHQ, score combinado/ CPS, exón 19, exón 21, exón 20, exón 18, T790M positivo, T790M negativo, traslocado, no traslocado, mutación, Clase I, Clase II, Clase III, amplificado, no alterado, reordenado, BRCA1, BRCA2, KIT, JAK, STK11, ARID1A, smoothedend u otros    \\\hline
+subtipo & varchar &  Diferentes valores que puede tomar el biomarcador & Oncomine Focus, Oncodeep; Guardant 360, Focus DX, FoliguidLDX, $\leq 1\%, 1\%-49\%, \geq 49\%$, fusión EML4, KRASG12C, KRASG12V, BRAFV600E, NTRK 1, NTRK 2, NTRK 3, FGFR 1, FGFR 2, FGFR 3 u otros\\ \hline
 \end{longtable}
 
-En la siguiente tabla indicaré que posibilidades de tipos, subtipos y valores pueden existir dentro de la base de datos.
+En la siguiente tabla indicaré qué posibilidades de tipos, subtipos y valores pueden existir dentro de la base de datos.
 
-\begin{longtable}{|c |p{7.2cm} |p{4.7cm} |}
+\begin{longtable}{|c |p{7.2cm} |p{5cm} |}
+\caption{Posibilidad de combinación de datos tabla biomarcadores.}\\
 \hline
-Nombre & Tipo & Subtipo\\ \hline
+\textbf{Nombre} & \textbf{Tipo} & \textbf{Subtipo}\\
+\hline
+\endfirsthead
+\multicolumn{3}{c}%
+{\tablename\ \thetable\ -- \textit{Continua en la página anterior}} \\
+\hline
+\textbf{Nombre} & \textbf{Tipo} & \textbf{Subtipo}\\
+\hline
+\endhead
+\hline \multicolumn{3}{r}{\textit{Continua en la siguiente página}} \\
+\endfoot
+\hline
+\endlastfoot
 NGS & Biopsia sólida o Biopsia líquida & Oncomine Focus, Oncodeep, Guardant 360, Focus DX o FoliguidLDX\\ \hline
 PDL1 & En célula tumorales con IHQ o Score combinado/ CPS & $\leq 1\%, 1\%-49\%, \geq 49\%$ \\ \hline
 EGFR & Exón 19, exón 21, exón 20, exón 18, T790M positivo, T790M negativo u otras & \\ \hline
 ALK & Traslocado, No traslocado o Mutación & Si es taslocado: Fusión EML4 u Otra   \\ \hline
 ROS1 & Traslocado o No traslocado & \\ \hline
-KRAS & Nutado o No mutado & Si es mutado: KRASG12C, KRASG12 u Otras\\ \hline
+KRAS & Mutado o No mutado & Si es mutado: KRASG12C, KRASG12 u Otras\\ \hline
 BRAF & Mutado, No mutado. Clase I, Clase II o Clase III & Si es mutado: BRAFV600E u Otra \\ \hline
 HER2 & Mutado, Amplificado o No alterado & \\ \hline
-NTRK & mutado, no mutado, reordenado & NTRK 1, NTRK 2 o NTRK 3 \\ \hline
+NTRK & Mutado, no mutado, reordenado & NTRK 1, NTRK 2 o NTRK 3 \\ \hline
 FGFR1 & Amplificado, No amplificado o Mutación &  \\ \hline
 RET & Traslocado, No traslocado o Mutación &  \\ \hline
 MET & Mutación Exón14, No mutado, Amplificado o Sobreexpresado & \\ \hline
@@ -146,22 +234,37 @@ Otro & BRCA1, BRCA2, KIT, JAK, STK11, ARID1A, Smoothedend u Otros &  \\ \hline
 \textbf{Descripción:} Esta tabla va a constar de las diferentes pruebas que se han realizado sobre el cáncer del paciente.
 
 \begin{longtable}{|c |c |p{4.7cm} |p{3.1cm} |}
+\caption{Diccionario de datos tabla pruebas realizadas.}\\
 \hline
-Campo & Tipo de dato & Descripción & Posibles opciones\\ \hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\
+\hline
+\endfirsthead
+\multicolumn{4}{c}%
+{\tablename\ \thetable\ -- \textit{Continua en la página anterior}} \\
+\hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\
+\hline
+\endhead
+\hline \multicolumn{4}{r}{\textit{Continua en la siguiente página}} \\
+\endfoot
+\hline
+\endlastfoot
 id\_prueba & int & Número identificador único de la prueba &\\\hline
 id\_enfermedad & int & Número identificador del cáncer de pulmón sobre el que se ha realizado esta prueba & \\ \hline
 tipo & varchar & Tipo de prueba que se ha realizado & Radiografía de tórax, TAC TAP, TAC SNC, PET-TAC, GGO, RMN SNC, RMN body u otras \\ \hline
 \end{longtable}
 
+\newpage
 
 \subsubsection{Técnicas realizadas}
 
 \textbf{Descripción:} Esta tabla va a constar de las diferentes técnicas que se han realizado sobre el cáncer del paciente.
 
 \begin{longtable}{|c |c |p{4.7cm} |p{3.1cm} |}
+\caption{Diccionario de datos tabla técnicas realizadas.}\\
 \hline
-Campo & Tipo de dato & Descripción & Posibles opciones\\ \hline
-id\_técnica & int &  Número identificador único de la técnica & \\\hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\ \hline
+id\_tecnica & int &  Número identificador único de la técnica & \\\hline
 id\_enfermedad & int & Número identificador del cáncer de pulmón sobre el que se ha realizado esta técnica & \\\hline
 tipo & varchar & Tipo de técnica que se ha realizado sobre el cáncer de pulmón & Broncoscopia, EBUS, mediastinoscopia, BAG pulmonar, BAG extrapulmonar, cirugía diagnóstico-terapéutica u otra.\\ \hline
 \end{longtable}
@@ -171,32 +274,49 @@ tipo & varchar & Tipo de técnica que se ha realizado sobre el cáncer de pulmó
 \textbf{Descripción:} Esta tabla va a constar de los diferente tumores que pueda tener el paciente a parte del cáncer de pulmón. 
 
 \begin{longtable}{|c |c |p{4.7cm} |p{3.1cm} |}
+\caption{Diccionario de datos tabla otros tumores.}\\
 \hline
-Campo & Tipo de dato & Descripción & Posibles opciones\\ \hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\
+\hline
+\endfirsthead
+\multicolumn{4}{c}%
+{\tablename\ \thetable\ -- \textit{Continua en la página anterior}} \\
+\hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\
+\hline
+\endhead
+\hline \multicolumn{4}{r}{\textit{Continua en la siguiente página}} \\
+\endfoot
+\hline
+\endlastfoot
 id\_tumor & int & Número identificador único del tumor  & \\\hline
-id\_enfermedad & int &Número identificador del cancer de pulmon del paciente que tiene otro tumor & \\\hline
+id\_enfermedad & int &Número identificador del cáncer de pulmon del paciente que tiene otro tumor & \\\hline
 tipo & varchar & Tipo de cáncer que se ha detectado & Pulmón, ORL, vejiga, renal, colon, mama, páncreas, esofagogástrico, próstata, ginecológico, hígado, linfático, SNC u otro\\ \hline
 \end{longtable}
 
 \subsubsection{Antecedentes oncológicos}
 
-\textbf{Descripción:} Esta tabla va a constar de los diferente canceres que haya tenido el paciente anteriormente. 
+\textbf{Descripción:} Esta tabla va a constar de los diferente cánceres que haya tenido el paciente anteriormente. 
 
 \begin{longtable}{|c |c |p{4.2cm} |p{3cm} |}
+\caption{Diccionario de datos tabla antecedentes oncológicos.}\\
 \hline
-Campo & Tipo de dato & Descripción & Posibles opciones\\ \hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\ \hline
 id\_antecedente\_o & int & Número identificador único del antecedente oncológico &\\\hline
 id\_paciente & int & Número identificador del paciente que ha tenido este antecedente oncológico &\\\hline
 tipo & varchar & Tipo de cáncer que ha sufrido el paciente con anterioridad & Pulmón, ORL, vejiga, renal, colon, mama, páncreas, esofagogástrico, próstata, hígado, ginecológico, linfático, SNC u otro.\\ \hline
 \end{longtable}
+
+\newpage
 
 \subsubsection{Antecedentes familiares}
 
 \textbf{Descripción:} Esta tabla va a constar de los diferente familiares del paciente que hayan sufrido algún tipo de cáncer.
 
 \begin{longtable}{|c |c |p{4.4cm} |p{3cm} |}
+\caption{Diccionario de datos tabla antecedentes familiares.}\\
 \hline
-Campo & Tipo de dato & Descripción & Posibles opciones\\ \hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\ \hline
 id\_antecedente\_f &  int & Número identificador único del antecedente familiar & \\\hline
 id\_paciente & int & Número identificador del paciente que ha tenido este antecedente familiar & \\\hline
 familiar & varchar & Nombre del parentesco que se tiene con el familiar que ha sufrido cáncer & \\ \hline
@@ -204,11 +324,24 @@ familiar & varchar & Nombre del parentesco que se tiene con el familiar que ha s
 
 \subsubsection{Enfermedades familiar}
 
-\textbf{Descripción:} Esta tabla va a constar de los diferente enfermedades que ha sufrido el familiar del paciente con cáncer.
+\textbf{Descripción:} Esta tabla va a constar de las diferente enfermedades que ha sufrido el familiar del paciente con cáncer.
 
 \begin{longtable}{|c |c |p{4.4cm} |p{3cm} |}
+\caption{Diccionario de datos tabla enfermedades familiar.}\\
 \hline
-Campo & Tipo de dato & Descripción & Posibles opciones\\ \hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\
+\hline
+\endfirsthead
+\multicolumn{4}{c}%
+{\tablename\ \thetable\ -- \textit{Continua en la página anterior}} \\
+\hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\
+\hline
+\endhead
+\hline \multicolumn{4}{r}{\textit{Continua en la siguiente página}} \\
+\endfoot
+\hline
+\endlastfoot
 id\_enfermedad\_f & int & Número identificador único de la enfermedad familiar & \\\hline
 id\_antecedente\_f & int & Número identificador del familiar que ha tenido esta enfermedad & \\\hline
 tipo & varchar & Tipo de enfermedad que ha sufrido & Pulmón, ORL, vejiga, renal, colon, mama, páncreas, esofagogástrico, próstata, ginecológico, hígado, linfático, SNC u otro. \\ \hline
@@ -216,26 +349,54 @@ tipo & varchar & Tipo de enfermedad que ha sufrido & Pulmón, ORL, vejiga, renal
 
 \subsubsection{Reevaluaciones}
 
-\textbf{Descripción:} Esta tabla va a constar de los diferentes reevaluaciones que se vayan realizando sobre el paciente.
+\textbf{Descripción:} Esta tabla va a constar de las diferentes reevaluaciones que se vayan realizando sobre el paciente.
 
 \begin{longtable}{|c |c |p{3.4cm} |p{3cm} |}
+\caption{Diccionario de datos tabla reevaluaciones.}\\
 \hline
-Campo & Tipo de dato & Descripción & Posibles opciones\\ \hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\
+\hline
+\endfirsthead
+\multicolumn{4}{c}%
+{\tablename\ \thetable\ -- \textit{Continua en la página anterior}} \\
+\hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\
+\hline
+\endhead
+\hline \multicolumn{4}{r}{\textit{Continua en la siguiente página}} \\
+\endfoot
+\hline
+\endlastfoot
 id\_reevaluacion & int & Número identificador único de la reevaluación & \\\hline
 id\_paciente & int & Número identificador del paciente sobre el que se ha realizado la reevaluación &\\\hline
 fecha & date & Fecha en la que se ha realizado la reevaluación al paciente&\\\hline
 estado & varchar & Estado del paciente en la reevaluación & Sin evidencia de enfermedad/respuesta completa, respuesta parcial, enfermedad estable o progresión/recaída \\\hline
-progresión\_localización & varchar & Localización de donde se esta llevando a cabo la progresión & Pulmón contralateral, implantes pleurales, derrame pleural, hígado, hueso, suprarrenal, renal, SNC, derrame pericárdico, carcinomatosis meníngea, linfangitis pulmonar carcinomatosa, adenopatías supradiafragmáticas extratorácicas, adenopatías infragmáticas, páncreas, peritoneo, cutánea, muscular, tejidos blandos u otra \\\hline
+progresion\_localizacion & varchar & Localización de donde se esta llevando a cabo la progresión & Pulmón contralateral, implantes pleurales, derrame pleural, hígado, hueso, suprarrenal, renal, SNC, derrame pericárdico, carcinomatosis meníngea, linfangitis pulmonar carcinomatosa, adenopatías supradiafragmáticas extratorácicas, adenopatías infragmáticas, páncreas, peritoneo, cutánea, muscular, tejidos blandos u otra \\\hline
 tipo\_tratamiento & varchar &Tipo de tratamiento que se esta llevando a cabo sobre el paciente en el momento de la reevaluación & Tratamiento activo o cuidados paliativos\\ \hline
 \end{longtable}
+
+\newpage
 
 \subsubsection{Tratamientos}
 
 \textbf{Descripción:} Esta tabla va a constar de los diferentes tratamientos que vaya recibiendo sobre el paciente. 
 
 \begin{longtable}{|c |c |p{4.6cm} |p{3.2cm} |}
+\caption{Diccionario de datos tabla tatramientos.}\\
 \hline
-Campo & Tipo de dato & Descripción & Posibles opciones\\ \hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\
+\hline
+\endfirsthead
+\multicolumn{4}{c}%
+{\tablename\ \thetable\ -- \textit{Continua en la página anterior}} \\
+\hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\
+\hline
+\endhead
+\hline \multicolumn{4}{r}{\textit{Continua en la siguiente página}} \\
+\endfoot
+\hline
+\endlastfoot
 id\_tratamiento & int &  Número identificador único del tratamiento &\\\hline
 id\_paciente & int & Número identificador del paciente que ha recibido el tratamiento &\\\hline
 tipo & varchar & Tipo de tratamiento que se ha llevado a cabo & Cirugía, quimioterapia o	radioterapia\\\hline
@@ -246,11 +407,14 @@ fecha\_inicio & date & Fecha de inicio del tratamiento&\\\hline
 fecha\_fin & date & Fecha de fin del tratamiento&\\ \hline
 \end{longtable}
 
+\newpage
+
 En la siguiente tabla indicaré que posibilidades de tipos, subtipos y valores pueden existir dentro de la base de datos.
 
 \begin{longtable}{|c |p{5cm} |p{5.7cm} |}
+\caption{Posibilidad de combinación de datos tabla tratamientos.}\\
 \hline
-Tipo & Subtipo & Localización\\ \hline
+\textbf{Tipo} & \textbf{Subtipo} & \textbf{Localización}\\ \hline
 Cirugía & Neumonectomía, lobectomía, bilobectomía, segmentectomía o resección atípica & \\ \hline
 Quimioterapia & Neoadyuvancia, Adyuvanci o Enfermedad avanzada & \\ \hline
 Radioterapia & Radical o paliativa & Pulmonar, pulmonar + mediastino,  ósea, suprarrenal, SNC, hígado, ganglionar u otro\\ \hline
@@ -261,17 +425,30 @@ Radioterapia & Radical o paliativa & Pulmonar, pulmonar + mediastino,  ósea, su
 \textbf{Descripción:} Esta tabla va a constar de las diferentes intenciones que tengan cada uno de los tratamientos.
 
 \begin{longtable}{|c |c |p{2.6cm} |p{2.3cm} |}
+\caption{Diccionario de datos tabla intenciones.}\\
 \hline
-Campo & Tipo de dato & Descripción & Posibles opciones\\ \hline
-id\_intención & int & Número identificador único de la intención & \\\hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\
+\hline
+\endfirsthead
+\multicolumn{4}{c}%
+{\tablename\ \thetable\ -- \textit{Continua en la página anterior}} \\
+\hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\
+\hline
+\endhead
+\hline \multicolumn{4}{r}{\textit{Continua en la siguiente página}} \\
+\endfoot
+\hline
+\endlastfoot
+id\_intencion & int & Número identificador único de la intención & \\\hline
 id\_tratamiento & int &Número identificador del tratamiento que que ha sido realizado con esta intención  & \\\hline
 ensayo & varchar & Determina si la intención ha sido para un ensayo clínico & Si o no\\\hline
 ensayo\_fase & int & Fase en la que se encuentra el ensayo & Del 1 al 4\\\hline
 tratamiento\_acceso\_expandido & boolean & Determina si la intención ha sido un tratamiento por acceso expandido & Si o no\\\hline
 tratamiento\_fuera\_indicación & boolean & Determina si la intención ha sido un  tratamiento fuera de indicación & Si o no\\\hline
-medicación\_extranjera & boolean & Determina si se ha usado medicación extranjera en esta intención & Si o no\\\hline
+medicacion\_extranjera & boolean & Determina si se ha usado medicación extranjera en esta intención & Si o no\\\hline
 esquema & varchar & Esquema que se ha usado & Monoterapia, combinación, concomitancia con radioterapia o combinación \\\hline
-modo\_administración & varchar & Modo en el cual se ha administrado los fármacos & Oral, intravenoso, intravenoso u otra\\ \hline
+modo\_administracion & varchar & Modo en el cual se ha administrado los fármacos & Oral, intravenoso, intravenoso u otra\\ \hline
 tipo\_farmaco & varchar & Tipo de fármaco que se ha administrado & Quimioterapia, inmunoterapia, tratamiento dirigido, antiangiogénico, quimoterapia + inmunoterapia, quimioterapia + tratamiento dirigido, quimioterapia + antiangiogénico u otro
 \\\hline
 numero\_ciclos & int & Número de ciclos que se ha realizado & Del 1 al 6 excepto en enfermedad avanzada que va del 1 al 100\\ \hline
@@ -282,20 +459,48 @@ numero\_ciclos & int & Número de ciclos que se ha realizado & Del 1 al 6 except
 \textbf{Descripción:} Esta tabla va a constar de los diferentes fármacos que se hayan usado en las intenciones.
 
 \begin{longtable}{|c |c |p{4cm} |p{4.2cm} |}
+\caption{Diccionario de datos tabla fármacos.}\\
 \hline
-Campo & Tipo de dato & Descripción & Posibles opciones\\ \hline
-id\_fármaco &  int & Número identificador único de el fármaco &\\\hline
-id\_intención & int & Número identificador de la intención en la cual ha sido usado este farmaco &\\\hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\
+\hline
+\endfirsthead
+\multicolumn{4}{c}%
+{\tablename\ \thetable\ -- \textit{Continua en la página anterior}} \\
+\hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\
+\hline
+\endhead
+\hline \multicolumn{4}{r}{\textit{Continua en la siguiente página}} \\
+\endfoot
+\hline
+\endlastfoot
+id\_farmaco &  int & Número identificador único de el fármaco &\\\hline
+id\_intencion & int & Número identificador de la intención en la cual ha sido usado este fármaco &\\\hline
 tipo & varchar & Tipo de medicamento & Cisplatino, carboplatino, vinorelbina, paclitaxel, nab-paclitaxel, docetaxel, pemetrexed, gemcitabina, bevacizumab, ramucirumab, nintedanib, nivolumab, pembrolizumab, atezolizumab, avelumab, erlotinib, gefinitib, afatinib, dacomitinib, osimertinib, mobocertinib, amivantamab, crizotinib, alectinib,  brigatinib, ceritinib, lorlatinib, dabratinib, trametinib, tepotinib, capmatinib, tepotinib, trastuzumab-deruxtecán, fármaco en ensayo clínico / acceso expandido u otro\\ \hline
 \end{longtable}
+
+\newpage
 
 \subsubsection{Antecedentes médicos}
 
 \textbf{Descripción:} Esta tabla va a constar de las diferentes enfermedades que haya tenido el paciente anteriormente. 
 
 \begin{longtable}{|c |c |p{4.1cm} |p{3cm} |}
+\caption{Diccionario de datos tabla antecedentes médicos.}\\
 \hline
-Campo & Tipo de dato & Descripción & Posibles opciones\\ \hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\
+\hline
+\endfirsthead
+\multicolumn{4}{c}%
+{\tablename\ \thetable\ -- \textit{Continua en la página anterior}} \\
+\hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\
+\hline
+\endhead
+\hline \multicolumn{4}{r}{\textit{Continua en la siguiente página}} \\
+\endfoot
+\hline
+\endlastfoot
 id\_antecedente\_m & int & Número identificador único del antecedente médico& \\\hline
 id\_paciente & int & Número identificador del paciente que ha tenido este antecedente médico & \\\hline
 tipo\_antecedente & varchar & Tipo de enfermedad que ha sufrido & HTA, DM, DL, obesidad, EPOC, asma, IAM, ictus, enfermedad autoinmune, VIH, tuberculosis u otro\\ \hline
@@ -306,8 +511,21 @@ tipo\_antecedente & varchar & Tipo de enfermedad que ha sufrido & HTA, DM, DL, o
 \textbf{Descripción:} Esta tabla va a constar de los diferentes seguimientos que se han realizado al paciente. 
 
 \begin{longtable}{|c |c |p{3.9cm} |p{3cm} |}
+\caption{Diccionario de datos tabla seguimientos.}\\
 \hline
-Campo & Tipo de dato & Descripción & Posibles opciones\\ \hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\
+\hline
+\endfirsthead
+\multicolumn{4}{c}%
+{\tablename\ \thetable\ -- \textit{Continua en la página anterior}} \\
+\hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\
+\hline
+\endhead
+\hline \multicolumn{4}{r}{\textit{Continua en la siguiente página}} \\
+\endfoot
+\hline
+\endlastfoot
 id\_seguimiento & int & Número identificador único del seguimiento &\\\hline
 id\_paciente & int & Número identificador del paciente al cual se le ha realizado el seguimiento &\\\hline
 fecha & date & Fecha en la que se ha realizado el seguimiento & \\\hline
@@ -321,8 +539,9 @@ fecha\_fallecimiento & date & Fecha de fallecimiento del paciente &\\\hline
 \textbf{Descripción:} Esta tabla va a constar de los diferentes comentarios que se han realizado sobre el paciente.
 
 \begin{longtable}{|c |c |p{3.6cm} |p{4cm} |}
+\caption{Diccionario de datos tabla comentarios.}\\
 \hline
-Campo & Tipo de dato & Descripción & Posibles opciones\\ \hline
+\textbf{Campo} & \textbf{Tipo de dato} & \textbf{Descripción} & \textbf{Posibles opciones}\\ \hline
 id\_comentario & int & Número identificador único del seguimiento &\\\hline
 id\_paciente & int & Número identificador del paciente al cual se le ha realizado el comentario &\\\hline
 comentario & text & Comentario extra que se añade sobre el paciente& \\\hline
@@ -330,9 +549,13 @@ comentario & text & Comentario extra que se añade sobre el paciente& \\\hline
 
 \section{Diseño procedimental}
 
+Para explicar como interactúa los componentes de esta aplicación se va a realizar un diagrama de secuencia donde se describe el funcionamiento de la aplicación cuando el usuario quiere obtener una gráfica aplicando un filtro.
+
+\imagenTam{diagrama_secuencia}{Diagrama de secuencias de la obtención de la gráfica kaplan meier con un filtro de pacientes.}{1}
+
 \section{Diseño arquitectónico}
 
-La arquitectura de la aplicación se ha basado en el estilo Modelo-Vista-Controlador (MVC) pero añadiendo más elementos como es el enrutado y los middleware, voy a realizar una breve explicación de cada uno de los elementos ya que esta arquitectura se explica más en detalle en los conceptos teóricos de la memoria.
+La arquitectura de la aplicación se ha basado en el estilo Modelo-Vista-Controlador (MVC) pero añadiendo más elementos como es el enrutado y los middleware, voy a realizar una breve explicación de cada uno de los elementos, ya que esta arquitectura se explica más en detalle en los conceptos teóricos de la memoria.
 
 \begin{itemize}
     \item \textbf{Modelo:} Se encarga de comunicarse con la base de datos de manera sencilla permitiendo realizar consultas y actualizaciones.
@@ -342,4 +565,4 @@ La arquitectura de la aplicación se ha basado en el estilo Modelo-Vista-Control
     \item \textbf{Middleware:} Se encarga de establecer una capa de seguridad a la hora de realizar las peticiones HTTP.
 \end{itemize}
 
-\imagen{MVC_diagrama}{Arquitectura MVC con enrutado y middleware}
+\imagen{MVC_diagrama}{Arquitectura MVC con enrutado y middleware.}

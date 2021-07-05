@@ -14,7 +14,7 @@ Como es una aplicación web y esta subida a un servidor los únicos requisitos s
 
 \section{Instalación}
 
-La aplicación no requiere de ningún tipo de instalación ya que esta subida a internet y disponible para todo el mundo.
+La aplicación no requiere de ningún tipo de instalación ya que esta subida a internet y disponible para todo el mundo accediendo a la url \url{http://tfg-hubu.herokuapp.com/}, está es la versión de copia realizada para el tribunal y para la presentación, la web original no se puede mostrar por asuntos de protección de datos. En caso de querer instalar la aplicación web en local se deberán seguir los pasos del apartado \ref{manualProg}.
 
 \section{Manual del usuario}
 
@@ -24,17 +24,17 @@ En este apartado se va a explicar como utilizar todas las funcionalidades de la 
 
 Para acceder a la gestión de usuarios se ha de iniciar sesión con una cuenta de administrador y se tendrá que seleccionar la sección "Gestionar usuarios"{} en el menú desplegable (\ref{fig:menu_desplegable}).
 
-\imagenTam{menu_desplegable}{Menú desplegable de la web}{0.2}
+\imagenTam{menu_desplegable}{Menú desplegable de la web.}{0.2}
 
 \subsubsection{Añadir nuevo usuario}
 
-Una vez en la vista de gestión de usuarios, en el menú de la izquierda seleccionamos el apartado "{}Crear nuevo usuario"
+Una vez en la vista de gestión de usuarios, en el menú de la izquierda seleccionamos el apartado "{}Crear nuevo usuario"{}.
 
-\imagenTam{menu_gestion}{Menú de gestión de usuarios}{0.4}
+\imagenTam{menu_gestion}{Menú de gestión de usuarios.}{0.4}
 
 Rellenamos todos los campos del usuario que queremos añadir al sistema y clicamos el botón "{}Confirmar".  
 
-\imagenTam{anadir_usuario}{Formulario de creación de usuarios}{0.9}
+\imagenTam{anadir_usuario}{Formulario de creación de usuarios.}{0.9}
 
 En el caso en el que alguno de los datos introducidos no sean correctos, como por ejemplo campos en blanco, correo repetido o contraseñas no coincidentes, el formulario devolverá error en los campos incorrectos.
 
@@ -42,37 +42,37 @@ En el caso en el que alguno de los datos introducidos no sean correctos, como po
 
 Una vez en la vista de gestión de usuarios, seleccionamos "{}Editar"{} en el usuario que queremos modificar. 
 
-\imagenTam{gestion_usuario}{Tabla de usuarios}{1}
+\imagenTam{gestion_usuario}{Tabla de usuarios.}{1}
 
 Modificamos los datos que queremos cambiar del usuarios y clicamos en botón "{}Confirmar".
 
-\imagenTam{modificar_usuario}{Formulario de modificación de usuarios}{1}
+\imagenTam{modificar_usuario}{Formulario de modificación de usuarios.}{1}
 
-En este caso también en el caso que los campos introducidos estén en blanco o el correo repetido, el formulario devolverá error en los campos incorrectos.
+En este formulario también hay control de errores por si se deja algún campo en blanco o el correo ya existe en la base de datos.
 
 \subsubsection{Eliminar usuario existente}
 
-Para eliminar un usuario primero este usuario ha de tener el rol de Oncólogo ya, así evitamos que se pueda eliminar sin querer un usuario Administrador, que en el caso que solo exista uno sería un problema bastante grave.
+Para eliminar un usuario primero este usuario ha de tener el rol de Oncólogo, así evitamos que se pueda eliminar sin querer un usuario Administrador, que en el caso que solo exista uno sería un problema bastante grave.
 
-Una vez en la vista de gestión de usuarios, seleccionamos "Eliminar" en el usuario que queramos eliminar.
+Una vez en la vista de gestión de usuarios, seleccionamos "{}Eliminar"{} en el usuario que queramos eliminar.
 
-\imagenTam{gestion_usuario}{Tabla de usuarios}{1}
+\imagenTam{gestion_usuario}{Tabla de usuarios.}{1}
 
 Se va a pedir una confirmación de la eliminación para evitar el error humano en la medida de los posible.
 
-\imagenTam{confirmacion_eliminar}{Confirmación de la eliminación}{0.8}
+\imagenTam{confirmacion_eliminar}{Confirmación de la eliminación.}{0.8}
 
 \subsection{Gestión de datos personales}
 
 Para acceder a la gestión de datos personales se tendrá que seleccionar la sección "Datos personales"{} en el menú desplegable (\ref{fig:menu_desplegable}).
 
-\imagenTam{menu_desplegable}{Menú desplegable de la web}{0.2}
+\imagenTam{menu_desplegable}{Menú desplegable de la web.}{0.2}
 
 \subsubsection{Editar datos personales}
 
 Modificamos los datos que queremos cambiar de nuestra cuenta y clicamos en el botón "{}Confirmar". 
 
-\imagenTam{modificar_datos_personales}{Formulario de modificación de datos personales}{1}
+\imagenTam{modificar_datos_personales}{Formulario de modificación de datos personales.}{1}
 
 En este formulario también hay control de errores por si se deja algún campo en blanco o el correo ya existe en la base de datos.
 
@@ -80,11 +80,11 @@ En este formulario también hay control de errores por si se deja algún campo e
 
 Una vez en la vista de gestión de datos personales, en el menú de la izquierda seleccionamos el apartado "{}Editar contraseña"
 
-\imagenTam{menu_datos_personales}{Menú de gestión de datos personales}{0.4}
+\imagenTam{menu_datos_personales}{Menú de gestión de datos personales.}{0.4}
 
 Rellenamos el formulario con la nueva contraseña y con la contraseña antigua y clicamos en el botón "{}Confirmar" 
 
-\imagenTam{modificar_contrasena}{Formulario de modificación de contraseña}{1}
+\imagenTam{modificar_contrasena}{Formulario de modificación de contraseña.}{1}
 
 Este formulario tiene control de errores para comprobar que la contraseña antigua introducida coincide con la almacenada en la base de datos y que ambas contraseñas nuevas coinciden. 
 
@@ -92,49 +92,49 @@ Este formulario tiene control de errores para comprobar que la contraseña antig
 
 Para acceder a la gestión de datos personales se tendrá que seleccionar la sección "Pacientes"{} en el menú desplegable (\ref{fig:menu_desplegable}).
 
-\imagenTam{menu_desplegable}{Menú desplegable de la web}{0.2}
+\imagenTam{menu_desplegable}{Menú desplegable de la web.}{0.2}
 
 \subsubsection{Creación de paciente}
 
-Una vez en la vista de gestión de pacientes, en el menú de la izquierda seleccionamos el apartado "{}Añadir nuevo paciente"
+Una vez en la vista de gestión de pacientes, en el menú de la izquierda seleccionamos el apartado "{}Añadir nuevo paciente".
 
-\imagenTam{menu_pacientes}{Menú de gestión de usuarios}{0.4}
+\imagenTam{menu_pacientes}{Menú de gestión de usuarios.}{0.4}
 
 Rellenamos el formulario con los datos del paciente que queremos crear.
 
-\imagenTam{anadir_paciente}{Formulario de creación de pacientes}{1}
+\imagenTam{anadir_paciente}{Formulario de creación de pacientes.}{1}
 
 Este formulario tiene control de errores para que la fecha de nacimiento no pueda ser posterior a la actual y para no permitir campos en blanco.
 
 \subsubsection{Modificar paciente}
 
-Una vez en la vista de gestión de pacientes, seleccionamos "Editar" en el paciente que queremos modificar.
+Una vez en la vista de gestión de pacientes, seleccionamos "{}Editar"{} en el paciente que queremos modificar.
 
-Los pacientes que no tienen la opción de editar es porque han fallecido y fue un requisito de los oncólogos.
+Los pacientes que no tienen la opción de editar es porque han fallecido\footnote{Requisito de los oncólogos}.
 
-\imagenTam{listado_pacientes}{Tabla de pacientes}{1}
+\imagenTam{listado_pacientes}{Tabla de pacientes.}{1}
 
 Modificamos los datos del paciente que queremos cambiar y clicamos en el botón "{}Guardar". 
 
-\imagenTam{datos_paciente}{Formulario de modificación de paciente}{1}
+\imagenTam{datos_paciente}{Formulario de modificación de paciente.}{1}
 
 En el menú de la izquierda se podrá elegir los atributos a modificar y todos tendrán la misma estructura, cuadros de texto con los datos anteriores por si se desea modificar, botón de eliminar por si se quiere borrar y botón de añadir para añadir datos nuevos.
 
-\imagenTam{modificar_metastasis}{Formulario de modificación de metástasis de paciente}{1}
+\imagenTam{modificar_metastasis}{Formulario de modificación de metástasis de paciente.}{1}
 
 \subsubsection{Eliminar paciente}
 
-Una vez en la vista de gestión de pacientes, en el menú de la izquierda seleccionamos el apartado "{}Eliminar paciente"
+Una vez en la vista de gestión de pacientes, en el menú de la izquierda seleccionamos el apartado "{}Eliminar paciente".
 
-\imagenTam{menu_pacientes}{Menú de gestión de usuarios}{0.4}
+\imagenTam{menu_pacientes}{Menú de gestión de usuarios.}{0.4}
 
-Seleccionamos "Eliminar" en el paciente que queramos eliminar.
+Seleccionamos "{}Eliminar"{} en el paciente que queramos eliminar.
 
-\imagenTam{eliminar_paciente_vista}{Tabla de pacientes}{1}
+\imagenTam{eliminar_paciente_vista}{Tabla de pacientes.}{1}
 
 Se va a pedir una confirmación de la eliminación para evitar el error humano en la medida de los posible.
 
-\imagenTam{eliminar_paciente}{Confirmación de la eliminación}{0.8}
+\imagenTam{eliminar_paciente}{Confirmación de la eliminación.}{0.8}
 
 \subsection{Visualización de datos}
 
@@ -142,74 +142,114 @@ Se va a pedir una confirmación de la eliminación para evitar el error humano e
 
 Para acceder a la visualización de datos generales se tendrá que seleccionar la sección "Gráficas"{} en el menú desplegable (\ref{fig:menu_desplegable}).
 
-\imagenTam{menu_desplegable}{Menú desplegable de la web}{0.2}
+\imagenTam{menu_desplegable}{Menú desplegable de la web.}{0.2}
 
 Una vez en la vista de las gráficas, podremos seleccionar en el primer desplegable el tipo de gráfica y podremos elegir dos divisiones para realizar estas gráficas.
 
-Dando clic a "Nueva división{}" aparecerá un desplegable dando las opciones por las que dividir la gráfica.
+Dando clic a "Nueva división{}"{}, aparecerá un desplegable dando las opciones por las que dividir la gráfica.
 
-\imagenTam{graficas_vista}{Selección de divisiones en las gráficas}{1}
+\imagenTam{graficas_vista}{Selección de divisiones en las gráficas.}{1}
 
 En este caso hemos seleccionado como divisiones el sexo y el tipo de muestra y como vemos en la imagen \ref{fig:ejemplo_graficas} nos ha devuelto la gráfica y la tabla de frecuencias.
 
 Debajo tanto de la tabla como de la gráfica hay un botón que permite descargarlas y otro botón que permite realizar otra gráfica diferente.
 
-\imagenTam{ejemplo_graficas}{Ejemplo de gráfica de dato general}{1}
+\imagenTam{ejemplo_graficas}{Ejemplo de gráfica de dato general.}{1}
 
 \subsubsection{Visualización de datos numéricos}
 
-Para acceder a la visualización de datos numéricos se tendrá que seleccionar la sección "Percentiles"{} en el menú desplegable (\ref{fig:menu_desplegable}).
+Para acceder a la visualización de datos numéricos se tendrá que seleccionar la sección "Graficas"{} en el menú desplegable (\ref{fig:menu_desplegable}).
 
-\imagenTam{menu_desplegable}{Menú desplegable de la web}{0.2}
+\imagenTam{menu_desplegable}{Menú desplegable de la web.}{0.2}
 
-Una vez en la vista de las percentiles podremos seleccionar el dato que queremos analizar.
+Una vez en la vista de gráficas, en el menú de la izquierda seleccionamos el apartado "Percentiles".
 
-\imagenTam{percentiles}{Selección de dato numérico}{1}
+\imagenTam{menu_graficas}{Menú lateral gráficas.}{0.4}
 
-En este caso hemos seleccionado como dato a analizar la edad y como vemos en la imagen \ref{fig:percentiles_graficas} nos ha devuelto la gráfica y la tabla de percentiles.
+Seleccionar el dato que queremos analizar.
+
+\imagenTam{percentiles}{Selección de dato numérico.}{1}
+
+En este caso hemos seleccionado como dato a analizar la edad, y como vemos en la imagen \ref{fig:percentiles_graficas} nos ha devuelto la gráfica y la tabla de percentiles.
 
 Debajo tanto de la tabla como de la gráfica hay un botón que permite descargarlas y otro botón que permite realizar otra gráfica diferente.
 
-\imagenTam{percentiles_graficas}{Ejemplo de gráfica de dato numérico}{1}
+\imagenTam{percentiles_graficas}{Ejemplo de gráfica de dato numérico.}{1}
+
+\subsubsection{Visualización de datos gráfica kaplan meier}
+
+Para acceder a la visualización de datos numéricos se tendrá que seleccionar la sección "Graficas"{} en el menú desplegable (\ref{fig:menu_desplegable}).
+
+\imagenTam{menu_desplegable}{Menú desplegable de la web.}{0.2}
+
+Una vez en la vista de gráficas, en el menú de la izquierda seleccionamos el apartado "Kaplan meier".
+
+\imagenTam{menu_graficas}{Menú lateral gráficas.}{0.4}
+
+Seleccionar el dato por el que queremos dividir la gráfica.
+
+\imagenTam{kaplan_meier_seleccion}{Selección de dato numérico.}{1}
+
+En este caso hemos seleccionado como dato por el cual separa la gráfica la edad, y como vemos en la imagen \ref{fig:percentiles_graficas} nos ha devuelto la gráfica kaplan meier sin divisiones y la gráfica kaplan meier con la división seleccionada.
+
+Debajo tanto de ambas gráficas hay un botón que permite descargarlas y otro botón que permite realizar otra gráfica diferente.
+
+\imagenTam{kaplan_meier_graficas}{Ejemplo de gráfica de dato numérico.}{1}
 
 \subsubsection{Visualización de datos individuales de cada paciente}
 
 Para acceder a la visualización de datos individuales de cada paciente se tendrá que seleccionar la sección "Pacientes"{} en el menú desplegable (\ref{fig:menu_desplegable}).
 
-\imagenTam{menu_desplegable}{Menú desplegable de la web}{0.2}
+\imagenTam{menu_desplegable}{Menú desplegable de la web.}{0.2}
 
-Una vez en la vista de gestión de usuarios, seleccionamos el botón "Ver" en el paciente cuyos datos queremos visualizar.
+Una vez en la vista de gestión de usuarios, seleccionamos el botón "Ver"{} en el paciente cuyos datos queremos visualizar.
 
-\imagenTam{listado_pacientes}{Tabla de pacientes}{1}
+\imagenTam{listado_pacientes}{Tabla de pacientes.}{1}
 
 Podremos ver tablas con todos los datos del paciente seleccionado.
 
-\imagenTam{datos_individuales}{Vista de datos individuales de un paciente}{1}
+\imagenTam{datos_individuales}{Vista de datos individuales de un paciente.}{1}
 
 Para ver otros datos del paciente como por ejemplo sus síntomas, sus tratamientos o sus seguimientos en el menú de la derecha podemos seleccionar el atributo que queremos visualizar.
 
-\imagenTam{menu_visualizacion}{Menú lateral de la visualización de datos individuales}{0.4}
+\imagenTam{menu_visualizacion}{Menú lateral de la visualización de datos individuales.}{0.4}
 
 \subsubsection{Exportar datos a fichero Excel}
 
-Para acceder a la exportación de la base de datos se tendrá que seleccionar la sección "Exportar datos"{} en el menú desplegable (\ref{fig:menu_desplegable}).
+Para acceder a la exportación de la base de datos se tendrá que seleccionar la sección "{}Exportar datos"{} en el menú desplegable (\ref{fig:menu_desplegable}).
 
-\imagenTam{menu_desplegable}{Menú desplegable de la web}{0.2}
+\imagenTam{menu_desplegable}{Menú desplegable de la web.}{0.2}
 
 Escribimos en el cuadro de texto el nombre que se quiere que tenga el fichero Excel donde van a estar los datos de todos los pacientes y clicamos el botón "{}Exportar datos".
 
-\imagenTam{exportar_datos}{Vista para exportar los datos}{1}
+\imagenTam{exportar_datos}{Vista para exportar los datos.}{1}
+
+\subsection{Realizar filtro}
+
+Se puede realizar un filtro sobre los pacientes en las vistas de las gráficas y en las vista de pacientes. En cualquiera de estas vistas clicamos el botón de aplicar filtro.
+
+\imagenTam{aplicar_filtro}{Botón de filtro.}{1}
+
+Se abrirá un formulario en cual podremos elegir tanto los biomarcadores como los tratamientos por los cuales queremos realizar el filtro de los pacientes.
+
+\imagenTam{filtrar_datos_vista}{Formulario de filtrado de datos.}{1}
+
+En el caso de la tabla de pacientes, la tabla aparecerá con los pacientes que cumplan ese filtro y en el caso de las gráficas estas se realizarán solo teniendo en cuenta los datos de los pacientes que cumplan ese filtro.
+
+\imagenTam{filtrado_tabla}{Tabla de pacientes filtrados por NGS y quimioterapia.}{1}
+
+\imagenTam{filtrado_grafica}{Gráfica de pacientes filtrados por NGS y quimioterapia.}{1}
 
 \subsection{Crear base de datos sintética}
 
 Para crear los datos sintéticos para nuestra base de datos se tendrá que seleccionar la sección "Base sintética"{} en el menú desplegable (\ref{fig:menu_desplegable}).
 
-\imagenTam{menu_desplegable}{Menú desplegable de la web}{0.2}
+\imagenTam{menu_desplegable}{Menú desplegable de la web.}{0.2}
 
 Rellenamos el formulario con la información con la cual queramos crear los datos sintéticos y clicamos el botón "{}Crear base de datos".
 
 Al lado de cada cuadro de texto tenemos una ayuda en la cual si ponemos el ratón encima nos muestra información del rango de valores permitidos.
 
-\imagenTam{base_sintetica}{Formulario para crear los datos sintéticos}{1}
+\imagenTam{base_sintetica}{Formulario para crear los datos sintéticos.}{1}
 
-Este formulario tiene control de errores para no permitir campos en blanco y no permitir valores no validos como por ejemplo un valor de p que no este entre el 0 y el 1.
+Este formulario tiene control de errores para no permitir campos en blanco y no permitir valores no validos, como por ejemplo, un valor de p que no este entre el 0 y el 1.
