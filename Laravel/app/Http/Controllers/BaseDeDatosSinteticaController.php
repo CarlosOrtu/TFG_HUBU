@@ -48,7 +48,7 @@ class BaseDeDatosSinteticaController extends Controller
         $validator = $this->validarDatosBaseSintetica($request);
         if($validator->fails())
             return back()->withErrors($validator->errors())->withInput();
-    	$process = new Process(['py', 'C:\wamp64\www\TFG_HUBU\Base de datos sintética\BaseDatosSintetica.py', $request->num_pacientes, $request->media_tamano_tumor, $request->desviacion_tamano_tumor, $request->media_dosis, $request->desviacion_dosis, $request->lambda_cigarros, $request->lambda_ciclos, $request->p_tablas]);
+    	$process = new Process(['py', 'C:\wamp64\www\TFG_HUBU\Base\BaseDatosSintetica.py', $request->num_pacientes, $request->media_tamano_tumor, $request->desviacion_tamano_tumor, $request->media_dosis, $request->desviacion_dosis, $request->lambda_cigarros, $request->lambda_ciclos, $request->p_tablas]);
 		$process->run();
 
 		// executes after the command finishes

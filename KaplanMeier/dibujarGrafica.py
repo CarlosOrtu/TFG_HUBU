@@ -25,7 +25,7 @@ def main():
         dibujarGrafica(pacientes, separacion, None)
     
 def establecerConexionBase():
-    miConexion = mysql.connector.connect( host='localhost', user= 'root', passwd='', db='prueba' )
+    miConexion = mysql.connector.connect( host='localhost', user= 'root', passwd='', db='hubu' )
     
     return miConexion, miConexion.cursor()    
 
